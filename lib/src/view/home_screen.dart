@@ -8,14 +8,27 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Home Screen'),
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('To Second screen'),
-          onPressed: () {
-            // Navigate to the second screen using a named route.
-            Navigator.pushNamed(context, '/second');
-          },
-        ),
+      body: Column(
+        children: [
+          Center(
+            child: ElevatedButton(
+              child: Text('To Second screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/second');
+              },
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              child: Text('To Search screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/search');
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
