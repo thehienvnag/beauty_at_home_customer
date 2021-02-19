@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/blank_search.dart';
 import 'package:flutter_app/src/widgets/search_screen_widget.dart';
 
 
@@ -8,51 +9,50 @@ class SearchPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<SearchPage> {
-  var _controller = TextEditingController();
+   var _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: _buildBar(context),
+      appBar: _buildBar(context),
       body: ListView(
         padding: EdgeInsets.all(10.0),
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          SizedBox(height: 30),
-          Container(
-            width: 340,
-            height: 40,
-            child: TextField(
-              textInputAction: TextInputAction.search,
-              controller: _controller,
-              cursorColor: Colors.red,
-              cursorHeight: 28,
-              style: TextStyle(
-                height: 1,
-              ),
-              onChanged: (value) {
-                // value là giá trị fill
-              },
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical: 6.0),
-                  fillColor: Colors.grey[350],
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                          color: Colors.grey.withOpacity(0.2),
-                          width: 0.5)),
-                  hintText: 'Tìm kiếm dịch vụ...',
-                  prefixIcon: Icon(
-                    Icons.search,
-                    size: 25.0,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () => _controller.clear(),
-                    icon: Icon(Icons.clear),
-                  )
-              ),
-            ),
-          ),
+          // SizedBox(height: 30),
+          // Container( // thanh search bar
+          //   width: 340,
+          //   height: 40,
+          //   child: TextField(
+          //     textInputAction: TextInputAction.search,
+          //     controller: _controller,
+          //     cursorColor: Colors.red,
+          //     cursorHeight: 28,
+          //     style: TextStyle(height: 1),
+          //     onChanged: (value) {
+          //       // value là giá trị fill
+          //     },
+          //      onTap: _buttonTapped,
+          //     decoration: InputDecoration(
+          //         contentPadding: EdgeInsets.symmetric(vertical: 6.0),
+          //         fillColor: Colors.grey[350],
+          //         filled: true,
+          //         border: OutlineInputBorder(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //             borderSide: BorderSide(
+          //                 color: Colors.grey.withOpacity(0.2),
+          //                 width: 0.5)),
+          //         hintText: 'Tìm kiếm dịch vụ...',
+          //         prefixIcon: Icon(
+          //           Icons.search,
+          //           size: 25.0,
+          //         ),
+          //         suffixIcon: IconButton(
+          //           onPressed: () => _controller.clear(),
+          //           icon: Icon(Icons.clear),
+          //         )
+          //     ),
+          //   ),
+          // ),
           SizedBox(height: 10),
           Text('ĐÃ XEM GẦN ĐÂY', style: TextStyle( color: Colors.black, fontSize: 22,)),
           SizedBox(height: 15),
@@ -282,13 +282,20 @@ class _HomePageState extends State<SearchPage> {
         backgroundColor: Colors.white54,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.search), title: Text('Search')),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), title: Text('Account')),
+          BottomNavigationBarItem(icon: Icon(Icons.search), title: Text('Search')),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle), title: Text('Account')),
         ],
       ),
     );
+
+  }
+
+  Future _buttonTapped() async {
+     Navigator.of(context).push(new MaterialPageRoute<dynamic>(
+      builder: (BuildContext context) {
+        return new BlankScreen();
+      },
+    ));
   }
 
   Widget myDetailsContainer1() {
@@ -473,26 +480,20 @@ class _HomePageState extends State<SearchPage> {
           controller: _controller,
           cursorColor: Colors.red,
           cursorHeight: 28,
-          style: TextStyle(
-            height: 1,
-          ),
-          onChanged: (value) {
-            // value là giá trị fill
-          },
+          style: TextStyle(height: 1),
+          // onChanged: (value) {
+          //   // value là giá trị fill
+          // },
+          onTap: _buttonTapped,
           decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 6.0),
               fillColor: Colors.grey[350],
               filled: true,
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                      color: Colors.grey.withOpacity(0.2),
-                      width: 0.5)),
+                  borderSide: BorderSide(color: Colors.grey.withOpacity(0.2),width: 0.5)),
               hintText: 'Tìm kiếm dịch vụ...',
-              prefixIcon: Icon(
-                Icons.search,
-                size: 25.0,
-              ),
+              prefixIcon: Icon(Icons.search, size: 25.0),
               suffixIcon: IconButton(
                 onPressed: () => _controller.clear(),
                 icon: Icon(Icons.clear),

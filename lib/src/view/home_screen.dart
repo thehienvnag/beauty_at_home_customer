@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Center(
             child: ElevatedButton(
-              child: Text('To Second screen'),
+              child: Text('To CusWait screen'),
               onPressed: () {
                 // Navigate to the second screen using a named route.
                 Navigator.pushNamed(context, '/second');
@@ -25,6 +25,24 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 // Navigate to the second screen using a named route.
                 Navigator.pushNamed(context, '/search');
+              },
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              child: Text('To Login screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/login');
+              },
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              child: Text('To Blank screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/blank');
               },
             ),
           ),
