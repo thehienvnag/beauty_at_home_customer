@@ -15,9 +15,9 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => WaitConfirmScreen(),
+        '/a': (context) => HomeScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => SecondScreen(),
+        '/': (context) => WaitConfirmScreen(),
       },
     );
   }
