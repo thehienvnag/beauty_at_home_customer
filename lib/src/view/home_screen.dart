@@ -46,6 +46,15 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+          Center(
+            child: ElevatedButton(
+              child: Text('To Rate screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/rate');
+              },
+            ),
+          ),
         ],
       ),
     );
