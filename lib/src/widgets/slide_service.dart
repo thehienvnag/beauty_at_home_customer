@@ -20,7 +20,7 @@ class SlideService extends StatelessWidget {
                     ),
                     fit: BoxFit.cover,
                     height: 30,
-                    width: 0,
+                    width: 30,
                   ),
                 ),
                 Text(
@@ -34,7 +34,7 @@ class SlideService extends StatelessWidget {
               ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 10, left: 13),
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

@@ -412,8 +412,8 @@ class CheckoutScreen extends StatelessWidget {
                     child: Text('Tổng tạm tính'),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 200),
-                    child: Text('500.000'),
+                    margin: const EdgeInsets.only(left: 190),
+                    child: Text('1.200.000'),
                   ),
                 ],
               ),
@@ -495,7 +495,7 @@ class CheckoutScreen extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 190),
                     child: Text(
-                      '510.000 đ',
+                      '1.210.000 đ',
                       style: TextStyle(fontSize: 16),
                     ),
                   ),

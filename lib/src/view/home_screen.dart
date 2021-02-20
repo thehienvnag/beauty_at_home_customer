@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
               color: Color(0xff0DB5B4),
             ),
             Text(
-              'Hồ Chí Minh',
+              ' Hồ Chí Minh',
               style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
