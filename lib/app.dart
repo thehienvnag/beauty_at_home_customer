@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/booking_summary_screen.dart';
 import 'package:flutter_app/src/view/home_screen.dart';
-import 'package:flutter_app/src/view/wait_confirm_screen.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/a': (context) => HomeScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/': (context) => WaitConfirmScreen(),
+        '/': (context) => BookingSummaryScreen(),
       },
     );
   }

@@ -22,11 +22,12 @@ class OutlinedCard extends StatelessWidget {
     return Container(
       width: this.width,
       child: Card(
+        elevation: 0,
         shape: this.shapeBorder ??
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
               side: BorderSide(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withOpacity(0.5),
                 width: 0.5,
               ),
             ),

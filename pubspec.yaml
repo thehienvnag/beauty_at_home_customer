@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  steps_indicator: ^1.2.0
   expandable: ^4.1.4
   sliding_up_panel: ^1.0.2
   json_serializable: ^3.5.1

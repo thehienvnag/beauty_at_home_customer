@@ -43,7 +43,7 @@ class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
         child: Align(
           alignment: Alignment.topCenter,
           child: CoverImage(
-            path: 'public/img/cus_wait_confirm.png',
+            path: 'public/img/cus_under_working.png',
           ),
         ),
       ),
