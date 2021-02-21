@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
-import 'package:flutter_app/src/widgets/shared_widget/outlined_card.dart';
+import 'package:flutter_app/src/widgets/shared_widget.dart';
 
 class ListSearchScreen extends StatefulWidget {
   @override

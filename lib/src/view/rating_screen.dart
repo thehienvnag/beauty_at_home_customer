@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/shared_widget/outlined_card.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RatingScreen extends StatefulWidget {
@@ -24,8 +24,7 @@ class _Rating_Screen  extends State<RatingScreen> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: AssetImage('public/img/logo.png',),
-                            //image: AssetImage('public/img/review.png',),
+                            image: AssetImage('public/img/review.png',),
                             fit: BoxFit.cover
                         )
                     ),
@@ -74,10 +73,10 @@ class _Rating_Screen  extends State<RatingScreen> {
                         child: Container(
                           width: 350,
                           child: RaisedButton(
-                            textColor: Colors.blue ,
+                            textColor: Color(0xff28BEBA) , //oxff
                             child: Text('Gửi Đánh Giá',style: TextStyle(fontSize: 18),),
                             color: Colors.white,
-                            shape: Border.all(color: Colors.blue,width: 1),
+                            shape: Border.all(color: Color(0xff28BEBA),width: 1),
                             onPressed: () {
                               //Navigator.pushNamed(context, '/blank');
                             },
@@ -103,80 +102,4 @@ Widget _buildMultipleTextField() {
     ),
     maxLines: 6,
   );
-}
-
-
-class HorizontalCenterBgImage extends StatelessWidget {
-  final String path;
-  const HorizontalCenterBgImage({
-    Key key,
-    this.path,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(22),
-          child: Image.asset(
-            this.path,
-            width: 280,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-
-class OutlinedCard extends StatelessWidget {
-  final double width;
-  final EdgeInsets margin, padding;
-  final List<Widget> sections;
-  const OutlinedCard({
-    Key key,
-    this.width,
-    this.margin,
-    this.padding,
-    this.sections,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: this.width,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-          side: BorderSide(
-            color: Colors.grey.withOpacity(0.2),
-            width: 0.5,
-          ),
-        ),
-        margin: this.margin,
-        child: Container(
-          padding: this.padding,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: sections.length,
-            itemBuilder: (context, index) => Column(
-              children: [
-                sections[index],
-                if (index + 1 < sections.length)
-                  Divider(
-                    height: 35,
-                    thickness: 0.7,
-                    indent: 3,
-                    endIndent: 3,
-                    color: Colors.grey,
-                  ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
