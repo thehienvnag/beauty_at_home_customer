@@ -1,23 +1,19 @@
-class Service {
-  String name;
-  List<String> description;
-  String price;
-  int estimateTime;
+class ServiceItem {
+  final String image;
+  final String salonOwner;
+  final String titleService;
+  final double rate;
+  final String area;
+  final String timeLine;
+  String range;
   String status;
-  String category;
-  String imageUrl;
-  bool isServiceCombo;
-  String note;
 
-  Service({
-    this.name,
-    this.description,
-    this.price,
-    this.estimateTime,
-    this.status,
-    this.category,
-    this.imageUrl,
-    this.isServiceCombo,
-    this.note,
+  ServiceItem({
+    this.image,
+    this.salonOwner,
+    this.titleService,
+    this.rate,
+    this.area,
+    this.timeLine,
   });
 }

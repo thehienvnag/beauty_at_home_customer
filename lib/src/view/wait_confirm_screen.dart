@@ -1,19 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/wait_confirm_model.dart';
-
-List<CartItem> listItem = List.from(
-  <CartItem>[
-    CartItem(
-      content: '90 phút massage body toàn thân',
-      quantity: 2,
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-    ),
-  ],
-);
 
 class WaitConfirmScreen extends StatelessWidget {
   @override
@@ -78,6 +64,18 @@ class HorizontalCenterBgImage extends StatelessWidget {
     );
   }
 }
+List<CartItem> listItem = List.from(
+  <CartItem>[
+    CartItem(
+      content: '90 phút massage body toàn thân',
+      quantity: 2,
+    ),
+    CartItem(
+      content: 'Sơn móng Hoa Hướng Dương',
+      quantity: 1,
+    ),
+  ],
+);
 
 class ItemsList extends StatelessWidget {
   final List<CartItem> itemList;

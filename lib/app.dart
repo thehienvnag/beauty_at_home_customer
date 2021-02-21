@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
+import 'package:flutter_app/src/view/history_screen.dart';
 import 'package:flutter_app/src/view/home_screen.dart';
 import 'package:flutter_app/src/view/login_screen.dart';
 import 'package:flutter_app/src/view/rating_screen.dart';
@@ -27,6 +28,7 @@ class App extends StatelessWidget {
         '/login' : (context) => Login_screen(),
         '/blank' : (context) => BlankScreen(),
         '/rate' : (context) => RatingScreen(),
+        '/history' :(context) => HistoryScreen(),
       },
     );
   }

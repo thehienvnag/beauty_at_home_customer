@@ -55,6 +55,15 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ),
+          Center(
+            child: ElevatedButton(
+              child: Text('To History screen'),
+              onPressed: () {
+                // Navigate to the second screen using a named route.
+                Navigator.pushNamed(context, '/history');
+              },
+            ),
+          ),
         ],
       ),
     );
