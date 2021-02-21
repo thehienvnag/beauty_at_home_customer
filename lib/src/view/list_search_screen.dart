@@ -398,7 +398,7 @@ class ItemDescriptionRow extends StatelessWidget {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: Colors.black,
-                            width: 2,
+                            width: 1,
                           ),
                           borderRadius: BorderRadius.circular(6),
                         ),

@@ -216,7 +216,7 @@ class ServiceInvite extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(2.0),
         child: Card(
-          color:Colors.grey[350],
+          color: Color(0xffC4C4C4),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
               side: BorderSide(
