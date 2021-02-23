@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/widgets/beautician_widget.dart';
-import 'package:flutter_app/src/widgets/service_widget.dart';
-import 'package:flutter_app/src/widgets/slide_service.dart';
+
+import 'package:flutter_app/src/widgets/home_screen_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -10,27 +9,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Row(
-          children: [
-            Icon(
-              Icons.location_on,
-              color: Color(0xff0DB5B4),
-            ),
-            Text(
-              ' Hồ Chí Minh',
-              style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.black),
-            ),
-          ],
-        ),
+        title: HomeAppBarTitle(),
         actions: [
-          CircleAvatar(
-            backgroundImage: AssetImage('public/img/meo.jpg'),
-            radius: 20,
-          ),
           Container(
+            child: CircleAvatar(
+              backgroundImage: AssetImage('public/img/meo.jpg'),
+              radius: 20,
+            ),
             margin: EdgeInsets.only(right: 10),
           )
         ],
@@ -44,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               height: 47,
-              width: 360,
+              width: 340,
               color: Colors.white,
               child: TextFormField(
                 decoration: InputDecoration(

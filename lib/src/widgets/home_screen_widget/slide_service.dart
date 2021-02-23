@@ -28,7 +28,7 @@ class SlideService extends StatelessWidget {
                   style: TextStyle(
                       letterSpacing: 1,
                       fontWeight: FontWeight.normal,
-                      fontSize: 20,
+                      fontSize: 18,
                       color: Colors.black),
                 ),
               ],
@@ -76,7 +76,7 @@ class Service extends StatelessWidget {
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.only(right: 13),
         width: size.width * 0.8,
-        height: 185,
+        height: 150,
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black, width: 0.2),
           borderRadius: BorderRadius.circular(10),

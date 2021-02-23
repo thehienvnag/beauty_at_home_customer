@@ -44,7 +44,7 @@ class PaymentScreen extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(left: 250),
+            margin: const EdgeInsets.only(left: 220),
             child: Row(
               children: [
                 Container(
@@ -93,6 +93,9 @@ class PaymentScreen extends StatelessWidget {
             endIndent: 12,
           ),
           Container(
+            margin: const EdgeInsets.only(top: 5),
+          ),
+          Container(
             margin: const EdgeInsets.only(left: 18),
             child: Row(
               children: [
@@ -109,6 +112,9 @@ class PaymentScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 5),
           ),
           Divider(
             height: 20,

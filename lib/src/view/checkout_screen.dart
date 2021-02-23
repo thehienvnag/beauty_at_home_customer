@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/payment_screen.dart';
+import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
 
 class CheckoutScreen extends StatelessWidget {
   @override
@@ -29,55 +32,7 @@ class CheckoutScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(70),
         child: Container(
           padding: const EdgeInsets.only(top: 10),
-          child: AppBar(
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(21),
-              child: Divider(
-                height: 20,
-                thickness: 0.5,
-                color: Colors.grey,
-                indent: 12,
-                endIndent: 10,
-              ),
-            ),
-            centerTitle: true,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-              onPressed: () {},
-            ),
-            backgroundColor: Colors.white,
-            elevation: 0,
-            title: Column(
-              children: [
-                Text(
-                  'Makeup Hoàng Gia',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 18,
-                      color: Colors.black),
-                ),
-                Text(
-                  'Khoảng cách tới chỗ bạn: 4,9 km',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 15,
-                      color: Colors.black),
-                ),
-              ],
-            ),
-            actions: [
-              CircleAvatar(
-                backgroundImage: AssetImage('public/img/meo.jpg'),
-                radius: 20,
-              ),
-              Container(
-                margin: EdgeInsets.only(right: 10),
-              )
-            ],
-          ),
+          child: CheckoutAppBarTitle(),
         ),
       ),
       body: Container(
@@ -191,7 +146,7 @@ class CheckoutScreen extends StatelessWidget {
                 children: [
                   Text('Tóm tắt đơn hàng'),
                   Container(
-                    margin: const EdgeInsets.only(left: 160),
+                    margin: const EdgeInsets.only(left: 120),
                     child: Text(
                       'Thêm dịch vụ',
                       style: TextStyle(
@@ -208,195 +163,29 @@ class CheckoutScreen extends StatelessWidget {
                 indent: 12,
                 endIndent: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text('1X'),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 28),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Make-up'),
-                            Text(
-                              'Trang điểm dự tiệc',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            FlatButton(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              padding: EdgeInsets.zero,
-                              onPressed: () {},
-                              child: Text(
-                                'Chỉnh sửa',
-                                style: TextStyle(
-                                  color: Color(0xff28BEBA),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 27),
-                    child: Text('300.000'),
-                  ),
-                ],
+              CheckoutService(
+                name: 'Make-up',
+                category: 'Trang điểm dự tiệc',
+                price: '300.000',
+                quantity: '1',
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text('1X'),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 28),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Làm tóc'),
-                            Text(
-                              'Uốn cong',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            TextButton(
-                              //style: ButtonStyle(padding: const EdgeInsets.all(0),),
-                              onPressed: () {},
-                              child: Text(
-                                'Chỉnh sửa',
-                                style: TextStyle(
-                                  color: Color(0xff28BEBA),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 27),
-                    child: Text('300.000'),
-                  ),
-                ],
+              CheckoutService(
+                name: 'Làm tóc',
+                category: 'Uốn cong',
+                price: '300.000',
+                quantity: '1',
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text('1X'),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 28),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Làm tóc'),
-                            Text(
-                              'Uốn cong',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            TextButton(
-                              //style: ButtonStyle(padding: const EdgeInsets.all(0),),
-                              onPressed: () {},
-                              child: Text(
-                                'Chỉnh sửa',
-                                style: TextStyle(
-                                  color: Color(0xff28BEBA),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 27),
-                    child: Text('300.000'),
-                  ),
-                ],
+              CheckoutService(
+                name: 'Make-up',
+                category: 'Trang điểm dự tiệc',
+                price: '300.000',
+                quantity: '1',
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 0.5),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text('1X'),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 28),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Làm tóc'),
-                            Text(
-                              'Uốn cong',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                            TextButton(
-                              //style: ButtonStyle(padding: const EdgeInsets.all(0),),
-                              onPressed: () {},
-                              child: Text(
-                                'Chỉnh sửa',
-                                style: TextStyle(
-                                  color: Color(0xff28BEBA),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 27),
-                    child: Text('300.000'),
-                  ),
-                ],
+              CheckoutService(
+                name: 'Make-up',
+                category: 'Trang điểm dự tiệc',
+                price: '300.000',
+                quantity: '1',
               ),
               Divider(
                 height: 20,
@@ -405,29 +194,25 @@ class CheckoutScreen extends StatelessWidget {
                 indent: 12,
                 endIndent: 10,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: Text('Tổng tạm tính'),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 190),
-                    child: Text('1.200.000'),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Tổng tạm tính'),
+                    Text('1.200.000'),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: Text('Phí áp dụng '),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 214),
-                    child: Text(' 10.000'),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Phí áp dụng '),
+                    Text(' 10.000'),
+                  ],
+                ),
               ),
               Divider(
                 height: 20,
@@ -437,7 +222,7 @@ class CheckoutScreen extends StatelessWidget {
                 endIndent: 10,
               ),
               Container(
-                margin: const EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 15),
                 child: Text(
                   'Thông tin hóa đơn',
                   style: TextStyle(fontSize: 16),
@@ -483,23 +268,21 @@ class CheckoutScreen extends StatelessWidget {
                 indent: 12,
                 endIndent: 10,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: Text(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
                       'Tổng cộng',
                       style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 190),
-                    child: Text(
+                    Text(
                       '1.210.000 đ',
                       style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Container(
                 height: 80,
@@ -507,6 +290,70 @@ class CheckoutScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class CheckoutService extends StatelessWidget {
+  final String price, quantity, category, name;
+  const CheckoutService({
+    Key key,
+    this.price,
+    this.quantity,
+    this.category,
+    this.name,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.only(left: 20),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text('${this.quantity}X'),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 28),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(this.name),
+                    Text(
+                      this.category,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        'Chỉnh sửa',
+                        style: TextStyle(
+                          color: Color(0xff28BEBA),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Container(
+            margin: const EdgeInsets.only(right: 27),
+            child: Text(this.price),
+          ),
+        ],
       ),
     );
   }
