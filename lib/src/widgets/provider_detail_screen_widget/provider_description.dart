@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_model.dart';
+import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
 
 class ProviderDescription extends StatelessWidget {
   final Provider provider;

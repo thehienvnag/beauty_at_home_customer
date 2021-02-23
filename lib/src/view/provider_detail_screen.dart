@@ -1,11 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_feedback_model.dart';
-import 'package:flutter_app/src/models/provider_model.dart';
-import 'package:flutter_app/src/models/service_model.dart';
+import 'file:///F:/7-SeventhSemester/PRM%20-%20ThanhPC/Beauty_at_home_mobile/beauty-at-home-mobile/lib/src/models/provider_detail_model/provider_feedback_model.dart';
+import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
+import 'file:///F:/7-SeventhSemester/PRM%20-%20ThanhPC/Beauty_at_home_mobile/beauty-at-home-mobile/lib/src/models/provider_detail_model/service_model.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+
+List<String> lstImage = List.from([
+  'public/img/nail_1.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/mit_nails_spa.png',
+  'public/img/nail_3.png',
+]);
 
 List<String> _categories = [
   'Hình ảnh',
@@ -13,7 +20,7 @@ List<String> _categories = [
   'Đánh giá',
 ];
 
-List<String> lstType = ['Massage', 'làm Móng'];
+List<String> lstType = ['Massage', 'Làm Móng'];
 
 List<ProviderFeedback> lstProviderFeedback = List.from([
   ProviderFeedback(
@@ -22,10 +29,11 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
       imageUrl: [
         'public/img/nail_1.jpg',
         'public/img/nail_2.jpg',
+        'public/img/nail_1.jpg',
         'public/img/nail_2.jpg',
+        'public/img/nail_1.jpg',
         'public/img/nail_2.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_2.jpg',
+        'public/img/nail_3.png',
       ],
       feedback:
           'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
@@ -60,6 +68,38 @@ Provider provider = Provider(
     imageUrl: 'public/img/mit_nails_spa.png');
 
 List<Service> lstService = List.from([
+  Service(
+    name: '90 phút Massage body toàn thân',
+    description: [
+      'Bước 1: làm sạch tay bằng Cool Blue',
+      'Bước 2: dũa móng theo khuôn khách yêu cầu',
+      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+    ],
+    price: '500.000',
+    estimateTime: 30,
+    status: "Đang hoạt động",
+    category: lstType[0],
+    imageUrl: 'public/img/nail_1.jpg',
+    isServiceCombo: false,
+    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  ),
+  Service(
+    name: '90 phút Massage body toàn thân',
+    description: [
+      'Bước 1: làm sạch tay bằng Cool Blue',
+      'Bước 2: dũa móng theo khuôn khách yêu cầu',
+      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+    ],
+    price: '500.000',
+    estimateTime: 30,
+    status: "Đang hoạt động",
+    category: lstType[0],
+    imageUrl: 'public/img/nail_1.jpg',
+    isServiceCombo: false,
+    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  ),
   Service(
     name: '90 phút Massage body toàn thân',
     description: [
@@ -144,22 +184,37 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           ),
         ],
       ),
-      // extendBody: true,
-      // bottomNavigationBar: FloatingNavbar(
-      //   onTap: (int val) {
-      //     //returns tab id which is user tapped
-      //   },
-      //   backgroundColor: Color(0xFF3EBACE),
-      //   fontSize: 18.0,
-      //   currentIndex: 1,
-      //   items: [
-      //     FloatingNavbarItem(
-      //       title: 'View Basket',
-      //     ),
-      //     FloatingNavbarItem(title: '2 items'),
-      //     FloatingNavbarItem(title: '410.000đ'),
-      //   ],
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 5),
+        width: 350.0,
+        child: FloatingActionButton.extended(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          ),
+          onPressed: () {},
+          backgroundColor: Color(0xff28BEBA),
+          label: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                'Xem giỏ hàng',
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                '2 dịch vụ',
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                '410.000đ',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -199,12 +254,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       child: Container(
         height: 100,
         width: 100,
-        decoration: BoxDecoration(
-          color: Colors.blue,
-        ),
         child: Image(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
           image: AssetImage(provider.imageUrl),
           fit: BoxFit.cover,
         ),
@@ -245,7 +295,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           return Stack(
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
+                margin: EdgeInsets.fromLTRB(40.0, 0.0, 20.0, 5.0),
                 height: 170.0,
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -441,6 +491,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                               margin: EdgeInsets.all(10.0),
                               child: Image(
                                 image: AssetImage(lstImage[index]),
+                                fit: BoxFit.cover,
                               ),
                             );
                           }),
