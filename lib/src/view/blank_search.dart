@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/list_search_screen.dart';
 
+import 'list_search_screen_noFound.dart';
+
 class BlankScreen extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -11,8 +13,7 @@ class _HomePageState extends State<BlankScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return
-      Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         appBar: _buildBar(context),
         body:
@@ -138,7 +139,7 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(
                   children: [
                     ServiceInvite(
-                      keysearch: 'Son mong tay dep',
+                      keysearch: 'son mong tay dep',
                       press: () => Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) => ListSearchScreen(),
@@ -177,12 +178,17 @@ class _HomePageState extends State<BlankScreen> {
           textInputAction: TextInputAction.search,
           controller: _controller,
           onSubmitted: (value) {
-                if(value.isNotEmpty) {
+                if(value.isNotEmpty && value.length < 25) {
                   Navigator.of(context).push(
                       MaterialPageRoute(
                           builder: (context) => ListSearchScreen(),
                           settings: RouteSettings(arguments: value)));
-              }
+              }else if(value.length > 25){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => ListSearchScreenNotFound(),
+                          settings: RouteSettings(arguments: value)));
+                }
           },
           decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 3),
@@ -216,7 +222,7 @@ class ServiceInvite extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(2.0),
         child: Card(
-          color: Color(0xffC4C4C4),
+          color: Color(0xffDCD9D9),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
               side: BorderSide(
@@ -230,7 +236,7 @@ class ServiceInvite extends StatelessWidget {
                 onTap: press,
                 child: Text('$keysearch',style: TextStyle(fontSize: 20),))
           ),
-    ),
+          ),
       );
   }
 }

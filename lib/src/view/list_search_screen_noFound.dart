@@ -1,28 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
+import 'package:flutter_app/src/widgets/search_screen_widget.dart';
+import 'list_search_screen.dart';
 
 
-class ListSearchScreen extends StatefulWidget {
+class ListSearchScreenNotFound extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => ListSearchScreenState();
 }
 
-class ListSearchScreenState extends State<ListSearchScreen> {
+class ListSearchScreenState extends State<ListSearchScreenNotFound> {
 
   @override
   Widget build(BuildContext context) {
-    final String keySearch = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildBar(context),
-      body: ListView(
-        padding: EdgeInsets.all(10.0),
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Text('  Không có dịch vụ phù hợp',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-        ],
-      ),
+      body: Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: <Widget>[
+                    Container(alignment: Alignment.topLeft, child: Text(' Không có dịch vụ phù hợp', style: TextStyle(fontWeight: FontWeight.w300, fontSize: 20),)),
+                    SizedBox(height: 10),
+                    Container(alignment: Alignment.topLeft, child: Text(' GIỚI THIỆU CHO BẠN', style: TextStyle(color: Colors.black, fontSize: 20,),)), SizedBox(height: 10),
+                    LoadServices(),
+                  ],
+                ),
+              ),
+            ],
+          )
     );
   }
 }
@@ -50,10 +58,15 @@ Widget _buildBar(BuildContext context) {
           height: 1,
         ),
         onSubmitted: (value) {
-          if (value.isNotEmpty) {
+          if(value.isNotEmpty && value.length < 25) {
             Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => ListSearchScreen(),
+                    settings: RouteSettings(arguments: value)));
+          }else if(value.length > 25){
+            Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => ListSearchScreenNotFound(),
                     settings: RouteSettings(arguments: value)));
           }
         },

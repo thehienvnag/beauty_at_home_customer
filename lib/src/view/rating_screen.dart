@@ -63,7 +63,7 @@ class _Rating_Screen  extends State<RatingScreen> {
                       ),
                       Row(
                         children: [
-                          Container(width: 250 ,child: Text('Total paid',style: TextStyle(fontSize: 17),),alignment: Alignment.topLeft),
+                          Container(width: 250 ,child: Text('Total paid',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w400),),alignment: Alignment.topLeft),
                           Container(child: Text('84.000 đ',style: TextStyle(fontSize: 17),),alignment: Alignment.topRight,)
                         ],
                       ),
@@ -100,6 +100,6 @@ Widget _buildMultipleTextField() {
       labelText: 'Phản ánh về dịch vụ/Thợ (nếu có)*',
       border: OutlineInputBorder(),
     ),
-    maxLines: 6,
+    maxLines: 5,
   );
 }
