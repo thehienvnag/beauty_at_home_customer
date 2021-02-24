@@ -38,9 +38,9 @@ class _SlidingUpViewState extends State<SlidingUpView> {
             parallaxOffset: .02,
             body: _body(),
             panelBuilder: (sc) => _panel(sc),
-            color: Colors.transparent,
             boxShadow: null,
             isDraggable: this.widget.isDraggable,
+            color: Colors.transparent,
           ),
           // the fab
         ],
@@ -49,22 +49,9 @@ class _SlidingUpViewState extends State<SlidingUpView> {
   }
 
   Widget _panel(ScrollController sc) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: () {
-        if (!widget.isDraggable) return;
-        if (isClosed)
-          panelController.open();
-        else
-          panelController.close();
-        setState(() {
-          this.isClosed = !this.isClosed;
-        });
-      },
-      child: SlidingPanel(
-        scrollController: sc,
-        children: widget.panelContents,
-      ),
+    return SlidingPanel(
+      scrollController: sc,
+      children: widget.panelContents,
     );
   }
 
@@ -83,9 +70,34 @@ class SlidingPanel extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      controller: scrollController,
-      children: children,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.symmetric(
+          horizontal: BorderSide(
+            color: Colors.grey.withOpacity(0.3),
+          ),
+        ),
+      ),
+      padding: EdgeInsets.only(left: 10, right: 10),
+      child: ListView(
+        physics: BouncingScrollPhysics(),
+        padding: EdgeInsets.zero,
+        controller: scrollController,
+        children: [
+          Align(
+            child: Container(
+              margin: EdgeInsets.only(top: 6, bottom: 7),
+              width: 30,
+              height: 3,
+              decoration: BoxDecoration(
+                  color: Colors.grey[500],
+                  borderRadius: BorderRadius.all(Radius.circular(12.0))),
+            ),
+          ),
+          ...children,
+        ],
+      ),
     );
   }
 }

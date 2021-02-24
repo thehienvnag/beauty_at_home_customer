@@ -8,17 +8,18 @@ class CoverImage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipRRect(
+    return Container(
+      margin: EdgeInsets.only(top: 15),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: ClipRRect(
           borderRadius: BorderRadius.circular(22),
           child: Image.asset(
             this.path,
             width: 220,
           ),
         ),
-      ],
+      ),
     );
   }
 }

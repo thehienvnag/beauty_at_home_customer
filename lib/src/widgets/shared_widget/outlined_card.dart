@@ -27,7 +27,7 @@ class OutlinedCard extends StatelessWidget {
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
               side: BorderSide(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey,
                 width: 0.5,
               ),
             ),
@@ -36,6 +36,7 @@ class OutlinedCard extends StatelessWidget {
           padding: this.padding,
           child: ListView.separated(
             padding: EdgeInsets.all(0),
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemBuilder: (context, index) => sections[index],
             separatorBuilder: (context, index) =>

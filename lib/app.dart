@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/booking_summary_screen.dart';
-import 'package:flutter_app/src/view/home_screen.dart';
+import 'package:flutter_app/src/models/booking_summary_model.dart';
+import 'package:flutter_app/src/presenter/booking_summary_presenter.dart';
+import 'package:flutter_app/src/view/booking_summary.dart';
+import 'package:flutter_app/src/view/home.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -17,7 +19,9 @@ class App extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/a': (context) => HomeScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/': (context) => BookingSummaryScreen(),
+        '/': (context) => BookingSummary(
+              presenter: BookingSummaryPresenter(),
+            ),
       },
     );
   }

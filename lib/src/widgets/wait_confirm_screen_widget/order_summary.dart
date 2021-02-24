@@ -39,6 +39,24 @@ class OrderSummary extends StatelessWidget {
             ),
           ],
         ),
+        Container(
+          margin: EdgeInsets.only(top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Payment method'),
+              Row(
+                children: [
+                  Image.asset(
+                    'public/img/momo_icon.png',
+                    width: 17,
+                  ),
+                  Text(' Momo'),
+                ],
+              )
+            ],
+          ),
+        ),
       ],
     );
   }

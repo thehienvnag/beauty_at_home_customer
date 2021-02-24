@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app/src/models/wait_confirm_model.dart';
+import 'package:flutter_app/src/models/cart_item.dart';
 
 class ItemsList extends StatelessWidget {
   final List<CartItem> itemList;
