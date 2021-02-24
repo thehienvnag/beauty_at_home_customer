@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/payment_screen.dart';
 import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
