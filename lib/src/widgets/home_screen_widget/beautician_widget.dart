@@ -87,31 +87,32 @@ class Beautician extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                    children: [
-                      Text(
-                        model.beauticianName,
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 16,
-                            color: Colors.black),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 130),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Color(0xffFFCC00),
-                            ),
-                            Text('${model.rateScore}')
-                          ],
+                  Container(
+                    width: size.width * 0.72,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          model.beauticianName,
+                          style: TextStyle(
+                              letterSpacing: 1,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16,
+                              color: Colors.black),
                         ),
-                      ),
-                    ],
+                        Container(
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                color: Color(0xffFFCC00),
+                              ),
+                              Text('${model.rateScore}')
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Text(
                     model.nameService,
