@@ -24,7 +24,7 @@ class ProviderDescription extends StatelessWidget {
         children: <Widget>[
           Container(
             height: 180.0,
-            width: 330.0,
+            width: 275.0,
             padding: EdgeInsets.only(left: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -91,7 +91,7 @@ class ProviderDescription extends StatelessWidget {
           ),
           Positioned(
             top: 20,
-            right: 20,
+            right: 10,
             child: Container(
               height: 95.0,
               width: 80.0,

@@ -10,6 +10,24 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 List<String> lstImage = List.from([
   'public/img/nail_1.jpg',
   'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_2.jpg',
   'public/img/mit_nails_spa.png',
   'public/img/nail_3.png',
 ]);
@@ -196,22 +214,25 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           ),
           onPressed: () {},
           backgroundColor: Color(0xff28BEBA),
-          label: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                'Xem giỏ hàng',
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                '2 dịch vụ',
-                style: TextStyle(color: Colors.white),
-              ),
-              Text(
-                '410.000đ',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
+          label: Container(
+            width: 320.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Xem giỏ hàng',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  '2 dịch vụ',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  '410.000đ',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -227,7 +248,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       },
       child: AnimatedContainer(
         height: MediaQuery.of(context).size.height,
-        width: 130.0,
+        width: 120.0,
         duration: Duration(milliseconds: 100),
         curve: Curves.easeIn,
         alignment: Alignment.center,
@@ -263,26 +284,36 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   }
 
   Widget _buildPicture(int index) {
-    return Container(
-      height: 250,
-      width: 350,
-      padding: EdgeInsets.symmetric(
-        vertical: 20.0,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Text('5 hình ảnh, 3 videos'),
-          SizedBox(height: 10.0),
-          Row(
-            children: <Widget>[
-              _buildImage(0),
-              _buildImage(1),
-              _buildImage(2),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 10.0, right: 10.0),
+          child: Text('5 images, 3 videos'),
+        ),
+        Container(
+          height: 200,
+          width: 350,
+          child: GridView.count(
+            crossAxisCount: 3,
+            // mainAxisSpacing: 10.0,
+            // crossAxisSpacing: 10.0,
+            children: List.generate(lstImage.length, (index) {
+              return Center(
+                child: Container(
+                  // margin: EdgeInsets.only(left: ),
+                  width: 100,
+                  height: 100,
+                  child: Image(
+                    image: AssetImage(lstImage[index]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            }),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -315,11 +346,11 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                         children: <Widget>[
                           GestureDetector(
                             child: Container(
-                              width: 150.0,
+                              width: 105.0,
                               child: Text(
                                 service.name,
                                 style: TextStyle(
-                                    fontSize: 18.0,
+                                    fontSize: 15.0,
                                     fontWeight: FontWeight.w600),
                               ),
                             ),
@@ -334,11 +365,11 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         Container(
-                                            width: 250,
+                                            width: 184,
                                             child: Text(
                                               service.name,
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                                 fontSize: 17.0, fontWeight: FontWeight.bold),
                                             )),
                                         IconButton(
                                           icon: Icon(Icons.cancel),
@@ -364,25 +395,17 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                               fontWeight: FontWeight.bold),
                                         ),
                                       ),
-                                      // new IconButton(
-                                      //   icon: Icon(Icons.x),
-                                      //   onPressed: () {
-                                      //     Navigator.of(context).pop();
-                                      //   },
-                                      //   color: Color(0xFF3EBACE),
-                                      //
-                                      // ),
                                     ],
                                   );
                                 }),
                           ),
                           SizedBox(
-                            height: 60,
+                            height: 65,
                           ),
                           Text(
                             '${service.price}',
                             style: TextStyle(
-                                fontSize: 17.0, fontWeight: FontWeight.w900),
+                                fontWeight: FontWeight.w900),
                           ),
                         ],
                       ),
@@ -473,7 +496,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 20.0, bottom: 10.0, right: 15.0),
+                            padding: EdgeInsets.only(
+                                left: 20.0, bottom: 10.0, right: 15.0),
                             child: Text(proFeedback.feedback),
                           ),
                         ],
@@ -585,7 +609,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                 transform: Matrix4.translationValues(-26, 0, 0),
                 child: Text(
                   service.description[index],
-                  style: TextStyle(fontSize: 15.0),
+                  style: TextStyle(fontSize: 14.0),
                 )),
             contentPadding: EdgeInsets.only(left: 5),
           );
