@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/payment_screen.dart';
+import 'package:flutter_app/src/view/wait_confirm.dart';
 import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -17,7 +18,11 @@ class CheckoutScreen extends StatelessWidget {
               Radius.circular(8.0),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => WaitConfirmScreen(),
+            ));
+          },
           backgroundColor: Color(0xff28BEBA),
           label: Text(
             'ĐẶT ĐƠN',

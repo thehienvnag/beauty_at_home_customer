@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
 
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
 
@@ -8,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: HomeAppBarTitle(),
         actions: [
@@ -22,68 +24,20 @@ class HomeScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(top: 12),
             ),
-            Container(
-              height: 47,
-              width: 340,
-              color: Colors.white,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.only(top: 3),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8)),
-                  prefixIcon: Icon(Icons.search),
-                  hintText: 'Tìm kiếm dịch vụ...',
-                ),
-              ),
-            ),
+            WidgetUtils.searchTextField,
             SlideService(),
             ServiceWidget(),
             BeauticianWidget()
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Color(0xff0DB5B4),
-        unselectedItemColor: Color(0xffC4C4C4),
-        items: [
-          BottomNavigationBarItem(
-            label: 'Home',
-            icon: Icon(
-              Icons.home,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Search',
-            icon: Icon(
-              Icons.search,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Activity',
-            icon: Icon(
-              Icons.list,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Messages',
-            icon: Icon(
-              Icons.message,
-            ),
-          ),
-          BottomNavigationBarItem(
-            label: 'Account',
-            icon: Icon(
-              Icons.account_circle,
-            ),
-          ),
-        ],
-      ),
+      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(0),
     );
   }
 }

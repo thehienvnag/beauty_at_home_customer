@@ -24,7 +24,9 @@ class CheckoutAppBarTitle extends StatelessWidget {
           Icons.arrow_back_ios,
           color: Colors.black,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       backgroundColor: Colors.white,
       elevation: 0,

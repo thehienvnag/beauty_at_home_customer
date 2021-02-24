@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/beautician_model.dart';
+import 'package:flutter_app/src/view/provider_detail_screen.dart';
 
 class BeauticianWidget extends StatelessWidget {
   @override
@@ -68,7 +69,14 @@ class Beautician extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProviderDetailScreen(),
+          ),
+        );
+      },
       child: Container(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

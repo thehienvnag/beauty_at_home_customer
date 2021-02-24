@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/presenter/booking_summary_presenter.dart';
+import 'package:flutter_app/src/view/booking_summary.dart';
 import 'package:flutter_app/src/view/home_screen.dart';
 
 class App extends StatelessWidget {

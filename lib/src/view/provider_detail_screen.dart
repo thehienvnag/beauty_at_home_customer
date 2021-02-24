@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_feedback_model.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
 import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/view/checkout_screen.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 
 List<String> lstImage = List.from([
@@ -210,7 +211,11 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
               Radius.circular(8.0),
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => CheckoutScreen(),
+            ));
+          },
           backgroundColor: Color(0xff28BEBA),
           label: Container(
             width: 320.0,
@@ -318,6 +323,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   Widget _buildService(List<Service> lstService) {
     return Expanded(
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemCount: lstService.length,
         itemBuilder: (BuildContext buildContext, int index) {
           Service service = lstService[index];
@@ -441,6 +447,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   Widget _buildFeedback(List<ProviderFeedback> lstFeedback) {
     return Expanded(
       child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: lstFeedback.length,
           itemBuilder: (BuildContext context, int index) {
             ProviderFeedback proFeedback = lstFeedback[index];
