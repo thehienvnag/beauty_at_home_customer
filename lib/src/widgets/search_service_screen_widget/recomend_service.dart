@@ -28,7 +28,7 @@ class ServiceItem {
 class LoadServices extends StatelessWidget {
   List<ServiceItem> lstService = List.from([
     ServiceItem(
-        image: 'public/img/beautician1.PNG',
+        image: 'public/img/beautician1.png',
         salonOwner: 'Hani Nguyễn',
         titleService: 'Làm nail - Làm tóc',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -37,7 +37,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.PNG',
+        image: 'public/img/beautician2.png',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -46,7 +46,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician3.PNG',
+        image: 'public/img/beautician3.png',
         salonOwner: 'Marry Trần',
         titleService: 'Trang điểm - Làm tóc',
         area: 'Quận 10, TP. Hồ Chí Minh',
@@ -55,7 +55,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.PNG',
+        image: 'public/img/beautician1.png',
         salonOwner: 'Aleck Marry',
         titleService: 'Combo làm tóc,trang điểm',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -64,7 +64,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.PNG',
+        image: 'public/img/beautician2.png',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -73,7 +73,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.PNG',
+        image: 'public/img/beautician1.png',
         salonOwner: 'Hani Nguyễn',
         titleService: 'Làm nail - Làm tóc',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -82,7 +82,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.PNG',
+        image: 'public/img/beautician2.png',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -91,7 +91,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician3.PNG',
+        image: 'public/img/beautician3.png',
         salonOwner: 'Marry Trần',
         titleService: 'Trang điểm - Làm tóc',
         area: 'Quận 10, TP. Hồ Chí Minh',
@@ -100,7 +100,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.PNG',
+        image: 'public/img/beautician1.png',
         salonOwner: 'Aleck Marry',
         titleService: 'Combo làm tóc,trang điểm',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -109,7 +109,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.PNG',
+        image: 'public/img/beautician2.png',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
