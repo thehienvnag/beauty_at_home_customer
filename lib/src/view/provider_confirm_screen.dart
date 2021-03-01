@@ -1,0 +1,530 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/cart_item.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_description.dart';
+import 'package:flutter_app/src/widgets/search_screen_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+
+class ProviderScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DemoApp(),
+    );
+  }
+}
+
+class DemoApp extends StatefulWidget {
+  @override
+  _DemoAppState createState() => _DemoAppState();
+}
+
+class _DemoAppState extends State<DemoApp> {
+  bool isSwiched = false;
+
+  Widget title(BuildContext context) {
+    if (isSwiched == true)
+      return (Row(
+        children: [
+          Card(
+            color: Colors.green,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(
+                  color: Colors.grey.withOpacity(0.8),
+                  width: 0.2,
+                )),
+            child: Padding(
+              padding: EdgeInsets.all(4),
+              child: Icon(
+                Icons.done_outlined,
+                color: Colors.white,
+                size: 12,
+              ),
+            ),
+          ),
+          Text(
+            ' Hiện bạn có thể nhận đơn!',
+            style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+                color: Colors.black),
+          ),
+        ],
+      ));
+    else
+      return (Row(
+        children: [
+          Card(
+            color: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+                side: BorderSide(
+                  color: Colors.grey.withOpacity(0.8),
+                  width: 0.2,
+                )),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: Icon(
+                Icons.clear,
+                color: Colors.white,
+                size: 12,
+              ),
+            ),
+          ),
+          Text(
+            'Hiện bạn không thể nhận đơn!',
+            style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 14,
+                color: Colors.black),
+          ),
+        ],
+      ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leadingWidth: 0,
+        backgroundColor: Colors.white,
+        title: title(context),
+        actions: [
+          Switch(
+            activeColor: Color(0xff256FEF),
+            inactiveThumbColor: Color(0xff979797),
+            activeTrackColor: Color(0xff256FEF),
+            inactiveTrackColor: Color(0xff979797),
+            value: isSwiched,
+            onChanged: (value) {
+              setState(() {
+                isSwiched = value;
+              });
+            },
+          ),
+          // child: SizedBox(
+          //   width: 120,
+          //   height: 50,
+          //   child: LiteRollingSwitch(
+          //     value: true,
+          //     textOn: 'Online',
+          //     textOff: 'Offline',
+          //     colorOn: Color(0xff256FEF),
+          //     colorOff: Color(0xff979797),
+          //     iconOn: Icons.circle,
+          //     iconOff: Icons.circle,
+          //     textSize: 18,
+          //     onChanged: (bool positon) {
+          //       setState(() {
+          //         this.isSwiched = positon;
+          //       });
+          //     },
+          //   ),
+          // ),
+        ],
+      ),
+      body: 
+      Stack(children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(' Đơn đã chấp nhận',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                      ))),
+              SizedBox(height: 10),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 24,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      child: SizedBox(
+                        width: 63,
+                        height: 24,
+                        child: Material(
+                          color: Color(0x2d27beba),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 1,
+                              color: Color(0xff28beba),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 10,
+                              right: 6,
+                              top: 6,
+                              bottom: 5,
+                            ),
+                            child: Text(
+                              "Tất cả (1)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xff0db5b4),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    GestureDetector(
+                      child: SizedBox(
+                        width: 93,
+                        height: 24,
+                        child: Material(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 1,
+                              color: Color(0x60000000),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 17,
+                              right: 16,
+                              top: 6,
+                              bottom: 5,
+                            ),
+                            child: Text(
+                              "Chuẩn bị (1)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0x7f000000),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    GestureDetector(
+                      child: SizedBox(
+                        width: 84,
+                        height: 24,
+                        child: Material(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 1,
+                              color: Color(0x60000000),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 12,
+                              right: 5,
+                              top: 6,
+                              bottom: 4,
+                            ),
+                            child: Text(
+                              "Đang làm (1)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0x7f000000),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    GestureDetector(
+                      child: SizedBox(
+                        width: 92,
+                        height: 24,
+                        child: Material(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              width: 1,
+                              color: Color(0xff9e9d9d),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 7,
+                              right: 8,
+                              top: 6,
+                              bottom: 4,
+                            ),
+                            child: Text(
+                              "Hoàn thành (3)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0x7f000000),
+                                fontSize: 11,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              OutlinedCard(
+                margin: EdgeInsets.only(top: 15),
+                padding: EdgeInsets.only(left: 4,right: 4),
+                width: 360,
+                sections: [
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children:<Widget> [
+                          Container(
+                            width: 270,
+                            child: Row(
+                              children: [
+                                Text('ID: GF-276'),
+                                Card(
+                                  color: Color(0xff707DB9),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4),
+                                    child: Text('ON THE WAY',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10,color: Colors.white),),
+                                  ),
+                                ),
+                                SizedBox(width: 100,),
+                              ],
+                            ),
+                          ),
+                          Container(
+                              width: 60,
+                              child: Text('7:37 PM',style: TextStyle(fontWeight: FontWeight.bold),))
+                        ],),
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              width: 300,
+                              child: Row(
+                                children: [
+                                  Icon(Icons.face),
+                                  Text(' Khách đặt: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
+                                  Text('Hữu Long  '),
+                                  Text('(20 mins - 5 km)'),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 30,
+                              child: Icon(Icons.keyboard_arrow_up,size: 35,),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15,right: 5),
+                                  child: Icon(Icons.local_library_rounded)
+                              ),
+                              Container(
+                                width: 270,
+                                child: Text('Địa điểm: 5/3 Đường số 9, Phước Bình, Quận 9, Tp Hồ Chí Minh',
+                                        style: TextStyle(fontSize: 13),),
+                              ),
+                              ]
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(width: 44,),
+                              Text('Xem bản đồ',style: TextStyle(color: Color(0xff0DB5B4),fontSize: 11),),
+                              Icon(Icons.arrow_right,color: Color(0xff0DB5B4),)
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10,),
+                      Row(
+                        children: [
+                          Container(
+                              margin: EdgeInsets.only(left: 15,right: 5),
+                              child: Icon(Icons.description_outlined)),
+                          Container(
+                              width: 270,
+                              child: Text('Ghi chú: Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian'
+                              , style: TextStyle(fontSize: 13),))
+                        ],
+                      )
+                    ],
+                  ),
+                  _descripService(listItem),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 300,
+                              child: Row(
+                                children: [
+                                  Text('Total bill: '),
+                                  Text('740.000'),
+                                  Card(
+                                    color: Color(0xffC4C4C4),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6),
+                                      child: Text('CASH',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 30,
+                              child: Icon(Icons.keyboard_arrow_down_sharp,size: 35,),
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 10,),
+                        SizedBox(
+                          width: 336,
+                          height: 30,
+                          child: Material(
+                            color: Color(0xff7899D4),
+                            borderRadius: BorderRadius.circular(5),
+                            clipBehavior: Clip.antiAlias,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 87, right: 88, top: 8, bottom: 9,),
+                              child: Text(
+                                "Bắt đầu làm việc ",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ]),
+      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
+    );
+  }
+  final List<CartItem> listItem = List.from(<CartItem>[
+    CartItem(
+      content: 'Trang điểm dự tiệc',
+      quantity: 1,
+      price: '470.000',
+    ),
+    CartItem(
+      content: 'Cắt móng uốn cong',
+      quantity: 1,
+      price: '270.000',
+    ),
+  ],
+  );
+}
+List<ServiceCusDetail> listDetai = List.from(<ServiceCusDetail>[
+  ServiceCusDetail(
+    cusID: 'GF -267',
+    cusName: 'Hữu Long',
+    address: '5/3 đường số 9 , phước bình , quận 9 , Tp Hồ Chí Minh',
+    status: 'ON THE WAY',
+    note: 'Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian',
+    time: '7:37 PM',
+    timeMove: '20 mins - 5km',
+    //listItem: listItem,
+  )
+]
+);
+
+Widget _descripService(List<CartItem> itemList) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 7),
+    child: ListView.separated(
+      shrinkWrap: true,
+      itemCount: itemList.length,
+      separatorBuilder: (context, index) => SizedBox(
+        height: 6,
+      ),
+      itemBuilder: (context, index) => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Text(
+                '${itemList[index].quantity}  x',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 15),
+                child: Text(itemList[index].content,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),),
+              ),
+            ],
+          ),
+          Text(itemList[index].price)
+        ],
+      ),
+    ),
+  );
+}
+class ServiceCusDetail {
+  String cusName; // hưu long
+  String cusID; // GF-267
+  String address; // 5/3 đường số 9 , phước bình , quận 9 . tp hcm
+  String status; // on the way
+  String note; // LÀM Sao để có 1 bản ghi chú hiệu quả
+  String time; // 7.37 PM
+  String timeMove; // 20 mins - 5km
+  List<CartItem> listItem; // trang điểm dự tiệc
+
+  ServiceCusDetail({
+    this.cusName,
+    this.cusID,
+    this.address,
+    this.status,
+    this.note,
+    this.time,
+    this.timeMove,
+    this.listItem,
+  });
+}
