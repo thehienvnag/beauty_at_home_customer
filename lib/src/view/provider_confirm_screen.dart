@@ -4,11 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
-import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_description.dart';
-import 'package:flutter_app/src/widgets/search_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 class ProviderScreen extends StatelessWidget {
   @override
@@ -24,6 +20,34 @@ class DemoApp extends StatefulWidget {
   @override
   _DemoAppState createState() => _DemoAppState();
 }
+
+final List<ServiceCusDetail> listDetail = List.from(<ServiceCusDetail>[
+  ServiceCusDetail(
+    cusID: 'GF -267',
+    cusName: 'Hữu Long',
+    address: '5/3 đường số 9 , phước bình , quận 9 , Tp Hồ Chí Minh',
+    status: 'ON THE WAY',
+    note: 'Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian',
+    time: '7:37 PM',
+    timeMove: '20 mins - 5km',
+    payment: 'CASH',
+    totalBill: '740.000',
+    listItem: List.from(
+      <CartItem>[
+        CartItem(
+          content: 'Trang điểm dự tiệc',
+          quantity: 1,
+          price: '470.000',
+        ),
+        CartItem(
+          content: 'Cắt móng uốn cong',
+          quantity: 1,
+          price: '270.000',
+        ),
+      ],
+    ),
+  ),
+]);
 
 class _DemoAppState extends State<DemoApp> {
   bool isSwiched = false;
@@ -62,7 +86,7 @@ class _DemoAppState extends State<DemoApp> {
       return (Row(
         children: [
           Card(
-            color: Colors.redAccent,
+            color: Colors.orange,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15),
                 side: BorderSide(
@@ -72,7 +96,7 @@ class _DemoAppState extends State<DemoApp> {
             child: Padding(
               padding: const EdgeInsets.all(4),
               child: Icon(
-                Icons.clear,
+                Icons.cancel,
                 color: Colors.white,
                 size: 12,
               ),
@@ -110,28 +134,9 @@ class _DemoAppState extends State<DemoApp> {
               });
             },
           ),
-          // child: SizedBox(
-          //   width: 120,
-          //   height: 50,
-          //   child: LiteRollingSwitch(
-          //     value: true,
-          //     textOn: 'Online',
-          //     textOff: 'Offline',
-          //     colorOn: Color(0xff256FEF),
-          //     colorOff: Color(0xff979797),
-          //     iconOn: Icons.circle,
-          //     iconOff: Icons.circle,
-          //     textSize: 18,
-          //     onChanged: (bool positon) {
-          //       setState(() {
-          //         this.isSwiched = positon;
-          //       });
-          //     },
-          //   ),
-          // ),
         ],
       ),
-      body: 
+      body:
       Stack(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -141,10 +146,9 @@ class _DemoAppState extends State<DemoApp> {
                   alignment: Alignment.topLeft,
                   child: Text(' Đơn đã chấp nhận',
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      ))),
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold))),
               SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -175,7 +179,7 @@ class _DemoAppState extends State<DemoApp> {
                               bottom: 5,
                             ),
                             child: Text(
-                              "Tất cả (1)",
+                              "Tất cả (${listDetail.length})",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Color(0xff0db5b4),
@@ -288,153 +292,7 @@ class _DemoAppState extends State<DemoApp> {
                   ],
                 ),
               ),
-              OutlinedCard(
-                margin: EdgeInsets.only(top: 15),
-                padding: EdgeInsets.only(left: 4,right: 4),
-                width: 360,
-                sections: [
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children:<Widget> [
-                          Container(
-                            width: 270,
-                            child: Row(
-                              children: [
-                                Text('ID: GF-276'),
-                                Card(
-                                  color: Color(0xff707DB9),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child: Text('ON THE WAY',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 10,color: Colors.white),),
-                                  ),
-                                ),
-                                SizedBox(width: 100,),
-                              ],
-                            ),
-                          ),
-                          Container(
-                              width: 60,
-                              child: Text('7:37 PM',style: TextStyle(fontWeight: FontWeight.bold),))
-                        ],),
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              width: 300,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.face),
-                                  Text(' Khách đặt: ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14),),
-                                  Text('Hữu Long  '),
-                                  Text('(20 mins - 5 km)'),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 30,
-                              child: Icon(Icons.keyboard_arrow_up,size: 35,),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Column(
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 15,right: 5),
-                                  child: Icon(Icons.local_library_rounded)
-                              ),
-                              Container(
-                                width: 270,
-                                child: Text('Địa điểm: 5/3 Đường số 9, Phước Bình, Quận 9, Tp Hồ Chí Minh',
-                                        style: TextStyle(fontSize: 13),),
-                              ),
-                              ]
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(width: 44,),
-                              Text('Xem bản đồ',style: TextStyle(color: Color(0xff0DB5B4),fontSize: 11),),
-                              Icon(Icons.arrow_right,color: Color(0xff0DB5B4),)
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(height: 10,),
-                      Row(
-                        children: [
-                          Container(
-                              margin: EdgeInsets.only(left: 15,right: 5),
-                              child: Icon(Icons.description_outlined)),
-                          Container(
-                              width: 270,
-                              child: Text('Ghi chú: Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian'
-                              , style: TextStyle(fontSize: 13),))
-                        ],
-                      )
-                    ],
-                  ),
-                  _descripService(listItem),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              width: 300,
-                              child: Row(
-                                children: [
-                                  Text('Total bill: '),
-                                  Text('740.000'),
-                                  Card(
-                                    color: Color(0xffC4C4C4),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(6),
-                                      child: Text('CASH',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 30,
-                              child: Icon(Icons.keyboard_arrow_down_sharp,size: 35,),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        SizedBox(
-                          width: 336,
-                          height: 30,
-                          child: Material(
-                            color: Color(0xff7899D4),
-                            borderRadius: BorderRadius.circular(5),
-                            clipBehavior: Clip.antiAlias,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 87, right: 88, top: 8, bottom: 9,),
-                              child: Text(
-                                "Bắt đầu làm việc ",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              loadAllBooking(),
             ],
           ),
         ),
@@ -442,71 +300,255 @@ class _DemoAppState extends State<DemoApp> {
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
     );
   }
-  final List<CartItem> listItem = List.from(<CartItem>[
-    CartItem(
-      content: 'Trang điểm dự tiệc',
-      quantity: 1,
-      price: '470.000',
-    ),
-    CartItem(
-      content: 'Cắt móng uốn cong',
-      quantity: 1,
-      price: '270.000',
-    ),
-  ],
-  );
 }
-List<ServiceCusDetail> listDetai = List.from(<ServiceCusDetail>[
-  ServiceCusDetail(
-    cusID: 'GF -267',
-    cusName: 'Hữu Long',
-    address: '5/3 đường số 9 , phước bình , quận 9 , Tp Hồ Chí Minh',
-    status: 'ON THE WAY',
-    note: 'Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian',
-    time: '7:37 PM',
-    timeMove: '20 mins - 5km',
-    //listItem: listItem,
-  )
-]
-);
+class loadAllBooking extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+      return
+        Expanded(
+          child: ListView.builder(
+            physics: BouncingScrollPhysics(),
+              itemCount: listDetail.length,
+                itemBuilder: (BuildContext buildContext, int index) {
+                  ServiceCusDetail service = listDetail[index];
+                  return OutlinedCard(
+                    margin: EdgeInsets.only(top: 15),
+                    padding: EdgeInsets.only(left: 4, right: 4),
+                    width: 360,
+                    sections: [
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 270,
+                                  child: Row(
+                                    children: [
+                                      Text(service.cusID),
+                                      Card(
+                                        color: Color(0xff707DB9),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4),
+                                          child: Text(
+                                              service.status,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 10,
+                                                color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                    width: 60,
+                                    child: Text(
+                                        service.time,
+                                      style: TextStyle(fontWeight: FontWeight
+                                          .bold),
+                                    ))
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 300,
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.face),
+                                      Text(
+                                        ' Khách đặt: ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 14),
+                                      ),
+                                      Text('${service.cusName}  '),
+                                      Text('(${service.timeMove})'),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  child: Icon(
+                                    Icons.keyboard_arrow_up,
+                                    size: 35,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Column(
+                            children: [
+                              Row(children: [
+                                Container(
+                                    margin: EdgeInsets.only(left: 15, right: 5),
+                                    child: Icon(Icons.local_library_rounded)),
+                                Container(
+                                  width: 270,
+                                  child: Text(
+                                    service.address,
+                                    style: TextStyle(fontSize: 13),
+                                  ),
+                                ),
+                              ]),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 44,
+                                  ),
+                                  Text(
+                                    'Xem bản đồ',
+                                    style: TextStyle(
+                                        color: Color(0xff0DB5B4), fontSize: 11),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_right,
+                                    color: Color(0xff0DB5B4),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(left: 15, right: 5),
+                                  child: Icon(Icons.description_outlined)),
+                              Container(
+                                  width: 270,
+                                  child: Text(
+                                    'Ghi chú: ${service.note}',
+                                    style: TextStyle(fontSize: 13),
+                                  ))
+                            ],
+                          )
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 7),
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: service.listItem.length,
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 6,
+                          ),
+                          itemBuilder: (context, index) => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '${service.listItem[index].quantity}  x',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      service.listItem[index].content,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Text(service.listItem[index].price)
+                            ],
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  width: 300,
+                                  child: Row(
+                                    children: [
+                                      Text('Total bill: '),
+                                      Text(service.totalBill,),
+                                      Card(
+                                        color: Color(0xffC4C4C4),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(6),
+                                          child: Text(
+                                            service.payment,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  width: 30,
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down_sharp,
+                                    size: 35,
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              width: 336,
+                              height: 30,
+                              child: Material(
+                                color: Color(0xff7899D4),
+                                borderRadius: BorderRadius.circular(5),
+                                clipBehavior: Clip.antiAlias,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 87,
+                                    right: 88,
+                                    top: 8,
+                                    bottom: 9,
+                                  ),
+                                  child: Text(
+                                    "Bắt đầu làm việc ",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                }
+      ),
+        );
+  }
+}
 
-Widget _descripService(List<CartItem> itemList) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 7),
-    child: ListView.separated(
-      shrinkWrap: true,
-      itemCount: itemList.length,
-      separatorBuilder: (context, index) => SizedBox(
-        height: 6,
-      ),
-      itemBuilder: (context, index) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Text(
-                '${itemList[index].quantity}  x',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15),
-                child: Text(itemList[index].content,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),),
-              ),
-            ],
-          ),
-          Text(itemList[index].price)
-        ],
-      ),
-    ),
-  );
-}
+
 class ServiceCusDetail {
   String cusName; // hưu long
   String cusID; // GF-267
@@ -515,6 +557,8 @@ class ServiceCusDetail {
   String note; // LÀM Sao để có 1 bản ghi chú hiệu quả
   String time; // 7.37 PM
   String timeMove; // 20 mins - 5km
+  String totalBill;
+  String payment;
   List<CartItem> listItem; // trang điểm dự tiệc
 
   ServiceCusDetail({
@@ -525,6 +569,8 @@ class ServiceCusDetail {
     this.note,
     this.time,
     this.timeMove,
+    this.totalBill,
+    this.payment,
     this.listItem,
   });
 }

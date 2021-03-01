@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
 import 'package:flutter_app/src/view/provider_confirm_screen.dart';
+import 'package:flutter_app/src/view/provider_newOrder_Screen.dart';
 import 'package:flutter_app/src/view/search_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -14,6 +15,7 @@ class AppBottomNavigationBar extends StatelessWidget {
     0: HomeScreen(),
     1: SearchPage(),
     2: ProviderScreen(),
+    3: ProviderNewOderScreen(),
   };
 
   @override

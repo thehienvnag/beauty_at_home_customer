@@ -432,13 +432,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1"
-  lite_rolling_switch:
-    dependency: "direct main"
-    description:
-      name: lite_rolling_switch
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.1"
   logging:
     dependency: transitive
     description:
@@ -794,6 +787,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.12-nullsafety.9"
+  timer_count_down:
+    dependency: "direct main"
+    description:
+      name: timer_count_down
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4+1"
   timing:
     dependency: transitive
     description:
