@@ -17,8 +17,7 @@ class _HistoryPageState extends State<HistoryScreen> {
           backgroundColor: Colors.white,
           leadingWidth: 0,
           title: Center(
-              child: Text(
-            'Lịch sử hoặt động',
+              child: Text('Lịch sử hoạt động',
             style: TextStyle(color: Colors.black),
           )),
           bottom: TabBar(
@@ -29,8 +28,7 @@ class _HistoryPageState extends State<HistoryScreen> {
               Tab(
                 child: Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      'Đơn hiện tại',
+                    child: Text('Đơn hiện tại',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.7), fontSize: 18),
                     )),
@@ -38,8 +36,7 @@ class _HistoryPageState extends State<HistoryScreen> {
               Tab(
                 child: Align(
                     alignment: Alignment.center,
-                    child: Text(
-                      'Lịch sử dùng',
+                    child: Text('Lịch sử dùng',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.7), fontSize: 18),
                     )),
@@ -79,17 +76,14 @@ Widget _noActive(BuildContext context) {
                     width: MediaQuery.of(context).size.width * 0.7,
                     padding: EdgeInsets.all(2),
                     margin: EdgeInsets.only(top: 15, left: 15),
-                    child: Text(
-                      'Hiện vẫn chưa có đơn nào',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    child: Text('Hiện vẫn chưa có đơn nào',
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     )),
                 Container(
                     padding: EdgeInsets.all(2),
                     margin: EdgeInsets.only(top: 5, left: 15),
                     width: MediaQuery.of(context).size.width * 0.7,
-                    child: Text(
-                        'Đơn sẽ xuất hiện khi bạn sử dụng các dịch vụ của chúng tôi.')),
+                    child: Text('Đơn sẽ xuất hiện khi bạn sử dụng các dịch vụ của chúng tôi.')),
               ],
             ),
           ),
@@ -184,12 +178,12 @@ class LoadHistory extends StatelessWidget {
           itemBuilder: (BuildContext buildContext, int index) {
             History history = lstHistory[index];
             return Container(
-              color: Colors.grey.withOpacity(0.1),
+              color: Colors.white,
                margin: EdgeInsets.only(top: 2),
               width: MediaQuery.of(context).size.width * 0.9,
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 30),
+                  SizedBox(height: 15),
                   GestureDetector(
                     onTap: history.press,
                     child: Container(
@@ -244,7 +238,7 @@ class LoadHistory extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
                   Container(
                       width: 380,
