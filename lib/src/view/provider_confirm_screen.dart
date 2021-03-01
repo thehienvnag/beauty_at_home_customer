@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/view/provider_newOrder_Screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ProviderScreen extends StatelessWidget {
   @override
@@ -67,18 +67,13 @@ class _DemoAppState extends State<DemoApp> {
             child: Padding(
               padding: EdgeInsets.all(4),
               child: Icon(
-                Icons.done_outlined,
-                color: Colors.white,
-                size: 12,
+                Icons.done_outlined, color: Colors.white, size: 12,
               ),
             ),
           ),
-          Text(
-            ' Hiện bạn có thể nhận đơn!',
+          Text(' Hiện bạn có thể nhận đơn!',
             style: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 14,
-                color: Colors.black),
+                fontWeight: FontWeight.normal, fontSize: 14, color: Colors.black),
           ),
         ],
       ));
@@ -96,14 +91,13 @@ class _DemoAppState extends State<DemoApp> {
             child: Padding(
               padding: const EdgeInsets.all(4),
               child: Icon(
-                Icons.cancel,
+                FontAwesomeIcons.exclamation,
                 color: Colors.white,
                 size: 12,
               ),
             ),
           ),
-          Text(
-            'Hiện bạn không thể nhận đơn!',
+          Text('Hiện bạn không thể nhận đơn!',
             style: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 14,
@@ -116,6 +110,7 @@ class _DemoAppState extends State<DemoApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         elevation: 0,
         leadingWidth: 0,
@@ -136,8 +131,7 @@ class _DemoAppState extends State<DemoApp> {
           ),
         ],
       ),
-      body:
-      Stack(children: [
+      body: Stack(children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -297,6 +291,31 @@ class _DemoAppState extends State<DemoApp> {
           ),
         ),
       ]),
+      floatingActionButton: Container(
+        width: MediaQuery.of(context).size.width,
+        child: FloatingActionButton.extended(
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.all(Radius.circular(1.0),
+          //   ),
+          // ),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProviderNewOderScreen(),
+            ));
+          },
+          backgroundColor: Color(0xffe9b501),
+          label: Row(
+            children: <Widget>[
+              SizedBox(width: 15,),
+              Text('2 New Orders',
+                style: TextStyle(color: Colors.white, letterSpacing: 4),
+              ),
+              SizedBox(width: 15,),
+              Icon(Icons.arrow_forward,size: 20,),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
     );
   }

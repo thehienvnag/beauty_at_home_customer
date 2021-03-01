@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/view/provider_confirm_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timer_count_down/timer_controller.dart';
@@ -85,7 +86,13 @@ class _DemoAppState extends State<DemoApp> {
         leadingWidth: 0,
         backgroundColor: Colors.white,
         title: Text('2 New Oders',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-        actions: [Container(margin: EdgeInsets.only(right: 10),child: Icon(Icons.cancel ,color: Colors.black.withOpacity(0.5),))]
+        actions: [GestureDetector(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ProviderScreen(),
+            ));
+          },
+            child: Container(margin: EdgeInsets.only(right: 10),child: Icon(Icons.cancel ,color: Colors.black.withOpacity(0.5),)))]
       ),
       body:
       Stack(children: [
@@ -100,7 +107,7 @@ class _DemoAppState extends State<DemoApp> {
                     itemBuilder: (BuildContext buildContext, int index) {
                       ServiceCusDetail service = listDetail[index];
                       return OutlinedCard(
-                        margin: EdgeInsets.only(top: 15),
+                        margin: EdgeInsets.only(top: 4),
                         padding: EdgeInsets.only(left: 4, right: 4),
                         width: 360,
                         sections: [
@@ -267,7 +274,7 @@ class _DemoAppState extends State<DemoApp> {
                               children: [
                                 Container(
                                     alignment:  Alignment.topLeft,
-                                    child: Text('Set booking preparation time')),
+                                    child: Text('Đặt thời gian chuẩn bị')),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -321,73 +328,74 @@ class _DemoAppState extends State<DemoApp> {
                                   width: 316,
                                   height: 30,
                                   child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     children:[
-                                      Container(
-                                        width: 90,
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(6),
-                                          border: Border.all(
-                                            color: Color(0xffcf8b93), width: 1.50, ),
-                                        ),
-                                        padding: const EdgeInsets.only(left: 17, right: 18, top: 5),
-                                        child: Text(
-                                          "TỪ CHỐI",
-                                          style: TextStyle(
-                                            color: Color(0xffcf8b93),
-                                            fontSize: 13,
-                                            fontFamily: "Roboto",
-                                            fontWeight: FontWeight.w700,
+                                      GestureDetector(
+                                        child: Container(
+                                          width: 95,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6),
+                                            border: Border.all(
+                                              color: Color(0xffcf8b93), width: 1.50, ),
+                                          ),
+                                          padding: const EdgeInsets.only(left: 17, right: 18, top: 5),
+                                          child: Text(
+                                            "TỪ CHỐI",
+                                            style: TextStyle(
+                                              color: Color(0xffcf8b93),
+                                              fontSize: 13,
+                                              fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w700,
+                                            ),
                                           ),
                                         ),
                                       ),
                                       SizedBox(width: 19),
-                                      SizedBox(
-                                        width: 200,
-                                        height: 30,
-                                        child: Material(
-                                          color: Color(0xff50B644),
-                                          shape: RoundedRectangleBorder(
-                                            side: BorderSide(width: 1,
-                                              color: Color(0x23000000), ),
-                                            borderRadius: BorderRadius.circular(6),
-                                          ),
-                                          clipBehavior: Clip.antiAlias,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 10, top: 8, bottom: 7, ),
-                                            child: Center(
-                                              child: Container(
-                                                child: Row(
-                                                  children: [
-                                                    SizedBox(width: 20,),
-                                                    Text(
-                                                      "CHẤP NHẬN  ",
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 13,
-                                                        fontFamily: "Roboto",
-                                                        fontWeight: FontWeight.w700,
-                                                      ),
-                                                    ),
-                                                    Countdown(
-                                                      controller: controller.restart(),
-                                                      seconds: 30,
-                                                      build: (_, double time) => Text(' (${time.toString()}) ',
+                                      GestureDetector(
+                                        child: SizedBox(
+                                          width: 200,
+                                          height: 30,
+                                          child: Material(
+                                            color: Color(0xff50B644),
+                                            shape: RoundedRectangleBorder(
+                                              side: BorderSide(width: 1,
+                                                color: Color(0x23000000), ),
+                                              borderRadius: BorderRadius.circular(6),
+                                            ),
+                                            clipBehavior: Clip.antiAlias,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 10, top: 8, bottom: 7, ),
+                                              child: Center(
+                                                child: Container(
+                                                  child: Row(
+                                                    children: [
+                                                      SizedBox(width: 20,),
+                                                      Text(
+                                                        "CHẤP NHẬN  ",
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 13,
+                                                          fontFamily: "Roboto",
+                                                          fontWeight: FontWeight.w700,
                                                         ),
                                                       ),
-                                                      interval: Duration(milliseconds: 100),
-                                                      onFinished: () {
-                                                        //
+                                                      Countdown(
+                                                        controller: controller.restart(),
+                                                        seconds: 40,
+                                                        build: (_, double time) => Text(' (${time.toString()}) ',
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 13,
+                                                          ),
+                                                        ),
+                                                        interval: Duration(milliseconds: 100),
+                                                        onFinished: () {
+                                                          //
 
-                                                      },
-                                                    ),
-                                                  ],
+                                                        },
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
