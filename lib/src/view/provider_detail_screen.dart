@@ -4,6 +4,7 @@ import 'package:flutter_app/src/models/provider_detail_model/provider_feedback_m
 import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
 import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
 import 'package:flutter_app/src/view/checkout_screen.dart';
+import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 
 List<String> lstImage = List.from([
@@ -371,54 +372,15 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                             fontWeight: FontWeight.w600),
                                       ),
                                     ),
-                                    onTap: () => showDialog(
-                                        context: context,
-                                        // builder: (BuildContext context) =>
-                                        //     _buildPopup(service),
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Container(
-                                                    width: 184,
-                                                    child: Text(
-                                                      service.name,
-                                                      style: TextStyle(
-                                                          fontSize: 17.0,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                IconButton(
-                                                  icon: Icon(Icons.cancel),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  color: Color(0xFF3EBACE),
-                                                ),
-                                              ],
-                                            ),
-                                            content: setupAlertDialoadContainer(
-                                                service),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                color: Color(0xFF3EBACE),
-                                                child: Text(
-                                                  'Thêm vào giỏ',
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        }),
+                                    onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ServiceDetailScreen(
+                                          service: service,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 65,
