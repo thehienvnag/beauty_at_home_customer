@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
-
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
 
 class HomeScreen extends StatelessWidget {
