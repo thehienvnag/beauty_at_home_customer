@@ -292,12 +292,13 @@ class _DemoAppState extends State<DemoApp> {
         ),
       ]),
       floatingActionButton: Container(
-        width: MediaQuery.of(context).size.width,
+
+        width: MediaQuery.of(context).size.width*0.9,
         child: FloatingActionButton.extended(
-          // shape: RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.all(Radius.circular(1.0),
-          //   ),
-          // ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(1.0),
+            ),
+          ),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ProviderNewOderScreen(),
