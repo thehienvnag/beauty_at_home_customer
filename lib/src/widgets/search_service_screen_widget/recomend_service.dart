@@ -33,7 +33,7 @@ class LoadServices extends StatelessWidget {
         titleService: 'Làm nail - Làm tóc',
         area: 'Quận 2, TP. Hồ Chí Minh',
         range: '2.3 km',
-        rate: 4.8,
+        rate: 4.9,
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
