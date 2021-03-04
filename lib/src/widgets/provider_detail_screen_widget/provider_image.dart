@@ -11,7 +11,7 @@ class ProviderImage extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 210.0,
+          height: 200.0,
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(bottom: 1.0),
           decoration: BoxDecoration(
@@ -34,7 +34,7 @@ class ProviderImage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 30.0),
+          padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 20.0),
           child: Row(children: <Widget>[
             IconButton(
               icon: Icon(Icons.arrow_back_ios_outlined),

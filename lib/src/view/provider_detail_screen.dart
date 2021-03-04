@@ -18,19 +18,6 @@ List<String> lstImage = List.from([
   'public/img/nail_2.jpg',
   'public/img/nail_2.jpg',
   'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/mit_nails_spa.png',
-  'public/img/nail_3.png',
 ]);
 
 List<String> _categories = [
@@ -324,13 +311,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Align(
-          alignment: Alignment.topRight,
-          child: Padding(
-            padding: EdgeInsets.only(top: 10.0, right: 10.0, bottom: 10),
-            child: Text('5 images, 3 videos'),
-          ),
-        ),
+        SizedBox(height: 20.0,),
         Container(
           width: 300,
           child: GridView.count(
@@ -354,6 +335,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             }),
           ),
         ),
+        SizedBox(height: 20.0,)
       ],
     );
   }
