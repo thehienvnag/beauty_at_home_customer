@@ -4,9 +4,8 @@ import 'package:flutter_map/flutter_map.dart';
 class ServiceDetailStepDescription extends StatelessWidget {
   final List<String> description;
 
-  const ServiceDetailStepDescription({
-    Key key,
-    this.description}) : super(key: key);
+  const ServiceDetailStepDescription({Key key, this.description})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +16,10 @@ class ServiceDetailStepDescription extends StatelessWidget {
         Container(
           color: Colors.white,
           padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-          child: Text('CÁC BƯỚC LÀM DỊCH VỤ',
-          style: TextStyle(
-            fontSize: 15.0,
-            fontWeight: FontWeight.bold
-          ),),
+          child: Text(
+            'CÁC BƯỚC LÀM DỊCH VỤ',
+            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+          ),
         ),
         Container(
           color: Colors.white,

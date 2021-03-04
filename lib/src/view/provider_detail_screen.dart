@@ -6,6 +6,7 @@ import 'package:flutter_app/src/models/provider_detail_model/service_model.dart'
 import 'package:flutter_app/src/view/checkout_screen.dart';
 import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
+import 'package:intl/intl.dart';
 
 List<String> lstImage = List.from([
   'public/img/nail_1.jpg',
@@ -94,7 +95,7 @@ List<Service> lstService = List.from([
       'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
       'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
     ],
-    price: '500.000',
+    price: '500',
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[0],
@@ -110,7 +111,7 @@ List<Service> lstService = List.from([
       'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
       'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
     ],
-    price: '500.000',
+    price: '500',
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[0],
@@ -126,7 +127,7 @@ List<Service> lstService = List.from([
       'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
       'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
     ],
-    price: '500.000',
+    price: '500',
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[0],
@@ -146,7 +147,7 @@ List<Service> lstService = List.from([
       'Bước 7: sơn gel',
       'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
     ],
-    price: '200.000',
+    price: '200',
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[1],
@@ -157,12 +158,18 @@ List<Service> lstService = List.from([
 ]);
 
 class ProviderDetailScreen extends StatefulWidget {
+  // final Map<Service, int> cart;
+
+  // const ProviderDetailScreen({Key key, this.cart}) : super(key: key);
+  //
   @override
   _ProviderDetailScreenState createState() => _ProviderDetailScreenState();
 }
 
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 0;
+  Map<Service, int> newCart;
+
 
   @override
   Widget build(BuildContext context) {
@@ -199,44 +206,74 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 5),
-        width: 350.0,
-        child: FloatingActionButton.extended(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          ),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => CheckoutScreen(),
-            ));
-          },
-          backgroundColor: Color(0xff28BEBA),
-          label: Container(
-            width: 320.0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Xem giỏ hàng',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Text(
-                  '2 dịch vụ',
-                  style: TextStyle(color: Colors.white),
-                ),
-                Text(
-                  '410.000đ',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      // floatingActionButton: buildFloatingButton(newCart),
+      floatingActionButton: buildFloatingButton(newCart),
     );
+  }
+
+  Widget buildFloatingButton(Map<Service, int> cart) {
+    if (cart != null) {
+      if (cart.isNotEmpty) {
+        final screenSize = MediaQuery.of(context).size;
+        return Container(
+          margin: const EdgeInsets.only(bottom: 5),
+          width: screenSize.width * 0.95,
+          child: FloatingActionButton.extended(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(5.0),
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => CheckoutScreen(),
+              ));
+            },
+            backgroundColor: Color(0xff28BEBA),
+            label: Container(
+              width: 320.0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Xem giỏ hàng',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    newCart == null || newCart.isEmpty
+                        ? ''
+                        : '${newCart.length} dịch vụ',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Text(
+                    newCart == null || newCart.isEmpty
+                        ? ''
+                        : '${calculatePrice(newCart)}đ',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }
+    }
+    return null;
+  }
+
+  String calculatePrice(Map<Service, int> cart) {
+    int total = 0;
+    cart.forEach((key, value) {
+      total += int.parse(key.price) * value;
+    });
+    return formatPrice(total.toString());
+  }
+
+  String formatPrice(String price) {
+    String result = price.toString() + '000';
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(int.parse(result));
+    return formatString.replaceAll(new RegExp(r','), '.');
   }
 
   Widget _buildCategory(int index) {
@@ -321,13 +358,102 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     );
   }
 
-  Widget _buildService(List<Service> lstService) {
+  Widget _buildService(List<Service> lstService, Map<Service, int> cart) {
     return Column(
-      children: generateWidgets(),
+      children: <Widget>[
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: lstService.length,
+          itemBuilder: (BuildContext buildContext, int index) {
+            Service service = lstService[index];
+            return Stack(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(40.0, 0.0, 20.0, 5.0),
+                  height: 170.0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white54,
+                    border: Border(bottom: BorderSide(color: Colors.grey[300])),
+                    // borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(110.0, 20.0, 20.0, 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            GestureDetector(
+                              child: Container(
+                                width: 105.0,
+                                child: Text(
+                                  service.name,
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              onTap: () =>
+                                  //     Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         ServiceDetailScreen(
+                                  //           service: service,
+                                  //           cart: cart,
+                                  //         ),
+                                  //   ),
+                                  // ),
+                                  _navigateAndDisplaySelection(
+                                      context, service, newCart),
+                            ),
+                            SizedBox(
+                              height: 65,
+                            ),
+                            Text(
+                              '${formatPrice(service.price)}',
+                              style: TextStyle(fontWeight: FontWeight.w900),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          service.note,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 20.0,
+                  top: 25.0,
+                  bottom: 30.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Image(
+                      width: 115.0,
+                      image: AssetImage(service.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
     );
   }
 
-  List<Widget> generateWidgets() {
+  List<Widget> generateWidgets(Map<Service, int> cart) {
     return ["Massage", "Nail", "Haircut"]
         .map<Widget>(
           (service) => Column(
@@ -378,6 +504,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                         builder: (context) =>
                                             ServiceDetailScreen(
                                           service: service,
+                                          cart: cart,
                                         ),
                                       ),
                                     ),
@@ -526,7 +653,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
         return _buildPicture(index);
         break;
       case 1:
-        return _buildService(lstService);
+        return _buildService(lstService, newCart);
         break;
       case 2:
         return _buildFeedback(lstProviderFeedback);
@@ -534,46 +661,20 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     }
   }
 
-  Widget _buildPopup(Service service) {
-    return new AlertDialog(
-      title: Text(service.name),
-      scrollable: true,
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: service.description.length,
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return Stack(children: <Widget>[
-          //         Column(children: <Widget>[
-          //           Text(service.description[index]),
-          //         ],),
-          //         ],
-          //       );
-          //     }),
-          // ),
-          // _buildLogoAttribution(),
-        ],
-      ),
-      actions: <Widget>[
-        CloseButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          color: Color(0xFF3EBACE),
-        ),
-        // new IconButton(
-        //   icon: Icon(Icons.x),
-        //   onPressed: () {
-        //     Navigator.of(context).pop();
-        //   },
-        //   color: Color(0xFF3EBACE),
-        //
-        // ),
-      ],
+  _navigateAndDisplaySelection(
+      BuildContext context, Service service, Map<Service, int> newCart) async {
+    final cart = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ServiceDetailScreen(
+                service: service,
+                cart: newCart,
+              )),
     );
+    this.newCart = cart;
+    setState(() {
+      _buildCategory(1);
+    });
   }
 
   Widget setupAlertDialoadContainer(Service service) {

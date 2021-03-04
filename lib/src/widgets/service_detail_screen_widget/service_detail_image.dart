@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
 
 class ServiceDetailImage extends StatelessWidget {
   final String path;
+  final Map<Service, int> cart;
   const ServiceDetailImage({
     Key key,
     this.path,
+    this.cart
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,7 @@ class ServiceDetailImage extends StatelessWidget {
               icon: Icon(Icons.cancel, color: Colors.white,),
               iconSize: 30.0,
               color: Colors.black,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, cart),
             )
           ],),
         ),

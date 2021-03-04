@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
-import 'package:flutter_app/src/view/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/service_detail_widget.dart';
+import 'package:intl/intl.dart';
 
-class ServiceDetailScreen extends StatelessWidget {
-  const ServiceDetailScreen({Key key, this.service}) : super(key: key);
-
+class ServiceDetailScreen extends StatefulWidget {
   final Service service;
+  final Map<Service, int> cart;
+
+  const ServiceDetailScreen({Key key, this.service, this.cart})
+      : super(key: key);
+
+  @override
+  _ServiceDetailScreenState createState() => _ServiceDetailScreenState();
+}
+
+class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
+  int updatingQuantity = 1;
 
   @override
   Widget build(BuildContext context) {
+    Map<Service, int> newCart = widget.cart;
+    Service service = widget.service;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -24,13 +35,25 @@ class ServiceDetailScreen extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ProviderDetailScreen(),
-            ));
+            if (newCart == null) {
+              newCart = new Map();
+            }
+            if (!newCart.containsKey(service) && updatingQuantity > 0) {
+              newCart[service] = updatingQuantity;
+            } else {
+              if (newCart.containsKey(service) && updatingQuantity == 0) {
+                newCart.remove(service);
+              } else if (newCart.containsKey(service) &&
+                  newCart[service] != updatingQuantity) {
+                newCart.update(service, (dynamic val) => updatingQuantity);
+              }
+            }
+
+            Navigator.pop(context, newCart);
           },
           backgroundColor: Color(0xff28BEBA),
           label: Text(
-            'THÊM VÀO GIỎ HÀNG',
+            button(service, newCart, updatingQuantity),
             style: TextStyle(color: Colors.white, letterSpacing: 3),
           ),
         ),
@@ -42,18 +65,113 @@ class ServiceDetailScreen extends StatelessWidget {
             children: <Widget>[
               ServiceDetailImage(
                 path: service.imageUrl,
+                cart: newCart,
               ),
               ServiceDetailDescription(
                 name: service.name,
                 note: service.note,
-                price: service.price,
+                price: formatPrice(service.price),
               ),
-              ServiceDetailStepDescription(description: service.description,),
-              ServiceDetailQuantityUpdating(),
+              ServiceDetailStepDescription(
+                description: service.description,
+              ),
+              Container(
+                height: screenSize.height * 0.1,
+                width: screenSize.width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 45.0 * 0.9,
+                      width: 45.0 * 0.9,
+                      margin: EdgeInsets.only(right: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.0),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.remove,
+                          color: Color(0xff28BEBA),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () {
+                              if (updatingQuantity > 0) {
+                                updatingQuantity--;
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                        child: Text(
+                      updatingQuantity.toString(),
+                      style: TextStyle(
+                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                    )),
+                    Container(
+                      height: 45.0 * 0.9,
+                      width: 45.0 * 0.9,
+                      margin: EdgeInsets.only(left: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.0),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          color: Color(0xff28BEBA),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (updatingQuantity < 99) {
+                              updatingQuantity++;
+                            }
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String formatPrice(String price) {
+    String result = price.toString() + '000';
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(int.parse(result));
+    return formatString.replaceAll(new RegExp(r','), '.');
+  }
+
+  String button(Service service, Map<Service, int> cart, int quantity) {
+    if (cart != null) {
+      if (cart.containsKey(service) && quantity == 0) {
+        return 'XÓA DỊCH VỤ';
+      } else if (cart.containsKey(service) && cart[service] != quantity) {
+        return 'CẬP NHẬT GIỎ HÀNG - SL: ${cart[service]}';
+      } else if (cart.containsKey(service) && cart[service] == quantity) {
+        return 'QUAY LẠI CHỌN DỊCH VỤ';
+      } else if (!cart.containsKey(service) && quantity == 0) {
+        return 'QUAY LẠI CHỌN DỊCH VỤ';
+      } else if (!cart.containsKey(service) && quantity > 0) {
+        return 'THÊM VÀO GIỎ HÀNG';
+      }
+    } else if (cart == null && quantity == 0) {
+      return 'QUAY LẠI CHỌN DỊCH VỤ';
+    }
+    return 'THÊM VÀO GIỎ HÀNG';
   }
 }
