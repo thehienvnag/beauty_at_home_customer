@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/provider_confirm_screen.dart';
+import 'package:flutter_app/src/widgets/google_map_service/google_service.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:location/location.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -21,7 +24,7 @@ final List<ServiceCusDetail> listDetail = List.from(<ServiceCusDetail>[
   ServiceCusDetail(
     cusID: 'GF -267',
     cusName: 'Hữu Long',
-    address: '5/3 đường số 9 , phước bình , quận 9 , Tp Hồ Chí Minh',
+    address: 'võ văn hát , quận 9 , Tp Hồ Chí Minh',
     status: 'ON THE WAY',
     note: 'Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian',
     time: '7:37 PM',
@@ -78,6 +81,28 @@ class DemoApp extends StatefulWidget {
 class _DemoAppState extends State<DemoApp> {
   final CountdownController controller = CountdownController();
   double minute = 20;
+  String currentAddress = "";
+  @override
+  void initState(){
+    getUserLocation();
+    super.initState();
+  }
+  getUserLocation() async {
+    LocationData myLocation;
+    Location location = new Location();
+    try {
+      myLocation = await location.getLocation();
+    } on PlatformException catch (e) {
+      myLocation = null;
+    }
+    final coordinates = new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    setState(() {
+      currentAddress = first.addressLine;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,21 +220,27 @@ class _DemoAppState extends State<DemoApp> {
                                       ),
                                     ),
                                   ]),
-                                  Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 44,
-                                      ),
-                                      Text(
-                                        'Xem bản đồ',
-                                        style: TextStyle(
-                                            color: Color(0xff0DB5B4), fontSize: 11),
-                                      ),
-                                      Icon(
-                                        Icons.arrow_right,
-                                        color: Color(0xff0DB5B4),
-                                      )
-                                    ],
+                                  GestureDetector(
+                                    onTap: (){
+                                      MapUtils4.openMap(currentAddress ,service.address);
+                                     //MapUtils2.openMap(service.address);
+                                    },
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 44,
+                                        ),
+                                        Text(
+                                          'Xem bản đồ',
+                                          style: TextStyle(
+                                              color: Color(0xff0DB5B4), fontSize: 11),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_right,
+                                          color: Color(0xff0DB5B4),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),

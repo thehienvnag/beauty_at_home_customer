@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jiffy/jiffy.dart';
+
 
 class HistoryScreen extends StatefulWidget {
   @override
@@ -103,7 +103,7 @@ class _HistoryPageState extends State<HistoryScreen> {
     );
   }
   Widget _detailHis(){
-    var date = Jiffy().yMMMMd;
+    // var date = Jiffy().yMMMMd;
     return Column(
           children: <Widget>[
             Column(
@@ -116,7 +116,7 @@ class _HistoryPageState extends State<HistoryScreen> {
                               imgUrl: 'public/img/calendar.png',
                               saloner: 'Đồng Hữu Long',
                               numService: 10,
-                              date: date,
+                              date: '2021-5-10',
                             ),
                           ],
                         ),
@@ -134,7 +134,7 @@ class _HistoryPageState extends State<HistoryScreen> {
                         imgUrl: 'public/img/calendar.png',
                         saloner: 'Đồng Hữu Long',
                         numService: 10,
-                        date: date,
+                        date: '2021-5-10',
                       ),
                     ],
                   ),
@@ -152,7 +152,7 @@ class _HistoryPageState extends State<HistoryScreen> {
                         imgUrl: 'public/img/calendar.png',
                         saloner: 'Đồng Hữu Long',
                         numService: 10,
-                        date: date,
+                        date: '2021-5-10',
                       ),
                     ],
                   ),
@@ -170,7 +170,7 @@ class _HistoryPageState extends State<HistoryScreen> {
                         imgUrl: 'public/img/calendar.png',
                         saloner: 'Đồng Hữu Long',
                         numService: 10,
-                        date: date,
+                        date: '2021-5-10',
                       ),
                     ],
                   ),

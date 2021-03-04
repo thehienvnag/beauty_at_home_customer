@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/provider_newOrder_Screen.dart';
+import 'package:flutter_app/src/widgets/google_map_service/google_service.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:location/location.dart';
 
 class ProviderScreen extends StatelessWidget {
   @override
@@ -15,6 +19,7 @@ class ProviderScreen extends StatelessWidget {
     );
   }
 }
+ String currentAddress = "";
 
 class DemoApp extends StatefulWidget {
   @override
@@ -25,7 +30,7 @@ final List<ServiceCusDetail> listDetail = List.from(<ServiceCusDetail>[
   ServiceCusDetail(
     cusID: 'GF -267',
     cusName: 'Hữu Long',
-    address: '5/3 đường số 9 , phước bình , quận 9 , Tp Hồ Chí Minh',
+    address: 'Jackson Park, California, Hoa Kỳ',
     status: 'ON THE WAY',
     note: 'Làm sao để có một bản ghi chú hiệu quả mà không mất quá nhiều thời gian',
     time: '7:37 PM',
@@ -51,6 +56,31 @@ final List<ServiceCusDetail> listDetail = List.from(<ServiceCusDetail>[
 
 class _DemoAppState extends State<DemoApp> {
   bool isSwiched = false;
+
+
+  @override
+  void initState(){
+    getUserLocation();
+    super.initState();
+  }
+
+
+  getUserLocation() async {
+    LocationData myLocation;
+    Location location = new Location();
+    try {
+      myLocation = await location.getLocation();
+    } on PlatformException catch (e) {
+      myLocation = null;
+    }
+    final coordinates = new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+      setState(() {
+        currentAddress = first.addressLine;
+        });
+  }
+
 
   Widget title(BuildContext context) {
     if (isSwiched == true)
@@ -139,10 +169,7 @@ class _DemoAppState extends State<DemoApp> {
               Container(
                   alignment: Alignment.topLeft,
                   child: Text(' Đơn đã chấp nhận',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold))),
+                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))),
               SizedBox(height: 10),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -321,6 +348,7 @@ class _DemoAppState extends State<DemoApp> {
     );
   }
 }
+
 class loadAllBooking extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -420,21 +448,27 @@ class loadAllBooking extends StatelessWidget{
                                   ),
                                 ),
                               ]),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 44,
-                                  ),
-                                  Text(
-                                    'Xem bản đồ',
-                                    style: TextStyle(
-                                        color: Color(0xff0DB5B4), fontSize: 11),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_right,
-                                    color: Color(0xff0DB5B4),
-                                  )
-                                ],
+                              GestureDetector(
+                                onTap: (){
+                                  MapUtils4.openMap(currentAddress ,service.address);
+                                  //MapUtils3.openMap(double.parse(latitudeData),double.parse(longitudeData),service.address);
+                                },
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 44,
+                                    ),
+                                    Text(
+                                      'Xem bản đồ',
+                                      style: TextStyle(
+                                          color: Color(0xff0DB5B4), fontSize: 11),
+                                    ),
+                                    Icon(
+                                      Icons.arrow_right,
+                                      color: Color(0xff0DB5B4),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
                           ),
