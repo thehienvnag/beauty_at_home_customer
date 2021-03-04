@@ -16,11 +16,19 @@ class ServiceDetailScreen extends StatefulWidget {
 
 class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   int updatingQuantity = 1;
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.cart != null && widget.cart.containsKey(widget.service)) {
+      updatingQuantity = widget.cart[widget.service];
+    } else {
+      updatingQuantity = 1;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Map<Service, int> newCart = widget.cart;
-    Service service = widget.service;
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -38,14 +46,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
             if (newCart == null) {
               newCart = new Map();
             }
-            if (!newCart.containsKey(service) && updatingQuantity > 0) {
-              newCart[service] = updatingQuantity;
+            if (!newCart.containsKey(widget.service) && updatingQuantity > 0) {
+              newCart[widget.service] = updatingQuantity;
             } else {
-              if (newCart.containsKey(service) && updatingQuantity == 0) {
-                newCart.remove(service);
-              } else if (newCart.containsKey(service) &&
-                  newCart[service] != updatingQuantity) {
-                newCart.update(service, (dynamic val) => updatingQuantity);
+              if (newCart.containsKey(widget.service) && updatingQuantity == 0) {
+                newCart.remove(widget.service);
+              } else if (newCart.containsKey(widget.service) &&
+                  newCart[widget.service] != updatingQuantity) {
+                newCart.update(widget.service, (dynamic val) => updatingQuantity);
               }
             }
 
@@ -53,7 +61,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           },
           backgroundColor: Color(0xff28BEBA),
           label: Text(
-            button(service, newCart, updatingQuantity),
+            button(widget.service, newCart, updatingQuantity),
             style: TextStyle(color: Colors.white, letterSpacing: 3),
           ),
         ),
@@ -64,16 +72,16 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           child: Column(
             children: <Widget>[
               ServiceDetailImage(
-                path: service.imageUrl,
+                path: widget.service.imageUrl,
                 cart: newCart,
               ),
               ServiceDetailDescription(
-                name: service.name,
-                note: service.note,
-                price: formatPrice(service.price),
+                name: widget.service.name,
+                note: widget.service.note,
+                price: formatPrice(widget.service.price),
               ),
               ServiceDetailStepDescription(
-                description: service.description,
+                description: widget.service.description,
               ),
               Container(
                 height: screenSize.height * 0.1,
@@ -132,7 +140,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                         ),
                         onPressed: () {
                           setState(() {
-                            if (updatingQuantity < 99) {
+                            if (updatingQuantity < 10) {
                               updatingQuantity++;
                             }
                           });
@@ -161,7 +169,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
       if (cart.containsKey(service) && quantity == 0) {
         return 'XÓA DỊCH VỤ';
       } else if (cart.containsKey(service) && cart[service] != quantity) {
-        return 'CẬP NHẬT GIỎ HÀNG - SL: ${cart[service]}';
+        return 'CẬP NHẬT GIỎ HÀNG';
       } else if (cart.containsKey(service) && cart[service] == quantity) {
         return 'QUAY LẠI CHỌN DỊCH VỤ';
       } else if (!cart.containsKey(service) && quantity == 0) {
