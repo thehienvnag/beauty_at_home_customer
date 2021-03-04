@@ -64,25 +64,27 @@ class PaymentScreen extends StatelessWidget {
             indent: 12,
             endIndent: 10,
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 12),
-            child: Row(
-              children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('public/img/iconcash.PNG'),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context, 0);
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 18),
+              child: Row(
+                children: [
+                  Image(
+                    image: AssetImage(
+                      'public/img/momo_icon.png',
                     ),
+                    height: 38,
+                    width: 38,
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 18),
-                  child: Text('Tiền mặt'),
-                ),
-              ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 25),
+                    child: Text('MoMo'),
+                  ),
+                ],
+              ),
             ),
           ),
           Divider(
@@ -95,22 +97,30 @@ class PaymentScreen extends StatelessWidget {
           Container(
             margin: const EdgeInsets.only(top: 5),
           ),
-          Container(
-            margin: const EdgeInsets.only(left: 18),
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage(
-                    'public/img/momo_icon.png',
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context, 1);
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 12),
+              child: Row(
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('public/img/iconcash.PNG'),
+                      ),
+                    ),
                   ),
-                  height: 38,
-                  width: 38,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 25),
-                  child: Text('VND 25.000'),
-                ),
-              ],
+                  Container(
+                    margin: const EdgeInsets.only(left: 18),
+                    child: Text('Tiền mặt'),
+                  ),
+                ],
+              ),
             ),
           ),
           Container(

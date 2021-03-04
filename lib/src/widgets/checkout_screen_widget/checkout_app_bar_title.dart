@@ -13,9 +13,7 @@ class CheckoutAppBarTitle extends StatelessWidget {
         child: Divider(
           height: 20,
           thickness: 0.5,
-          color: Colors.grey,
-          indent: 12,
-          endIndent: 10,
+          color: Colors.grey.withOpacity(0.3),
         ),
       ),
       centerTitle: true,

@@ -17,7 +17,8 @@ class _HistoryPageState extends State<HistoryScreen> {
           backgroundColor: Colors.white,
           leadingWidth: 0,
           title: Center(
-              child: Text('Lịch sử hoạt động',
+              child: Text(
+            'Lịch sử hoạt động',
             style: TextStyle(color: Colors.black),
           )),
           bottom: TabBar(
@@ -28,7 +29,8 @@ class _HistoryPageState extends State<HistoryScreen> {
               Tab(
                 child: Align(
                     alignment: Alignment.center,
-                    child: Text('Đơn hiện tại',
+                    child: Text(
+                      'Đơn hiện tại',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.7), fontSize: 18),
                     )),
@@ -36,7 +38,8 @@ class _HistoryPageState extends State<HistoryScreen> {
               Tab(
                 child: Align(
                     alignment: Alignment.center,
-                    child: Text('Lịch sử dùng',
+                    child: Text(
+                      'Lịch sử dùng',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.7), fontSize: 18),
                     )),
@@ -76,14 +79,17 @@ Widget _noActive(BuildContext context) {
                     width: MediaQuery.of(context).size.width * 0.7,
                     padding: EdgeInsets.all(2),
                     margin: EdgeInsets.only(top: 15, left: 15),
-                    child: Text('Hiện vẫn chưa có đơn nào',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    child: Text(
+                      'Hiện vẫn chưa có đơn nào',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     )),
                 Container(
                     padding: EdgeInsets.all(2),
                     margin: EdgeInsets.only(top: 5, left: 15),
                     width: MediaQuery.of(context).size.width * 0.7,
-                    child: Text('Đơn sẽ xuất hiện khi bạn sử dụng các dịch vụ của chúng tôi.')),
+                    child: Text(
+                        'Đơn sẽ xuất hiện khi bạn sử dụng các dịch vụ của chúng tôi.')),
               ],
             ),
           ),
@@ -92,7 +98,6 @@ Widget _noActive(BuildContext context) {
     ),
   );
 }
-
 
 class History {
   final String saloner, imgUrl;
@@ -171,84 +176,82 @@ class LoadHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          physics: BouncingScrollPhysics(),
-          itemCount: lstHistory.length,
-          itemBuilder: (BuildContext buildContext, int index) {
-            History history = lstHistory[index];
-            return Container(
-              color: Colors.white,
-               margin: EdgeInsets.only(top: 2),
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: history.press,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                              width: 50,
-                              margin: EdgeInsets.only(left: 10, right: 13),
-                              child: Image.asset(
-                                history.imgUrl,
-                                width: 60,
-                                height: 60,
-                              )),
-                          Container(
-                            width: 160,
-                            margin: EdgeInsets.only(top: 5),
-                            height: 50,
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: history.saloner.toUpperCase(),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: Colors.black.withOpacity(0.7)),
+    return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: lstHistory.length,
+        itemBuilder: (BuildContext buildContext, int index) {
+          History history = lstHistory[index];
+          return Container(
+            color: Colors.white,
+            margin: EdgeInsets.only(top: 2),
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 15),
+                GestureDetector(
+                  onTap: history.press,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                            width: 50,
+                            margin: EdgeInsets.only(left: 10, right: 13),
+                            child: Image.asset(
+                              history.imgUrl,
+                              width: 60,
+                              height: 60,
+                            )),
+                        Container(
+                          width: 160,
+                          margin: EdgeInsets.only(top: 5),
+                          height: 50,
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: history.saloner.toUpperCase(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Colors.black.withOpacity(0.7)),
+                                ),
+                                TextSpan(
+                                  text: "\n${history.numService} dịch vụ",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black.withOpacity(0.5),
                                   ),
-                                  TextSpan(
-                                    text: "\n${history.numService} dịch vụ",
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black.withOpacity(0.5),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          Container(
-                              width: 100,
-                              child: Text(
-                                history.date,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black.withOpacity(0.4),
-                                ),
-                                textAlign: TextAlign.left,
-                              )),
-                        ],
-                      ),
+                        ),
+                        Container(
+                            width: 100,
+                            child: Text(
+                              history.date,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black.withOpacity(0.4),
+                              ),
+                              textAlign: TextAlign.left,
+                            )),
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                      width: 380,
-                      height: 0.5,
-                      color: Colors.black.withOpacity(0.5)),
-                ],
-              ),
-            );
-          }),
-    );
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                    width: 380,
+                    height: 0.5,
+                    color: Colors.black.withOpacity(0.5)),
+              ],
+            ),
+          );
+        });
   }
 }
 
@@ -271,83 +274,83 @@ class LoadActive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      return Expanded(
-        child: ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: lstActive.length,
-            itemBuilder: (BuildContext buildContext, int index) {
-              Active active = lstActive[index];
-              return Container(
-                margin: EdgeInsets.only(left: 10, top: 10),
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(height: 30),
-                    GestureDetector(
-                      onTap: active.pres,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: <Widget>[
-                            Container(
+    return Expanded(
+      child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          itemCount: lstActive.length,
+          itemBuilder: (BuildContext buildContext, int index) {
+            Active active = lstActive[index];
+            return Container(
+              margin: EdgeInsets.only(left: 10, top: 10),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 30),
+                  GestureDetector(
+                    onTap: active.pres,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                              width: 50,
+                              margin: EdgeInsets.only(right: 13),
+                              child: Image.asset(
+                                active.imgUrls,
                                 width: 50,
-                                margin: EdgeInsets.only(right: 13),
-                                child: Image.asset(
-                                  active.imgUrls,
-                                  width: 50,
-                                  height: 50,
-                                )),
-                            Container(
-                              width: 160,
-                              margin: EdgeInsets.only(top: 5),
-                              height: 50,
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: active.saloners.toUpperCase(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          color: Colors.black.withOpacity(0.7)),
+                                height: 50,
+                              )),
+                          Container(
+                            width: 160,
+                            margin: EdgeInsets.only(top: 5),
+                            height: 50,
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: active.saloners.toUpperCase(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: Colors.black.withOpacity(0.7)),
+                                  ),
+                                  TextSpan(
+                                    text: "\n${active.numServices} dịch vụ",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black.withOpacity(0.5),
                                     ),
-                                    TextSpan(
-                                      text: "\n${active.numServices} dịch vụ",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black.withOpacity(0.5),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Container(
-                                width: 100,
-                                child: Text(
-                                  active.status,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.black.withOpacity(0.4),
-                                  ),
-                                  textAlign: TextAlign.left,
-                                )),
-                          ],
-                        ),
+                          ),
+                          Container(
+                              width: 100,
+                              child: Text(
+                                active.status,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black.withOpacity(0.4),
+                                ),
+                                textAlign: TextAlign.left,
+                              )),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      height: 30,
-                      child: Container(color: Colors.white),
-                    ),
-                    Container(
-                        width: 400,
-                        height: 0.5,
-                        color: Colors.black.withOpacity(0.5)),
-                  ],
-                ),
-              );
-            }),
-      );
+                  ),
+                  SizedBox(
+                    height: 30,
+                    child: Container(color: Colors.white),
+                  ),
+                  Container(
+                      width: 400,
+                      height: 0.5,
+                      color: Colors.black.withOpacity(0.5)),
+                ],
+              ),
+            );
+          }),
+    );
   }
 }

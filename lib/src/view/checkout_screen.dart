@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/payment_screen.dart';
 import 'package:flutter_app/src/view/wait_confirm.dart';
 import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends StatefulWidget {
+  @override
+  _CheckoutScreenState createState() => _CheckoutScreenState();
+}
+
+final currentPayment = List.from([
+  "public/img/momo_icon.png",
+  "public/img/iconcash.PNG",
+]);
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  int currentPaymentIndex;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentPaymentIndex = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -127,10 +147,20 @@ class CheckoutScreen extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 15),
-                      child: Text(
-                        'Sửa',
-                        style: TextStyle(
-                          color: Color(0xff0DB5B4),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  LocationChangeDescriptionScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Sửa',
+                          style: TextStyle(
+                            color: Color(0xff0DB5B4),
+                          ),
                         ),
                       ),
                     ),
@@ -150,10 +180,15 @@ class CheckoutScreen extends StatelessWidget {
                   Text('Tóm tắt đơn hàng'),
                   Container(
                     margin: const EdgeInsets.only(left: 120),
-                    child: Text(
-                      'Thêm dịch vụ',
-                      style: TextStyle(
-                        color: Color(0xff0DB5B4),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Thêm dịch vụ',
+                        style: TextStyle(
+                          color: Color(0xff0DB5B4),
+                        ),
                       ),
                     ),
                   ),
@@ -239,10 +274,15 @@ class CheckoutScreen extends StatelessWidget {
                 endIndent: 10,
               ),
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  final result = await Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PaymentScreen()),
+                  );
+                  setState(
+                    () {
+                      currentPaymentIndex = result;
+                    },
                   );
                 },
                 child: Container(
@@ -251,7 +291,7 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       Image(
                         image: AssetImage(
-                          currentPayment[0],
+                          currentPayment[currentPaymentIndex],
                         ),
                         height: 38,
                         width: 38,
@@ -297,11 +337,6 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 }
-
-final currentPayment = List.from([
-  "public/img/momo_icon.png",
-  "public/img/iconcash.PNG",
-]);
 
 class CheckoutService extends StatelessWidget {
   final String price, quantity, category, name;
