@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
+import 'package:flutter_app/src/view/notification_screen.dart';
 import 'package:flutter_app/src/view/search_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -12,6 +13,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   final dynamic currentScreenState = {
     0: HomeScreen(),
     1: SearchPage(),
+    3: NotificationScreen(),
   };
 
   @override

@@ -251,7 +251,7 @@ class CheckoutScreen extends StatelessWidget {
                     children: [
                       Image(
                         image: AssetImage(
-                          'public/img/momo_icon.png',
+                          currentPayment[0],
                         ),
                         height: 38,
                         width: 38,
@@ -297,6 +297,11 @@ class CheckoutScreen extends StatelessWidget {
     );
   }
 }
+
+final currentPayment = List.from([
+  "public/img/momo_icon.png",
+  "public/img/iconcash.PNG",
+]);
 
 class CheckoutService extends StatelessWidget {
   final String price, quantity, category, name;
