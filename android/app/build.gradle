@@ -33,6 +33,7 @@ android {
         applicationId "com.example.flutter_app"
         minSdkVersion 16
         targetSdkVersion 30
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -48,4 +49,9 @@ android {
 
 flutter {
     source '../..'
+}
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
 }

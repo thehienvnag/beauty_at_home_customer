@@ -28,13 +28,8 @@ class ServiceItem {
 class LoadServices extends StatelessWidget {
   List<ServiceItem> lstService = List.from([
     ServiceItem(
-<<<<<<< HEAD
-        image: 'public/img/beautician1.png',
-        salonOwner: 'Hani Nguyễn',
-=======
         image: 'public/img/mit_nails_spa.png',
         salonOwner: 'Mít Nail & Spa',
->>>>>>> origin/feature/FE/LongDH/CR_Code_BookingActivity&UserProfile
         titleService: 'Làm nail - Làm tóc',
         area: 'Quận 2, TP. Hồ Chí Minh',
         range: '2.3 km',
