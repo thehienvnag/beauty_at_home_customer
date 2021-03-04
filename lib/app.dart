@@ -17,10 +17,10 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        //'/': (context) => HomeScreen(),
+        '/': (context) => HomeScreen(),
         //'/': (context) => CheckoutScreen(),
         //'/': (context) => PaymentScreen(),
-        '/': (context) => NotificationScreen(),
+        // '/': (context) => NotificationScreen(),
         //'/': (context) => LocationChangeDescriptionScreen(),
         // When navigating to the "/second" route, build the SecondScreen widget.
       },

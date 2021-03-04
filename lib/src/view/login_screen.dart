@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/widgets/login_screen_widget/background_painter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'home_screen.dart';
+import 'login_phone_screen.dart';
 
 class Login_screen extends StatefulWidget {
   @override
@@ -18,27 +20,25 @@ class _MyAppState extends State<Login_screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // isSignIn ? Navigator.of(context).push(MaterialPageRoute(
-        //     builder: (context) => HomeScreen()))
-        body: isSignIn
-            ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(_user.photoURL),
-                    ),
-                    Text(_user.displayName),
-                    OutlineButton(
-                      onPressed: () {
-                        gooleSignout();
-                      },
-                      child: Text("Logout"),
-                    )
-                  ],
-                ),
-              )
-            : Stack(
+        body:
+        // isSignIn ? Center(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: <Widget>[
+        //             CircleAvatar(
+        //               backgroundImage: NetworkImage(_user.photoURL),
+        //             ),
+        //             Text(_user.displayName),
+        //             OutlineButton(
+        //               onPressed: () {
+        //                 gooleSignout();
+        //               },
+        //               child: Text("Logout"),
+        //             )
+        //           ],
+        //         ),
+        //       ) :
+        Stack(
               children: <Widget> [
                 Container(
                   margin: EdgeInsets.only(top:70 ),
@@ -131,9 +131,12 @@ class _MyAppState extends State<Login_screen> {
 
     _user = result.user;
 
-    setState(() {
-      isSignIn = true;
-    });
+    // setState(() {
+    //   isSignIn = true;
+    // });
+    if(_user.displayName.isNotEmpty){
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
   }
 
   Future<void> gooleSignout() async {
@@ -193,7 +196,7 @@ class _MyAppState extends State<Login_screen> {
               color: Colors.lightBlue,
             ),
             onPressed: () {
-// handleSignIn();
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login_phone_screen()));
             },
           ),
         ),

@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/profile_edit_creen.dart';
 import 'package:flutter_app/src/view/setting_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'login_screen.dart';
 
 
@@ -183,6 +185,7 @@ class ProfileScreenState extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
+              gooleSignout();
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Login_screen(),
               ));
@@ -210,5 +213,12 @@ class ProfileScreenState extends StatelessWidget {
       ),
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(4),
     );
+  }
+
+  Future<void> gooleSignout() async {
+    GoogleSignIn _googleSignIn = new GoogleSignIn();
+    await FirebaseAuth.instance.signOut().then((onValue) {
+      _googleSignIn.signOut();
+    });
   }
 }
