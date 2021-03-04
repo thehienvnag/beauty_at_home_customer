@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/list_search_screen.dart';
-
 import 'list_search_screen_noFound.dart';
 
 class BlankScreen extends StatefulWidget {
@@ -9,9 +8,14 @@ class BlankScreen extends StatefulWidget {
 }
 
 class _HomePageState extends State<BlankScreen> {
-  String searchKey;
   @override
   Widget build(BuildContext context) {
+    Future _press(String keySearch) async {
+      Navigator.of(context).push(new MaterialPageRoute<dynamic>(
+          builder: (context) => ListSearchScreen(),
+          settings: RouteSettings(arguments: keySearch)),
+      );
+    }
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -31,21 +35,15 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(children: [
                 ServiceInvite(
                   keysearch: 'Nail thái',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Nail thái'))),
+                  press: () => _press('Nail Thái'),
                 ),
                 ServiceInvite(
                   keysearch: 'Nail hạt dẻ',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Nail hạt dẻ'))),
+                  press: () => _press('Nail hạt dẻ'),
                 ),
                 ServiceInvite(
                   keysearch: 'Trang điểm',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Trang điểm'))),
+                  press: () => _press('Trang điểm'),
                 )
               ]),
             ),
@@ -54,21 +52,15 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(children: [
                 ServiceInvite(
                   keysearch: 'Làm tóc',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Tóc'))),
+                  press: () => _press('Làm tóc'),
                 ),
                 ServiceInvite(
                   keysearch: 'Nối mi',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Mi'))),
+                  press: () => _press('Mi'),
                 ),
                 ServiceInvite(
                   keysearch: 'Massage thân',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Massage'))),
+                  press: () => _press('Massage'),
                 )
               ]),
             ),
@@ -77,15 +69,11 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(children: [
                 ServiceInvite(
                   keysearch: 'Trang điểm tiệc',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Trang điểm'))),
+                  press: () => _press('Trang điểm tiệc'),
                 ),
                 ServiceInvite(
                   keysearch: 'Uốn tóc đẹp',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'Tóc đẹp'))),
+                  press: () => _press('Tóc đẹp'),
                 ),
               ]),
             ),
@@ -103,21 +91,15 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(children: [
                 ServiceInvite(
                   keysearch: 'trang diem',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'trang diem'))),
+                  press: () => _press('trang diem'),
                 ),
                 ServiceInvite(
                   keysearch: 'son mong',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'son mong'))),
+                  press: () => _press('son mong'),
                 ),
                 ServiceInvite(
                   keysearch: 'dam lung',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'dam lung'))),
+                  press: () => _press('dam lung'),
                 )
               ]),
             ),
@@ -126,15 +108,11 @@ class _HomePageState extends State<BlankScreen> {
               child: Row(children: [
                 ServiceInvite(
                   keysearch: 'son mong tay dep',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'son mong tay'))),
+                  press: () => _press('son mong tay dep'),
                 ),
                 ServiceInvite(
                   keysearch: 'lam toc quan 9',
-                  press: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ListSearchScreen(),
-                      settings: RouteSettings(arguments: 'lam toc quan 9'))),
+                  press: () => _press('lam toc quan 9'),
                 ),
               ]),
             ),
@@ -149,8 +127,18 @@ class _HomePageState extends State<BlankScreen> {
     var _controller = TextEditingController();
     return new AppBar(
       backgroundColor: Colors.white,
+      leading: IconButton(
+        padding: EdgeInsets.only(top: 10,left: 10),
+        icon: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
       elevation: 0,
-      leadingWidth: 0,
+      leadingWidth: 20,
       title: Container(
         margin: EdgeInsets.only(top: 12),
         height: 45,
@@ -160,11 +148,11 @@ class _HomePageState extends State<BlankScreen> {
           textInputAction: TextInputAction.search,
           controller: _controller,
           onSubmitted: (value) {
-            if (value.isNotEmpty && value.length < 25) {
+            if (value.isNotEmpty && value.length < 22) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ListSearchScreen(),
                   settings: RouteSettings(arguments: value)));
-            } else if (value.length > 25) {
+            } else if (value.length > 22) {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ListSearchScreenNotFound(),
                   settings: RouteSettings(arguments: value)));
@@ -195,6 +183,8 @@ class ServiceInvite extends StatelessWidget {
   final String keysearch;
   final Function press;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -210,7 +200,7 @@ class ServiceInvite extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
-                onTap: press,
+                onTap: press ,
                 child: Text(
                   '$keysearch',
                   style: TextStyle(fontSize: 20),

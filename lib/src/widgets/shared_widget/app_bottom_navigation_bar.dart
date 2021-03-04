@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/history_screen.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
+<<<<<<< HEAD
 import 'package:flutter_app/src/view/notification_screen.dart';
+=======
+import 'package:flutter_app/src/view/profile_screen.dart';
+>>>>>>> origin/feature/FE/LongDH/CR_Code_BookingActivity&UserProfile
 import 'package:flutter_app/src/view/search_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -13,7 +18,12 @@ class AppBottomNavigationBar extends StatelessWidget {
   final dynamic currentScreenState = {
     0: HomeScreen(),
     1: SearchPage(),
+<<<<<<< HEAD
     3: NotificationScreen(),
+=======
+    2: HistoryScreen(),
+    4: ProfileScreen(),
+>>>>>>> origin/feature/FE/LongDH/CR_Code_BookingActivity&UserProfile
   };
 
   @override

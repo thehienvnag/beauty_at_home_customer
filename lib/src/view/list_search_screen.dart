@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
 import 'package:flutter_app/src/widgets/search_service_screen_widget/list_search_service.dart';
-
 import 'list_search_screen_noFound.dart';
 
 class ListSearchScreen extends StatefulWidget {
@@ -70,8 +69,18 @@ Widget _buildBar(BuildContext context) {
   var _controller = TextEditingController();
   return new AppBar(
     backgroundColor: Colors.white,
+    leading: IconButton(
+      padding: EdgeInsets.only(top: 10,left: 10),
+      icon: Icon(
+        Icons.arrow_back_ios,
+        color: Colors.black,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),
     elevation: 0,
-    leadingWidth: 0,
+    leadingWidth: 20,
     title:
     Container(
       margin: EdgeInsets.only(top: 12),
@@ -87,12 +96,12 @@ Widget _buildBar(BuildContext context) {
           height: 1,
         ),
         onSubmitted: (value) {
-          if (value.isNotEmpty && value.length < 25 ) {
+          if (value.isNotEmpty && value.length < 22 ) {
             Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => ListSearchScreen(),
                     settings: RouteSettings(arguments: value)));
-          }else if(value.length > 25){
+          }else if(value.length > 22){
             Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (context) => ListSearchScreenNotFound(),
