@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/history_screen.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
-import 'package:flutter_app/src/view/profile_screen.dart';
+import 'package:flutter_app/src/view/provider_confirm_screen.dart';
+import 'package:flutter_app/src/view/provider_newOrder_Screen.dart';
 import 'package:flutter_app/src/view/search_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -14,8 +15,8 @@ class AppBottomNavigationBar extends StatelessWidget {
   final dynamic currentScreenState = {
     0: HomeScreen(),
     1: SearchPage(),
-    2: HistoryScreen(),
-    4: ProfileScreen(),
+    2: ProviderScreen(),
+    3: ProviderNewOderScreen(),
   };
 
   @override
@@ -44,7 +45,7 @@ class AppBottomNavigationBar extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Activity',
+          label: 'ProviderScreen',
           icon: Icon(
             Icons.list,
           ),

@@ -42,10 +42,10 @@ class OutlinedCard extends StatelessWidget {
             separatorBuilder: (context, index) =>
                 this.divider ??
                 const Divider(
-                  height: 35,
+                  height: 30,
                   thickness: 0.5,
                   indent: 3,
-                  endIndent: 3,
+                  endIndent: 1,
                   color: Colors.grey,
                 ),
             itemCount: sections.length,
