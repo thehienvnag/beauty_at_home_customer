@@ -10,14 +10,14 @@ class Category {
 }
 
 final listCategories = List.from([
-  Category(image: 'public/img/service_hair_cut.PNG', name: 'Cắt tóc'),
-  Category(image: 'public/img/service_hair_color.PNG', name: 'Nhuộm tóc'),
-  Category(image: 'public/img/service_water_hair.PNG', name: 'Gội đầu'),
-  Category(image: 'public/img/service_spa_massage.PNG', name: 'Massage'),
-  Category(image: 'public/img/service_skin.PNG', name: 'Chăm sóc da'),
-  Category(image: 'public/img/service_waxing.PNG', name: 'Waxing'),
-  Category(image: 'public/img/service_makeup.PNG', name: 'Trang điểm'),
-  Category(image: 'public/img/service_nails.PNG', name: 'Nails'),
+  Category(image: 'public/img/service_hair_cut.png', name: 'Cắt tóc'),
+  Category(image: 'public/img/service_hair_color.png', name: 'Nhuộm tóc'),
+  Category(image: 'public/img/service_water_hair.png', name: 'Gội đầu'),
+  Category(image: 'public/img/service_spa_massage.png', name: 'Massage'),
+  Category(image: 'public/img/service_skin.png', name: 'Chăm sóc da'),
+  Category(image: 'public/img/service_waxing.png', name: 'Waxing'),
+  Category(image: 'public/img/service_makeup.png', name: 'Trang điểm'),
+  Category(image: 'public/img/service_nails.png', name: 'Nails'),
 ]);
 
 class ServiceWidget extends StatelessWidget {
