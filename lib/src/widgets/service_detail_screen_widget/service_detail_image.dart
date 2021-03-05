@@ -14,7 +14,7 @@ class ServiceDetailImage extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: 200.0,
+          height: 215.0,
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.only(bottom: 1.0),
           decoration: BoxDecoration(
