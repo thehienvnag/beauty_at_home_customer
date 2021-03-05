@@ -66,7 +66,7 @@ Provider provider = Provider(
     address: '27 đường số 3, Phường Bình An, Quận 2, Thành phố Hồ Chí Minh',
     status: 'Đang hoạt động',
     rate: 4.8,
-    reviews: '1,440',
+    reviews: '1440',
     lowerPrice: '50.000đ',
     upperPrice: '500.000đ',
     openTime: '9:00 AM',
@@ -190,6 +190,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             ),
           ),
           _buildComponent(_selectedIndex),
+          _checkCart(newCart),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -246,6 +247,15 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       }
     }
     return null;
+  }
+
+  Widget _checkCart(Map<Service, int> cart) {
+    if (cart == null) {
+      return Container();
+    } else if (cart != null && cart.isNotEmpty) {
+      return SizedBox(height: 40.0,);
+    }
+    return Container();
   }
 
   String calculatePrice(Map<Service, int> cart) {
@@ -361,7 +371,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                     // borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(110.0, 20.0, 20.0, 20.0),
+                    padding: EdgeInsets.fromLTRB(110.0, 20.0, 00.0, 20.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,

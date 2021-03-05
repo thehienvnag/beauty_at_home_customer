@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
+import 'package:intl/intl.dart';
 
 class ProviderDescription extends StatelessWidget {
   final Provider provider;
@@ -90,11 +91,11 @@ class ProviderDescription extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 20,
-            right: 10,
+            top: 10,
+            right: 12,
             child: Container(
-              height: 95.0,
-              width: 80.0,
+              height: 75.0,
+              width: 65.0,
               decoration: BoxDecoration(
                 color: Color(0xFF0DB5B4),
                 borderRadius: BorderRadius.circular(15.0),
@@ -118,35 +119,37 @@ class ProviderDescription extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Icon(Icons.stars, color: Colors.white, size: 35.0,),
+                        child: Icon(Icons.stars, color: Colors.white, size: 22.0,),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0,top: 8.0),
                         child: Text(provider.rate.toString(),
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               fontWeight: FontWeight.bold,
                             ),
                         ),
                       ),
                     ],),
                   Container(
-                    height: 42.0,
+                    height: 35.0,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.0),
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(provider.reviews,
+                        Text(formatPrice(provider.reviews),
                           style: TextStyle(
+                            fontSize: 11.0,
                               fontWeight: FontWeight.bold
                           ),),
                         Text('Reviews',
                           style: TextStyle(
+                              fontSize: 11.0,
                               fontWeight: FontWeight.bold
                           ),),
                       ],
@@ -158,5 +161,12 @@ class ProviderDescription extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatPrice(String review) {
+    String result = review.toString();
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(int.parse(result));
+    return formatString;
   }
 }

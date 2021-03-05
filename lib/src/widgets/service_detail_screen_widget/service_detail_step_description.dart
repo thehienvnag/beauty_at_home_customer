@@ -14,6 +14,7 @@ class ServiceDetailStepDescription extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
+          width: screenSize.width,
           color: Colors.white,
           padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
           child: Text(
