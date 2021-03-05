@@ -37,7 +37,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.png',
+        image: 'public/img/beautician2.PNG',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -46,7 +46,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician3.png',
+        image: 'public/img/beautician3.PNG',
         salonOwner: 'Marry Trần',
         titleService: 'Trang điểm - Làm tóc',
         area: 'Quận 10, TP. Hồ Chí Minh',
@@ -55,7 +55,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.png',
+        image: 'public/img/beautician1.PNG',
         salonOwner: 'Aleck Marry',
         titleService: 'Combo làm tóc,trang điểm',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -64,7 +64,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.png',
+        image: 'public/img/beautician2.PNG',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -73,7 +73,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.png',
+        image: 'public/img/beautician1.PNG',
         salonOwner: 'Hani Nguyễn',
         titleService: 'Làm nail - Làm tóc',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -82,7 +82,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.png',
+        image: 'public/img/beautician2.PNG',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -91,7 +91,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician3.png',
+        image: 'public/img/beautician3.PNG',
         salonOwner: 'Marry Trần',
         titleService: 'Trang điểm - Làm tóc',
         area: 'Quận 10, TP. Hồ Chí Minh',
@@ -100,7 +100,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician1.png',
+        image: 'public/img/beautician1.PNG',
         salonOwner: 'Aleck Marry',
         titleService: 'Combo làm tóc,trang điểm',
         area: 'Quận 2, TP. Hồ Chí Minh',
@@ -109,7 +109,7 @@ class LoadServices extends StatelessWidget {
         timeLine: '9:00 AM - 8:30 PM',
         status: 'Đang hoặt động'),
     ServiceItem(
-        image: 'public/img/beautician2.png',
+        image: 'public/img/beautician2.PNG',
         salonOwner: 'Tony Đặng',
         titleService: 'Massage - Giác hơi',
         area: 'Quận 1, TP. Hồ Chí Minh',
@@ -258,7 +258,7 @@ class RecomendServices extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('public/img/beautician1.png'),
+                  image: AssetImage('public/img/beautician1.PNG'),
                 ),
               ),
             ),
@@ -365,7 +365,7 @@ class RecomendServices extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('public/img/beautician2.png'),
+                image: AssetImage('public/img/beautician2.PNG'),
               ),
             ),
           ),
@@ -470,7 +470,7 @@ class RecomendServices extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('public/img/beautician3.png'),
+                  image: AssetImage('public/img/beautician3.PNG'),
                 ),
               ),
             ),

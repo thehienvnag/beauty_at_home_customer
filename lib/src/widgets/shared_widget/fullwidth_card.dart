@@ -36,7 +36,7 @@ class FullWidthCard extends StatelessWidget {
       ),
       shapeBorder: RoundedRectangleBorder(
         side: BorderSide(
-          color: Colors.grey,
+          color: Colors.grey.withOpacity(0.5),
           width: 0.5,
         ),
       ),

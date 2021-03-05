@@ -11,13 +11,16 @@ class SlideService extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'DỊCH VỤ NỔI BẬT',
-              style: TextStyle(
-                letterSpacing: 1.5,
-                fontWeight: FontWeight.normal,
-                fontSize: 18,
-                color: Colors.black.withOpacity(0.6),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'DỊCH VỤ NỔI BẬT',
+                style: TextStyle(
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 18,
+                  color: Colors.black.withOpacity(0.6),
+                ),
               ),
             ),
             Container(

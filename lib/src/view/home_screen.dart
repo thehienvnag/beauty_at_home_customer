@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,13 +18,16 @@ class _HomeScreenState extends State<HomeScreen> {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(95),
+        preferredSize: Size.fromHeight(102),
         child: AppBar(
           bottom: PreferredSize(
-            child: WidgetUtils.searchTextField,
-            preferredSize: Size.fromHeight(30),
+            child: Container(
+              child: WidgetUtils.searchTextField,
+              margin: EdgeInsets.only(bottom: 10),
+            ),
+            preferredSize: Size.fromHeight(40),
           ),
-          elevation: isScrollTop ? 0 : 1,
+          elevation: 0.7,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           actions: [
@@ -71,14 +75,21 @@ class _HomeScreenState extends State<HomeScreen> {
           controller: _scrollController,
           scrollDirection: Axis.vertical,
           child: Container(
-            color: Colors.white,
             child: Column(
               children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(top: 12),
+                FullWidthCard(
+                  marginTop: 10,
+                  sections: [
+                    SlideService(),
+                  ],
                 ),
-                SlideService(),
-                ServiceWidget(),
+                FullWidthCard(
+                  marginTop: 10,
+                  padding: EdgeInsets.only(top: 10),
+                  sections: [
+                    ServiceWidget(),
+                  ],
+                ),
                 BeauticianWidget()
               ],
             ),

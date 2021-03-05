@@ -7,12 +7,12 @@ class SearchTextField extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     return Container(
       height: 42,
-      width: screenSize.width * 0.93,
+      width: screenSize.width * 0.91,
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(top: 3),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(6),
             borderSide: BorderSide(
               color: Colors.white,
               style: BorderStyle.solid,
