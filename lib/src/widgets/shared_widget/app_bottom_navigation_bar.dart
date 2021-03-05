@@ -14,7 +14,6 @@ class AppBottomNavigationBar extends StatelessWidget {
   }) : super(key: key);
   final dynamic currentScreenState = {
     0: HomeScreen(),
-    1: SearchPage(),
     2: ProviderScreen(),
     3: NotificationScreen(),
     4: ProfileScreen()
