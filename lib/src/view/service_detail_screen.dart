@@ -59,7 +59,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
 
             Navigator.pop(context, newCart);
           },
-          backgroundColor: Color(0xff28BEBA),
+          backgroundColor: setButtonColor(widget.service, widget.cart, updatingQuantity),
           label: Text(
             button(widget.service, newCart, updatingQuantity),
             style: TextStyle(color: Colors.white, letterSpacing: 3),
@@ -181,5 +181,24 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
       return 'QUAY LẠI CHỌN DỊCH VỤ';
     }
     return 'THÊM VÀO GIỎ HÀNG';
+  }
+
+  Color setButtonColor(Service service, Map<Service, int> cart, int quantity) {
+    if (cart != null) {
+      if (cart.containsKey(service) && quantity == 0) {
+        return Colors.red;
+      } else if (cart.containsKey(service) && cart[service] != quantity) {
+        return Color(0xff28BEBA);
+      } else if (cart.containsKey(service) && cart[service] == quantity) {
+        return Colors.grey;
+      } else if (!cart.containsKey(service) && quantity == 0) {
+        return Colors.grey;
+      } else if (!cart.containsKey(service) && quantity > 0) {
+        return Color(0xff28BEBA);
+      }
+    } else if (cart == null && quantity == 0) {
+      return Colors.grey;
+    }
+    return Color(0xff28BEBA);
   }
 }
