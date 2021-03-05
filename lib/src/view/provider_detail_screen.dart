@@ -362,7 +362,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             return Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(40.0, 0.0, 20.0, 5.0),
+                  margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
                   height: 170.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -556,7 +556,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           return Stack(
             children: <Widget>[
               Positioned(
-                top: 10.0,
+                top: 15.0,
                 left: 20.0,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
@@ -571,7 +571,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.fromLTRB(70.0, 5.0, 20.0, 0.0),
+                    margin: EdgeInsets.fromLTRB(70.0, 15.0, 20.0, 0.0),
                     // height: 100,
                     // width: 00,
                     color: Color(0xFFC4C4C4).withOpacity(0.2),
