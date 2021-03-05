@@ -65,12 +65,12 @@ final buttonTextStyle = (Color color) => TextStyle(
     );
 
 class CustomTextStyle {
-  static TextStyle _headerText(Color color) => headerTextStyle(color);
-  static TextStyle _appBarText(Color color) => appBarTextStyle(color);
-  static TextStyle _headlineText(Color color) => headlineTextStyle(color);
-  static TextStyle _titleText(Color color) => titleTextStyle(color);
-  static TextStyle _subtitleText(Color color) => subtitleTextStyle(color);
-  static TextStyle _body1Text(Color color) => body1TextStyle(color);
-  static TextStyle _statusTextStyle(Color color) => statusTextStyle(color);
-  static TextStyle _buttonTextStyle(Color color) => buttonTextStyle(color);
+  static TextStyle headerText(Color color) => headerTextStyle(color);
+  static TextStyle appBarText(Color color) => appBarTextStyle(color);
+  static TextStyle headlineText(Color color) => headlineTextStyle(color);
+  static TextStyle titleText(Color color) => titleTextStyle(color);
+  static TextStyle subtitleText(Color color) => subtitleTextStyle(color);
+  static TextStyle body1Text(Color color) => body1TextStyle(color);
+  static TextStyle statusText(Color color) => statusTextStyle(color);
+  static TextStyle buttonText(Color color) => buttonTextStyle(color);
 }
