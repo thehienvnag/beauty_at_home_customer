@@ -27,24 +27,24 @@ List<ServiceItem> lstService = List.from([
   ServiceItem(
       titleService: '90 phút massage body toàn thân',
       price: '200.000',
-      image: 'public/img/beautician1.png'),
+      image: 'public/img/beautician1.PNG'),
   ServiceItem(
       titleService: '60 phút massage body toàn thân',
       price: '150.000',
-      image: 'public/img/beautician2.png'),
+      image: 'public/img/beautician2.PNG'),
   ServiceItem(
       titleService: '30 phút massage body toàn thân',
       price: '100.000',
-      image: 'public/img/beautician3.png'),
+      image: 'public/img/beautician3.PNG'),
   ServiceItem(
     titleService: '10 phút massage body toàn thân',
     price: '80.000',
-    image: 'public/img/beautician3.png',
+    image: 'public/img/beautician3.PNG',
   ),
 ]);
 List<Staff> lstStaffService = List.from([
   Staff(
-    image: 'public/img/beautician2.png',
+    image: 'public/img/beautician2.PNG',
     salonOwner: 'Đức Trần',
     titleService: 'Massage chân tay, giác hơi',
     rate: 5,
@@ -53,7 +53,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician1.png',
+    image: 'public/img/beautician1.PNG',
     salonOwner: 'Hani Nguyễn',
     titleService: 'Massage - Bấm huyệt',
     rate: 5,
@@ -62,7 +62,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician2.png',
+    image: 'public/img/beautician2.PNG',
     salonOwner: 'Tony Đặng',
     titleService: 'Massage - Giác hơi',
     rate: 5,
@@ -71,7 +71,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician3.png',
+    image: 'public/img/beautician3.PNG',
     salonOwner: 'Merry Trần',
     titleService: 'Massage',
     rate: 4.8,
@@ -80,7 +80,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician2.png',
+    image: 'public/img/beautician2.PNG',
     salonOwner: 'Lyly Phạm',
     titleService: 'Massage chân tay, giác hơi',
     rate: 5,
