@@ -6,15 +6,23 @@ class SearchTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Container(
-      height: 47,
-      width: screenSize.width * 0.95,
-      color: Colors.white,
+      height: 42,
+      width: screenSize.width * 0.93,
       child: TextFormField(
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(top: 3),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(
+              color: Colors.white,
+              style: BorderStyle.solid,
+            ),
+          ),
           prefixIcon: Icon(Icons.search),
           hintText: 'Tìm kiếm dịch vụ...',
+          hintStyle: TextStyle(
+            color: Colors.grey.withOpacity(0.5),
+          ),
         ),
       ),
     );

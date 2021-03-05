@@ -42,12 +42,6 @@ class AppBottomNavigationBar extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Search',
-          icon: Icon(
-            Icons.search,
-          ),
-        ),
-        BottomNavigationBarItem(
           label: 'Activity',
           icon: Icon(
             Icons.list,

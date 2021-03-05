@@ -9,29 +9,16 @@ class SlideService extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10),
-                  child: Image(
-                    image: AssetImage(
-                      'public/img/icon.png',
-                    ),
-                    fit: BoxFit.cover,
-                    height: 30,
-                    width: 30,
-                  ),
-                ),
-                Text(
-                  'DỊCH VỤ NỔI BẬT',
-                  style: TextStyle(
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 18,
-                      color: Colors.black),
-                ),
-              ],
+            Text(
+              'DỊCH VỤ NỔI BẬT',
+              style: TextStyle(
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.normal,
+                fontSize: 18,
+                color: Colors.black.withOpacity(0.6),
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 10, left: 13),
@@ -78,8 +65,10 @@ class Service extends StatelessWidget {
         width: size.width * 0.8,
         height: 150,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 0.2),
-          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: Colors.grey,
+            width: 0.5,
+          ),
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(image),
