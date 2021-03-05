@@ -1,9 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/update_profile_creen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import 'home_screen.dart';
 
 class Login_phone_screen extends StatefulWidget {
@@ -12,135 +10,180 @@ class Login_phone_screen extends StatefulWidget {
 }
 
 class _MyAppState extends State<Login_phone_screen> {
-  // FirebaseAuth _auth = FirebaseAuth.instance;
-  User _user;
-  GoogleSignIn _googleSignIn = new GoogleSignIn();
   TextEditingController _controller = TextEditingController();
+  bool isClick = true;
+  String phoneNumber = "";
+  String numberVerifi = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor:  Color(0xff2AD4D3),
         title: Text('Đăng Nhập'),
+        leading: IconButton(
+          padding: EdgeInsets.only(top: 10,left: 10),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.lightBlue.withOpacity(1),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
         body:
+        isClick ?
         Container(
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: <Widget>[
-
                 SizedBox(height: 10),
-                Center(child: Text('Nhập số điện thoại của bạn')),
+                Center(child: Text('Nhập số điện thoại của bạn',style: TextStyle(fontSize: 18),)),
                 Container(
-                  margin: EdgeInsets.only(top: 40, right: 10, left: 10),
+                  margin: EdgeInsets.only(top: 30, right: 20, left: 20),
                   child: TextField(
+                    onSubmitted: (value){
+                      setState(() {
+                        phoneNumber = value;
+                      });
+                    },
                     decoration: InputDecoration(
                       hintText: 'Phone Number',
                       prefix: Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Text('+1'),
+                        padding: const EdgeInsets.all(5),
+                        child: Text('+84'),
                       ),
                     ),
-                    maxLength: 10,
+                    maxLength: 9,
                     keyboardType: TextInputType.number,
                     controller: _controller,
                   ),
-                )
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4)
+                  ),
+                ),
+                SizedBox(height: 29),
+                GestureDetector(
+                  onTap: (){
+                    if(phoneNumber.isNotEmpty && phoneNumber.length > 8) {
+                      setState(() {
+                        isClick = false;
+                      });
+                    }
+                  },
+                  child: Container(
+                    width: 293,
+                    height: 45,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 63, vertical: 13, ),
+                      child: SizedBox(
+                        width: 167,
+                        height: 19,
+                        child: Text(
+                          "Gửi SMS",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 19,
+                          ),
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        color: Color(0xff2AD4D3),
+                        borderRadius: BorderRadius.circular(4)
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
-    );
-  }
-
-  bool isSignIn = false;
-
-  Future<void> handleSignIn() async {
-    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount.authentication;
-
-    AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentication.idToken,
-        accessToken: googleSignInAuthentication.accessToken);
-
-    UserCredential result =
-        (await FirebaseAuth.instance.signInWithCredential(credential));
-
-    _user = result.user;
-
-    // setState(() {
-    //   isSignIn = true;
-    // });
-    if(_user.displayName.isNotEmpty){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
-  }
-
-  Future<void> gooleSignout() async {
-    await FirebaseAuth.instance.signOut().then((onValue) {
-      _googleSignIn.signOut();
-      setState(() {
-        isSignIn = false;
-      });
-    });
-  }
-  Widget loginWithGoogle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(4),
-          child: OutlineButton.icon(
-            label: Text(
-              'Đăng nhập với Google',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            ),
-            shape: StadiumBorder(),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            highlightedBorderColor: Colors.black,
-            borderSide: BorderSide(color: Colors.black),
-            textColor: Colors.black,
-            icon: FaIcon(
-              FontAwesomeIcons.google,
-              color: Colors.red,
-            ),
-            onPressed: () {
-              handleSignIn();
-            },
+        )
+        : Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 10),
+              Center(child: Text('Nhập mã xác nhận',style: TextStyle(fontSize: 19),)),
+              Center(child: Container(
+                margin: EdgeInsets.only(top: 20,left: 80),
+                child: Row(
+                  children: [
+                    Icon(FontAwesomeIcons.pencilAlt,size: 17,color: Color(0xff2AD4D3),),
+                    Container(
+                        margin: EdgeInsets.only(left: 10),
+                        child: Text('+84${phoneNumber}',style: TextStyle(fontSize: 18,color: Color(0xff2AD4D3)),)),
+                  ],
+                ),
+              )),
+              Container(
+                width: MediaQuery.of(context).size.width*0.7,
+                height: 45,
+                margin: EdgeInsets.only(top: 30, right: 10, left: 10),
+                child: TextField(
+                  onSubmitted: (value){
+                    setState(() {
+                      numberVerifi = value;
+                    });
+                  },
+                  keyboardType: TextInputType.number,
+                  cursorHeight: 25,
+                  cursorWidth: 3,
+                  cursorColor: Colors.lightBlueAccent,
+                  decoration: InputDecoration(
+                    hintText: 'Nhập mã xác nhận ở điện thoại',
+                      contentPadding: EdgeInsets.only(top: 3),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              GestureDetector(
+                onTap: (){
+                  if(numberVerifi.isNotEmpty && numberVerifi.length > 5){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileAddScreen()));
+                  }
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width*0.9,
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 63, vertical: 13, ),
+                    child: SizedBox(
+                      width: 167,
+                      height: 19,
+                      child: Text(
+                        "Tiếp Tục",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.8),
+                          fontSize: 19,
+                        ),
+                      ),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      color: Color(0xff2AD4D3),
+                      borderRadius: BorderRadius.circular(4)
+                  ),
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Center(child: Text('Tôi chưa nhận được mã',style: TextStyle(fontSize: 18,color: Color(0xff2AD4D3)),))
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Center(child: Text('Yêu cầu hỗ trợ từ Prettier',style: TextStyle(fontSize: 18,color: Color(0xff2AD4D3)),))),
+            ],
           ),
         ),
-      ],
-    );
-  }
-  Widget loginWithPhone() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(4),
-          child: OutlineButton.icon(
-            label: Text(
-              'Đăng nhập với điện thoại',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            ),
-            shape: StadiumBorder(),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            highlightedBorderColor: Colors.black,
-            borderSide: BorderSide(color: Colors.black),
-            textColor: Colors.black,
-            icon: FaIcon(
-              FontAwesomeIcons.phone,
-              color: Colors.lightBlue,
-            ),
-            onPressed: () {
-// handleSignIn();
-            },
-          ),
-        ),
-      ],
+      )
     );
   }
 }

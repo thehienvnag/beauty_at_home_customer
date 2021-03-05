@@ -21,29 +21,11 @@ class _MyAppState extends State<Login_screen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:
-        // isSignIn ? Center(
-        //         child: Column(
-        //           mainAxisAlignment: MainAxisAlignment.center,
-        //           children: <Widget>[
-        //             CircleAvatar(
-        //               backgroundImage: NetworkImage(_user.photoURL),
-        //             ),
-        //             Text(_user.displayName),
-        //             OutlineButton(
-        //               onPressed: () {
-        //                 gooleSignout();
-        //               },
-        //               child: Text("Logout"),
-        //             )
-        //           ],
-        //         ),
-        //       ) :
         Stack(
               children: <Widget> [
                 Container(
                   margin: EdgeInsets.only(top:70 ),
                   color: Colors.white,
-                  //color:Color(0xff0DB5B4),
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Column(
@@ -71,6 +53,7 @@ class _MyAppState extends State<Login_screen> {
                         ),
                         SizedBox(height: 50),
                         loginWithGoogle(),
+                        SizedBox(height: 10),
                         loginWithPhone()
                       ],
                     ),
@@ -131,9 +114,6 @@ class _MyAppState extends State<Login_screen> {
 
     _user = result.user;
 
-    // setState(() {
-    //   isSignIn = true;
-    // });
     if(_user.displayName.isNotEmpty){
       Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
     }
@@ -148,59 +128,47 @@ class _MyAppState extends State<Login_screen> {
     });
   }
   Widget loginWithGoogle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(4),
-          child: OutlineButton.icon(
-            label: Text(
-              'Đăng nhập với Google',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            ),
-            shape: StadiumBorder(),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            highlightedBorderColor: Colors.black,
-            borderSide: BorderSide(color: Colors.black),
-            textColor: Colors.black,
-            icon: FaIcon(
-              FontAwesomeIcons.google,
-              color: Colors.red,
-            ),
-            onPressed: () {
-              handleSignIn();
-            },
-          ),
+    return GestureDetector(
+      onTap: (){
+        handleSignIn();
+      },
+      child: Container(
+        height: 10.0 * 5.5,
+        padding: EdgeInsets.symmetric(horizontal: 10.0,),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.withOpacity(0.1),
         ),
-      ],
+        child: Row(
+          children: <Widget>[
+            Icon(FontAwesomeIcons.google,  size: 10.0 * 2.5,color: Colors.red.withOpacity(0.6)),
+            SizedBox(width: 10.0 * 1.5),
+            Text('Đăng nhập với Google', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,)),
+          ],
+        ),
+      ),
     );
   }
   Widget loginWithPhone() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(4),
-          child: OutlineButton.icon(
-            label: Text(
-              'Đăng nhập với điện thoại',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            ),
-            shape: StadiumBorder(),
-            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            highlightedBorderColor: Colors.black,
-            borderSide: BorderSide(color: Colors.black),
-            textColor: Colors.black,
-            icon: FaIcon(
-              FontAwesomeIcons.phone,
-              color: Colors.lightBlue,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login_phone_screen()));
-            },
-          ),
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login_phone_screen()));
+      },
+      child: Container(
+        height: 10.0 * 5.5,
+        padding: EdgeInsets.symmetric(horizontal: 10.0,),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey.withOpacity(0.1),
         ),
-      ],
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.phone,  size: 10.0 * 2.5,color: Color(0xff28BEBA)),
+            SizedBox(width: 10.0 * 1.5),
+            Text('Đăng nhập với điện thoại', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,)),
+          ],
+        ),
+      ),
     );
   }
 }
