@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/list_search_screen.dart';
-import 'list_search_screen_noFound.dart';
+import 'list_search_screen_no_found.dart';
 
 class BlankScreen extends StatefulWidget {
   @override
@@ -11,11 +11,13 @@ class _HomePageState extends State<BlankScreen> {
   @override
   Widget build(BuildContext context) {
     Future _press(String keySearch) async {
-      Navigator.of(context).push(new MaterialPageRoute<dynamic>(
-          builder: (context) => ListSearchScreen(),
-          settings: RouteSettings(arguments: keySearch)),
+      Navigator.of(context).push(
+        new MaterialPageRoute<dynamic>(
+            builder: (context) => ListSearchScreen(),
+            settings: RouteSettings(arguments: keySearch)),
       );
     }
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.white,
@@ -128,7 +130,7 @@ class _HomePageState extends State<BlankScreen> {
     return new AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
-        padding: EdgeInsets.only(top: 10,left: 10),
+        padding: EdgeInsets.only(top: 10, left: 10),
         icon: Icon(
           Icons.arrow_back_ios,
           color: Colors.black,
@@ -183,8 +185,6 @@ class ServiceInvite extends StatelessWidget {
   final String keysearch;
   final Function press;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -200,7 +200,7 @@ class ServiceInvite extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: GestureDetector(
-                onTap: press ,
+                onTap: press,
                 child: Text(
                   '$keysearch',
                   style: TextStyle(fontSize: 20),

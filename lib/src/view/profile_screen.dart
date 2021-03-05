@@ -6,8 +6,6 @@ import 'package:flutter_app/src/view/setting_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'login_screen.dart';
 
-
-
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,9 +33,9 @@ class ProfileScreenState extends StatelessWidget {
                 child: Stack(
                   children: <Widget>[
                     CircleAvatar(
-                        radius: 10.0 * 5,
-                        backgroundImage: AssetImage('public/img/meo.jpg'),
-                      ),
+                      radius: 10.0 * 5,
+                      backgroundImage: AssetImage('public/img/meo.jpg'),
+                    ),
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -77,10 +75,18 @@ class ProfileScreenState extends StatelessWidget {
               SizedBox(height: 3),
               Row(
                 children: [
-                  SizedBox(width: MediaQuery.of(context).size.width*0.3,),
-                  Icon(FontAwesomeIcons.chessQueen,color: Colors.yellowAccent,),
-                  SizedBox(width: 10,),
-                  Text('531 Points | Sliver',
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.3,
+                  ),
+                  Icon(
+                    FontAwesomeIcons.chessQueen,
+                    color: Colors.yellowAccent,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '531 Points | Sliver',
                     style: TextStyle(
                       fontSize: 10.0 * 1.3,
                       fontWeight: FontWeight.w500,
@@ -99,19 +105,36 @@ class ProfileScreenState extends StatelessWidget {
             },
             child: Container(
               height: 10.0 * 5.5,
-              margin: EdgeInsets.symmetric(horizontal: 10.0 * 3,).copyWith(bottom: 10.0 * 2,),
-              padding: EdgeInsets.symmetric(horizontal: 10.0 * 2,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0 * 3,
+              ).copyWith(
+                bottom: 10.0 * 2,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0 * 2,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.withOpacity(0.1),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.account_circle,  size: 10.0 * 2.5, color: Color(0xff28BEBA),),
+                  Icon(
+                    Icons.account_circle,
+                    size: 10.0 * 2.5,
+                    color: Color(0xff28BEBA),
+                  ),
                   SizedBox(width: 10.0 * 1.5),
-                  Text('Tài khoản của tôi', style: TextStyle(fontSize: 10.0 * 1.7, fontWeight: FontWeight.w500,)),
+                  Text('Tài khoản của tôi',
+                      style: TextStyle(
+                        fontSize: 10.0 * 1.7,
+                        fontWeight: FontWeight.w500,
+                      )),
                   Spacer(),
-                  Icon(Icons.arrow_forward, size: 10.0 * 2.5,),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 10.0 * 2.5,
+                  ),
                 ],
               ),
             ),
@@ -119,19 +142,32 @@ class ProfileScreenState extends StatelessWidget {
           GestureDetector(
             child: Container(
               height: 10.0 * 5.5,
-              margin: EdgeInsets.symmetric(horizontal: 10.0 * 3,).copyWith(bottom: 10.0 * 2,),
-              padding: EdgeInsets.symmetric(horizontal: 10.0 * 2,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0 * 3,
+              ).copyWith(
+                bottom: 10.0 * 2,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0 * 2,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.withOpacity(0.1),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.help,  size: 10.0 * 2.5,color: Color(0xff28BEBA)),
+                  Icon(Icons.help, size: 10.0 * 2.5, color: Color(0xff28BEBA)),
                   SizedBox(width: 10.0 * 1.5),
-                  Text('Trợ giúp và hỗ trợ', style: TextStyle(fontSize: 10.0 * 1.7, fontWeight: FontWeight.w500,)),
+                  Text('Trợ giúp và hỗ trợ',
+                      style: TextStyle(
+                        fontSize: 10.0 * 1.7,
+                        fontWeight: FontWeight.w500,
+                      )),
                   Spacer(),
-                  Icon(Icons.arrow_forward, size: 10.0 * 2.5,),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 10.0 * 2.5,
+                  ),
                 ],
               ),
             ),
@@ -139,19 +175,33 @@ class ProfileScreenState extends StatelessWidget {
           GestureDetector(
             child: Container(
               height: 10.0 * 5.5,
-              margin: EdgeInsets.symmetric(horizontal: 10.0 * 3,).copyWith(bottom: 10.0 * 2,),
-              padding: EdgeInsets.symmetric(horizontal: 10.0 * 2,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0 * 3,
+              ).copyWith(
+                bottom: 10.0 * 2,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0 * 2,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.withOpacity(0.1),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.policy,  size: 10.0 * 2.5,color: Color(0xff28BEBA)),
+                  Icon(Icons.policy,
+                      size: 10.0 * 2.5, color: Color(0xff28BEBA)),
                   SizedBox(width: 10.0 * 1.5),
-                  Text('Điều khoản & chính sách', style: TextStyle(fontSize: 10.0 * 1.7, fontWeight: FontWeight.w500,)),
+                  Text('Điều khoản & chính sách',
+                      style: TextStyle(
+                        fontSize: 10.0 * 1.7,
+                        fontWeight: FontWeight.w500,
+                      )),
                   Spacer(),
-                  Icon(Icons.arrow_forward, size: 10.0 * 2.5,),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 10.0 * 2.5,
+                  ),
                 ],
               ),
             ),
@@ -164,19 +214,33 @@ class ProfileScreenState extends StatelessWidget {
             },
             child: Container(
               height: 10.0 * 5.5,
-              margin: EdgeInsets.symmetric(horizontal: 10.0 * 3,).copyWith(bottom: 10.0 * 2,),
-              padding: EdgeInsets.symmetric(horizontal: 10.0 * 2,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0 * 3,
+              ).copyWith(
+                bottom: 10.0 * 2,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0 * 2,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.withOpacity(0.1),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.settings,  size: 10.0 * 2.5,color: Color(0xff28BEBA)),
+                  Icon(Icons.settings,
+                      size: 10.0 * 2.5, color: Color(0xff28BEBA)),
                   SizedBox(width: 10.0 * 1.5),
-                  Text('Cài đặt', style: TextStyle(fontSize: 10.0 * 1.7, fontWeight: FontWeight.w500,)),
+                  Text('Cài đặt',
+                      style: TextStyle(
+                        fontSize: 10.0 * 1.7,
+                        fontWeight: FontWeight.w500,
+                      )),
                   Spacer(),
-                  Icon(Icons.arrow_forward, size: 10.0 * 2.5,),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 10.0 * 2.5,
+                  ),
                 ],
               ),
             ),
@@ -184,24 +248,38 @@ class ProfileScreenState extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => Login_screen(),
+                builder: (context) => LoginScreen(),
               ));
             },
             child: Container(
               height: 10.0 * 5.5,
-              margin: EdgeInsets.symmetric(horizontal: 10.0 * 3,).copyWith(bottom: 10.0 * 2,),
-              padding: EdgeInsets.symmetric(horizontal: 10.0 * 2,),
+              margin: EdgeInsets.symmetric(
+                horizontal: 10.0 * 3,
+              ).copyWith(
+                bottom: 10.0 * 2,
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.0 * 2,
+              ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.grey.withOpacity(0.1),
               ),
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.logout,  size: 10.0 * 2.5,color: Color(0xff28BEBA)),
+                  Icon(Icons.logout,
+                      size: 10.0 * 2.5, color: Color(0xff28BEBA)),
                   SizedBox(width: 10.0 * 1.5),
-                  Text('Đăng xuất', style: TextStyle(fontSize: 10.0 * 1.7, fontWeight: FontWeight.w500,)),
+                  Text('Đăng xuất',
+                      style: TextStyle(
+                        fontSize: 10.0 * 1.7,
+                        fontWeight: FontWeight.w500,
+                      )),
                   Spacer(),
-                  Icon(Icons.arrow_forward, size: 10.0 * 2.5,),
+                  Icon(
+                    Icons.arrow_forward,
+                    size: 10.0 * 2.5,
+                  ),
                 ],
               ),
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 class ServiceDetailStepDescription extends StatelessWidget {
   final List<String> description;
@@ -28,12 +27,13 @@ class ServiceDetailStepDescription extends StatelessWidget {
               itemCount: description.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  margin: EdgeInsets.only(left: 15.0, top: 0.0, right: 15.0, bottom: 10.0),
+                  margin: EdgeInsets.only(
+                      left: 15.0, top: 0.0, right: 15.0, bottom: 10.0),
                   width: screenSize.width * 0.8,
-                  child: Text(description[index],
-                  style: TextStyle(
-                    fontSize: 15.0
-                  ),),
+                  child: Text(
+                    description[index],
+                    style: TextStyle(fontSize: 15.0),
+                  ),
                 );
               }),
         ),

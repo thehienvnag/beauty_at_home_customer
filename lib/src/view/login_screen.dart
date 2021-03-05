@@ -5,12 +5,12 @@ import 'package:flutter_app/src/widgets/login_screen_widget/background_painter.d
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class Login_screen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<Login_screen> {
+class _MyAppState extends State<LoginScreen> {
   // FirebaseAuth _auth = FirebaseAuth.instance;
   User _user;
   GoogleSignIn _googleSignIn = new GoogleSignIn();
@@ -38,10 +38,9 @@ class _MyAppState extends State<Login_screen> {
                   ],
                 ),
               )
-            : Stack(
-              children: <Widget> [
+            : Stack(children: <Widget>[
                 Container(
-                  margin: EdgeInsets.only(top:70 ),
+                  margin: EdgeInsets.only(top: 70),
                   color: Colors.white,
                   //color:Color(0xff0DB5B4),
                   child: Padding(
@@ -80,7 +79,7 @@ class _MyAppState extends State<Login_screen> {
                   width: 338,
                   height: 283,
                   child: Stack(
-                    children:[
+                    children: [
                       Positioned.fill(
                         child: Align(
                           alignment: Alignment.bottomLeft,
@@ -110,9 +109,7 @@ class _MyAppState extends State<Login_screen> {
                     ],
                   ),
                 ),
-              ]
-            )
-    );
+              ]));
   }
 
   bool isSignIn = false;
@@ -144,6 +141,7 @@ class _MyAppState extends State<Login_screen> {
       });
     });
   }
+
   Widget loginWithGoogle() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -172,6 +170,7 @@ class _MyAppState extends State<Login_screen> {
       ],
     );
   }
+
   Widget loginWithPhone() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

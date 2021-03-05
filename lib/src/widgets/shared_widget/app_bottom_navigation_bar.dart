@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/history_screen.dart';
-
 import 'package:flutter_app/src/view/home_screen.dart';
+import 'package:flutter_app/src/view/notification_screen.dart';
+import 'package:flutter_app/src/view/profile_screen.dart';
 import 'package:flutter_app/src/view/provider_confirm_screen.dart';
-import 'package:flutter_app/src/view/provider_newOrder_Screen.dart';
 import 'package:flutter_app/src/view/search_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -16,7 +16,8 @@ class AppBottomNavigationBar extends StatelessWidget {
     0: HomeScreen(),
     1: SearchPage(),
     2: ProviderScreen(),
-    3: ProviderNewOderScreen(),
+    3: NotificationScreen(),
+    4: ProfileScreen()
   };
 
   @override
@@ -27,9 +28,11 @@ class AppBottomNavigationBar extends StatelessWidget {
       selectedItemColor: Color(0xff0DB5B4),
       unselectedItemColor: Color(0xffC4C4C4),
       onTap: (value) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => currentScreenState[value],
-        ));
+        if (currentActiveIndex != value) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => currentScreenState[value],
+          ));
+        }
       },
       items: [
         BottomNavigationBarItem(
@@ -45,13 +48,13 @@ class AppBottomNavigationBar extends StatelessWidget {
           ),
         ),
         BottomNavigationBarItem(
-          label: 'ProviderScreen',
+          label: 'Activity',
           icon: Icon(
             Icons.list,
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Messages',
+          label: 'Notifications',
           icon: Icon(
             Icons.message,
           ),

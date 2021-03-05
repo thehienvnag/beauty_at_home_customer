@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
 import 'package:flutter_app/src/widgets/search_service_screen_widget/list_search_service.dart';
-import 'list_search_screen_noFound.dart';
+import 'list_search_screen_no_found.dart';
 
 class ListSearchScreen extends StatefulWidget {
   @override
@@ -23,7 +23,13 @@ class ListSearchScreenState extends State<ListSearchScreen> {
             children: [
               Row(
                 children: [
-                  Container(alignment: Alignment.topLeft, child: Text('   Bộ lọc', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        '   Bộ lọc',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      )),
                   Container(
                     height: 40,
                     child: Card(
@@ -36,7 +42,10 @@ class ListSearchScreenState extends State<ListSearchScreen> {
                           )),
                       child: Row(
                         children: [
-                          Text('  $keySearch', style: TextStyle(fontSize: 18),),
+                          Text(
+                            '  $keySearch',
+                            style: TextStyle(fontSize: 18),
+                          ),
                           IconButton(
                             iconSize: 18,
                             onPressed: () {
@@ -52,8 +61,14 @@ class ListSearchScreenState extends State<ListSearchScreen> {
                     ),
                   ),
                 ],
-              ), SizedBox(height: 10),
-              Container(alignment: Alignment.topLeft, child: Text('    #Tìm thấy 15 dịch vụ',style: TextStyle(fontSize: 15), )),
+              ),
+              SizedBox(height: 10),
+              Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    '    #Tìm thấy 15 dịch vụ',
+                    style: TextStyle(fontSize: 15),
+                  )),
               ListSearchServices(),
             ],
           ),
@@ -70,7 +85,7 @@ Widget _buildBar(BuildContext context) {
   return new AppBar(
     backgroundColor: Colors.white,
     leading: IconButton(
-      padding: EdgeInsets.only(top: 10,left: 10),
+      padding: EdgeInsets.only(top: 10, left: 10),
       icon: Icon(
         Icons.arrow_back_ios,
         color: Colors.black,
@@ -81,8 +96,7 @@ Widget _buildBar(BuildContext context) {
     ),
     elevation: 0,
     leadingWidth: 20,
-    title:
-    Container(
+    title: Container(
       margin: EdgeInsets.only(top: 12),
       height: 45,
       width: size.width,
@@ -96,16 +110,14 @@ Widget _buildBar(BuildContext context) {
           height: 1,
         ),
         onSubmitted: (value) {
-          if (value.isNotEmpty && value.length < 22 ) {
-            Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => ListSearchScreen(),
-                    settings: RouteSettings(arguments: value)));
-          }else if(value.length > 22){
-            Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => ListSearchScreenNotFound(),
-                    settings: RouteSettings(arguments: value)));
+          if (value.isNotEmpty && value.length < 22) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ListSearchScreen(),
+                settings: RouteSettings(arguments: value)));
+          } else if (value.length > 22) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ListSearchScreenNotFound(),
+                settings: RouteSettings(arguments: value)));
           }
         },
         decoration: InputDecoration(

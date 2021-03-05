@@ -1,10 +1,10 @@
-class History_User {
+class HistoryUser {
   final String saloner, imgUrl;
   final int numService;
   final String date;
   final Function press;
 
-  History_User({
+  HistoryUser({
     this.saloner,
     this.imgUrl,
     this.numService,

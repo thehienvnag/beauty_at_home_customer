@@ -3,7 +3,7 @@ import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
 import 'package:flutter_app/src/widgets/search_screen_widget.dart';
 import 'list_search_screen.dart';
-import 'list_search_screen_noFound.dart';
+import 'list_search_screen_no_found.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -17,29 +17,38 @@ class _HomePageState extends State<SearchPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: _buildBar(context),
-      body:
-      Stack(
+      body: Stack(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 10),
-                      Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(' ĐÃ XEM GẦN ĐÂY', style: TextStyle(color: Colors.black, fontSize: 20,))),
-                      SizedBox(height: 10),
-                      ViewsServices(),
-                      Container(
-                          alignment: Alignment.topLeft,
-                          child: Text(' GIỚI THIỆU CHO BẠN', style: TextStyle(color: Colors.black, fontSize: 20,),)),
-                      SizedBox(height: 10),
-                      LoadServices(),
-                    ],
-                  ),
-                ),
+                SizedBox(height: 10),
+                Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(' ĐÃ XEM GẦN ĐÂY',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                        ))),
+                SizedBox(height: 10),
+                ViewsServices(),
+                Container(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      ' GIỚI THIỆU CHO BẠN',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    )),
+                SizedBox(height: 10),
+                LoadServices(),
               ],
             ),
+          ),
+        ],
+      ),
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(1),
     );
   }
@@ -72,7 +81,8 @@ class _HomePageState extends State<SearchPage> {
           controller: _controller,
           decoration: InputDecoration(
               contentPadding: EdgeInsets.only(top: 3),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
               prefixIcon: Icon(Icons.search),
               hintText: 'Tìm kiếm dịch vụ...',
               suffixIcon: IconButton(

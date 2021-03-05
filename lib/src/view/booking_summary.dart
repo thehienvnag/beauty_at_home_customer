@@ -41,11 +41,11 @@ class _BookingSummaryState extends State<BookingSummary>
     this.widget.presenter.initModel(_model);
     this.widget.presenter.initView(this);
 
-    Future(() {
-      Future.delayed(Duration(seconds: 5));
-    }).then(
-      (value) => this.widget.presenter.testChangeCurrentScreenStateFrequently(),
-    );
+    // Future(() {
+    //   Future.delayed(Duration(seconds: 5));
+    // }).then(
+    //   (value) => this.widget.presenter.testChangeCurrentScreenStateFrequently(),
+    // );
   }
 
   @override
