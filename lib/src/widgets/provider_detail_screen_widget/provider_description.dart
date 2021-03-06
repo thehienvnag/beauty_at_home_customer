@@ -51,7 +51,7 @@ class ProviderDescription extends StatelessWidget {
                   provider.address,
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      fontSize: 16.0,
+                      // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]
                   ),
@@ -60,7 +60,7 @@ class ProviderDescription extends StatelessWidget {
                   'Giá dao động: ' + provider.lowerPrice + ' - ' + provider.upperPrice,
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      fontSize: 16.0,
+                      // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]
                   ),
