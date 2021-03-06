@@ -18,15 +18,7 @@ class ProfileEditScreenState extends State<ProfileAddScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: Text(
           'Cập nhật thông tin',
