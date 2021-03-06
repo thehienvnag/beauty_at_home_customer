@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/profile_screen.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 import 'home_screen.dart';
 
@@ -9,13 +10,14 @@ class ProfileAddScreen extends StatefulWidget {
   ProfileEditScreenState createState() => ProfileEditScreenState();
 }
 
-class ProfileEditScreenState extends  State<ProfileAddScreen> {
+class ProfileEditScreenState extends State<ProfileAddScreen> {
   bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
@@ -27,7 +29,9 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
         ),
         backgroundColor: Colors.white,
         title: Text(
-          'Cập nhật thông tin', style: TextStyle(color: Colors.black),),
+          'Cập nhật thông tin',
+          style: CustomTextStyle.headerText(Colors.black87),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
@@ -57,8 +61,7 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('public/img/images.png')
-                          )),
+                              image: AssetImage('public/img/images.png'))),
                     ),
                     Positioned(
                         bottom: 0,
@@ -70,9 +73,7 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
                             shape: BoxShape.circle,
                             border: Border.all(
                               width: 4,
-                              color: Theme
-                                  .of(context)
-                                  .scaffoldBackgroundColor,
+                              color: Theme.of(context).scaffoldBackgroundColor,
                             ),
                             color: Colors.green,
                           ),
@@ -84,39 +85,43 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
               buildTextField("Name", " ", false),
               buildTextField("Địa chỉ Email", " ", false),
-              buildTextField("Số điện thoại", "0931182303", false),
+              buildTextField("Số điện thoại", "0918076861", false),
               buildTextField("Mật khẩu", "********", true),
               buildTextField("Địa chỉ (Không bắt buộc)", " ", false),
-              SizedBox(height: 35,),
+              SizedBox(
+                height: 35,
+              ),
               GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+                onTap: () {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
                 child: Container(
-                  width: MediaQuery.of(context).size.width*0.9,
+                  width: MediaQuery.of(context).size.width * 0.9,
                   height: 50,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 63, vertical: 13, ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 63,
+                      vertical: 13,
+                    ),
                     child: SizedBox(
                       width: 167,
                       height: 19,
                       child: Text(
                         "Lưu thông tin",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black.withOpacity(0.8),
-                          fontSize: 19,
-                        ),
+                        style: CustomTextStyle.titleText(Colors.white),
                       ),
                     ),
                   ),
                   decoration: BoxDecoration(
                       color: Color(0xff2AD4D3),
-                      borderRadius: BorderRadius.circular(4)
-                  ),
+                      borderRadius: BorderRadius.circular(4)),
                 ),
               ),
             ],
@@ -126,9 +131,10 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
     );
   }
 
-  Widget buildTextField(String labelText, String placeholder, bool isPasswordTextField) {
+  Widget buildTextField(
+      String labelText, String placeholder, bool isPasswordTextField) {
     return Container(
-      margin: EdgeInsets.only(left: 20,right: 20),
+      margin: EdgeInsets.only(left: 20, right: 20),
       child: Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
@@ -136,15 +142,16 @@ class ProfileEditScreenState extends  State<ProfileAddScreen> {
           decoration: InputDecoration(
               suffixIcon: isPasswordTextField
                   ? IconButton(
-                onPressed: () {
-                  setState(() {
-                    showPassword = !showPassword;
-                  });
-                },
-                icon: Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.grey,),
-                )
+                      onPressed: () {
+                        setState(() {
+                          showPassword = !showPassword;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: Colors.grey,
+                      ),
+                    )
                   : null,
               contentPadding: EdgeInsets.only(bottom: 3),
               labelText: labelText,

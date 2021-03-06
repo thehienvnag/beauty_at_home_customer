@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/list_search_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class Category {
@@ -60,24 +61,34 @@ class ServiceWidget extends StatelessWidget {
             separatorBuilder: (context, index) => SizedBox(width: 30),
             itemBuilder: (context, index) {
               Category category = listCategories[index];
-              return Column(
-                children: [
-                  Container(
-                    height: 60,
-                    width: 60,
-                    margin: EdgeInsets.only(bottom: 5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: AssetImage(category.image),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ListSearchScreen(),
+                      settings: RouteSettings(arguments: category.name),
+                    ),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Container(
+                      height: 60,
+                      width: 60,
+                      margin: EdgeInsets.only(bottom: 5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: AssetImage(category.image),
+                        ),
                       ),
                     ),
-                  ),
-                  Text(
-                    category.name,
-                    style: CustomTextStyle.subtitleText(Colors.black87),
-                  ),
-                ],
+                    Text(
+                      category.name,
+                      style: CustomTextStyle.subtitleText(Colors.black87),
+                    ),
+                  ],
+                ),
               );
             },
           ),

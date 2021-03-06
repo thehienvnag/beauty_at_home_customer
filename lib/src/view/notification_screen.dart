@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class NotificationScreen extends StatelessWidget {
   @override
@@ -23,10 +24,7 @@ class NotificationScreen extends StatelessWidget {
           children: [
             Text(
               'Thông báo',
-              style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 18,
-                  color: Colors.black),
+              style: CustomTextStyle.headerText(Colors.black87),
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/update_profile_creen.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'home_screen.dart';
 
@@ -19,13 +20,17 @@ class _MyAppState extends State<LoginPhoneScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Color(0xff2AD4D3),
-          title: Text('Đăng Nhập'),
+          title: Text(
+            'Đăng Nhập',
+            style: CustomTextStyle.headerText(Colors.white),
+          ),
           leading: IconButton(
-            padding: EdgeInsets.only(top: 10, left: 10),
+            padding: EdgeInsets.only(left: 10),
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.lightBlue.withOpacity(1),
+              color: Colors.white,
             ),
             onPressed: () {
               Navigator.pop(context);
@@ -43,7 +48,7 @@ class _MyAppState extends State<LoginPhoneScreen> {
                       Center(
                           child: Text(
                         'Nhập số điện thoại của bạn',
-                        style: TextStyle(fontSize: 18),
+                        style: CustomTextStyle.titleText(Colors.black87),
                       )),
                       Container(
                         margin: EdgeInsets.only(top: 30, right: 20, left: 20),
@@ -55,6 +60,8 @@ class _MyAppState extends State<LoginPhoneScreen> {
                           },
                           decoration: InputDecoration(
                             hintText: 'Phone Number',
+                            hintStyle:
+                                CustomTextStyle.subtitleText(Colors.black45),
                             prefix: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Text('+84'),
@@ -91,10 +98,7 @@ class _MyAppState extends State<LoginPhoneScreen> {
                               child: Text(
                                 "Gửi SMS",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
-                                ),
+                                style: CustomTextStyle.titleText(Colors.white),
                               ),
                             ),
                           ),
@@ -117,24 +121,20 @@ class _MyAppState extends State<LoginPhoneScreen> {
                       Center(
                           child: Text(
                         'Nhập mã xác nhận',
-                        style: TextStyle(fontSize: 19),
+                        style: CustomTextStyle.titleText(Colors.black87),
                       )),
                       Center(
                           child: Container(
                         margin: EdgeInsets.only(top: 20, left: 80),
                         child: Row(
                           children: [
-                            Icon(
-                              FontAwesomeIcons.pencilAlt,
-                              size: 17,
-                              color: Color(0xff2AD4D3),
-                            ),
                             Container(
                                 margin: EdgeInsets.only(left: 10),
                                 child: Text(
-                                  '+84${phoneNumber}',
-                                  style: TextStyle(
-                                      fontSize: 18, color: Color(0xff2AD4D3)),
+                                  '+84 ${phoneNumber}',
+                                  style: CustomTextStyle.titleText(
+                                    Color(0xff2AD4D3),
+                                  ),
                                 )),
                           ],
                         ),
@@ -155,7 +155,9 @@ class _MyAppState extends State<LoginPhoneScreen> {
                           cursorColor: Colors.lightBlueAccent,
                           decoration: InputDecoration(
                             hintText: 'Nhập mã xác nhận ở điện thoại',
-                            contentPadding: EdgeInsets.only(top: 3),
+                            hintStyle:
+                                CustomTextStyle.subtitleText(Colors.black45),
+                            contentPadding: EdgeInsets.only(top: 3, left: 10),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4)),
                           ),
@@ -171,47 +173,35 @@ class _MyAppState extends State<LoginPhoneScreen> {
                           }
                         },
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 63,
-                              vertical: 13,
-                            ),
-                            child: SizedBox(
-                              width: 167,
-                              height: 19,
-                              child: Text(
-                                "Tiếp Tục",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.black.withOpacity(0.8),
-                                  fontSize: 19,
-                                ),
-                              ),
-                            ),
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 35,
+                          padding: EdgeInsets.only(top: 7),
+                          child: Text(
+                            "TIẾP TỤC",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyle.titleText(Colors.white),
                           ),
                           decoration: BoxDecoration(
                               color: Color(0xff2AD4D3),
                               borderRadius: BorderRadius.circular(4)),
                         ),
                       ),
-                      Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: Center(
-                              child: Text(
-                            'Tôi chưa nhận được mã',
-                            style: TextStyle(
-                                fontSize: 18, color: Color(0xff2AD4D3)),
-                          ))),
-                      Container(
-                          margin: EdgeInsets.only(top: 20),
-                          child: Center(
-                              child: Text(
-                            'Yêu cầu hỗ trợ từ Prettier',
-                            style: TextStyle(
-                                fontSize: 18, color: Color(0xff2AD4D3)),
-                          ))),
+                      // Container(
+                      //     margin: EdgeInsets.only(top: 20),
+                      //     child: Center(
+                      //         child: Text(
+                      //       'Tôi chưa nhận được mã',
+                      //       style: TextStyle(
+                      //           fontSize: 18, color: Color(0xff2AD4D3)),
+                      //     ))),
+                      // Container(
+                      //     margin: EdgeInsets.only(top: 20),
+                      //     child: Center(
+                      //         child: Text(
+                      //       'Yêu cầu hỗ trợ từ Prettier',
+                      //       style: TextStyle(
+                      //           fontSize: 18, color: Color(0xff2AD4D3)),
+                      //     ))),
                     ],
                   ),
                 ),

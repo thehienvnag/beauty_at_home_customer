@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/profile_edit_creen.dart';
+import 'package:flutter_app/src/view/profile_edit_screen.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -24,13 +24,21 @@ class _SettingsPageState extends State<SettingsPage> {
             size: 30,
           ),
         ),
-        title: Text("Cài đặt", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500,color: Colors.black.withOpacity(0.7)),),
+        title: Text(
+          "Cài đặt",
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+              color: Colors.black.withOpacity(0.7)),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
         child: ListView(
           children: [
-            SizedBox(height: 15,),
+            SizedBox(
+              height: 15,
+            ),
             Row(
               children: [
                 Icon(
@@ -191,6 +199,7 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
   GestureDetector buildAccount2(BuildContext context, String title) {
     return GestureDetector(
       // onTap: () {

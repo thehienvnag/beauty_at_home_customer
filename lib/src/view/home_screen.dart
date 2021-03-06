@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Container(
                       child: CircleAvatar(
-                        backgroundImage: AssetImage('public/img/meo.jpg'),
+                        backgroundImage: AssetImage('public/img/images.png'),
                         radius: 17,
                       ),
                       margin: EdgeInsets.only(right: 10),

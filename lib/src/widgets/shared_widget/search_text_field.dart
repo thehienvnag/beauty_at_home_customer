@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/blank_search.dart';
+import 'package:flutter_app/src/view/list_search_screen.dart';
+import 'package:flutter_app/src/view/list_search_screen_no_found.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class SearchTextField extends StatelessWidget {
@@ -22,6 +24,20 @@ class SearchTextField extends StatelessWidget {
       ),
       child: TextFormField(
         readOnly: isReadonly,
+        onFieldSubmitted: (value) {
+          if (value.length > 3) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ListSearchScreen(),
+                settings: RouteSettings(arguments: value),
+              ),
+            );
+          } else {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ListSearchScreenNotFound(),
+                settings: RouteSettings(arguments: value)));
+          }
+        },
         onTap: () {
           if (isReadonly) {
             Navigator.of(context).push(MaterialPageRoute(

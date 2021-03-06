@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
+import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
 import 'package:flutter_app/src/view/provider_detail_screen.dart';
+import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import '../search_screen_widget.dart';
@@ -24,6 +26,23 @@ class Staff {
       this.area,
       this.range});
 }
+
+final srv = Service(
+  name: '90 phút Massage body toàn thân',
+  description: [
+    'Bước 1: làm sạch tay bằng Cool Blue',
+    'Bước 2: dũa móng theo khuôn khách yêu cầu',
+    'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+    'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+  ],
+  price: '500',
+  estimateTime: 30,
+  status: "Đang hoạt động",
+  category: lstType[0],
+  imageUrl: 'public/img/nail_1.jpg',
+  isServiceCombo: false,
+  note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+);
 
 List<ServiceItem> lstService = List.from([
   ServiceItem(
@@ -111,8 +130,8 @@ class ListSearchServices extends StatelessWidget {
             hasDivider: false,
             hasBorder: false,
             sections: [
-              _buildStaff(staff),
-              ..._buildServices(staff.listService, size),
+              _buildStaff(staff, context),
+              ..._buildServices(staff.listService, size, context),
             ],
           );
         },
@@ -120,150 +139,167 @@ class ListSearchServices extends StatelessWidget {
     );
   }
 
-  Row _buildStaff(Staff staff) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 230,
-          margin: const EdgeInsets.only(left: 15, top: 13),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    staff.salonOwner,
-                    style: CustomTextStyle.titleText(Colors.black),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.star,
-                          color: Color(0xffFFCC00),
-                        ),
-                        Text(
-                          ' ${staff.rate}',
-                          style: CustomTextStyle.subtitleText(Colors.black87),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Text(
-                staff.titleService,
-                style: CustomTextStyle.subtitleText(Colors.black54),
-              ),
-              Row(
-                children: [
-                  Text(
-                    staff.range,
-                    style: CustomTextStyle.subtitleText(Colors.black87),
-                  ),
-                  Text(
-                    ' | ${staff.area}',
-                    style: CustomTextStyle.subtitleText(Colors.black54),
-                  ),
-                ],
-              ),
-            ],
+  Widget _buildStaff(Staff staff, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ProviderDetailScreen(),
           ),
-        ),
-        Container(
-          margin: EdgeInsets.only(left: 30, top: 10, bottom: 10),
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(staff.image),
+        );
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 230,
+            margin: const EdgeInsets.only(left: 15, top: 13),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      staff.salonOwner,
+                      style: CustomTextStyle.titleText(Colors.black),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 20),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            color: Color(0xffFFCC00),
+                          ),
+                          Text(
+                            ' ${staff.rate}',
+                            style: CustomTextStyle.subtitleText(Colors.black87),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Text(
+                  staff.titleService,
+                  style: CustomTextStyle.subtitleText(Colors.black54),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      staff.range,
+                      style: CustomTextStyle.subtitleText(Colors.black87),
+                    ),
+                    Text(
+                      ' | ${staff.area}',
+                      style: CustomTextStyle.subtitleText(Colors.black54),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-        ),
-      ],
+          Container(
+            margin: EdgeInsets.only(left: 30, top: 10, bottom: 10),
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(staff.image),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  List<Widget> _buildServices(List<ServiceItem> lstServices, Size size) {
+  List<Widget> _buildServices(
+      List<ServiceItem> lstServices, Size size, BuildContext context) {
     return lstServices
         .map<Widget>(
-          (item) => Column(
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 35),
-                      ),
-                      Container(
-                        width: 250,
-                        child: Column(
-                          children: [
-                            Row(
+          (item) => GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ServiceDetailScreen(
+                    service: srv,
+                  ),
+                ),
+              );
+            },
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 35),
+                    ),
+                    Container(
+                      width: 250,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                item.titleService,
+                                style: CustomTextStyle.subtitleText(
+                                    Colors.black87),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 10),
+                            child: Row(
                               children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.black54,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                  width: 18,
+                                  height: 14,
+                                  child: Icon(
+                                    Icons.attach_money_sharp,
+                                    color: Colors.black54,
+                                    size: 12,
+                                  ),
+                                ),
                                 Text(
-                                  item.titleService,
+                                  ' ${item.price}',
                                   style: CustomTextStyle.subtitleText(
-                                      Colors.black87),
+                                      Colors.black54),
                                 ),
                               ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(top: 10),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.black54,
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(2),
-                                    ),
-                                    width: 18,
-                                    height: 14,
-                                    child: Icon(
-                                      Icons.attach_money_sharp,
-                                      color: Colors.black54,
-                                      size: 12,
-                                    ),
-                                  ),
-                                  Text(
-                                    ' ${item.price}',
-                                    style: CustomTextStyle.subtitleText(
-                                        Colors.black54),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 5),
-                        width: 50,
-                        height: 50,
-                        child: Image(
-                          image: AssetImage(
-                            item.image,
                           ),
-                          fit: BoxFit.cover,
-                        ),
+                        ],
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                ],
-              ),
-            ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 5),
+                      width: 50,
+                      height: 50,
+                      child: Image(
+                        image: AssetImage(
+                          item.image,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+              ],
+            ),
           ),
         )
         .toList();

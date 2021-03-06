@@ -3,6 +3,7 @@ import 'package:flutter_app/src/presenter/booking_summary_presenter.dart';
 import 'package:flutter_app/src/view/booking_summary.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
+import 'package:flutter_app/src/view/login_screen.dart';
 import 'package:flutter_app/src/view/provider_confirm_screen.dart';
 
 class App extends StatelessWidget {
@@ -18,7 +19,9 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => HomeScreen(),
+        '/': (context) => BookingSummary(
+              presenter: BookingSummaryPresenter(),
+            ),
         //'/': (context) => CheckoutScreen(),
         //'/': (context) => PaymentScreen(),
         // '/': (context) => NotificationScreen(),

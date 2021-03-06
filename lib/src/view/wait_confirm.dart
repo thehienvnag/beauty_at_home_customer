@@ -33,15 +33,14 @@ class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
   void initState() {
     super.initState();
 
-    Future(() {
-      Future.delayed(Duration(seconds: 5));
-    }).then(
-      (value) => Navigator.of(context).push(MaterialPageRoute(
+    Future(() async {
+      await Future.delayed(Duration(seconds: 5));
+      Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => BookingSummary(
           presenter: BookingSummaryPresenter(),
         ),
-      )),
-    );
+      ));
+    }).then((value) => {});
   }
 
   @override
