@@ -289,7 +289,7 @@ class ProfileScreenState extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(4),
+      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(3),
     );
   }
 

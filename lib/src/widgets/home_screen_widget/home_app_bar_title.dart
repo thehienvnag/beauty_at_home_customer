@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class HomeAppBarTitle extends StatelessWidget {
   const HomeAppBarTitle({
@@ -8,16 +9,15 @@ class HomeAppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Icon(
           Icons.location_on,
           color: Color(0xff0DB5B4),
         ),
         Text(
-          ' Hồ Chí Minh',
-          style: TextStyle(
-              fontWeight: FontWeight.normal, fontSize: 16, color: Colors.black),
+          ' 5/3 đường số 9',
+          style: CustomTextStyle.titleText(Colors.black),
         ),
       ],
     );

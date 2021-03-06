@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class Category {
   String name;
@@ -32,34 +33,56 @@ class ServiceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      height: 100,
-      width: size.width * 0.95,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        physics: BouncingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: listCategories.length,
-        separatorBuilder: (context, index) => SizedBox(width: 20),
-        itemBuilder: (context, index) {
-          Category category = listCategories[index];
-          return Column(
-            children: [
-              Container(
-                height: 70,
-                width: 57,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage(category.image),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 2),
+          margin: EdgeInsets.only(
+            bottom: 8,
+          ),
+          child: Text(
+            'DANH MỤC DỊCH VỤ',
+            style: CustomTextStyle.headline600Text(
+              Colors.black,
+            ),
+          ),
+        ),
+        Container(
+          height: 90,
+          width: size.width * 0.95,
+          padding: EdgeInsets.only(left: 15),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            physics: BouncingScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: listCategories.length,
+            separatorBuilder: (context, index) => SizedBox(width: 30),
+            itemBuilder: (context, index) {
+              Category category = listCategories[index];
+              return Column(
+                children: [
+                  Container(
+                    height: 60,
+                    width: 60,
+                    margin: EdgeInsets.only(bottom: 5),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        image: AssetImage(category.image),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Text(category.name),
-            ],
-          );
-        },
-      ),
+                  Text(
+                    category.name,
+                    style: CustomTextStyle.subtitleText(Colors.black87),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

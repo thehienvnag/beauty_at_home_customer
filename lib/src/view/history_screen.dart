@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _HistoryPageState extends State<HistoryScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        bottomNavigationBar: WidgetUtils.appBottomNavigationBar(1),
         appBar: AppBar(
           // elevation: 0,
           // leadingWidth: 0,

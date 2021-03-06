@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/search_screen_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class SlideService extends StatelessWidget {
   @override
@@ -15,32 +17,12 @@ class SlideService extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 15),
               child: Text(
                 'DỊCH VỤ NỔI BẬT',
-                style: TextStyle(
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 18,
-                  color: Colors.black.withOpacity(0.6),
+                style: CustomTextStyle.headline600Text(
+                  Colors.black,
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 10, left: 13),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Service(
-                      image: "public/img/pic4.png",
-                      press: () {},
-                    ),
-                    Service(
-                      image: "public/img/pic7.jpg",
-                      press: () {},
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            ViewsServices(),
           ],
         ),
       ),

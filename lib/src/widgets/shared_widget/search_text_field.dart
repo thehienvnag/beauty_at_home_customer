@@ -1,28 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/blank_search.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class SearchTextField extends StatelessWidget {
+  final bool isReadonly;
+  final String initialValue;
+
+  const SearchTextField({Key key, this.isReadonly, this.initialValue})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Container(
       height: 42,
-      width: screenSize.width * 0.91,
+      width: screenSize.width * 0.93,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        borderRadius: BorderRadius.circular(3),
+      ),
       child: TextFormField(
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(top: 3),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: BorderSide(
-              color: Colors.white,
-              style: BorderStyle.solid,
-            ),
-          ),
-          prefixIcon: Icon(Icons.search),
+        readOnly: isReadonly,
+        onTap: () {
+          if (isReadonly) {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => BlankScreen(),
+            ));
+          }
+        },
+        cursorColor: Colors.black,
+        cursorHeight: 22,
+        cursorWidth: 1,
+        initialValue: initialValue ?? initialValue,
+        decoration: new InputDecoration(
+          prefixIcon: Icon(Icons.search_rounded, color: Color(0xff0DB5B4)),
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          contentPadding:
+              EdgeInsets.only(left: 15, bottom: 17, top: 11, right: 15),
           hintText: 'Tìm kiếm dịch vụ...',
-          hintStyle: TextStyle(
-            color: Colors.grey.withOpacity(0.5),
-          ),
+          hintStyle: CustomTextStyle.subtitleText(Colors.grey),
+          labelStyle: CustomTextStyle.subtitleText(Colors.black),
         ),
       ),
     );

@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/view/list_search_screen.dart';
-import 'list_search_screen_no_found.dart';
+import 'package:flutter_app/src/widgets/shared_widget/search_text_field.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class BlankScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _BlankScreenState createState() => _BlankScreenState();
 }
 
-class _HomePageState extends State<BlankScreen> {
+List<String> listRecommend = List.from([
+  "Cắt tóc",
+  "Cắt tóc nam",
+  "Nhuộm tóc",
+  "Duỗi tóc",
+  "Gội đầu",
+  "Nails",
+  "Massage",
+  "Trang điểm",
+  "Xăm lông mày",
+  "Nặn mụn"
+]);
+
+List<String> listRecommendShort = List.from([
+  "Cắt tóc",
+  "Gội đầu",
+  "Nails",
+  "Massage",
+  "Trang điểm",
+]);
+
+class _BlankScreenState extends State<BlankScreen> {
   @override
   Widget build(BuildContext context) {
     Future _press(String keySearch) async {
@@ -28,95 +50,28 @@ class _HomePageState extends State<BlankScreen> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Được tìm kiếm nhiều',
-                  style: TextStyle(color: Colors.black, fontSize: 27)),
+              child: Text(
+                'Được tìm kiếm nhiều',
+                style: CustomTextStyle.headerText(Colors.black87),
+              ),
             ),
             SizedBox(height: 5),
-            Container(
-              width: size.width,
-              child: Row(children: [
-                ServiceInvite(
-                  keysearch: 'Nail thái',
-                  press: () => _press('Nail Thái'),
-                ),
-                ServiceInvite(
-                  keysearch: 'Nail hạt dẻ',
-                  press: () => _press('Nail hạt dẻ'),
-                ),
-                ServiceInvite(
-                  keysearch: 'Trang điểm',
-                  press: () => _press('Trang điểm'),
-                )
-              ]),
+            Wrap(
+              children: _buildRecommends(listRecommend),
             ),
-            Container(
-              width: size.width,
-              child: Row(children: [
-                ServiceInvite(
-                  keysearch: 'Làm tóc',
-                  press: () => _press('Làm tóc'),
-                ),
-                ServiceInvite(
-                  keysearch: 'Nối mi',
-                  press: () => _press('Mi'),
-                ),
-                ServiceInvite(
-                  keysearch: 'Massage thân',
-                  press: () => _press('Massage'),
-                )
-              ]),
+            Divider(
+              color: Colors.black54,
+              height: 40,
             ),
-            Container(
-              width: size.width,
-              child: Row(children: [
-                ServiceInvite(
-                  keysearch: 'Trang điểm tiệc',
-                  press: () => _press('Trang điểm tiệc'),
-                ),
-                ServiceInvite(
-                  keysearch: 'Uốn tóc đẹp',
-                  press: () => _press('Tóc đẹp'),
-                ),
-              ]),
-            ),
-            SizedBox(height: 20),
-            Container(width: size.width, height: 2, color: Colors.black),
-            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text('Lịch sử tìm kiếm của bạn',
-                  style: TextStyle(color: Colors.black, fontSize: 27)),
+              child: Text(
+                'Bạn đã tìm kiếm',
+                style: CustomTextStyle.headerText(Colors.black87),
+              ),
             ),
-            SizedBox(height: 10),
-            Container(
-              width: size.width,
-              child: Row(children: [
-                ServiceInvite(
-                  keysearch: 'trang diem',
-                  press: () => _press('trang diem'),
-                ),
-                ServiceInvite(
-                  keysearch: 'son mong',
-                  press: () => _press('son mong'),
-                ),
-                ServiceInvite(
-                  keysearch: 'dam lung',
-                  press: () => _press('dam lung'),
-                )
-              ]),
-            ),
-            Container(
-              width: size.width,
-              child: Row(children: [
-                ServiceInvite(
-                  keysearch: 'son mong tay dep',
-                  press: () => _press('son mong tay dep'),
-                ),
-                ServiceInvite(
-                  keysearch: 'lam toc quan 9',
-                  press: () => _press('lam toc quan 9'),
-                ),
-              ]),
+            Wrap(
+              children: _buildRecommends(listRecommendShort),
             ),
           ],
         )
@@ -124,9 +79,30 @@ class _HomePageState extends State<BlankScreen> {
         );
   }
 
+  List<Widget> _buildRecommends(List<String> recommends) {
+    return recommends
+        .map<Widget>(
+          (recommend) => Container(
+            margin: EdgeInsets.only(right: 10),
+            child: ActionChip(
+              label: Text(
+                recommend,
+                style: CustomTextStyle.subtitleText(Colors.black87),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ListSearchScreen(),
+                  settings: RouteSettings(arguments: recommend),
+                ));
+              },
+            ),
+          ),
+        )
+        .toList();
+  }
+
   Widget _buildBar(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var _controller = TextEditingController();
     return new AppBar(
       backgroundColor: Colors.white,
       leading: IconButton(
@@ -142,34 +118,12 @@ class _HomePageState extends State<BlankScreen> {
       elevation: 0,
       leadingWidth: 20,
       title: Container(
-        margin: EdgeInsets.only(top: 12),
+        margin: EdgeInsets.only(top: 12, left: 10),
         height: 45,
-        width: size.width,
+        width: size.width * 0.92,
         color: Color(0xffF2F2F2),
-        child: TextField(
-          textInputAction: TextInputAction.search,
-          controller: _controller,
-          onSubmitted: (value) {
-            if (value.isNotEmpty && value.length < 22) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ListSearchScreen(),
-                  settings: RouteSettings(arguments: value)));
-            } else if (value.length > 22) {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ListSearchScreenNotFound(),
-                  settings: RouteSettings(arguments: value)));
-            }
-          },
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(top: 3),
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-              prefixIcon: Icon(Icons.search),
-              hintText: 'Tìm kiếm dịch vụ...',
-              suffixIcon: IconButton(
-                onPressed: () => _controller.clear(),
-                icon: Icon(Icons.clear),
-              )),
+        child: SearchTextField(
+          isReadonly: false,
         ),
       ),
     );

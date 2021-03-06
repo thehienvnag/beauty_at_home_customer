@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
 
 class NotificationScreen extends StatelessWidget {
   @override
@@ -30,6 +31,7 @@ class NotificationScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         physics: BouncingScrollPhysics(),

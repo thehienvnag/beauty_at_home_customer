@@ -7,6 +7,8 @@ class FullWidthCard extends StatelessWidget {
   final List<Widget> sections;
   final EdgeInsets padding;
   final double marginTop, marginBottom;
+  final bool hasBorder;
+  final bool hasDivider;
 
   const FullWidthCard({
     Key key,
@@ -14,6 +16,8 @@ class FullWidthCard extends StatelessWidget {
     this.padding,
     this.marginTop,
     this.marginBottom,
+    this.hasBorder = true,
+    this.hasDivider = true,
   }) : super(key: key);
 
   @override
@@ -29,17 +33,25 @@ class FullWidthCard extends StatelessWidget {
       ),
       width: screenWidth.width,
       sections: this.sections,
-      divider: const Divider(
-        height: 0,
-        thickness: 0.5,
-        color: Colors.black26,
-      ),
-      shapeBorder: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.5),
-          width: 0.5,
-        ),
-      ),
+      divider: hasDivider
+          ? const Divider(
+              height: 0,
+              thickness: 0.5,
+              color: Colors.black26,
+            )
+          : Divider(
+              thickness: 0,
+            ),
+      shapeBorder: hasBorder
+          ? RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.grey.withOpacity(0.5),
+                width: 0.5,
+              ),
+            )
+          : RoundedRectangleBorder(
+              side: BorderSide.none,
+            ),
     );
   }
 }

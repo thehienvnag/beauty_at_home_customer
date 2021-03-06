@@ -362,7 +362,6 @@ class _DemoAppState extends State<DemoApp> {
           ),
         ),
       ),
-      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
     );
   }
 }

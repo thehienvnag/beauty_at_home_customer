@@ -3,34 +3,22 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/beautician_model.dart';
 import 'package:flutter_app/src/view/provider_detail_screen.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class BeauticianWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Image(
-                image: AssetImage(
-                  'public/img/icon2.PNG',
-                ),
-                fit: BoxFit.cover,
-                height: 40,
-                width: 40,
-              ),
-            ),
-            Text(
+        Container(
+          padding: EdgeInsets.only(left: 10, bottom: 10, top: 15),
+          child: Align(
+            alignment: Alignment.topLeft,
+            child: Text(
               'THỢ CHUYÊN NGHIỆP',
-              style: TextStyle(
-                  letterSpacing: 1,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 18,
-                  color: Colors.black),
+              style: CustomTextStyle.headline600Text(Colors.black),
             ),
-          ],
+          ),
         ),
         ListView.separated(
           physics: NeverScrollableScrollPhysics(),
@@ -78,18 +66,38 @@ class Beautician extends StatelessWidget {
         );
       },
       child: Container(
+        padding: EdgeInsets.only(left: 5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 10),
-              child: Image(
-                image: AssetImage(model.image),
-                fit: BoxFit.cover,
-                height: 70,
-                width: 60,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Align(
+                alignment: Alignment.bottomRight,
+                heightFactor: 1,
+                widthFactor: 1,
+                child: Image.asset(model.image),
               ),
             ),
+            // Container(
+            //   margin: EdgeInsets.only(left: 10),
+            //   child: Wrap(
+            //     children: [
+            //       Image(
+            //         image: AssetImage(
+            //           model.image,
+            //         ),
+            //         fit: BoxFit.fitWidth,
+            //         height: 80,
+            //         width: 70,
+            //       ),
+            //     ],
+            //   ),
+            //   decoration: BoxDecoration(
+            //     color: Colors.white,
+            //     borderRadius: BorderRadius.circular(4),
+            //   ),
+            // ),
             Container(
               margin: const EdgeInsets.only(left: 10),
               child: Column(
@@ -102,11 +110,7 @@ class Beautician extends StatelessWidget {
                       children: [
                         Text(
                           model.beauticianName,
-                          style: TextStyle(
-                              letterSpacing: 1,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16,
-                              color: Colors.black),
+                          style: CustomTextStyle.titleText(Colors.black),
                         ),
                         Container(
                           child: Row(
@@ -115,7 +119,11 @@ class Beautician extends StatelessWidget {
                                 Icons.star,
                                 color: Color(0xffFFCC00),
                               ),
-                              Text('${model.rateScore}')
+                              Text(
+                                '${model.rateScore}',
+                                style: CustomTextStyle.subtitleText(
+                                    Colors.black87),
+                              )
                             ],
                           ),
                         ),
@@ -124,29 +132,17 @@ class Beautician extends StatelessWidget {
                   ),
                   Text(
                     model.nameService,
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 13,
-                        color: Colors.black),
+                    style: CustomTextStyle.subtitleText(Colors.black87),
                   ),
                   Row(
                     children: [
                       Text(
                         model.distance,
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                            color: Colors.grey),
+                        style: CustomTextStyle.subtitleText(Colors.grey),
                       ),
                       Text(
                         ' | ' + model.location,
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13,
-                            color: Colors.grey),
+                        style: CustomTextStyle.subtitleText(Colors.grey),
                       ),
                     ],
                   ),
@@ -154,19 +150,11 @@ class Beautician extends StatelessWidget {
                     children: [
                       Text(
                         model.status,
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13,
-                            color: Colors.blue),
+                        style: CustomTextStyle.subtitleText(Colors.blue),
                       ),
                       Text(
                         model.openHours,
-                        style: TextStyle(
-                            letterSpacing: 1,
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13,
-                            color: Colors.black),
+                        style: CustomTextStyle.subtitleText(Colors.grey),
                       ),
                     ],
                   ),
@@ -186,7 +174,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '5 km',
     4.8,
-    'public/img/beautician1.PNG',
+    'public/img/beautician1.png',
     'Quận 1, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
@@ -196,7 +184,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '5 km',
     4.8,
-    'public/img/beautician2.PNG',
+    'public/img/beautician2.png',
     'Quận 1, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
@@ -206,7 +194,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '5 km',
     4.8,
-    'public/img/beautician3.PNG',
+    'public/img/beautician3.png',
     'Quận 1, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
@@ -216,7 +204,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '5 km',
     4.8,
-    'public/img/beautician2.PNG',
+    'public/img/beautician2.png',
     'Quận 1, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',

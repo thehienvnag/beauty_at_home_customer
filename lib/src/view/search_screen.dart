@@ -49,7 +49,7 @@ class _HomePageState extends State<SearchPage> {
           ),
         ],
       ),
-      bottomNavigationBar: WidgetUtils.appBottomNavigationBar(1),
+      // bottomNavigationBar: WidgetUtils.appBottomNavigationBar,
     );
   }
 

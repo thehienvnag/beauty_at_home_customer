@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
 import 'package:flutter_app/src/view/provider_detail_screen.dart';
+import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import '../search_screen_widget.dart';
 
 class Staff {
@@ -27,24 +29,24 @@ List<ServiceItem> lstService = List.from([
   ServiceItem(
       titleService: '90 phút massage body toàn thân',
       price: '200.000',
-      image: 'public/img/beautician1.PNG'),
+      image: 'public/img/beautician1.png'),
   ServiceItem(
       titleService: '60 phút massage body toàn thân',
       price: '150.000',
-      image: 'public/img/beautician2.PNG'),
+      image: 'public/img/beautician2.png'),
   ServiceItem(
       titleService: '30 phút massage body toàn thân',
       price: '100.000',
-      image: 'public/img/beautician3.PNG'),
+      image: 'public/img/beautician3.png'),
   ServiceItem(
     titleService: '10 phút massage body toàn thân',
     price: '80.000',
-    image: 'public/img/beautician3.PNG',
+    image: 'public/img/beautician3.png',
   ),
 ]);
 List<Staff> lstStaffService = List.from([
   Staff(
-    image: 'public/img/beautician2.PNG',
+    image: 'public/img/beautician2.png',
     salonOwner: 'Đức Trần',
     titleService: 'Massage chân tay, giác hơi',
     rate: 5,
@@ -53,7 +55,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician1.PNG',
+    image: 'public/img/beautician1.png',
     salonOwner: 'Hani Nguyễn',
     titleService: 'Massage - Bấm huyệt',
     rate: 5,
@@ -62,7 +64,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician2.PNG',
+    image: 'public/img/beautician2.png',
     salonOwner: 'Tony Đặng',
     titleService: 'Massage - Giác hơi',
     rate: 5,
@@ -71,7 +73,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician3.PNG',
+    image: 'public/img/beautician3.png',
     salonOwner: 'Merry Trần',
     titleService: 'Massage',
     rate: 4.8,
@@ -80,7 +82,7 @@ List<Staff> lstStaffService = List.from([
     listService: lstService,
   ),
   Staff(
-    image: 'public/img/beautician2.PNG',
+    image: 'public/img/beautician2.png',
     salonOwner: 'Lyly Phạm',
     titleService: 'Massage chân tay, giác hơi',
     rate: 5,
@@ -95,139 +97,102 @@ class ListSearchServices extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Expanded(
-      child: ListView.builder(
-        itemCount: lstService.length,
+      child: ListView.separated(
+        separatorBuilder: (context, index) => Container(
+          color: Colors.grey.withOpacity(0.25),
+          height: 8,
+        ),
+        itemCount: lstStaffService.length,
         physics: BouncingScrollPhysics(),
-        itemBuilder: (BuildContext buildContext, int index) {
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
           Staff staff = lstStaffService[index];
-          return Card(
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-                side: BorderSide(
-                  color: Colors.grey.withOpacity(0.7),
-                  width: 0.2,
-                )),
-            child: Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProviderDetailScreen(),
-                      ),
-                    );
-                  },
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 230,
-                        margin: const EdgeInsets.only(left: 15, top: 13),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              children: [
-                                Text(
-                                  staff.salonOwner,
-                                  style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.black),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Color(0xffFFCC00),
-                                    ),
-                                    Text(' ${staff.rate}')
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Text(
-                              staff.titleService,
-                              style: TextStyle(
-                                  letterSpacing: 1,
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 13,
-                                  color: Colors.black),
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  staff.range,
-                                  style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 13,
-                                      color: Colors.grey),
-                                ),
-                                Text(
-                                  ' | ${staff.area}',
-                                  style: TextStyle(
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 13,
-                                      color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(left: 30, top: 10, bottom: 10),
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(staff.image),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                    width: size.width * 0.9,
-                    height: 1,
-                    color: Colors.black.withOpacity(0.2)),
-                ItemsList(itemList: staff.listService)
-              ],
-            ),
+          return FullWidthCard(
+            hasDivider: false,
+            hasBorder: false,
+            sections: [
+              _buildStaff(staff),
+              ..._buildServices(staff.listService, size),
+            ],
           );
         },
       ),
     );
   }
-}
 
-class ItemsList extends StatelessWidget {
-  final List<ServiceItem> itemList;
-
-  const ItemsList({
-    Key key,
-    this.itemList,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Column(
+  Row _buildStaff(Staff staff) {
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: itemList.length,
-          itemBuilder: (context, index) => Column(
+        Container(
+          width: 230,
+          margin: const EdgeInsets.only(left: 15, top: 13),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    staff.salonOwner,
+                    style: CustomTextStyle.titleText(Colors.black),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Color(0xffFFCC00),
+                        ),
+                        Text(
+                          ' ${staff.rate}',
+                          style: CustomTextStyle.subtitleText(Colors.black87),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Text(
+                staff.titleService,
+                style: CustomTextStyle.subtitleText(Colors.black54),
+              ),
+              Row(
+                children: [
+                  Text(
+                    staff.range,
+                    style: CustomTextStyle.subtitleText(Colors.black87),
+                  ),
+                  Text(
+                    ' | ${staff.area}',
+                    style: CustomTextStyle.subtitleText(Colors.black54),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 30, top: 10, bottom: 10),
+          width: 60,
+          height: 60,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(staff.image),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  List<Widget> _buildServices(List<ServiceItem> lstServices, Size size) {
+    return lstServices
+        .map<Widget>(
+          (item) => Column(
             children: [
               Column(
                 children: [
@@ -243,37 +208,39 @@ class ItemsList extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  itemList[index].titleService,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  ),
+                                  item.titleService,
+                                  style: CustomTextStyle.subtitleText(
+                                      Colors.black87),
                                 ),
                               ],
                             ),
-                            Row(
-                              children: [
-                                Container(
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Row(
+                                children: [
+                                  Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                        color: Colors.black,
+                                        color: Colors.black54,
                                         width: 1,
                                       ),
-                                      borderRadius: BorderRadius.circular(6),
+                                      borderRadius: BorderRadius.circular(2),
                                     ),
-                                    width: 28,
-                                    height: 22,
+                                    width: 18,
+                                    height: 14,
                                     child: Icon(
                                       Icons.attach_money_sharp,
-                                      color: Colors.black,
-                                      size: 20,
-                                    )),
-                                Text(
-                                  ' ${itemList[index].price}',
-                                  style: TextStyle(
-                                    color: Colors.black,
+                                      color: Colors.black54,
+                                      size: 12,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                  Text(
+                                    ' ${item.price}',
+                                    style: CustomTextStyle.subtitleText(
+                                        Colors.black54),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -284,7 +251,7 @@ class ItemsList extends StatelessWidget {
                         height: 50,
                         child: Image(
                           image: AssetImage(
-                            itemList[index].image,
+                            item.image,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -294,20 +261,11 @@ class ItemsList extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  Container(
-                      width: size.width * 0.9,
-                      height: 1,
-                      color: Colors.black.withOpacity(0.2)),
                 ],
               ),
-              if (index + 1 < itemList.length)
-                Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                ),
             ],
           ),
-        ),
-      ],
-    );
+        )
+        .toList();
   }
 }

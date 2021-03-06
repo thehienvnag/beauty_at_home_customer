@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -20,77 +21,78 @@ class _MyAppState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xff0DB5B4),
         body: Stack(children: <Widget>[
-      Container(
-        margin: EdgeInsets.only(top: 70),
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 100,
-              ),
-              Column(
+          Container(
+            margin: EdgeInsets.only(top: 30),
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
                 children: <Widget>[
-                  Container(
-                    width: 250,
-                    height: 250,
-                    child: Image(image: AssetImage('public/img/logo6.png')),
+                  SizedBox(
+                    height: 100,
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      'Đăng nhập để làm đẹp ngay',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        width: 250,
+                        height: 250,
+                        child:
+                            Image(image: AssetImage('public/img/logoBr.png')),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          'Bring beauty artist to your doorstep',
+                          style: CustomTextStyle.titleText(Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
+                  SizedBox(height: 50),
+                  loginWithGoogle(),
+                  SizedBox(height: 12),
+                  loginWithPhone()
                 ],
               ),
-              SizedBox(height: 50),
-              loginWithGoogle(),
-              SizedBox(height: 10),
-              loginWithPhone()
-            ],
+            ),
           ),
-        ),
-      ),
-      Container(
-        width: 338,
-        height: 283,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: SizedBox(
-                  width: 210,
-                  height: 211,
-                  child: Material(
-                    color: Color(0x7fa5e4e0),
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.topRight,
-                child: SizedBox(
-                  width: 197,
-                  height: 192,
-                  child: Material(
-                    color: Color(0x7ca6e4e1).withOpacity(0.5),
-                    shape: CircleBorder(),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ]));
+          // Container(
+          //   width: 338,
+          //   height: 283,
+          //   child: Stack(
+          //     children: [
+          //       Positioned.fill(
+          //         child: Align(
+          //           alignment: Alignment.bottomLeft,
+          //           child: SizedBox(
+          //             width: 210,
+          //             height: 211,
+          //             child: Material(
+          //               color: Color(0x7fa5e4e0),
+          //               shape: CircleBorder(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //       Positioned.fill(
+          //         child: Align(
+          //           alignment: Alignment.topRight,
+          //           child: SizedBox(
+          //             width: 197,
+          //             height: 192,
+          //             child: Material(
+          //               color: Color(0x7ca6e4e1).withOpacity(0.5),
+          //               shape: CircleBorder(),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+        ]));
   }
 
   bool isSignIn = false;
@@ -130,24 +132,23 @@ class _MyAppState extends State<LoginScreen> {
         handleSignIn();
       },
       child: Container(
-        height: 10.0 * 5.5,
+        height: 45,
         padding: EdgeInsets.symmetric(
-          horizontal: 10.0,
+          horizontal: 15,
         ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.grey.withOpacity(0.1),
-        ),
+        color: Colors.white,
         child: Row(
           children: <Widget>[
-            Icon(FontAwesomeIcons.google,
-                size: 10.0 * 2.5, color: Colors.red.withOpacity(0.6)),
-            SizedBox(width: 10.0 * 1.5),
-            Text('Đăng nhập với Google',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                )),
+            Icon(
+              FontAwesomeIcons.google,
+              size: 10.0 * 2.5,
+              color: Colors.red.withOpacity(0.6),
+            ),
+            SizedBox(width: 30),
+            Text(
+              'Đăng nhập với Google',
+              style: CustomTextStyle.titleText(Colors.black87),
+            ),
           ],
         ),
       ),
@@ -161,23 +162,19 @@ class _MyAppState extends State<LoginScreen> {
             .push(MaterialPageRoute(builder: (context) => LoginPhoneScreen()));
       },
       child: Container(
-        height: 10.0 * 5.5,
+        height: 45,
         padding: EdgeInsets.symmetric(
-          horizontal: 10.0,
+          horizontal: 15,
         ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.grey.withOpacity(0.1),
-        ),
+        color: Colors.white,
         child: Row(
           children: <Widget>[
             Icon(Icons.phone, size: 10.0 * 2.5, color: Color(0xff28BEBA)),
-            SizedBox(width: 10.0 * 1.5),
-            Text('Đăng nhập với điện thoại',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                )),
+            SizedBox(width: 30),
+            Text(
+              'Đăng nhập với điện thoại',
+              style: CustomTextStyle.titleText(Colors.black87),
+            ),
           ],
         ),
       ),
