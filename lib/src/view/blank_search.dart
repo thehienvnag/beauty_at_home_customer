@@ -120,7 +120,7 @@ class _BlankScreenState extends State<BlankScreen> {
       title: Container(
         margin: EdgeInsets.only(top: 12, left: 10),
         height: 45,
-        width: size.width * 0.92,
+        width: size.width * 0.90,
         color: Color(0xffF2F2F2),
         child: SearchTextField(
           isReadonly: false,

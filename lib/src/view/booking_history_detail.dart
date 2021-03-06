@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
+import 'package:flutter_app/src/view/home_screen.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/beautician_history_description.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_description.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_total.dart';
@@ -8,7 +9,26 @@ import 'package:flutter_app/src/widgets/booking_summary_screen_widget/location_s
 import 'package:flutter_app/src/widgets/shared_widget/detail_screen_appbar.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
 
-class BookingHistoryDetailScreen extends StatelessWidget {
+class BookingHistoryDetailScreen extends StatefulWidget {
+  @override
+  _BookingHistoryDetailScreenState createState() =>
+      _BookingHistoryDetailScreenState();
+}
+
+class _BookingHistoryDetailScreenState
+    extends State<BookingHistoryDetailScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future(() async {
+      await Future.delayed(Duration(seconds: 15));
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ));
+    }).then((value) => {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

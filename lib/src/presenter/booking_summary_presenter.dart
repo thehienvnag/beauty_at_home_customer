@@ -30,7 +30,7 @@ class BookingSummaryPresenter implements IBookingSummaryPresenter {
   void testChangeCurrentScreenStateFrequently() {
     Utils.redoTaskPerDuration(
       () => changeCurrentScreenState(++_model.currentStepIndex),
-      5000,
+      10000,
       2,
       () => _view.navigateBookingHistory(),
     );

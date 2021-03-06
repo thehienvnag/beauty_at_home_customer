@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/rating_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 
 class BeauticianHistoryDescription extends StatelessWidget {
@@ -65,7 +66,13 @@ class BeauticianHistoryDescription extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => RatingScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),

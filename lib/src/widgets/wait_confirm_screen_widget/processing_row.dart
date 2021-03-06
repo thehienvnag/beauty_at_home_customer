@@ -22,7 +22,9 @@ class ProcessingRow extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () => {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           child: Text(
             'Cancel',
             style: TextStyle(

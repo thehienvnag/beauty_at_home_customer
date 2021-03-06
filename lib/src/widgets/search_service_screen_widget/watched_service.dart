@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class ViewsServices extends StatelessWidget {
@@ -43,6 +45,27 @@ class ViewsServices extends StatelessWidget {
   }
 }
 
+final srv = Service(
+  name: 'Làm sạch và sơn gel',
+  description: [
+    'Bước 1: làm sạch tay bằng Cool Blue',
+    'Bước 2: dũa móng theo khuôn khách yêu cầu',
+    'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+    'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+    'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
+    'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
+    'Bước 7: sơn gel',
+    'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
+  ],
+  price: '200',
+  estimateTime: 30,
+  status: "Đang hoạt động",
+  category: "Nails",
+  imageUrl: 'public/img/nail_2.jpg',
+  isServiceCombo: false,
+  note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+);
+
 class RecomendService extends StatelessWidget {
   const RecomendService({
     Key key,
@@ -57,20 +80,26 @@ class RecomendService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),
-      width: 190,
-      child: Column(
-        children: <Widget>[
-          Image.network(
-            image,
-            height: 130,
-            width: 190,
-            fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ServiceDetailScreen(
+            service: srv,
           ),
-          GestureDetector(
-            onTap: press,
-            child: Container(
+        ));
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),
+        width: 190,
+        child: Column(
+          children: <Widget>[
+            Image.network(
+              image,
+              height: 130,
+              width: 190,
+              fit: BoxFit.cover,
+            ),
+            Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -106,9 +135,9 @@ class RecomendService extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
