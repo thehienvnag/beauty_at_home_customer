@@ -16,7 +16,7 @@ class _BeauticianRouteMapState extends State<BeauticianRouteMap> {
       child: FlutterMap(
         options: MapOptions(
           center: LatLng(10.7233122, 107.3944394),
-          zoom: 19.0,
+          zoom: 15.0,
         ),
         layers: [
           MarkerLayerOptions(
@@ -42,8 +42,8 @@ class _BeauticianRouteMapState extends State<BeauticianRouteMap> {
               options: MarkerLayerOptions(
             markers: [
               Marker(
-                width: 30.0,
-                height: 30.0,
+                width: 15.0,
+                height: 15.0,
                 point: LatLng(10.7233122, 107.3944394),
                 builder: (ctx) => Container(
                   child: FlutterLogo(),

@@ -55,6 +55,7 @@ class _BookingSummaryState extends State<BookingSummary>
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: DetailScreenAppBar(
+          disabledBack: true,
           title: Text(
             'Booking Summary',
             style: TextStyle(color: Color(0xff636363), fontSize: 18),

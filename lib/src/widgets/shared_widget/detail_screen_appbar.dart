@@ -5,7 +5,7 @@ class DetailScreenAppBar extends StatelessWidget {
   final bool disabledBack;
   const DetailScreenAppBar({
     Key key,
-    this.title, this.disabledBack,
+    this.title, this.disabledBack = false,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

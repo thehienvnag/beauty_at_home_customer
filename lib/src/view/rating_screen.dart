@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/view/home_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/outlined_card.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -45,21 +46,23 @@ class _Rating_Screen  extends State<RatingScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 12),
                     width: 360,
                     sections: [
-                      SmoothStarRating(
-                        starCount: 5,
-                        color: Colors.yellowAccent,
-                        borderColor: Colors.grey,
-                        allowHalfRating: false,
-                        spacing: 6,
-                        size: 45,
-                        rating: rating,
-                        isReadOnly: false,
-                        onRated: (value){
-                            setState((){
-                              rating = value;
-                              print("rating is : $rating");
-                            });
-                        },
+                      Center(
+                        child: SmoothStarRating(
+                          starCount: 5,
+                          color: Colors.yellowAccent,
+                          borderColor: Colors.grey,
+                          allowHalfRating: false,
+                          spacing: 6,
+                          size: 45,
+                          rating: rating,
+                          isReadOnly: false,
+                          onRated: (value){
+                              setState((){
+                                rating = value;
+                                print("rating is : $rating");
+                              });
+                          },
+                        ),
                       ),
                       Row(
                         children: [
@@ -78,7 +81,7 @@ class _Rating_Screen  extends State<RatingScreen> {
                             color: Colors.white,
                             shape: Border.all(color: Color(0xff28BEBA),width: 1),
                             onPressed: () {
-                              //Navigator.pushNamed(context, '/blank');
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen(),),);
                             },
                           ),
                         ),

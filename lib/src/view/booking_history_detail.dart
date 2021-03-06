@@ -35,6 +35,7 @@ class _BookingHistoryDetailScreenState
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: DetailScreenAppBar(
+          disabledBack: true,
           title: Text(
             'JAN 31, 2021 8:27 AM',
             style: TextStyle(color: Color(0xff636363), fontSize: 16),
