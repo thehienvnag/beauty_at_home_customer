@@ -90,38 +90,38 @@ List<Service> lstService = List.from([
     isServiceCombo: false,
     note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
   ),
-  Service(
-    name: '90 phút Massage body toàn thân',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    ],
-    price: '500',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[0],
-    imageUrl: 'public/img/nail_1.jpg',
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
-  Service(
-    name: '90 phút Massage body toàn thân',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    ],
-    price: '500',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[0],
-    imageUrl: 'public/img/nail_1.jpg',
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
+  // Service(
+  //   name: '90 phút Massage body toàn thân',
+  //   description: [
+  //     'Bước 1: làm sạch tay bằng Cool Blue',
+  //     'Bước 2: dũa móng theo khuôn khách yêu cầu',
+  //     'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+  //     'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+  //   ],
+  //   price: '500',
+  //   estimateTime: 30,
+  //   status: "Đang hoạt động",
+  //   category: lstType[0],
+  //   imageUrl: 'public/img/nail_1.jpg',
+  //   isServiceCombo: false,
+  //   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  // ),
+  // Service(
+  //   name: '90 phút Massage body toàn thân',
+  //   description: [
+  //     'Bước 1: làm sạch tay bằng Cool Blue',
+  //     'Bước 2: dũa móng theo khuôn khách yêu cầu',
+  //     'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+  //     'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+  //   ],
+  //   price: '500',
+  //   estimateTime: 30,
+  //   status: "Đang hoạt động",
+  //   category: lstType[0],
+  //   imageUrl: 'public/img/nail_1.jpg',
+  //   isServiceCombo: false,
+  //   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  // ),
   Service(
     name: 'Làm sạch và sơn gel',
     description: [
@@ -157,7 +157,6 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 0;
   Map<Service, int> newCart;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,6 +165,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
         children: <Widget>[
           ProviderImage(
             path: provider.imageUrl,
+            cart: newCart,
           ),
           ProviderDescription(
             provider: provider,
@@ -230,13 +230,13 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                   Text(
                     newCart == null || newCart.isEmpty
                         ? ''
-                        : '${newCart.length} dịch vụ',
+                        : '${_calculateTotal(cart)} dịch vụ',
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
                     newCart == null || newCart.isEmpty
                         ? ''
-                        : '${calculatePrice(newCart)}đ',
+                        : '${_calculatePrice(newCart)}đ',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -253,17 +253,27 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     if (cart == null) {
       return Container();
     } else if (cart != null && cart.isNotEmpty) {
-      return SizedBox(height: 40.0,);
+      return SizedBox(
+        height: 40.0,
+      );
     }
     return Container();
   }
 
-  String calculatePrice(Map<Service, int> cart) {
+  String _calculatePrice(Map<Service, int> cart) {
     int total = 0;
     cart.forEach((key, value) {
       total += int.parse(key.price) * value;
     });
     return formatPrice(total.toString());
+  }
+
+  String _calculateTotal(Map<Service, int> cart) {
+    int total = 0;
+    cart.forEach((key, value) {
+      total += value;
+    });
+    return total.toString();
   }
 
   String formatPrice(String price) {
@@ -321,31 +331,38 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        SizedBox(height: 20.0,),
+        SizedBox(
+          height: 20.0,
+        ),
         Container(
-          width: 300,
+          width: 350,
           child: GridView.count(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             crossAxisCount: 3,
-            mainAxisSpacing: 10.0,
-            crossAxisSpacing: 10.0,
+            // mainAxisSpacing: 10.0,
+            // crossAxisSpacing: 10.0,
             children: List.generate(lstImage.length, (index) {
               return Center(
                 child: Container(
                   // margin: EdgeInsets.only(left: ),
-                  width: 100,
-                  height: 100,
-                  child: Image(
-                    image: AssetImage(lstImage[index]),
-                    fit: BoxFit.cover,
+                  width: 110,
+                  height: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image(
+                      image: AssetImage(lstImage[index]),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               );
             }),
           ),
         ),
-        SizedBox(height: 20.0,)
+        SizedBox(
+          height: 20.0,
+        )
       ],
     );
   }
@@ -362,8 +379,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             return Stack(
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 5.0),
-                  height: 170.0,
+                  margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 0.0),
+                  height: 150.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white54,
@@ -371,10 +388,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                     // borderRadius: BorderRadius.circular(5.0),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(110.0, 20.0, 00.0, 20.0),
+                    padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -382,7 +398,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                           children: <Widget>[
                             GestureDetector(
                               child: Container(
-                                width: 105.0,
+                                width: 115.0,
                                 child: Text(
                                   service.name,
                                   style: TextStyle(
@@ -390,22 +406,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
-                              onTap: () =>
-                                  //     Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (context) =>
-                                  //         ServiceDetailScreen(
-                                  //           service: service,
-                                  //           cart: cart,
-                                  //         ),
-                                  //   ),
-                                  // ),
-                                  _navigateAndDisplaySelection(
-                                      context, service, newCart),
-                            ),
-                            SizedBox(
-                              height: 65,
+                              onTap: () => _navigateAndDisplaySelection(
+                                  context, service, newCart),
                             ),
                             Text(
                               '${formatPrice(service.price)}',
@@ -413,12 +415,12 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                             ),
                           ],
                         ),
-                        Text(
-                          service.note,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        SizedBox(
-                          height: 10.0,
+                        Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Text(
+                            service.note,
+                            style: TextStyle(color: Colors.grey),
+                          ),
                         ),
                       ],
                     ),
@@ -426,14 +428,17 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                 ),
                 Positioned(
                   left: 20.0,
-                  top: 25.0,
-                  bottom: 30.0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(5.0),
-                    child: Image(
-                      width: 115.0,
-                      image: AssetImage(service.imageUrl),
-                      fit: BoxFit.cover,
+                  top: 15.0,
+                  bottom: 15.0,
+                  child: Hero(
+                    tag: service.imageUrl,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image(
+                        width: 115.0,
+                        image: AssetImage(service.imageUrl),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
