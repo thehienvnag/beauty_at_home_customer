@@ -18,7 +18,7 @@ class NotificationScreen extends StatelessWidget {
           },
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 1,
         title: Column(
           children: [
             Text(
@@ -32,363 +32,38 @@ class NotificationScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 10),
-              child: Divider(
-                height: 8,
-                thickness: 0.5,
-                color: Colors.grey,
-                indent: 12,
-                endIndent: 10,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
+      body: Container(
+        margin: EdgeInsets.only(top: 20),
+        child: ListView.separated(
+          itemCount: 1,
+          separatorBuilder: (context, index) => Divider(
+            height: 20,
+            thickness: 0.5,
+            color: Colors.grey,
+            indent: 10,
+            endIndent: 12,
+          ),
+          itemBuilder: (context, index) => Container(
+            padding: EdgeInsets.only(left: 15),
+            child: Row(
+              children: [
+                Container(
+                  height: 38,
+                  width: 38,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('public/img/notification.PNG'),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 18),
+                  child: Text('Đơn hàng của bạn đã được chấp nhận'),
+                ),
+              ],
             ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 10,
-              endIndent: 12,
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 5),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.3,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 12),
-              child: Row(
-                children: [
-                  Container(
-                    height: 38,
-                    width: 38,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: AssetImage('public/img/notification.PNG'),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 18),
-                    child: Text('Đơn hàng của bạn đã được chấp nhận'),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-            ),
-            Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 10,
-            ),
-          ],
+          ),
         ),
       ),
     );
