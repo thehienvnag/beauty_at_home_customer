@@ -186,7 +186,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   Color setButtonColor(Service service, Map<Service, int> cart, int quantity) {
     if (cart != null) {
       if (cart.containsKey(service) && quantity == 0) {
-        return Colors.red;
+        return Colors.redAccent;
       } else if (cart.containsKey(service) && cart[service] != quantity) {
         return Color(0xff28BEBA);
       } else if (cart.containsKey(service) && cart[service] == quantity) {

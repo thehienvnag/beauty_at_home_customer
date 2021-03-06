@@ -71,7 +71,7 @@ class ProviderDescription extends StatelessWidget {
                       'Đang hoạt động',
                       style: TextStyle(
                           fontFamily: 'Montserrat',
-                          fontSize: 16.0,
+                          // fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           color: Color(0xFF0DB5B4)
                       ),
@@ -80,7 +80,7 @@ class ProviderDescription extends StatelessWidget {
                       ' - ' + provider.openTime + ' - ' + provider.closeTime,
                       style: TextStyle(
                           fontFamily: 'Montserrat',
-                          fontSize: 16.0,
+                          // fontSize: 16.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.grey[600]
                       ),
