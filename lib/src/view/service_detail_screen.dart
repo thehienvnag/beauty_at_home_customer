@@ -51,6 +51,7 @@ class ServiceDetailScreen extends StatefulWidget {
 
 class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   int updatingQuantity = 1;
+  bool isFromPromotion = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -66,6 +67,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   @override
   Widget build(BuildContext context) {
     Map<Service, int> newCart = widget.cart;
+    isFromPromotion =
+        ModalRoute.of(context).settings.arguments == "From-Promotion";
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
@@ -237,6 +240,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 name: widget.service.name,
                 note: widget.service.note,
                 price: formatPrice(widget.service.price),
+                isFromPromotion: isFromPromotion,
               ),
               ServiceDetailStepDescription(
                 description: widget.service.description,

@@ -272,7 +272,7 @@ class ListSearchServices extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  ' ${item.price}',
+                                  ' ${item.price}đ',
                                   style: CustomTextStyle.subtitleText(
                                       Colors.black54),
                                 ),
