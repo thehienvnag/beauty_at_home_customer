@@ -152,11 +152,11 @@ class RecomendService extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => ServiceDetailScreen(
-              service: srv,
-              cart: Map(),
-            ),
-          ),
+              builder: (context) => ServiceDetailScreen(
+                    service: srv,
+                    cart: Map(),
+                  ),
+              settings: RouteSettings(arguments: "From-Popular-Service")),
         );
       },
       child: Container(

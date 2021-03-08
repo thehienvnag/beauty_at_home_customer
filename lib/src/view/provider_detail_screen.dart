@@ -181,9 +181,9 @@ List<Service> lstService = List.from([
 ]);
 
 class ProviderDetailScreen extends StatefulWidget {
-  // final Map<Service, int> cart;
+  final Map<Service, int> cart;
 
-  // const ProviderDetailScreen({Key key, this.cart}) : super(key: key);
+  const ProviderDetailScreen({Key key, this.cart}) : super(key: key);
   //
   @override
   _ProviderDetailScreenState createState() => _ProviderDetailScreenState();
@@ -192,6 +192,14 @@ class ProviderDetailScreen extends StatefulWidget {
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 1;
   Map<Service, int> newCart;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.cart != null) {
+      newCart = widget.cart;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

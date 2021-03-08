@@ -49,6 +49,7 @@ class PromotionScreen extends StatelessWidget {
                 service: srv,
                 cart: Map(),
               ),
+              settings: RouteSettings(arguments: "From-Promotion"),
             ));
           },
           backgroundColor: Color(0xff28BEBA),

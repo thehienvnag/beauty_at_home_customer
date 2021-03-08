@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/provider_detail_model/provider_feedback_model.dart';
 import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/view/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/service_detail_widget.dart';
 import 'package:intl/intl.dart';
 
@@ -18,7 +19,7 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
         'public/img/nail_3.png',
       ],
       feedback:
-      'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
+          'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
       userImage: 'public/img/user_image.jpg',
       commentedDate: '29-01-2021'),
   ProviderFeedback(
@@ -29,7 +30,7 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
         'public/img/nail_2.jpg',
       ],
       feedback:
-      'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
+          'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
           'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
           'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
           'sơn đều đẹp, nói chung là ưng ý.',
@@ -54,12 +55,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     if (widget.cart != null && widget.cart.containsKey(widget.service)) {
       updatingQuantity = widget.cart[widget.service];
     } else {
       updatingQuantity = 1;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Map<Service, int> newCart = widget.cart;
@@ -93,7 +96,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                       onPressed: () {
                         setState(
-                              () {
+                          () {
                             if (updatingQuantity > 0) {
                               updatingQuantity--;
                             }
@@ -104,10 +107,10 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   ),
                   Container(
                       child: Text(
-                        updatingQuantity.toString(),
-                        style: TextStyle(
-                            fontSize: 15.0, fontWeight: FontWeight.bold),
-                      )),
+                    updatingQuantity.toString(),
+                    style:
+                        TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                  )),
                   Container(
                     height: 45.0 * 0.9,
                     width: 45.0 * 0.9,
@@ -150,23 +153,35 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   if (newCart == null) {
                     newCart = new Map();
                   }
-                  if (!newCart.containsKey(widget.service) && updatingQuantity > 0) {
+                  if (!newCart.containsKey(widget.service) &&
+                      updatingQuantity > 0) {
                     newCart[widget.service] = updatingQuantity;
                   } else {
-                    if (newCart.containsKey(widget.service) && updatingQuantity == 0) {
+                    if (newCart.containsKey(widget.service) &&
+                        updatingQuantity == 0) {
                       newCart.remove(widget.service);
                     } else if (newCart.containsKey(widget.service) &&
                         newCart[widget.service] != updatingQuantity) {
-                      newCart.update(widget.service, (dynamic val) => updatingQuantity);
+                      newCart.update(
+                          widget.service, (dynamic val) => updatingQuantity);
                     }
                   }
-
-                  Navigator.pop(context, newCart);
+                  String fromScreen = ModalRoute.of(context).settings.arguments;
+                  if (fromScreen == "From-Promotion" ||
+                      fromScreen == "From-Popular-Service") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ProviderDetailScreen(cart: newCart),
+                    ));
+                  } else {
+                    Navigator.pop(context, newCart);
+                  }
                 },
-                backgroundColor: setButtonColor(widget.service, widget.cart, updatingQuantity),
+                backgroundColor: setButtonColor(
+                    widget.service, widget.cart, updatingQuantity),
                 label: Text(
                   button(widget.service, newCart, updatingQuantity),
-                  style: TextStyle(fontSize: 10.0, color: Colors.white, letterSpacing: 3),
+                  style: TextStyle(
+                      fontSize: 10.0, color: Colors.white, letterSpacing: 3),
                 ),
               ),
             ),
@@ -241,13 +256,18 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                     _buildCategory(),
                     Padding(
                       padding: EdgeInsets.only(right: 10.0),
-                      child: Text('Xem tất cả >', style: TextStyle(color: Color(0xff28BEBA)),),
+                      child: Text(
+                        'Xem tất cả >',
+                        style: TextStyle(color: Color(0xff28BEBA)),
+                      ),
                     )
                   ],
                 ),
               ),
               _buildStar(),
-              Container(child: _buildFeedback(lstProviderFeedback),),
+              Container(
+                child: _buildFeedback(lstProviderFeedback),
+              ),
               // Container(
               //   height: screenSize.height * 0.1,
               //   width: screenSize.width,
@@ -454,7 +474,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ),
-                  Divider(thickness: 1,),
+                  Divider(
+                    thickness: 1,
+                  ),
                 ],
               ),
             ],
@@ -465,50 +487,74 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   Widget _buildCategory() {
     return AnimatedContainer(
       padding: EdgeInsets.only(left: 10.0),
-        height: MediaQuery.of(context).size.height * 0.1,
-        width: MediaQuery.of(context).size.width * 0.5,
-        duration: Duration(milliseconds: 200),
-        curve: Curves.bounceIn,
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
+      height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 0.5,
+      duration: Duration(milliseconds: 200),
+      curve: Curves.bounceIn,
+      alignment: Alignment.centerLeft,
+      decoration: BoxDecoration(
           // border: _selectedIndex == index
           //     ? Border(
           //         top: BorderSide(width: 3.0, color: Colors.cyan[400]),
           //       )
           //     : null,
-        ),
-        child: Text(
-          'ĐÁNH GIÁ DỊCH VỤ',
-          style: TextStyle(
-              fontFamily: 'Montserrat',
-              // color: _selectedIndex == index ? Color(0xFF3EBACE) : null,
-              fontWeight: FontWeight.w700),
-        ),
+          ),
+      child: Text(
+        'ĐÁNH GIÁ DỊCH VỤ',
+        style: TextStyle(
+            fontFamily: 'Montserrat',
+            // color: _selectedIndex == index ? Color(0xFF3EBACE) : null,
+            fontWeight: FontWeight.w700),
+      ),
     );
   }
-  
+
   Widget _buildStar() {
     return Container(
       padding: EdgeInsets.only(left: 15.0, bottom: 5.0),
       // color: Colors.white,
       child: Row(
         children: <Widget>[
-          Icon(Icons.star, color: Colors.yellow, size: 18.0,),
-          Icon(Icons.star, color: Colors.yellow, size: 18.0,),
-          Icon(Icons.star, color: Colors.yellow, size: 18.0,),
-          Icon(Icons.star, color: Colors.yellow, size: 18.0,),
-          Icon(Icons.star, color: Colors.yellow, size: 18.0,),
-          SizedBox(width: 5.0,),
-          Text('5/5', ),
-          SizedBox(width: 5.0,),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 18.0,
+          ),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 18.0,
+          ),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 18.0,
+          ),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 18.0,
+          ),
+          Icon(
+            Icons.star,
+            color: Colors.yellow,
+            size: 18.0,
+          ),
+          SizedBox(
+            width: 5.0,
+          ),
+          Text(
+            '5/5',
+          ),
+          SizedBox(
+            width: 5.0,
+          ),
           Text('(50 đánh giá)'),
         ],
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey[300]))
-      ),
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: Colors.grey[300]))),
     );
   }
-
 }

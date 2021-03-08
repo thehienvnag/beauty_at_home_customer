@@ -65,16 +65,16 @@ class LocationChangeDescriptionScreen extends StatelessWidget {
                 endIndent: 10,
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(top: 100),
-              child: Divider(
-                height: 8,
-                thickness: 0.5,
-                color: Colors.grey,
-                indent: 12,
-                endIndent: 10,
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(top: 100),
+            //   child: Divider(
+            //     height: 8,
+            //     thickness: 0.5,
+            //     color: Colors.grey,
+            //     indent: 12,
+            //     endIndent: 10,
+            //   ),
+            // ),
             Container(
               margin: const EdgeInsets.only(left: 12, bottom: 5),
               child: Row(

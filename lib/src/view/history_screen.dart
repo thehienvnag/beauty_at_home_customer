@@ -206,52 +206,56 @@ class LoadHistory extends StatelessWidget {
                 GestureDetector(
                   onTap: history.press,
                   child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Container(
-                            width: 50,
-                            margin: EdgeInsets.only(left: 10, right: 13),
-                            child: Image.asset(
-                              history.imgUrl,
-                              width: 60,
-                              height: 60,
-                            )),
-                        Container(
-                          width: 160,
-                          margin: EdgeInsets.only(top: 5),
-                          height: 50,
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: history.saloner.toUpperCase(),
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15,
-                                      color: Colors.black.withOpacity(0.7)),
+                        Row(
+                          children: [
+                            Container(
+                                width: 50,
+                                margin: EdgeInsets.only(left: 10, right: 13),
+                                child: Image.asset(
+                                  history.imgUrl,
+                                  width: 60,
+                                  height: 60,
+                                )),
+                            Container(
+                              margin: EdgeInsets.only(top: 5),
+                              height: 50,
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: history.saloner.toUpperCase(),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15,
+                                          color: Colors.black.withOpacity(0.7)),
+                                    ),
+                                    TextSpan(
+                                      text: "\n${history.numService} dịch vụ",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.black.withOpacity(0.5),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: "\n${history.numService} dịch vụ",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.black.withOpacity(0.5),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                         Container(
-                            width: 100,
                             child: Text(
-                              history.date,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black.withOpacity(0.4),
-                              ),
-                              textAlign: TextAlign.left,
-                            )),
+                          history.date,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(0.4),
+                          ),
+                          textAlign: TextAlign.left,
+                        )),
                       ],
                     ),
                   ),
