@@ -104,23 +104,30 @@ class ViewsServices extends StatelessWidget {
   }
 }
 
+List<String> lstMassageImage = List.from([
+  'public/img/massage_1.png',
+  'public/img/massage_2.jpg',
+  'public/img/massage_3.jpg',
+  'public/img/massage_4.jpg',
+  'public/img/massage_5.jpg',
+  'public/img/massage_6.jpg',
+  'public/img/massage_7.png',
+  'public/img/massage_8.jpg',
+]);
 final srv = Service(
-  name: 'Làm sạch và sơn gel',
+  name: '90 phút Massage body toàn thân',
   description: [
     'Bước 1: làm sạch tay bằng Cool Blue',
     'Bước 2: dũa móng theo khuôn khách yêu cầu',
     'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
     'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
-    'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
-    'Bước 7: sơn gel',
-    'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
   ],
-  price: '200',
+  price: '500',
   estimateTime: 30,
   status: "Đang hoạt động",
-  category: "Nails",
-  imageUrl: 'public/img/nail_2.jpg',
+  // category: lstType[0],
+  imageUrl: 'public/img/massage_3.jpg',
+  serviceImages: lstMassageImage,
   isServiceCombo: false,
   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
 );
@@ -143,11 +150,14 @@ class RecomendService extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ServiceDetailScreen(
-            service: srv,
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ServiceDetailScreen(
+              service: srv,
+              cart: Map(),
+            ),
           ),
-        ));
+        );
       },
       child: Container(
         margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),

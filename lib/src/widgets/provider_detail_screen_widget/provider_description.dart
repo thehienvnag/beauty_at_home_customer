@@ -19,7 +19,8 @@ class ProviderDescription extends StatelessWidget {
           BoxShadow(
             color: Colors.grey[300],
             offset: Offset(0.0, 5.0),
-          )],
+          )
+        ],
       ),
       child: Stack(
         children: <Widget>[
@@ -35,7 +36,7 @@ class ProviderDescription extends StatelessWidget {
                   provider.name,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 26.0,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -43,7 +44,7 @@ class ProviderDescription extends StatelessWidget {
                   provider.description,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
-                    fontSize: 16.0,
+                    fontSize: 14.0,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -51,19 +52,20 @@ class ProviderDescription extends StatelessWidget {
                   provider.address,
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      // fontSize: 16.0,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.w500,
-                      color: Colors.grey[600]
-                  ),
+                      color: Colors.grey[600]),
                 ),
                 Text(
-                  'Giá dao động: ' + provider.lowerPrice + ' - ' + provider.upperPrice,
+                  'Giá dao động: ' +
+                      provider.lowerPrice +
+                      ' - ' +
+                      provider.upperPrice,
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
-                      color: Colors.grey[600]
-                  ),
+                      color: Colors.grey[600]),
                 ),
                 Row(
                   children: <Widget>[
@@ -73,8 +75,7 @@ class ProviderDescription extends StatelessWidget {
                           fontFamily: 'Montserrat',
                           // fontSize: 16.0,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF0DB5B4)
-                      ),
+                          color: Color(0xFF0DB5B4)),
                     ),
                     Text(
                       ' - ' + provider.openTime + ' - ' + provider.closeTime,
@@ -82,8 +83,7 @@ class ProviderDescription extends StatelessWidget {
                           fontFamily: 'Montserrat',
                           // fontSize: 16.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.grey[600]
-                      ),
+                          color: Colors.grey[600]),
                     ),
                   ],
                 ),
@@ -99,10 +99,7 @@ class ProviderDescription extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Color(0xFF0DB5B4),
                 borderRadius: BorderRadius.circular(15.0),
-                border: Border.all(
-                    color: Colors.white,
-                    width: 2.0
-                ),
+                border: Border.all(color: Colors.white, width: 2.0),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -119,19 +116,25 @@ class ProviderDescription extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Icon(Icons.stars, color: Colors.white, size: 22.0,),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 4.0,top: 8.0),
-                        child: Text(provider.rate.toString(),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        child: Icon(
+                          Icons.stars,
+                          color: Colors.white,
+                          size: 22.0,
                         ),
                       ),
-                    ],),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4.0, top: 8.0),
+                        child: Text(
+                          provider.rate.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   Container(
                     height: 35.0,
                     width: MediaQuery.of(context).size.width,
@@ -142,18 +145,19 @@ class ProviderDescription extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(formatPrice(provider.reviews),
+                        Text(
+                          formatPrice(provider.reviews),
                           style: TextStyle(
-                            fontSize: 11.0,
-                              fontWeight: FontWeight.bold
-                          ),),
-                        Text('Reviews',
+                              fontSize: 11.0, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'Reviews',
                           style: TextStyle(
-                              fontSize: 11.0,
-                              fontWeight: FontWeight.bold
-                          ),),
+                              fontSize: 11.0, fontWeight: FontWeight.bold),
+                        ),
                       ],
-                    ),),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -10,7 +10,9 @@ import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
 
 final List<Widget> dynamicContents = [
-  BeauticianRouteMap(),
+  CoverImage(
+    path: 'public/img/cus_wait_confirm.png',
+  ),
   CoverImage(
     path: 'public/img/cus_under_working.png',
   ),

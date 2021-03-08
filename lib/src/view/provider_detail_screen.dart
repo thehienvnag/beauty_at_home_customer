@@ -44,7 +44,7 @@ List<String> lstMassageImage = List.from([
 
 List<String> _categories = [
   'Hình ảnh',
-  'DỊCH VỤ NỔI BẬT',
+  'DANH MỤC DỊCH VỤ',
   'Đánh giá',
 ];
 
@@ -83,9 +83,10 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
       commentedDate: '31-01-2021'),
 ]);
 Provider provider = Provider(
-    name: 'Mít Nails & Spa',
+    name: 'Marry Trần Nails & Hails',
     description: 'Chăm sóc tóc và móng',
-    address: '27 đường số 3, Phường Bình An, Quận 2, Thành phố Hồ Chí Minh',
+    address:
+        'Đường Lê Văn Việt, phường Tăng Nhơn Phú A, quận 9 thành phố Hồ Chí Minh',
     status: 'Đang hoạt động',
     rate: 4.8,
     reviews: '1440',
@@ -93,7 +94,8 @@ Provider provider = Provider(
     upperPrice: '500.000đ',
     openTime: '9:00 AM',
     closeTime: '8:30 PM',
-    imageUrl: 'public/img/mit_nails_spa.png');
+    imageUrl:
+        'https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2020/01/q-makeup-academy-378010.jpg');
 
 List<Service> lstService = List.from([
   Service(
@@ -108,7 +110,8 @@ List<Service> lstService = List.from([
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[0],
-    imageUrl: 'public/img/massage_3.jpg',
+    imageUrl:
+        "https://meta.vn/Data/image/2020/12/04/massage-mat-co-tac-dung-gi-3.png",
     serviceImages: lstMassageImage,
     isServiceCombo: false,
     note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
@@ -129,7 +132,48 @@ List<Service> lstService = List.from([
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[1],
-    imageUrl: 'public/img/nail_2.jpg',
+    imageUrl:
+        "https://cuahanglamdep.com/images/detailed/3/noi-mi-3d-tai-meli-spa-1.jpg",
+    serviceImages: lstNailImages,
+    isServiceCombo: false,
+    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  ),
+  Service(
+    name: 'Tóc xoăn tự nhiên',
+    description: [
+      'Bước 1: làm sạch tay bằng Cool Blue',
+      'Bước 2: dũa móng theo khuôn khách yêu cầu',
+      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+    ],
+    price: '500',
+    estimateTime: 30,
+    status: "Đang hoạt động",
+    category: lstType[0],
+    imageUrl:
+        'https://i.pinimg.com/originals/96/9e/22/969e22a9ffc82d8d6915044f504e8604.png',
+    serviceImages: lstMassageImage,
+    isServiceCombo: false,
+    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  ),
+  Service(
+    name: 'Trang điểm tự nhiên',
+    description: [
+      'Bước 1: làm sạch tay bằng Cool Blue',
+      'Bước 2: dũa móng theo khuôn khách yêu cầu',
+      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+      'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
+      'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
+      'Bước 7: sơn gel',
+      'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
+    ],
+    price: '200',
+    estimateTime: 30,
+    status: "Đang hoạt động",
+    category: lstType[1],
+    imageUrl:
+        'https://mathoadaphan.com/wp-content/uploads/2021/02/c%C3%A1c-b%C6%B0%E1%BB%9Bc-trang-%C4%91i%E1%BB%83m-c%C6%A1-b%E1%BA%A3n.jpg',
     serviceImages: lstNailImages,
     isServiceCombo: false,
     note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
@@ -289,19 +333,19 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
         curve: Curves.bounceIn,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          // border: _selectedIndex == index
-          //     ? Border(
-          //         top: BorderSide(width: 3.0, color: Colors.cyan[400]),
-          //       )
-          //     : null,
-        ),
+            // border: _selectedIndex == index
+            //     ? Border(
+            //         top: BorderSide(width: 3.0, color: Colors.cyan[400]),
+            //       )
+            //     : null,
+            ),
         child: Text(
           _categories[index],
           style: TextStyle(
-            fontFamily: 'Montserrat',
-              color: _selectedIndex == index ? Color(0xFF3EBACE) : null,
+              fontFamily: 'Montserrat',
+              color: _selectedIndex == index ? Colors.black : null,
               fontWeight: FontWeight.w700,
-          letterSpacing: 1.0),
+              letterSpacing: 1.0),
         ),
       ),
     );
@@ -428,7 +472,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                         borderRadius: BorderRadius.circular(5.0),
                         child: Image(
                           width: 115.0,
-                          image: AssetImage(service.imageUrl),
+                          image: NetworkImage(service.imageUrl),
                           fit: BoxFit.cover,
                         ),
                       ),

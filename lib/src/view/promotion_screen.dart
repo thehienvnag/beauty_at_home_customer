@@ -8,6 +8,31 @@ class PromotionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(170),
+        child: AppBar(
+          leading: IconButton(
+              icon: Container(
+                padding: EdgeInsets.only(left: 5),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.black26,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.arrow_back_ios),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          flexibleSpace: Image(
+            image: NetworkImage(
+                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-sun-nails-cat-da-son-gel/sun-nails-cat-da-son-gel-lookme.vn-21030471207.jpeg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 10),
@@ -22,12 +47,13 @@ class PromotionScreen extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ServiceDetailScreen(
                 service: srv,
+                cart: Map(),
               ),
             ));
           },
           backgroundColor: Color(0xff28BEBA),
           label: Text(
-            'ĐẶT ĐƠN',
+            'ÁP DỤNG NGAY',
             style: TextStyle(color: Colors.white, letterSpacing: 4),
           ),
         ),
@@ -35,9 +61,6 @@ class PromotionScreen extends StatelessWidget {
       body: Container(
         child: Column(
           children: <Widget>[
-            Image.network(
-              "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-sun-nails-cat-da-son-gel/sun-nails-cat-da-son-gel-lookme.vn-21030471207.jpeg",
-            ),
             Padding(
               padding: EdgeInsets.only(left: 15),
               child: Column(
@@ -193,6 +216,17 @@ class PromotionScreen extends StatelessWidget {
   }
 }
 
+List<String> lstNailImages = List.from([
+  'public/img/nail_1.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_3.png',
+  'public/img/nail_4.png',
+  'public/img/nail_5.png',
+  'public/img/nail_6.png',
+  'public/img/nail_7.png',
+  'public/img/nail_8.jpg',
+]);
+
 final srv = Service(
   name: 'Làm sạch và sơn gel',
   description: [
@@ -208,6 +242,7 @@ final srv = Service(
   price: '200',
   estimateTime: 30,
   status: "Đang hoạt động",
+  serviceImages: lstNailImages,
   category: "Nails",
   imageUrl: 'public/img/nail_2.jpg',
   isServiceCombo: false,
