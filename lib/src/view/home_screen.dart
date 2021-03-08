@@ -4,7 +4,9 @@ import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/profile_screen.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
+import 'package:flutter_app/src/widgets/search_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/search_text_field.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -75,8 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
               SearchTextField(
                 isReadonly: true,
               ),
-              SlideService(),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Container(
+                  padding: EdgeInsets.only(top: 15, left: 10),
+                  child: Text(
+                    'ƯU ĐÃI',
+                    style: CustomTextStyle.headline600Text(
+                      Colors.orange,
+                    ),
+                  ),
+                ),
+              ),
+              ViewsPromotion(),
               ServiceWidget(),
+              SlideService(),
               BeauticianWidget()
             ],
           ),

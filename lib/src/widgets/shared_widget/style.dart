@@ -52,6 +52,13 @@ final subtitleTextStyle = (Color color) => TextStyle(
       color: color,
     );
 
+final subtitleTextLineThroughStyle = (Color color) => TextStyle(
+    fontFamily: FontNameDefault,
+    fontWeight: FontWeight.w500,
+    fontSize: SmallTextSize,
+    color: color,
+    decoration: TextDecoration.lineThrough);
+
 final body1TextStyle = (Color color) => TextStyle(
       fontFamily: FontNameDefault,
       fontWeight: FontWeight.w300,
@@ -83,4 +90,6 @@ class CustomTextStyle {
   static TextStyle body1Text(Color color) => body1TextStyle(color);
   static TextStyle statusText(Color color) => statusTextStyle(color);
   static TextStyle buttonText(Color color) => buttonTextStyle(color);
+  static TextStyle subtitleLineThroughText(Color color) =>
+      subtitleTextLineThroughStyle(color);
 }
