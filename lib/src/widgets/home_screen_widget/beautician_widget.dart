@@ -11,11 +11,11 @@ class BeauticianWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 10, bottom: 10, top: 15),
+          padding: EdgeInsets.only(left: 10, bottom: 10),
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'THỢ CHUYÊN NGHIỆP',
+              'TOP ĐÁNH GIÁ',
               style: CustomTextStyle.headline600Text(Colors.black),
             ),
           ),
@@ -79,25 +79,6 @@ class Beautician extends StatelessWidget {
                 child: Image.asset(model.image),
               ),
             ),
-            // Container(
-            //   margin: EdgeInsets.only(left: 10),
-            //   child: Wrap(
-            //     children: [
-            //       Image(
-            //         image: AssetImage(
-            //           model.image,
-            //         ),
-            //         fit: BoxFit.fitWidth,
-            //         height: 80,
-            //         width: 70,
-            //       ),
-            //     ],
-            //   ),
-            //   decoration: BoxDecoration(
-            //     color: Colors.white,
-            //     borderRadius: BorderRadius.circular(4),
-            //   ),
-            // ),
             Container(
               margin: const EdgeInsets.only(left: 10),
               child: Column(
@@ -150,7 +131,7 @@ class Beautician extends StatelessWidget {
                     children: [
                       Text(
                         model.status,
-                        style: CustomTextStyle.subtitleText(Colors.blue),
+                        style: CustomTextStyle.subtitleText(Color(0xff28BEBA)),
                       ),
                       Text(
                         model.openHours,
@@ -172,20 +153,20 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
   BeauticianModel(
     'Marry Trần',
     'Trang điểm - Làm tóc',
-    '5 km',
+    '2 km',
     4.8,
     'public/img/beautician1.PNG',
-    'Quận 1, TP. Hồ Chí Minh',
+    'Quận 9, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
   ),
   BeauticianModel(
     'Hani Nguyễn',
     'Trang điểm - Làm tóc',
-    '5 km',
+    '3 km',
     4.8,
     'public/img/beautician2.PNG',
-    'Quận 1, TP. Hồ Chí Minh',
+    'Q.Thủ Đức, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
   ),
@@ -195,17 +176,17 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     '5 km',
     4.8,
     'public/img/beautician3.PNG',
-    'Quận 1, TP. Hồ Chí Minh',
+    'Quận 2, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
   ),
   BeauticianModel(
     'Hani Nguyễn',
     'Trang điểm - Làm tóc',
-    '5 km',
+    '2 km',
     4.8,
     'public/img/beautician2.PNG',
-    'Quận 1, TP. Hồ Chí Minh',
+    'Quận 9, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
   ),
