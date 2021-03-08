@@ -18,13 +18,15 @@ class ServiceDetailStepDescription extends StatelessWidget {
           padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
           child: Text(
             'CÁC BƯỚC LÀM DỊCH VỤ',
-            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w700, fontFamily: 'Montserrat'),
           ),
         ),
-        Container(
-          color: Colors.white,
-          height: screenSize.height * 0.35,
-          child: ListView.builder(
+        // Container(
+        //   color: Colors.white,
+        //   height: screenSize.height * 0.5,
+        //   child:
+          ListView.builder(
+            shrinkWrap: true,
               itemCount: description.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
@@ -37,7 +39,7 @@ class ServiceDetailStepDescription extends StatelessWidget {
                   ),
                 );
               }),
-        ),
+        // ),
       ],
     );
   }

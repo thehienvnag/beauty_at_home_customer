@@ -41,7 +41,7 @@ class ServiceDetailDescription extends StatelessWidget {
               Container(
                 padding: EdgeInsets.only(right: 10.0, bottom: 10.0),
                 child: Text(
-                  price,
+                  '$priceđ',
                   style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.bold),
                 ),
               ),

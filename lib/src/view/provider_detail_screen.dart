@@ -20,9 +20,31 @@ List<String> lstImage = List.from([
   'public/img/nail_2.jpg',
 ]);
 
+List<String> lstNailImages = List.from([
+  'public/img/nail_1.jpg',
+  'public/img/nail_2.jpg',
+  'public/img/nail_3.png',
+  'public/img/nail_4.png',
+  'public/img/nail_5.png',
+  'public/img/nail_6.png',
+  'public/img/nail_7.png',
+  'public/img/nail_8.jpg',
+]);
+
+List<String> lstMassageImage = List.from([
+  'public/img/massage_1.png',
+  'public/img/massage_2.jpg',
+  'public/img/massage_3.jpg',
+  'public/img/massage_4.jpg',
+  'public/img/massage_5.jpg',
+  'public/img/massage_6.jpg',
+  'public/img/massage_7.png',
+  'public/img/massage_8.jpg',
+]);
+
 List<String> _categories = [
   'Hình ảnh',
-  'Dịch vụ',
+  'DỊCH VỤ NỔI BẬT',
   'Đánh giá',
 ];
 
@@ -86,42 +108,11 @@ List<Service> lstService = List.from([
     estimateTime: 30,
     status: "Đang hoạt động",
     category: lstType[0],
-    imageUrl: 'public/img/nail_1.jpg',
+    imageUrl: 'public/img/massage_3.jpg',
+    serviceImages: lstMassageImage,
     isServiceCombo: false,
     note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
   ),
-  // Service(
-  //   name: '90 phút Massage body toàn thân',
-  //   description: [
-  //     'Bước 1: làm sạch tay bằng Cool Blue',
-  //     'Bước 2: dũa móng theo khuôn khách yêu cầu',
-  //     'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-  //     'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-  //   ],
-  //   price: '500',
-  //   estimateTime: 30,
-  //   status: "Đang hoạt động",
-  //   category: lstType[0],
-  //   imageUrl: 'public/img/nail_1.jpg',
-  //   isServiceCombo: false,
-  //   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  // ),
-  // Service(
-  //   name: '90 phút Massage body toàn thân',
-  //   description: [
-  //     'Bước 1: làm sạch tay bằng Cool Blue',
-  //     'Bước 2: dũa móng theo khuôn khách yêu cầu',
-  //     'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-  //     'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-  //   ],
-  //   price: '500',
-  //   estimateTime: 30,
-  //   status: "Đang hoạt động",
-  //   category: lstType[0],
-  //   imageUrl: 'public/img/nail_1.jpg',
-  //   isServiceCombo: false,
-  //   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  // ),
   Service(
     name: 'Làm sạch và sơn gel',
     description: [
@@ -139,6 +130,7 @@ List<Service> lstService = List.from([
     status: "Đang hoạt động",
     category: lstType[1],
     imageUrl: 'public/img/nail_2.jpg',
+    serviceImages: lstNailImages,
     isServiceCombo: false,
     note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
   ),
@@ -154,7 +146,7 @@ class ProviderDetailScreen extends StatefulWidget {
 }
 
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   Map<Service, int> newCart;
 
   @override
@@ -183,9 +175,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                _buildCategory(0),
+                // _buildCategory(0),
                 _buildCategory(1),
-                _buildCategory(2),
+                // _buildCategory(2),
               ],
             ),
           ),
@@ -292,22 +284,24 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       },
       child: AnimatedContainer(
         height: MediaQuery.of(context).size.height,
-        width: 120.0,
-        duration: Duration(milliseconds: 100),
-        curve: Curves.easeIn,
+        width: MediaQuery.of(context).size.width * 0.9,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.bounceIn,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          border: _selectedIndex == index
-              ? Border(
-                  top: BorderSide(width: 3.0, color: Colors.cyan[400]),
-                )
-              : null,
+          // border: _selectedIndex == index
+          //     ? Border(
+          //         top: BorderSide(width: 3.0, color: Colors.cyan[400]),
+          //       )
+          //     : null,
         ),
         child: Text(
           _categories[index],
           style: TextStyle(
+            fontFamily: 'Montserrat',
               color: _selectedIndex == index ? Color(0xFF3EBACE) : null,
-              fontWeight: FontWeight.w500),
+              fontWeight: FontWeight.w700,
+          letterSpacing: 1.0),
         ),
       ),
     );
@@ -376,28 +370,29 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           itemCount: lstService.length,
           itemBuilder: (BuildContext buildContext, int index) {
             Service service = lstService[index];
-            return Stack(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 0.0),
-                  height: 150.0,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white54,
-                    border: Border(bottom: BorderSide(color: Colors.grey[300])),
-                    // borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Container(
+            return GestureDetector(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 0.0),
+                    height: 150.0,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white54,
+                      border:
+                          Border(bottom: BorderSide(color: Colors.grey[300])),
+                      // borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Container(
                                 width: 115.0,
                                 child: Text(
                                   service.name,
@@ -406,43 +401,43 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
-                              onTap: () => _navigateAndDisplaySelection(
-                                  context, service, newCart),
-                            ),
-                            Text(
-                              '${formatPrice(service.price)}',
-                              style: TextStyle(fontWeight: FontWeight.w900),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10.0),
-                          child: Text(
-                            service.note,
-                            style: TextStyle(color: Colors.grey),
+                              Text(
+                                '${formatPrice(service.price)}đ',
+                                style: TextStyle(fontWeight: FontWeight.w900),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 20.0,
-                  top: 15.0,
-                  bottom: 15.0,
-                  child: Hero(
-                    tag: service.imageUrl,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5.0),
-                      child: Image(
-                        width: 115.0,
-                        image: AssetImage(service.imageUrl),
-                        fit: BoxFit.cover,
+                          Container(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: Text(
+                              service.note,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Positioned(
+                    left: 20.0,
+                    top: 15.0,
+                    bottom: 15.0,
+                    child: Hero(
+                      tag: service.imageUrl,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5.0),
+                        child: Image(
+                          width: 115.0,
+                          image: AssetImage(service.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              onTap: () =>
+                  _navigateAndDisplaySelection(context, service, newCart),
             );
           },
         ),

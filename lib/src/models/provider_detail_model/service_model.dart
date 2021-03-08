@@ -6,6 +6,7 @@ class Service {
   String status;
   String category;
   String imageUrl;
+  List<String> serviceImages;
   bool isServiceCombo;
   String note;
 
@@ -17,6 +18,7 @@ class Service {
     this.status,
     this.category,
     this.imageUrl,
+    this.serviceImages,
     this.isServiceCombo,
     this.note,
   });
