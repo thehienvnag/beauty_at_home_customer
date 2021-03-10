@@ -15,7 +15,7 @@ class BeauticianWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'TOP ĐÁNH GIÁ GẦN BẠN',
+              'THỢ TỐT GẦN BẠN',
               style: CustomTextStyle.headline600Text(Colors.black),
             ),
           ),

@@ -81,22 +81,6 @@ class PromotionScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.location_on_outlined,
-                          color: Colors.grey,
-                        ),
-                        Text(
-                          '  Số 3, Cô Giang, Phường 2,  Quận Phú Nhuận',
-                          style: CustomTextStyle.subtitleText(Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
                           Icons.ac_unit_outlined,
                           color: Colors.grey,
                         ),

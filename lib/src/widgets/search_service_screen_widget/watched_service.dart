@@ -19,32 +19,32 @@ class ViewsPromotion extends StatelessWidget {
             image:
                 "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-sun-nails-cat-da-son-gel/sun-nails-cat-da-son-gel-lookme.vn-21030471207.jpeg",
             title: "Sun Nails deal nail 89k",
-            description: 'Sun Nails',
+            description: 'Thu Mai',
             priceAfter: '89.000 đ',
             priceBefore: '145.000 đ',
           ),
           PromotionService(
             image:
-                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-an-herbal-salon-goi-thao-moc-chuyen-sau/an-herbal-salon-goi-thao-moc-chuyen-sau-lookme.vn-21030282052.jpeg",
+                "https://www.lookme.vn/blog/wp-content/uploads/2019/11/goi-dau-thao-duoc-spa-2.jpg",
             title: "Gội thảo mộc 169k",
-            description: 'AN Herbal Salon',
+            description: 'Hà Anh',
             priceAfter: '169.000 đ',
             priceBefore: '250.000 đ',
           ),
           PromotionService(
             image:
-                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-an-herbal-salon-combo-son-gel-lam-mong-kho-cnd/an-herbal-salon-combo-son-gel-lam-mong-kho-cnd-lookme.vn-21030282019.jpeg",
+                "https://i.pinimg.com/236x/be/a1/8a/bea18a7bbd6d192be2691fee72d2fc6f.jpg",
             title: "Sơn + làm sạch CND 179k",
-            description: 'AN Herbal Salon',
+            description: 'Ly Ly Nguyễn',
             priceAfter: '179.000 đ',
             priceBefore: '270.000 đ',
             //press: ,
           ),
           PromotionService(
             image:
-                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-may-may-spa-massage-body/may-may-spa-massage-body-lookme.vn-21030181357.jpeg",
+                "https://image.thanhnien.vn/660/uploaded/dieutrang.qc/2017_11_17/mh2/1_tsbz.jpg",
             title: "Massage body 199k",
-            description: 'Mây Mây Spa',
+            description: 'Thu Thảo',
             priceAfter: '199.000 đ',
             priceBefore: '280.000 đ',
           ),
@@ -77,7 +77,7 @@ class ViewsServices extends StatelessWidget {
             image:
                 "https://i.pinimg.com/originals/96/9e/22/969e22a9ffc82d8d6915044f504e8604.png",
             title: "Tóc xoăn tự nhiên",
-            description: 'LENS HAIR SALON',
+            description: 'Marry Trần',
             rateScore: '4.8',
             noOfRate: '153',
           ),
@@ -85,7 +85,7 @@ class ViewsServices extends StatelessWidget {
             image:
                 "https://mathoadaphan.com/wp-content/uploads/2021/02/c%C3%A1c-b%C6%B0%E1%BB%9Bc-trang-%C4%91i%E1%BB%83m-c%C6%A1-b%E1%BA%A3n.jpg",
             title: "Trang điểm tự nhiên",
-            description: 'Đại Hàn Makeup Artist',
+            description: 'Hà Nguyễn',
             rateScore: '4.8',
             noOfRate: '114',
             //press: ,
@@ -94,7 +94,7 @@ class ViewsServices extends StatelessWidget {
             image:
                 "https://cuahanglamdep.com/images/detailed/3/noi-mi-3d-tai-meli-spa-1.jpg",
             title: "Nối mi",
-            description: 'Nối mi Mít',
+            description: 'Mai Anh',
             rateScore: '4.8',
             noOfRate: '95',
           ),
