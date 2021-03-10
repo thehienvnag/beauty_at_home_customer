@@ -77,6 +77,24 @@ class PromotionScreen extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    margin: EdgeInsets.only(bottom: 7),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.account_circle,
+                          color: Colors.grey,
+                        ),
+                        Container(
+                          child: Text(
+                            '  Thu Mai   (Cách bạn 2.5km)',
+                            style: CustomTextStyle.subtitleText(Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [

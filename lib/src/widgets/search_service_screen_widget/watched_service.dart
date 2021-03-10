@@ -69,7 +69,7 @@ class ViewsServices extends StatelessWidget {
             image:
                 "https://i.pinimg.com/originals/79/61/22/7961221b8062889c1969187e3ee80590.jpg",
             title: "Nail đơn giản cá tính",
-            description: 'Nail Minh Châu',
+            description: 'Marry Trần',
             rateScore: '4.8',
             noOfRate: '246',
           ),
@@ -77,7 +77,7 @@ class ViewsServices extends StatelessWidget {
             image:
                 "https://i.pinimg.com/originals/96/9e/22/969e22a9ffc82d8d6915044f504e8604.png",
             title: "Tóc xoăn tự nhiên",
-            description: 'Marry Trần',
+            description: 'Hani Nguyễn',
             rateScore: '4.8',
             noOfRate: '153',
           ),
@@ -195,8 +195,8 @@ class RecomendService extends StatelessWidget {
                           text: "$title\n".toUpperCase(),
                           style: CustomTextStyle.subtitleText(Colors.black),
                         ),
-                        TextSpan(
-                          text: "$description\n",
+                        WidgetSpan(child: Container(margin: EdgeInsets.only(right: 5.0), child: Icon(Icons.account_circle, color: Colors.black38, size: 18,)),),
+                        TextSpan( text: "$description\n",
                           style: CustomTextStyle.subtitleText(
                             Colors.black.withOpacity(0.5),
                           ),
@@ -207,6 +207,7 @@ class RecomendService extends StatelessWidget {
                               Icon(
                                 Icons.star,
                                 color: Color(0xffFFCC00),
+                                size: 20.0,
                               ),
                               Text(
                                 "$rateScore",
@@ -294,6 +295,7 @@ class PromotionService extends StatelessWidget {
                           text: "$title\n".toUpperCase(),
                           style: CustomTextStyle.subtitleText(Colors.black),
                         ),
+                        WidgetSpan(child: Container(margin: EdgeInsets.only(right: 3.0), child: Icon(Icons.account_circle, color: Colors.black38, size: 18,)),),
                         TextSpan(
                           text: "$description\n",
                           style: CustomTextStyle.subtitleText(

@@ -52,7 +52,7 @@ class _HistoryPageState extends State<HistoryScreen> {
                 child: Align(
                     alignment: Alignment.center,
                     child: Text(
-                      'Lịch sử dùng',
+                      'Lịch sử hoạt động',
                       style: CustomTextStyle.titleText(Colors.black87),
                     )),
               ),

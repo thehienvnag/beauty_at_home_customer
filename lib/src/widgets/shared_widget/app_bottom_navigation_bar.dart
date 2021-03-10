@@ -36,25 +36,25 @@ class AppBottomNavigationBar extends StatelessWidget {
       },
       items: [
         BottomNavigationBarItem(
-          label: 'Home',
+          label: 'Trang chủ',
           icon: Icon(
             Icons.home,
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Activity',
+          label: 'Hoạt động',
           icon: Icon(
-            Icons.list,
+            Icons.view_list,
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Messages',
+          label: 'Thông báo',
           icon: Icon(
-            Icons.message,
+            Icons.notifications_active,
           ),
         ),
         BottomNavigationBarItem(
-          label: 'Account',
+          label: 'Tài khoản',
           icon: Icon(
             Icons.account_circle,
           ),
