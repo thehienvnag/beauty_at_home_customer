@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/presenter/booking_summary_presenter.dart';
-import 'package:flutter_app/src/view/booking_summary.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
 
 import 'package:flutter_app/src/view/home_screen.dart';
+import 'package:flutter_app/src/view/login_phone_screen.dart';
 import 'package:flutter_app/src/view/login_screen.dart';
-import 'package:flutter_app/src/view/provider_confirm_screen.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -17,9 +17,11 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Flutter app",
       initialRoute: '/',
+      home: LoginScreen(),
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => HomeScreen(),
+        Routes.home: (context) => HomeScreen(),
+        Routes.loginPhoneScreen: (context) => LoginPhoneScreen(),
         //'/': (context) => CheckoutScreen(),
         //'/': (context) => PaymentScreen(),
         // '/': (context) => NotificationScreen(),
