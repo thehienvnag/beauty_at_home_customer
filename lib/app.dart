@@ -5,6 +5,7 @@ import 'package:flutter_app/src/view/booking_summary.dart';
 import 'package:flutter_app/src/view/home_screen.dart';
 import 'package:flutter_app/src/view/login_screen.dart';
 import 'package:flutter_app/src/view/provider_confirm_screen.dart';
+import 'package:flutter_app/src/widgets/push_notification_service.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -19,11 +20,12 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => HomeScreen(),
+        //'/': (context) => HomeScreen(),
         //'/': (context) => CheckoutScreen(),
         //'/': (context) => PaymentScreen(),
         // '/': (context) => NotificationScreen(),
         //'/': (context) => LocationChangeDescriptionScreen(),
+        '/': (context) => PushNotificationService(),
         // When navigating to the "/second" route, build the SecondScreen widget.
       },
     );
