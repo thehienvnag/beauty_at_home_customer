@@ -32,26 +32,26 @@ class _BeauticianRouteMapState extends State<BeauticianRouteMap> {
             ],
           ),
         ],
-        children: <Widget>[
-          TileLayerWidget(
-              options: TileLayerOptions(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c'])),
-          MarkerLayerWidget(
-              options: MarkerLayerOptions(
-            markers: [
-              Marker(
-                width: 15.0,
-                height: 15.0,
-                point: LatLng(10.7233122, 107.3944394),
-                builder: (ctx) => Container(
-                  child: FlutterLogo(),
-                ),
-              ),
-            ],
-          )),
-        ],
+        // children: <Widget>[
+        //   TileLayerWidget(
+        //       options: TileLayerOptions(
+        //           urlTemplate:
+        //               "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        //           subdomains: ['a', 'b', 'c'])),
+        //   MarkerLayerWidget(
+        //       options: MarkerLayerOptions(
+        //     markers: [
+        //       Marker(
+        //         width: 15.0,
+        //         height: 15.0,
+        //         point: LatLng(10.7233122, 107.3944394),
+        //         builder: (ctx) => Container(
+        //           child: FlutterLogo(),
+        //         ),
+        //       ),
+        //     ],
+        //   )),
+        // ],
       ),
     );
   }
