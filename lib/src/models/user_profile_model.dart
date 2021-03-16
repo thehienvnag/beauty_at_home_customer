@@ -1,11 +1,21 @@
 class UserProfileModel {
-  final String name, email, role, phoneNumber, accessToken;
+  final String name,
+      email,
+      role,
+      phoneNumber,
+      accessToken,
+      refreshToken,
+      idToken,
+      firebaseRefreshToken;
 
-  UserProfileModel({
+  UserProfileModel(
+    this.refreshToken, {
+    this.idToken,
     this.name,
     this.email,
     this.role,
     this.phoneNumber,
     this.accessToken,
+    this.firebaseRefreshToken,
   });
 }

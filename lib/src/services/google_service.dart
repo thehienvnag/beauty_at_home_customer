@@ -29,7 +29,7 @@ class GoogleService {
       UserCredential result =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
-      _user = result.user;
+      log(_user.email);
     } catch (e) {
       log(e);
     }
