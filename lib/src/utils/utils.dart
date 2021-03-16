@@ -1,8 +1,18 @@
 import 'dart:async';
-
-import 'dart:developer';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
 class Utils {
+  static Future<dynamic> loadJsonAsset({
+    String assetsPath,
+    Function(Map<String, dynamic>) fromJson,
+  }) {
+    return rootBundle
+        .loadString("public/json/" + assetsPath)
+        .then((jsonStr) => jsonDecode(jsonStr))
+        .then((value) => fromJson(value));
+  }
+
   static Future sleep(int miliesSecond) {
     return Future.delayed(
       Duration(milliseconds: miliesSecond),
@@ -12,7 +22,6 @@ class Utils {
   static void redoTaskPerDuration(
       Function task, int miliesSecond, int count, Function afterTask) async {
     while (count-- > 0) {
-      log('1st');
       await sleep(miliesSecond);
       task.call();
     }
