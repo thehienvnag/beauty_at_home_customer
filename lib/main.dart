@@ -2,7 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app.dart';
-import 'package:flutter_app/src/providers/user_profile.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/providers/voucher_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -11,7 +14,10 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => UserProfile()),
+        ChangeNotifierProvider(create: (context) => AccountProvider()),
+        ChangeNotifierProvider(create: (context) => VoucherProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => ProviderDetailProvider()),
       ],
       child: App(),
     ),

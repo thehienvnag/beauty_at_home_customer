@@ -1,46 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/provider_feedback_model.dart';
-import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
-import 'package:flutter_app/src/view/checkout_screen.dart';
-import 'package:flutter_app/src/view/service_detail_screen.dart';
+import 'package:flutter_app/src/models-new/cart_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:intl/intl.dart';
-
-List<String> lstImage = List.from([
-  'public/img/nail_1.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_2.jpg',
-]);
-
-List<String> lstNailImages = List.from([
-  'public/img/nail_1.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_3.png',
-  'public/img/nail_4.png',
-  'public/img/nail_5.png',
-  'public/img/nail_6.png',
-  'public/img/nail_7.png',
-  'public/img/nail_8.jpg',
-]);
-
-List<String> lstMassageImage = List.from([
-  'public/img/massage_1.png',
-  'public/img/massage_2.jpg',
-  'public/img/massage_3.jpg',
-  'public/img/massage_4.jpg',
-  'public/img/massage_5.jpg',
-  'public/img/massage_6.jpg',
-  'public/img/massage_7.png',
-  'public/img/massage_8.jpg',
-]);
+import 'package:provider/provider.dart';
 
 List<String> _categories = [
   'Hình ảnh',
@@ -48,140 +16,8 @@ List<String> _categories = [
   'Đánh giá',
 ];
 
-List<String> lstType = ['Massage', 'Làm Móng'];
-
-List<ProviderFeedback> lstProviderFeedback = List.from([
-  ProviderFeedback(
-      username: 'Hiển Huỳnh',
-      rateScore: 4.5,
-      imageUrl: [
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_3.png',
-      ],
-      feedback:
-          'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
-      userImage: 'public/img/user_image.jpg',
-      commentedDate: '29-01-2021'),
-  ProviderFeedback(
-      username: 'Trang Cao',
-      rateScore: 4.0,
-      imageUrl: [
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-      ],
-      feedback:
-          'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
-          'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
-          'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
-          'sơn đều đẹp, nói chung là ưng ý.',
-      userImage: 'public/img/user_image_3.jpg',
-      commentedDate: '31-01-2021'),
-]);
-Provider provider = Provider(
-    name: 'Marry Trần Nails & Hails',
-    description: 'Chăm sóc tóc và móng',
-    address:
-        'Đường Lê Văn Việt, phường Tăng Nhơn Phú A, quận 9 thành phố Hồ Chí Minh',
-    status: 'Đang hoạt động',
-    rate: 4.8,
-    reviews: '1440',
-    lowerPrice: '50.000đ',
-    upperPrice: '500.000đ',
-    openTime: '9:00 AM',
-    closeTime: '8:30 PM',
-    imageUrl:
-        'https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2020/01/q-makeup-academy-378010.jpg');
-
-List<Service> lstService = List.from([
-  Service(
-    name: '90 phút Massage body toàn thân',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    ],
-    price: '500',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[0],
-    imageUrl:
-        "https://meta.vn/Data/image/2020/12/04/massage-mat-co-tac-dung-gi-3.png",
-    serviceImages: lstMassageImage,
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
-  Service(
-    name: 'Làm sạch và sơn gel',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-      'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
-      'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
-      'Bước 7: sơn gel',
-      'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
-    ],
-    price: '200',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[1],
-    imageUrl:
-        "https://cuahanglamdep.com/images/detailed/3/noi-mi-3d-tai-meli-spa-1.jpg",
-    serviceImages: lstNailImages,
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
-  Service(
-    name: 'Tóc xoăn tự nhiên',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    ],
-    price: '500',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[0],
-    imageUrl:
-        'https://i.pinimg.com/originals/96/9e/22/969e22a9ffc82d8d6915044f504e8604.png',
-    serviceImages: lstMassageImage,
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
-  Service(
-    name: 'Trang điểm tự nhiên',
-    description: [
-      'Bước 1: làm sạch tay bằng Cool Blue',
-      'Bước 2: dũa móng theo khuôn khách yêu cầu',
-      'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-      'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-      'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
-      'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
-      'Bước 7: sơn gel',
-      'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
-    ],
-    price: '200',
-    estimateTime: 30,
-    status: "Đang hoạt động",
-    category: lstType[1],
-    imageUrl:
-        'https://mathoadaphan.com/wp-content/uploads/2021/02/c%C3%A1c-b%C6%B0%E1%BB%9Bc-trang-%C4%91i%E1%BB%83m-c%C6%A1-b%E1%BA%A3n.jpg',
-    serviceImages: lstNailImages,
-    isServiceCombo: false,
-    note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-  ),
-]);
-
 class ProviderDetailScreen extends StatefulWidget {
-  final Map<Service, int> cart;
+  final Map<ServiceModel, int> cart;
 
   const ProviderDetailScreen({Key key, this.cart}) : super(key: key);
   //
@@ -191,14 +27,15 @@ class ProviderDetailScreen extends StatefulWidget {
 
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 1;
-  Map<Service, int> newCart;
+  Map<ServiceModel, int> newCart;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.cart != null) {
       newCart = widget.cart;
     }
+    var providerDetailProvider = context.read<ProviderDetailProvider>();
+    providerDetailProvider.initProvider();
   }
 
   @override
@@ -207,12 +44,16 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       body: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          ProviderImage(
-            path: provider.imageUrl,
-            cart: newCart,
+          Consumer<ProviderDetailProvider>(
+            builder: (context, value, child) => ProviderImage(
+              path: value.provider.imageUrl,
+              cart: newCart,
+            ),
           ),
-          ProviderDescription(
-            provider: provider,
+          Consumer<ProviderDetailProvider>(
+            builder: (context, value, child) => ProviderDescription(
+              provider: value.provider,
+            ),
           ),
           Container(
             height: 50.0,
@@ -227,23 +68,38 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                // _buildCategory(0),
                 _buildCategory(1),
+
                 // _buildCategory(2),
               ],
             ),
           ),
-          _buildComponent(_selectedIndex),
+          Consumer<ProviderDetailProvider>(
+            builder: (context, value, child) => value.services != null
+                ? _buildService(
+                    value.services,
+                    newCart,
+                  )
+                : Text(
+                    'No services available!',
+                    style: CustomTextStyle.subtitleText(Colors.black54),
+                  ),
+          ),
           _checkCart(newCart),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: buildFloatingButton(newCart),
-      floatingActionButton: buildFloatingButton(newCart),
+      floatingActionButton: Consumer<CartProvider>(
+        builder: (context, value, child) =>
+            value.cart != null && !value.isBookingProgressing
+                ? buildFloatingButton(value.cart.services)
+                : Container(),
+      ),
     );
   }
 
-  Widget buildFloatingButton(Map<Service, int> cart) {
+  Widget buildFloatingButton(Map<ServiceModel, int> cart) {
     if (cart != null) {
       if (cart.isNotEmpty) {
         final screenSize = MediaQuery.of(context).size;
@@ -257,9 +113,11 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => CheckoutScreen(),
-              ));
+              var cartProvider = context.read<CartProvider>();
+              cartProvider.setCurrentCart(
+                CartModel(services: cart),
+              );
+              Navigator.of(context).pushNamed(Routes.checkout);
             },
             backgroundColor: Color(0xff28BEBA),
             label: Container(
@@ -268,7 +126,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Xem giỏ hàng',
+                    'Đơn của bạn',
                     style: TextStyle(color: Colors.white),
                   ),
                   Text(
@@ -290,10 +148,10 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
         );
       }
     }
-    return null;
+    return Container();
   }
 
-  Widget _checkCart(Map<Service, int> cart) {
+  Widget _checkCart(Map<ServiceModel, int> cart) {
     if (cart == null) {
       return Container();
     } else if (cart != null && cart.isNotEmpty) {
@@ -304,7 +162,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     return Container();
   }
 
-  String _calculatePrice(Map<Service, int> cart) {
+  String _calculatePrice(Map<ServiceModel, int> cart) {
     int total = 0;
     cart.forEach((key, value) {
       total += int.parse(key.price) * value;
@@ -312,7 +170,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     return formatPrice(total.toString());
   }
 
-  String _calculateTotal(Map<Service, int> cart) {
+  String _calculateTotal(Map<ServiceModel, int> cart) {
     int total = 0;
     cart.forEach((key, value) {
       total += value;
@@ -359,61 +217,62 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     );
   }
 
-  Widget _buildImage(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        height: 100,
-        width: 100,
-        child: Image(
-          image: AssetImage(provider.imageUrl),
-          fit: BoxFit.cover,
-        ),
-      ),
-    );
-  }
+  // Widget _buildImage(int index) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       height: 100,
+  //       width: 100,
+  //       child: Image(
+  //         image: AssetImage(provider.imageUrl),
+  //         fit: BoxFit.cover,
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _buildPicture(int index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(
-          height: 20.0,
-        ),
-        Container(
-          width: 350,
-          child: GridView.count(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            // mainAxisSpacing: 10.0,
-            // crossAxisSpacing: 10.0,
-            children: List.generate(lstImage.length, (index) {
-              return Center(
-                child: Container(
-                  // margin: EdgeInsets.only(left: ),
-                  width: 110,
-                  height: 110,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image(
-                      image: AssetImage(lstImage[index]),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ),
-        SizedBox(
-          height: 20.0,
-        )
-      ],
-    );
-  }
+  // Widget _buildPicture(int index) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.center,
+  //     children: <Widget>[
+  //       SizedBox(
+  //         height: 20.0,
+  //       ),
+  //       Container(
+  //         width: 350,
+  //         child: GridView.count(
+  //           shrinkWrap: true,
+  //           physics: NeverScrollableScrollPhysics(),
+  //           crossAxisCount: 3,
+  //           // mainAxisSpacing: 10.0,
+  //           // crossAxisSpacing: 10.0,
+  //           children: List.generate(lstImage.length, (index) {
+  //             return Center(
+  //               child: Container(
+  //                 // margin: EdgeInsets.only(left: ),
+  //                 width: 110,
+  //                 height: 110,
+  //                 child: ClipRRect(
+  //                   borderRadius: BorderRadius.circular(10.0),
+  //                   child: Image(
+  //                     image: AssetImage(lstImage[index]),
+  //                     fit: BoxFit.cover,
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //           }),
+  //         ),
+  //       ),
+  //       SizedBox(
+  //         height: 20.0,
+  //       )
+  //     ],
+  //   );
+  // }
 
-  Widget _buildService(List<Service> lstService, Map<Service, int> cart) {
+  Widget _buildService(
+      List<ServiceModel> lstService, Map<ServiceModel, int> cart) {
     return Column(
       children: <Widget>[
         ListView.builder(
@@ -421,7 +280,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
           physics: NeverScrollableScrollPhysics(),
           itemCount: lstService.length,
           itemBuilder: (BuildContext buildContext, int index) {
-            Service service = lstService[index];
+            ServiceModel service = lstService[index];
             return GestureDetector(
               child: Stack(
                 children: <Widget>[
@@ -497,231 +356,231 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     );
   }
 
-  List<Widget> generateWidgets(Map<Service, int> cart) {
-    return ["Massage", "Nail", "Haircut"]
-        .map<Widget>(
-          (service) => Column(
-            children: [
-              Text(service),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: lstService.length,
-                itemBuilder: (BuildContext buildContext, int index) {
-                  Service service = lstService[index];
-                  return Stack(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.fromLTRB(40.0, 0.0, 20.0, 5.0),
-                        height: 170.0,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white54,
-                          border: Border(
-                              bottom: BorderSide(color: Colors.grey[300])),
-                          // borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(110.0, 20.0, 20.0, 20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  GestureDetector(
-                                    child: Container(
-                                      width: 105.0,
-                                      child: Text(
-                                        service.name,
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ),
-                                    onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            ServiceDetailScreen(
-                                          service: service,
-                                          cart: cart,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 65,
-                                  ),
-                                  Text(
-                                    '${service.price}',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w900),
-                                  ),
-                                ],
-                              ),
-                              Text(
-                                service.note,
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        left: 20.0,
-                        top: 25.0,
-                        bottom: 30.0,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: Image(
-                            width: 115.0,
-                            image: AssetImage(service.imageUrl),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
-          ),
-        )
-        .toList();
-  }
+  // List<Widget> generateWidgets(Map<ServiceModel, int> cart) {
+  //   return ["Massage", "Nail", "Haircut"]
+  //       .map<Widget>(
+  //         (service) => Column(
+  //           children: [
+  //             Text(service),
+  //             ListView.builder(
+  //               shrinkWrap: true,
+  //               physics: NeverScrollableScrollPhysics(),
+  //               itemCount: lstService.length,
+  //               itemBuilder: (BuildContext buildContext, int index) {
+  //                 ServiceModel service = lstService[index];
+  //                 return Stack(
+  //                   children: <Widget>[
+  //                     Container(
+  //                       margin: EdgeInsets.fromLTRB(40.0, 0.0, 20.0, 5.0),
+  //                       height: 170.0,
+  //                       width: double.infinity,
+  //                       decoration: BoxDecoration(
+  //                         color: Colors.white54,
+  //                         border: Border(
+  //                             bottom: BorderSide(color: Colors.grey[300])),
+  //                         // borderRadius: BorderRadius.circular(5.0),
+  //                       ),
+  //                       child: Padding(
+  //                         padding: EdgeInsets.fromLTRB(110.0, 20.0, 20.0, 20.0),
+  //                         child: Column(
+  //                           mainAxisAlignment: MainAxisAlignment.center,
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: <Widget>[
+  //                             Row(
+  //                               mainAxisAlignment:
+  //                                   MainAxisAlignment.spaceBetween,
+  //                               crossAxisAlignment: CrossAxisAlignment.start,
+  //                               children: <Widget>[
+  //                                 GestureDetector(
+  //                                   child: Container(
+  //                                     width: 105.0,
+  //                                     child: Text(
+  //                                       service.name,
+  //                                       style: TextStyle(
+  //                                           fontSize: 15.0,
+  //                                           fontWeight: FontWeight.w600),
+  //                                     ),
+  //                                   ),
+  //                                   onTap: () => Navigator.push(
+  //                                     context,
+  //                                     MaterialPageRoute(
+  //                                       builder: (context) =>
+  //                                           ServiceDetailScreen(
+  //                                         service: service,
+  //                                         cart: cart,
+  //                                       ),
+  //                                     ),
+  //                                   ),
+  //                                 ),
+  //                                 SizedBox(
+  //                                   height: 65,
+  //                                 ),
+  //                                 Text(
+  //                                   '${service.price}',
+  //                                   style:
+  //                                       TextStyle(fontWeight: FontWeight.w900),
+  //                                 ),
+  //                               ],
+  //                             ),
+  //                             Text(
+  //                               service.note,
+  //                               style: TextStyle(color: Colors.grey),
+  //                             ),
+  //                             SizedBox(
+  //                               height: 10.0,
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Positioned(
+  //                       left: 20.0,
+  //                       top: 25.0,
+  //                       bottom: 30.0,
+  //                       child: ClipRRect(
+  //                         borderRadius: BorderRadius.circular(5.0),
+  //                         child: Image(
+  //                           width: 115.0,
+  //                           image: AssetImage(service.imageUrl),
+  //                           fit: BoxFit.cover,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 );
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //       )
+  //       .toList();
+  // }
 
-  Widget _buildFeedback(List<ProviderFeedback> lstFeedback) {
-    return ListView.builder(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        itemCount: lstFeedback.length,
-        itemBuilder: (BuildContext context, int index) {
-          ProviderFeedback proFeedback = lstFeedback[index];
-          List<String> lstImage = lstFeedback[index].imageUrl;
-          return Stack(
-            children: <Widget>[
-              Positioned(
-                top: 15.0,
-                left: 20.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: Image(
-                    image: AssetImage(proFeedback.userImage),
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(70.0, 15.0, 20.0, 0.0),
-                    // height: 100,
-                    // width: 00,
-                    color: Color(0xFFC4C4C4).withOpacity(0.2),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                proFeedback.username,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.0),
-                              ),
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                              size: 22.0,
-                            ),
-                            Text(
-                              proFeedback.rateScore.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 12.0),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 20.0, bottom: 10.0, right: 15.0),
-                          child: Text(proFeedback.feedback),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 60.0),
-                    height: 100.0,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: lstImage.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.all(10.0),
-                            child: Image(
-                              image: AssetImage(lstImage[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 70, bottom: 20.0),
-                    child: Text(
-                      'Đã đăng vào ngày ${proFeedback.commentedDate}',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          );
-        });
-  }
+  // Widget _buildFeedback(List<FeedbackModel> lstFeedback) {
+  //   return ListView.builder(
+  //       shrinkWrap: true,
+  //       physics: BouncingScrollPhysics(),
+  //       itemCount: lstFeedback.length,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         FeedbackModel proFeedback = lstFeedback[index];
+  //         List<String> lstImage = lstFeedback[index].imageUrl;
+  //         return Stack(
+  //           children: <Widget>[
+  //             Positioned(
+  //               top: 15.0,
+  //               left: 20.0,
+  //               child: ClipRRect(
+  //                 borderRadius: BorderRadius.circular(60),
+  //                 child: Image(
+  //                   image: AssetImage(proFeedback.userImage),
+  //                   width: 40.0,
+  //                   height: 40.0,
+  //                 ),
+  //               ),
+  //             ),
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.stretch,
+  //               children: <Widget>[
+  //                 Container(
+  //                   margin: EdgeInsets.fromLTRB(70.0, 15.0, 20.0, 0.0),
+  //                   // height: 100,
+  //                   // width: 00,
+  //                   color: Color(0xFFC4C4C4).withOpacity(0.2),
+  //                   child: Column(
+  //                     children: <Widget>[
+  //                       Row(
+  //                         children: <Widget>[
+  //                           Padding(
+  //                             padding: EdgeInsets.all(8.0),
+  //                             child: Text(
+  //                               proFeedback.username,
+  //                               style: TextStyle(
+  //                                   fontWeight: FontWeight.bold,
+  //                                   fontSize: 15.0),
+  //                             ),
+  //                           ),
+  //                           Icon(
+  //                             Icons.star,
+  //                             color: Colors.yellow,
+  //                             size: 22.0,
+  //                           ),
+  //                           Text(
+  //                             proFeedback.rateScore.toString(),
+  //                             style: TextStyle(
+  //                                 fontWeight: FontWeight.w700, fontSize: 12.0),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                       Padding(
+  //                         padding: EdgeInsets.only(
+  //                             left: 20.0, bottom: 10.0, right: 15.0),
+  //                         child: Text(proFeedback.feedback),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //                 Container(
+  //                   padding: EdgeInsets.only(left: 60.0),
+  //                   height: 100.0,
+  //                   child: ListView.builder(
+  //                       shrinkWrap: true,
+  //                       scrollDirection: Axis.horizontal,
+  //                       itemCount: lstImage.length,
+  //                       itemBuilder: (BuildContext context, int index) {
+  //                         return Container(
+  //                           margin: EdgeInsets.all(10.0),
+  //                           child: Image(
+  //                             image: AssetImage(lstImage[index]),
+  //                             fit: BoxFit.cover,
+  //                           ),
+  //                         );
+  //                       }),
+  //                 ),
+  //                 Padding(
+  //                   padding: EdgeInsets.only(left: 70, bottom: 20.0),
+  //                   child: Text(
+  //                     'Đã đăng vào ngày ${proFeedback.commentedDate}',
+  //                     style: TextStyle(fontSize: 12, color: Colors.grey),
+  //                   ),
+  //                 )
+  //               ],
+  //             ),
+  //           ],
+  //         );
+  //       });
+  // }
 
-  Widget _buildComponent(int index) {
-    switch (index) {
-      case 0:
-        return _buildPicture(index);
-        break;
-      case 1:
-        return _buildService(lstService, newCart);
-        break;
-      case 2:
-        return _buildFeedback(lstProviderFeedback);
-        break;
-    }
-  }
+  // Widget _buildComponent(int index) {
+  //   switch (index) {
+  //     // case 0:
+  //     //   return _buildPicture(index);
+  //     //   break;
+  //     case 1:
+  //       return _buildService(lstService, newCart);
+  //       break;
+  //     // case 2:
+  //     //   return _buildFeedback(lstProviderFeedback);
+  //     //   break;
+  //   }
+  // }
 
   _navigateAndDisplaySelection(
-      BuildContext context, Service service, Map<Service, int> newCart) async {
-    final cart = await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) => ServiceDetailScreen(
-                service: service,
-                cart: newCart,
-              )),
-    );
+    BuildContext context,
+    service,
+    Map<ServiceModel, int> newCart,
+  ) async {
+    var provider = context.read<ProviderDetailProvider>();
+    provider.setCurrentService(service);
+    var cartProvider = context.read<CartProvider>();
+    cartProvider.setCurrentCart(CartModel(services: newCart));
+    final cart = await Navigator.pushNamed(context, Routes.serviceDetail);
     this.newCart = cart;
     setState(() {
       _buildCategory(1);
     });
   }
 
-  Widget setupAlertDialoadContainer(Service service) {
+  Widget setupAlertDialoadContainer(ServiceModel service) {
     return Container(
       height: 300.0, // Change as per your requirement
       width: 300.0, // Change as per your requirement

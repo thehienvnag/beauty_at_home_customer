@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
-import 'package:flutter_app/src/presenter/booking_summary_presenter.dart';
-import 'package:flutter_app/src/utils/utils.dart';
-import 'package:flutter_app/src/view/booking_summary.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
+import 'package:provider/provider.dart';
+
+import 'booking_summary.dart';
 
 List<CartItem> listItem = List.from(
   <CartItem>[
@@ -32,13 +34,10 @@ class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
   @override
   void initState() {
     super.initState();
-
     Future(() async {
       await Future.delayed(Duration(seconds: 5));
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => BookingSummary(
-          presenter: BookingSummaryPresenter(),
-        ),
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => BookingSummary(),
       ));
     }).then((value) => {});
   }

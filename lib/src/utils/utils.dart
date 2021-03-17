@@ -3,6 +3,15 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 class Utils {
+  static Future<dynamic> loadJsonListAsset<T>({
+    String assetsPath,
+    Function(Map<String, dynamic>) fromMap,
+  }) async {
+    String json = await rootBundle.loadString("public/json/" + assetsPath);
+    List list = jsonDecode(json);
+    return list.map<T>((e) => fromMap(e)).toList();
+  }
+
   static Future<dynamic> loadJsonAsset({
     String assetsPath,
     Function(Map<String, dynamic>) fromJson,
@@ -20,7 +29,11 @@ class Utils {
   }
 
   static void redoTaskPerDuration(
-      Function task, int miliesSecond, int count, Function afterTask) async {
+    Function task,
+    int miliesSecond,
+    int count,
+    Function afterTask,
+  ) async {
     while (count-- > 0) {
       await sleep(miliesSecond);
       task.call();

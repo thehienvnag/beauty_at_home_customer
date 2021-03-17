@@ -60,7 +60,7 @@ class BeauticianHistoryDescription extends StatelessWidget {
             ),
             TextButton(
               child: Text(
-                'Rate Booking',
+                'Đánh giá',
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 14,

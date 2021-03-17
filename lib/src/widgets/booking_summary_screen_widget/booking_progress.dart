@@ -40,9 +40,20 @@ class BookingProgress extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Confirmed',
-                      style: TextStyle(color: Colors.grey),
+                    Column(
+                      children: [
+                        Text(
+                          'Confirmed',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        // Text(
+                        //   'Thợ đang đã xác nhận đơn của bạn',
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.normal,
+                        //     fontSize: 13,
+                        //   ),
+                        // )
+                      ],
                     ),
                     Container(height: 12),
                     Column(
@@ -52,19 +63,32 @@ class BookingProgress extends StatelessWidget {
                           'On the way',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'Thợ đang chuẩn bị và trên đường tới',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 13,
+                        if (currentStepIndex == 0)
+                          Text(
+                            'Thợ đang chuẩn bị và trên đường tới',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 13,
+                            ),
                           ),
-                        )
                       ],
                     ),
                     Container(height: 12),
-                    Text(
-                      'Working',
-                      style: TextStyle(color: Colors.grey),
+                    Column(
+                      children: [
+                        Text(
+                          'Working',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        if (currentStepIndex == 1)
+                          Text(
+                            'Thợ đang chuẩn bị và trên đường tới',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 13,
+                            ),
+                          )
+                      ],
                     ),
                   ],
                 ),

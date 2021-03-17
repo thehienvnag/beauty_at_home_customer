@@ -1,54 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/voucher_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/voucher_provider.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/view/promotion_screen.dart';
 import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
 
-class ViewsPromotion extends StatelessWidget {
+class ViewsPromotion extends StatefulWidget {
   const ViewsPromotion({
     Key key,
   }) : super(key: key);
 
   @override
+  _ViewsPromotionState createState() => _ViewsPromotionState();
+}
+
+class _ViewsPromotionState extends State<ViewsPromotion> {
+  @override
+  void initState() {
+    super.initState();
+    var voucherProvider = context.read<VoucherProvider>();
+    voucherProvider.initData();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var listVoucher = context.select<VoucherProvider, List<VoucherModel>>(
+      (value) => value.listVoucher,
+    );
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: <Widget>[
-          PromotionService(
-            image:
-                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-sun-nails-cat-da-son-gel/sun-nails-cat-da-son-gel-lookme.vn-21030471207.jpeg",
-            title: "Sun Nails deal nail 89k",
-            description: 'Thu Mai',
-            priceAfter: '89.000 đ',
-            priceBefore: '145.000 đ',
-          ),
-          PromotionService(
-            image:
-                "https://www.lookme.vn/blog/wp-content/uploads/2019/11/goi-dau-thao-duoc-spa-2.jpg",
-            title: "Gội thảo mộc 169k",
-            description: 'Hà Anh',
-            priceAfter: '169.000 đ',
-            priceBefore: '250.000 đ',
-          ),
-          PromotionService(
-            image:
-                "https://i.pinimg.com/236x/be/a1/8a/bea18a7bbd6d192be2691fee72d2fc6f.jpg",
-            title: "Sơn + làm sạch CND 179k",
-            description: 'Ly Ly Nguyễn',
-            priceAfter: '179.000 đ',
-            priceBefore: '270.000 đ',
-            //press: ,
-          ),
-          PromotionService(
-            image:
-                "https://image.thanhnien.vn/660/uploaded/dieutrang.qc/2017_11_17/mh2/1_tsbz.jpg",
-            title: "Massage body 199k",
-            description: 'Thu Thảo',
-            priceAfter: '199.000 đ',
-            priceBefore: '280.000 đ',
-          ),
-        ],
+        children: listVoucher != null
+            ? listVoucher
+                .map(
+                  (item) => PromotionService(
+                    model: item,
+                  ),
+                )
+                .toList()
+            : [],
       ),
     );
   }
@@ -114,7 +107,7 @@ List<String> lstMassageImage = List.from([
   'public/img/massage_7.png',
   'public/img/massage_8.jpg',
 ]);
-final srv = Service(
+final srv = ServiceModel(
   name: '90 phút Massage body toàn thân',
   description: [
     'Bước 1: làm sạch tay bằng Cool Blue',
@@ -150,14 +143,7 @@ class RecomendService extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-              builder: (context) => ServiceDetailScreen(
-                    service: srv,
-                    cart: Map(),
-                  ),
-              settings: RouteSettings(arguments: "From-Popular-Service")),
-        );
+        Navigator.of(context).pushNamed(Routes.serviceDetail);
       },
       child: Container(
         margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),
@@ -195,8 +181,17 @@ class RecomendService extends StatelessWidget {
                           text: "$title\n".toUpperCase(),
                           style: CustomTextStyle.subtitleText(Colors.black),
                         ),
-                        WidgetSpan(child: Container(margin: EdgeInsets.only(right: 5.0), child: Icon(Icons.account_circle, color: Colors.black38, size: 18,)),),
-                        TextSpan( text: "$description\n",
+                        WidgetSpan(
+                          child: Container(
+                              margin: EdgeInsets.only(right: 5.0),
+                              child: Icon(
+                                Icons.account_circle,
+                                color: Colors.black38,
+                                size: 18,
+                              )),
+                        ),
+                        TextSpan(
+                          text: "$description\n",
                           style: CustomTextStyle.subtitleText(
                             Colors.black.withOpacity(0.5),
                           ),
@@ -240,24 +235,18 @@ class RecomendService extends StatelessWidget {
 class PromotionService extends StatelessWidget {
   const PromotionService({
     Key key,
-    this.image,
-    this.title,
-    this.description,
-    this.priceAfter,
-    this.priceBefore,
-    this.press,
+    this.model,
   }) : super(key: key);
 
-  final String image, title, description, priceAfter, priceBefore;
-  final Function press;
+  final VoucherModel model;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PromotionScreen(),
-        ));
+        var voucherProvider = context.read<VoucherProvider>();
+        voucherProvider.setCurrentVoucher(model);
+        Navigator.of(context).pushNamed(Routes.promotionDetail);
       },
       child: Container(
         margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),
@@ -265,7 +254,7 @@ class PromotionService extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Image.network(
-              image,
+              model.image,
               height: 130,
               width: 190,
               fit: BoxFit.cover,
@@ -292,24 +281,32 @@ class PromotionService extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "$title\n".toUpperCase(),
+                          text: "${model.title}\n".toUpperCase(),
                           style: CustomTextStyle.subtitleText(Colors.black),
                         ),
-                        WidgetSpan(child: Container(margin: EdgeInsets.only(right: 3.0), child: Icon(Icons.account_circle, color: Colors.black38, size: 18,)),),
+                        WidgetSpan(
+                          child: Container(
+                              margin: EdgeInsets.only(right: 3.0),
+                              child: Icon(
+                                Icons.account_circle,
+                                color: Colors.black38,
+                                size: 18,
+                              )),
+                        ),
                         TextSpan(
-                          text: "$description\n",
+                          text: "${model.description}\n",
                           style: CustomTextStyle.subtitleText(
                             Colors.black.withOpacity(0.5),
                           ),
                         ),
                         TextSpan(
-                          text: "$priceAfter\n",
+                          text: "${model.priceAfter}\n",
                           style: CustomTextStyle.subtitleText(
                             Colors.orange.withOpacity(0.5),
                           ),
                         ),
                         TextSpan(
-                          text: "$priceBefore",
+                          text: "${model.priceBefore}",
                           style: CustomTextStyle.subtitleLineThroughText(
                             Colors.grey,
                           ),

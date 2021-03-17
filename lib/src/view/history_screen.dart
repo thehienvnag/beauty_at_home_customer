@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
@@ -132,7 +133,7 @@ class History {
 class LoadHistory extends StatelessWidget {
   List<History> lstHistory = List.from([
     History(
-      saloner: 'Mit Nail & Spa',
+      saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
       imgUrl: 'public/img/mit_nails_spa.png',
@@ -160,28 +161,28 @@ class LoadHistory extends StatelessWidget {
       //press
     ),
     History(
-      saloner: 'Mit Nail & Spa',
+      saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
       imgUrl: 'public/img/mit_nails_spa.png',
       //press
     ),
     History(
-      saloner: 'Mit Nail & Spa',
+      saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
       imgUrl: 'public/img/mit_nails_spa.png',
       //press
     ),
     History(
-      saloner: 'Mit Nail & Spa',
+      saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
       imgUrl: 'public/img/mit_nails_spa.png',
       //press
     ),
     History(
-      saloner: 'Mit Nail & Spa',
+      saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
       imgUrl: 'public/img/mit_nails_spa.png',
@@ -196,78 +197,84 @@ class LoadHistory extends StatelessWidget {
         itemCount: lstHistory.length,
         itemBuilder: (BuildContext buildContext, int index) {
           History history = lstHistory[index];
-          return Container(
-            color: Colors.white,
-            margin: EdgeInsets.only(top: 2),
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Column(
-              children: <Widget>[
-                SizedBox(height: 15),
-                GestureDetector(
-                  onTap: history.press,
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    width: MediaQuery.of(context).size.width,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Container(
-                                width: 50,
-                                margin: EdgeInsets.only(left: 10, right: 13),
-                                child: Image.asset(
-                                  history.imgUrl,
-                                  width: 60,
-                                  height: 60,
-                                )),
-                            Container(
-                              margin: EdgeInsets.only(top: 5),
-                              height: 50,
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: history.saloner.toUpperCase(),
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                          color: Colors.black.withOpacity(0.7)),
-                                    ),
-                                    TextSpan(
-                                      text: "\n${history.numService} dịch vụ",
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black.withOpacity(0.5),
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(Routes.historyDetail);
+            },
+            child: Container(
+              color: Colors.white,
+              margin: EdgeInsets.only(top: 2),
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(height: 15),
+                  GestureDetector(
+                    onTap: history.press,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      width: MediaQuery.of(context).size.width,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Container(
+                                  width: 50,
+                                  margin: EdgeInsets.only(left: 10, right: 13),
+                                  child: Image.asset(
+                                    history.imgUrl,
+                                    width: 60,
+                                    height: 60,
+                                  )),
+                              Container(
+                                margin: EdgeInsets.only(top: 5),
+                                height: 50,
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: history.saloner.toUpperCase(),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15,
+                                            color:
+                                                Colors.black.withOpacity(0.7)),
                                       ),
-                                    ),
-                                  ],
+                                      TextSpan(
+                                        text: "\n${history.numService} dịch vụ",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                            child: Text(
-                          history.date,
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black.withOpacity(0.4),
+                            ],
                           ),
-                          textAlign: TextAlign.left,
-                        )),
-                      ],
+                          Container(
+                              child: Text(
+                            history.date,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black.withOpacity(0.4),
+                            ),
+                            textAlign: TextAlign.left,
+                          )),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                    width: 380,
-                    height: 0.5,
-                    color: Colors.black.withOpacity(0.5)),
-              ],
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                      width: 380,
+                      height: 0.5,
+                      color: Colors.black.withOpacity(0.5)),
+                ],
+              ),
             ),
           );
         });

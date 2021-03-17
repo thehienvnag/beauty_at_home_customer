@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/view/provider_detail_screen.dart';
 import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
@@ -27,7 +27,7 @@ class Staff {
       this.range});
 }
 
-final srv = Service(
+final srv = ServiceModel(
   name: '90 phút Massage body toàn thân',
   description: [
     'Bước 1: làm sạch tay bằng Cool Blue',
@@ -38,7 +38,7 @@ final srv = Service(
   price: '500',
   estimateTime: 30,
   status: "Đang hoạt động",
-  category: lstType[0],
+  category: "Trang điểm",
   imageUrl: 'public/img/nail_1.jpg',
   isServiceCombo: false,
   note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
@@ -225,9 +225,7 @@ class ListSearchServices extends StatelessWidget {
             onTap: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ServiceDetailScreen(
-                    service: srv,
-                  ),
+                  builder: (context) => ServiceDetailScreen(),
                 ),
               );
             },

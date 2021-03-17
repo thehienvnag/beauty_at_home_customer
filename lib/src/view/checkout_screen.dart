@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/cart_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/view/location_change_description_screen.dart';
-import 'package:flutter_app/src/view/payment_screen.dart';
 import 'package:flutter_app/src/view/wait_confirm.dart';
 import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class CheckoutScreen extends StatefulWidget {
   @override
@@ -19,14 +26,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    currentPaymentIndex = 0;
+    currentPaymentIndex = 1;
   }
 
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
+    var cart = context.select<CartProvider, CartModel>((value) => value.cart);
+
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
@@ -39,7 +47,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
+            var cartProvider = context.read<CartProvider>();
+            cartProvider.setEnableProgressing();
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => WaitConfirmScreen(),
             ));
           },
@@ -59,6 +69,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
       body: Container(
+        height: screenSize.height * 0.9,
+        width: screenSize.width,
         margin: const EdgeInsets.only(left: 10),
         child: SingleChildScrollView(
           child: Column(
@@ -184,10 +196,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       onTap: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text(
-                        'Thêm dịch vụ',
-                        style: TextStyle(
-                          color: Color(0xff0DB5B4),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Thêm dịch vụ',
+                          style: TextStyle(
+                            color: Color(0xff0DB5B4),
+                          ),
                         ),
                       ),
                     ),
@@ -201,30 +218,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 indent: 12,
                 endIndent: 10,
               ),
-              CheckoutService(
-                name: 'Make-up',
-                category: 'Trang điểm dự tiệc',
-                price: '300.000',
-                quantity: '1',
-              ),
-              CheckoutService(
-                name: 'Làm tóc',
-                category: 'Uốn cong',
-                price: '300.000',
-                quantity: '1',
-              ),
-              CheckoutService(
-                name: 'Make-up',
-                category: 'Trang điểm dự tiệc',
-                price: '300.000',
-                quantity: '1',
-              ),
-              CheckoutService(
-                name: 'Make-up',
-                category: 'Trang điểm dự tiệc',
-                price: '300.000',
-                quantity: '1',
-              ),
+              _renderCartItems(cart),
               Divider(
                 height: 20,
                 thickness: 0.5,
@@ -273,35 +267,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 indent: 12,
                 endIndent: 10,
               ),
-              GestureDetector(
-                onTap: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PaymentScreen()),
-                  );
-                  setState(
-                    () {
-                      currentPaymentIndex = result;
-                    },
-                  );
-                },
-                child: Container(
-                  margin: const EdgeInsets.only(left: 18),
-                  child: Row(
-                    children: [
-                      Image(
-                        image: AssetImage(
-                          currentPayment[currentPaymentIndex],
-                        ),
-                        height: 38,
-                        width: 38,
+              Container(
+                margin: const EdgeInsets.only(left: 18),
+                child: Row(
+                  children: [
+                    Image(
+                      image: AssetImage(
+                        currentPayment[currentPaymentIndex],
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(left: 25),
-                        child: Text('VND 25.000'),
-                      ),
-                    ],
-                  ),
+                      height: 38,
+                      width: 38,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 25),
+                      child: Text('Tiền mặt'),
+                    ),
+                  ],
                 ),
               ),
               Divider(
@@ -336,17 +317,45 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       ),
     );
   }
+
+  Widget _renderCartItems(CartModel cart) {
+    List<Widget> list = [];
+    if (cart == null) {
+      return Container(
+        padding: EdgeInsets.only(left: 20),
+        child: Text(
+          "Không có dịch vụ nào trong đơn hàng!",
+          style: CustomTextStyle.subtitleText(Colors.black26),
+        ),
+      );
+    }
+
+    cart.services.forEach(
+      (item, quantity) => list.add(
+        Container(
+          height: 90,
+          child: CheckoutService(
+            model: item,
+            quantity: quantity.toString(),
+          ),
+        ),
+      ),
+    );
+    // return Text(
+    //   "Không có dịch vụ nào trong đơn hàng!",
+    //   style: CustomTextStyle.subtitleText(Colors.black26),
+    // );
+    return Column(
+      children: list,
+    );
+  }
 }
 
 class CheckoutService extends StatelessWidget {
-  final String price, quantity, category, name;
-  const CheckoutService({
-    Key key,
-    this.price,
-    this.quantity,
-    this.category,
-    this.name,
-  }) : super(key: key);
+  final ServiceModel model;
+  final String quantity;
+
+  const CheckoutService({Key key, this.model, this.quantity}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -366,24 +375,44 @@ class CheckoutService extends StatelessWidget {
                   border: Border.all(color: Colors.grey, width: 0.5),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: Text('${this.quantity}X'),
+                child: Text('${this.quantity} x'),
               ),
               Container(
                 margin: const EdgeInsets.only(left: 28),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(this.name),
-                    Text(
-                      this.category,
-                      style: TextStyle(color: Colors.grey),
+                    Container(
+                      width: 150,
+                      child: Text(model?.name),
+                    ),
+                    Flexible(
+                      child: Text(
+                        model?.category,
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ),
                     GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        'Chỉnh sửa',
-                        style: TextStyle(
-                          color: Color(0xff28BEBA),
+                      onTap: () {
+                        var provider = context.read<ProviderDetailProvider>();
+                        provider.setCurrentService(model);
+                        Navigator.pushNamed(
+                          context,
+                          Routes.serviceDetail,
+                          arguments: "From-Checkout",
+                        );
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          right: 5,
+                          top: 3,
+                          bottom: 3,
+                        ),
+                        child: Text(
+                          'Chỉnh sửa',
+                          style: TextStyle(
+                            color: Color(0xff28BEBA),
+                          ),
                         ),
                       ),
                     ),
@@ -393,11 +422,23 @@ class CheckoutService extends StatelessWidget {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(right: 27),
-            child: Text(this.price),
+            margin: const EdgeInsets.only(right: 10),
+            child: Text(_calculatePrice(model?.price, quantity)),
           ),
         ],
       ),
     );
+  }
+
+  String _calculatePrice(String price, String quantity) {
+    if (price == null) return "100.000đ";
+    return formatPrice((int.parse(price) * int.parse(quantity)).toString());
+  }
+
+  String formatPrice(String price) {
+    String result = price.toString() + '000';
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(int.parse(result));
+    return formatString.replaceAll(new RegExp(r','), '.') + "đ";
   }
 }

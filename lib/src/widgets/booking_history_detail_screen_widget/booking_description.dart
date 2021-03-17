@@ -22,12 +22,12 @@ class BookingDescription extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Booking Summary',
+                'Tóm tắt đơn',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               TextButton(
                 child: Text(
-                  'Re-booking',
+                  'Đặt lại',
                   style: TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 14,

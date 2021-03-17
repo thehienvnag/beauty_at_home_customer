@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
 
 class ProviderImage extends StatelessWidget {
   final String path;
-  final Map<Service, int> cart;
+  final Map<ServiceModel, int> cart;
 
   const ProviderImage({Key key, this.path, this.cart}) : super(key: key);
 

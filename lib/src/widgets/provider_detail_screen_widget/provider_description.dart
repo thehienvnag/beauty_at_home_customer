@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/provider_model.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:intl/intl.dart';
 
 class ProviderDescription extends StatelessWidget {
-  final Provider provider;
+  final ProviderModel provider;
   const ProviderDescription({
     Key key,
     this.provider,

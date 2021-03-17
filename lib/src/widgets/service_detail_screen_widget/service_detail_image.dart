@@ -1,14 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-
 
 class ServiceDetailImage extends StatefulWidget {
   final List<String> lstImage;
-  final Map<Service, int> cart;
+  final Map<ServiceModel, int> cart;
 
-  const ServiceDetailImage({Key key, this.lstImage, this.cart}) : super(key: key);
+  const ServiceDetailImage({Key key, this.lstImage, this.cart})
+      : super(key: key);
 
   @override
   _ServiceDetailImageState createState() => _ServiceDetailImageState();
@@ -21,6 +21,7 @@ class _ServiceDetailImageState extends State<ServiceDetailImage> {
   @override
   void initState() {
     super.initState();
+
     /// Attach a listener which will update the state and refresh the page index
     controller.addListener(() {
       if (controller.page.round() != currentIndex) {

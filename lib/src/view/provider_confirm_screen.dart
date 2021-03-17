@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
-import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/provider_new_order_screen.dart';
 import 'package:flutter_app/src/widgets/google_map_service/google_service.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';

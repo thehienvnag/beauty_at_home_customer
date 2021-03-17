@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/provider_feedback_model.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/cart_model.dart';
+import 'package:flutter_app/src/models-new/feedback_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/view/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/service_detail_widget.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
-List<ProviderFeedback> lstProviderFeedback = List.from([
-  ProviderFeedback(
+List<FeedbackModel> lstProviderFeedback = List.from([
+  FeedbackModel(
       username: 'Hiển Huỳnh',
       rateScore: 4.5,
       imageUrl: [
@@ -22,7 +26,7 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
           'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
       userImage: 'public/img/user_image.jpg',
       commentedDate: '29-01-2021'),
-  ProviderFeedback(
+  FeedbackModel(
       username: 'Trang Cao',
       rateScore: 4.0,
       imageUrl: [
@@ -39,11 +43,9 @@ List<ProviderFeedback> lstProviderFeedback = List.from([
 ]);
 
 class ServiceDetailScreen extends StatefulWidget {
-  final Service service;
-  final Map<Service, int> cart;
-
-  const ServiceDetailScreen({Key key, this.service, this.cart})
-      : super(key: key);
+  const ServiceDetailScreen({
+    Key key,
+  }) : super(key: key);
 
   @override
   _ServiceDetailScreenState createState() => _ServiceDetailScreenState();
@@ -54,11 +56,13 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   bool isFromPromotion = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-
-    if (widget.cart != null && widget.cart.containsKey(widget.service)) {
-      updatingQuantity = widget.cart[widget.service];
+    var provider = context.read<ProviderDetailProvider>();
+    var cartProvider = context.read<CartProvider>();
+    if (cartProvider.cart != null &&
+        cartProvider.cart.services != null &&
+        cartProvider.cart.services.containsKey(provider.currentService)) {
+      updatingQuantity = cartProvider.cart.services[provider.currentService];
     } else {
       updatingQuantity = 1;
     }
@@ -66,10 +70,15 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map<Service, int> newCart = widget.cart;
     isFromPromotion =
         ModalRoute.of(context).settings.arguments == "From-Promotion";
     final screenSize = MediaQuery.of(context).size;
+    var service = context.select<ProviderDetailProvider, ServiceModel>(
+      (value) => value.currentService,
+    );
+    var newCart = context.select<CartProvider, Map<ServiceModel, int>>(
+      (value) => value.cart.services,
+    );
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
         // color: Colors.blue,
@@ -153,36 +162,44 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   ),
                 ),
                 onPressed: () {
+                  String fromScreen = ModalRoute.of(context).settings.arguments;
                   if (newCart == null) {
                     newCart = new Map();
                   }
-                  if (!newCart.containsKey(widget.service) &&
-                      updatingQuantity > 0) {
-                    newCart[widget.service] = updatingQuantity;
+                  if (!newCart.containsKey(service) && updatingQuantity > 0) {
+                    newCart[service] = updatingQuantity;
                   } else {
-                    if (newCart.containsKey(widget.service) &&
-                        updatingQuantity == 0) {
-                      newCart.remove(widget.service);
-                    } else if (newCart.containsKey(widget.service) &&
-                        newCart[widget.service] != updatingQuantity) {
+                    if (newCart.containsKey(service) && updatingQuantity == 0) {
+                      newCart.remove(service);
+                    } else if (newCart.containsKey(service) &&
+                        newCart[service] != updatingQuantity) {
                       newCart.update(
-                          widget.service, (dynamic val) => updatingQuantity);
+                          service, (dynamic val) => updatingQuantity);
                     }
                   }
-                  String fromScreen = ModalRoute.of(context).settings.arguments;
+                  var cartProvider = context.read<CartProvider>();
+                  cartProvider.setCurrentCart(CartModel(services: newCart));
+
                   if (fromScreen == "From-Promotion" ||
                       fromScreen == "From-Popular-Service") {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => ProviderDetailScreen(cart: newCart),
                     ));
                   } else {
-                    Navigator.pop(context, newCart);
+                    if (fromScreen == "From-Checkout" && newCart.isEmpty) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ProviderDetailScreen(cart: newCart),
+                      ));
+                    } else {
+                      Navigator.pop(context, newCart);
+                    }
                   }
                 },
-                backgroundColor: setButtonColor(
-                    widget.service, widget.cart, updatingQuantity),
+                backgroundColor:
+                    setButtonColor(service, newCart, updatingQuantity),
                 label: Text(
-                  button(widget.service, newCart, updatingQuantity),
+                  button(service, newCart, updatingQuantity),
                   style: TextStyle(
                       fontSize: 10.0, color: Colors.white, letterSpacing: 3),
                 ),
@@ -206,22 +223,22 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
       //       if (newCart == null) {
       //         newCart = new Map();
       //       }
-      //       if (!newCart.containsKey(widget.service) && updatingQuantity > 0) {
-      //         newCart[widget.service] = updatingQuantity;
+      //       if (!newCart.containsKey(service) && updatingQuantity > 0) {
+      //         newCart[service] = updatingQuantity;
       //       } else {
-      //         if (newCart.containsKey(widget.service) && updatingQuantity == 0) {
-      //           newCart.remove(widget.service);
-      //         } else if (newCart.containsKey(widget.service) &&
-      //             newCart[widget.service] != updatingQuantity) {
-      //           newCart.update(widget.service, (dynamic val) => updatingQuantity);
+      //         if (newCart.containsKey(service) && updatingQuantity == 0) {
+      //           newCart.remove(service);
+      //         } else if (newCart.containsKey(service) &&
+      //             newCart[service] != updatingQuantity) {
+      //           newCart.update(service, (dynamic val) => updatingQuantity);
       //         }
       //       }
       //
       //       Navigator.pop(context, newCart);
       //     },
-      //     backgroundColor: setButtonColor(widget.service, widget.cart, updatingQuantity),
+      //     backgroundColor: setButtonColor(service, widget.cart, updatingQuantity),
       //     label: Text(
-      //       button(widget.service, newCart, updatingQuantity),
+      //       button(service, newCart, updatingQuantity),
       //       style: TextStyle(color: Colors.white, letterSpacing: 3),
       //     ),
       //   ),
@@ -233,17 +250,17 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           child: Column(
             children: <Widget>[
               ServiceDetailImage(
-                lstImage: widget.service.serviceImages,
+                lstImage: service.serviceImages,
                 cart: newCart,
               ),
               ServiceDetailDescription(
-                name: widget.service.name,
-                note: widget.service.note,
-                price: formatPrice(widget.service.price),
+                name: service.name,
+                note: service.note,
+                price: formatPrice(service.price),
                 isFromPromotion: isFromPromotion,
               ),
               ServiceDetailStepDescription(
-                description: widget.service.description,
+                description: service.description,
               ),
               Container(
                 height: 30.0,
@@ -269,8 +286,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 ),
               ),
               _buildStar(),
-              Container(
-                child: _buildFeedback(lstProviderFeedback),
+              Consumer<ProviderDetailProvider>(
+                builder: (context, value, child) =>
+                    _buildFeedback(value.provider.feedbacks),
               ),
               // Container(
               //   height: screenSize.height * 0.1,
@@ -354,7 +372,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     return formatString.replaceAll(new RegExp(r','), '.');
   }
 
-  String button(Service service, Map<Service, int> cart, int quantity) {
+  String button(
+      ServiceModel service, Map<ServiceModel, int> cart, int quantity) {
     if (cart != null) {
       if (cart.containsKey(service) && quantity == 0) {
         return 'XÓA DỊCH VỤ';
@@ -373,7 +392,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     return 'THÊM VÀO GIỎ HÀNG';
   }
 
-  Color setButtonColor(Service service, Map<Service, int> cart, int quantity) {
+  Color setButtonColor(
+      ServiceModel service, Map<ServiceModel, int> cart, int quantity) {
     if (cart != null) {
       if (cart.containsKey(service) && quantity == 0) {
         return Colors.redAccent;
@@ -392,13 +412,13 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     return Color(0xff28BEBA);
   }
 
-  Widget _buildFeedback(List<ProviderFeedback> lstFeedback) {
+  Widget _buildFeedback(List<FeedbackModel> lstFeedback) {
     return ListView.builder(
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         itemCount: lstFeedback.length,
         itemBuilder: (BuildContext context, int index) {
-          ProviderFeedback proFeedback = lstFeedback[index];
+          FeedbackModel proFeedback = lstFeedback[index];
           List<String> lstImage = lstFeedback[index].imageUrl;
           return Stack(
             children: <Widget>[

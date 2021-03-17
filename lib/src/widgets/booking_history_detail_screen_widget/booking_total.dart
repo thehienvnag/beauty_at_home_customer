@@ -5,7 +5,7 @@ final dynamic paymentMethodContents = {
   'momo': Row(
     children: [
       Image.asset(
-        'public/img/momo_icon.png',
+        'public/img/iconcash.PNG',
         width: 17,
       ),
       Text(' Momo'),
@@ -37,14 +37,14 @@ class BookingTotal extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Subtotal'),
+                    Text('Tổng đơn'),
                     Text(this.totalPriceBefore),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Applicable fees'),
+                    Text('Phí áp dụng'),
                     Text(this.applicableFee),
                   ],
                 ),
@@ -59,7 +59,7 @@ class BookingTotal extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total',
+                      'Thành tiền',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -75,7 +75,7 @@ class BookingTotal extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Payment method'),
+                    Text('Thanh toán qua'),
                     paymentMethodContents[this.paymentMethod],
                   ],
                 ),

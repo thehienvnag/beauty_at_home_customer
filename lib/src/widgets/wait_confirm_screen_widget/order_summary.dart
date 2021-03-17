@@ -19,7 +19,7 @@ class OrderSummary extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Total'),
+              Text('Tổng đơn'),
               Text(
                 this.priceAfter,
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -44,14 +44,14 @@ class OrderSummary extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Payment method'),
+              Text('Phương thức thanh toán'),
               Row(
                 children: [
                   Image.asset(
-                    'public/img/momo_icon.png',
-                    width: 17,
+                    'public/img/iconcash.PNG',
+                    width: 20,
                   ),
-                  Text(' Momo'),
+                  Text(' Tiền mặt'),
                 ],
               )
             ],

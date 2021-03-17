@@ -16,7 +16,7 @@ class ProcessingRow extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(left: 10),
-                child: Text('Processing...'),
+                child: Text('Đang xử lý...'),
               ),
             ],
           ),
@@ -26,7 +26,7 @@ class ProcessingRow extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Text(
-            'Cancel',
+            'Hủy đơn',
             style: TextStyle(
               fontWeight: FontWeight.normal,
             ),

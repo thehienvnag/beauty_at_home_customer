@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/providers/user_profile.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
   Widget _loginWithGoogle(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final userProfile = context.read<UserProfile>();
+        final userProfile = context.read<AccountProvider>();
         await userProfile.login();
         if (userProfile.isSignIn) {
           Navigator.of(context).pushNamed(Routes.home);
@@ -91,7 +91,7 @@ class LoginScreen extends StatelessWidget {
   Widget _loginWithPhone(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.loginPhoneScreen);
+        Navigator.of(context).pushNamed(Routes.loginPhone);
       },
       child: Container(
         height: 45,

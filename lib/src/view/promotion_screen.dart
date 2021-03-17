@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models/provider_detail_model/service_model.dart';
+import 'package:flutter_app/src/models-new/cart_model.dart';
+import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/models-new/voucher_model.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/providers/voucher_provider.dart';
 import 'package:flutter_app/src/view/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
 
 class PromotionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var voucher = context.select<VoucherProvider, VoucherModel>(
+      (value) => value.currentVoucher,
+    );
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: PreferredSize(
@@ -27,8 +36,7 @@ class PromotionScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
           flexibleSpace: Image(
-            image: NetworkImage(
-                "https://img.lookme.vn/unsafe/397x0/https://minio.lookme.vn/packageservice/packageservice-sun-nails-cat-da-son-gel/sun-nails-cat-da-son-gel-lookme.vn-21030471207.jpeg"),
+            image: NetworkImage(voucher.image),
             fit: BoxFit.cover,
           ),
         ),
@@ -44,11 +52,12 @@ class PromotionScreen extends StatelessWidget {
             ),
           ),
           onPressed: () {
+            var service = context.read<ProviderDetailProvider>();
+            service.setCurrentService(service.getService(0));
+            var cartProvider = context.read<CartProvider>();
+            cartProvider.setCurrentCart(CartModel(services: Map()));
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ServiceDetailScreen(
-                service: srv,
-                cart: Map(),
-              ),
+              builder: (context) => ServiceDetailScreen(),
               settings: RouteSettings(arguments: "From-Promotion"),
             ));
           },
@@ -71,7 +80,7 @@ class PromotionScreen extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(left: 5, top: 15, bottom: 15),
                       child: Text(
-                        'Sun Nails deal nail 89k',
+                        voucher.title,
                         style: CustomTextStyle.titleText(Colors.black),
                       ),
                     ),
@@ -87,7 +96,7 @@ class PromotionScreen extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            '  Thu Mai   (Cách bạn 2.5km)',
+                            '  ${voucher.description}   (Cách bạn 2.5km)',
                             style: CustomTextStyle.subtitleText(Colors.black),
                           ),
                         ),
@@ -140,13 +149,13 @@ class PromotionScreen extends StatelessWidget {
                         ),
                         Container(
                           child: Text(
-                            '  89.000 đ',
+                            '  ${voucher.priceBefore}',
                             style: CustomTextStyle.subtitleText(Colors.orange),
                           ),
                         ),
                         Container(
                           child: Text(
-                            '  145.000 đ',
+                            '  ${voucher.priceAfter}',
                             style: CustomTextStyle.subtitleLineThroughText(
                               Colors.grey,
                             ),
@@ -218,36 +227,3 @@ class PromotionScreen extends StatelessWidget {
     );
   }
 }
-
-List<String> lstNailImages = List.from([
-  'public/img/nail_1.jpg',
-  'public/img/nail_2.jpg',
-  'public/img/nail_3.png',
-  'public/img/nail_4.png',
-  'public/img/nail_5.png',
-  'public/img/nail_6.png',
-  'public/img/nail_7.png',
-  'public/img/nail_8.jpg',
-]);
-
-final srv = Service(
-  name: 'Làm sạch và sơn gel',
-  description: [
-    'Bước 1: làm sạch tay bằng Cool Blue',
-    'Bước 2: dũa móng theo khuôn khách yêu cầu',
-    'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-    'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-    'Bước 5: làm sạch dung dịch gel sót trên da và dùng kiềm nhặt da sót lại',
-    'Bước 6: làm sạch mặt móng với dung dịch làm khô chuyên biệt',
-    'Bước 7: sơn gel',
-    'Bước 8: thao dưỡng khóe móng và móng bằng culticle eraser và solar oil'
-  ],
-  price: '200',
-  estimateTime: 30,
-  status: "Đang hoạt động",
-  serviceImages: lstNailImages,
-  category: "Nails",
-  imageUrl: 'public/img/nail_2.jpg',
-  isServiceCombo: false,
-  note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-);
