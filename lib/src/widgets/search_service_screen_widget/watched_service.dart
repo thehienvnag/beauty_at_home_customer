@@ -3,8 +3,8 @@ import 'package:flutter_app/src/models-new/voucher_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/voucher_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
-import 'package:flutter_app/src/view/promotion_screen.dart';
-import 'package:flutter_app/src/view/service_detail_screen.dart';
+import 'package:flutter_app/src/view/Promotion/promotion_screen.dart';
+import 'package:flutter_app/src/view/ServiceDetailScreen/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:provider/provider.dart';
 

@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
-  CartModel _cart;
+  CartModel _cart = CartModel();
   CartModel get cart => _cart;
-  bool _isBookingProgressing;
+  bool _isBookingProgressing = false;
   bool get isBookingProgressing => _isBookingProgressing;
 
   void setCurrentCart(CartModel cart) {

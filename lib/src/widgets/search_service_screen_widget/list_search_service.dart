@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
-import 'package:flutter_app/src/view/provider_detail_screen.dart';
-import 'package:flutter_app/src/view/service_detail_screen.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
+import 'package:flutter_app/src/view/ServiceDetailScreen/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import '../search_screen_widget.dart';
@@ -142,11 +142,7 @@ class ListSearchServices extends StatelessWidget {
   Widget _buildStaff(Staff staff, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ProviderDetailScreen(),
-          ),
-        );
+        Navigator.of(context).pushNamed(Routes.provider);
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,18 +219,14 @@ class ListSearchServices extends StatelessWidget {
         .map<Widget>(
           (item) => GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => ServiceDetailScreen(),
-                ),
-              );
+              Navigator.of(context).pushNamed(Routes.serviceDetail);
             },
             child: Column(
               children: [
                 Row(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(left: 35),
+                      margin: EdgeInsets.only(left: 15),
                     ),
                     Container(
                       width: 250,

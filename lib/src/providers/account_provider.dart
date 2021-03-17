@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/account_model.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 
 class AccountProvider extends ChangeNotifier {
@@ -18,6 +19,8 @@ class AccountProvider extends ChangeNotifier {
 
   final dynamic fromJson = (dynamic source) => AccountModel.fromJson(source);
 
+  void setUserInfo(data) {}
+
   Future<void> initData() async {
     _account = await Utils.loadJsonAsset(
       assetsPath: "userProfile.json",
@@ -26,6 +29,8 @@ class AccountProvider extends ChangeNotifier {
     log(_account.email + " " + _account.gallery.defaultImage.imageUrl);
     notifyListeners();
   }
+
+  List<ProviderModel> getProviders() {}
 
   Future<void> login() async {
     // User user = await GoogleService.instance().loginWithGoogle();

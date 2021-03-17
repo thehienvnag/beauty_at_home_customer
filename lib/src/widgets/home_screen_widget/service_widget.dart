@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/list_search_screen.dart';
+import 'package:flutter_app/src/view/ListSearchScreen/list_search_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class Category {

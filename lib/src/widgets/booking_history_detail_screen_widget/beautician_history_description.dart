@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/rating_screen.dart';
+import 'package:flutter_app/src/view/Rating/rating_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 
 class BeauticianHistoryDescription extends StatelessWidget {

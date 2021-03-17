@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/blank_search.dart';
-import 'package:flutter_app/src/view/list_search_screen.dart';
-import 'package:flutter_app/src/view/list_search_screen_no_found.dart';
+import 'package:flutter_app/src/view/BlankSearch/blank_search.dart';
+import 'package:flutter_app/src/view/ListSearchScreen/list_search_screen.dart';
+import 'package:flutter_app/src/view/ListSearchScreen/list_search_screen_no_found.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class SearchTextField extends StatelessWidget {

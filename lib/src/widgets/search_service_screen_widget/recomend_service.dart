@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/provider_detail_screen.dart';
+import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 
 class ServiceItem {
   final String image;

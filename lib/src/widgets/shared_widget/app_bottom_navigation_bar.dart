@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/view/history_screen.dart';
-import 'package:flutter_app/src/view/home_screen.dart';
-import 'package:flutter_app/src/view/notification_screen.dart';
-import 'package:flutter_app/src/view/profile_screen.dart';
+import 'package:flutter_app/src/view/HistoryScreen/history_screen.dart';
+import 'package:flutter_app/src/view/HomeScreen/home_screen.dart';
+import 'package:flutter_app/src/view/Notification/notification_screen.dart';
+import 'package:flutter_app/src/view/ProfileScreen/profile_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {

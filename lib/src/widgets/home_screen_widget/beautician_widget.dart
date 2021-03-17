@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/beautician_model.dart';
-import 'package:flutter_app/src/view/provider_detail_screen.dart';
+import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class BeauticianWidget extends StatelessWidget {
