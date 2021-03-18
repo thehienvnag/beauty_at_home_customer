@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+//import 'package:giffy_dialog/giffy_dialog.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 class NotificationScreen extends StatelessWidget {
   @override
@@ -28,6 +30,29 @@ class NotificationScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => NetworkGiffyDialog(
+              image: Image.asset(
+                "public/img/beautician_test.png",
+              ),
+              title: Text(
+                'Makeup cô dâu',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w600),
+              ),
+              description: Text(
+                'Đơn của bạn đã đặt thành công',
+                textAlign: TextAlign.center,
+              ),
+              onOkButtonPressed: () {},
+            ),
+          );
+        },
+        label: Text("Notification"),
       ),
       bottomNavigationBar: WidgetUtils.appBottomNavigationBar(2),
       body: Container(
