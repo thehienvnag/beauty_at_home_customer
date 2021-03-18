@@ -75,7 +75,7 @@ ProviderModel fake = ProviderModel(
         'public/img/massage_8.jpg',
       ]),
       isServiceCombo: false,
-      note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+      summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
     ),
     ServiceModel(
       name: 'Làm sạch và sơn gel',
@@ -106,7 +106,7 @@ ProviderModel fake = ProviderModel(
         'public/img/nail_8.jpg',
       ]),
       isServiceCombo: false,
-      note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+      summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
     ),
     ServiceModel(
       name: 'Tóc xoăn tự nhiên',
@@ -133,7 +133,7 @@ ProviderModel fake = ProviderModel(
         'public/img/massage_8.jpg',
       ]),
       isServiceCombo: false,
-      note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+      summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
     ),
     ServiceModel(
       name: 'Trang điểm tự nhiên',
@@ -164,7 +164,7 @@ ProviderModel fake = ProviderModel(
         'public/img/nail_8.jpg',
       ]),
       isServiceCombo: false,
-      note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+      summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
     ),
   ]),
 );

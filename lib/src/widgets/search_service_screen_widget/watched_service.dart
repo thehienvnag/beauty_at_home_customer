@@ -122,7 +122,7 @@ final srv = ServiceModel(
   imageUrl: 'public/img/massage_3.jpg',
   serviceImages: lstMassageImage,
   isServiceCombo: false,
-  note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
 );
 
 class RecomendService extends StatelessWidget {

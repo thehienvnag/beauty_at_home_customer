@@ -41,7 +41,7 @@ final srv = ServiceModel(
   category: "Trang điểm",
   imageUrl: 'public/img/nail_1.jpg',
   isServiceCombo: false,
-  note: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
 );
 
 List<ServiceItem> lstService = List.from([

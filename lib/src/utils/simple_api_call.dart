@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
+import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,7 @@ abstract class IBaseModel {
 class SimpleApi {
   final String entityEndpoint;
   final Function(IBaseModel) fromJson;
-  static String baseUrl = "localhost:44397";
+  static String baseUrl = BASE_URL;
 
   SimpleApi({
     this.entityEndpoint,

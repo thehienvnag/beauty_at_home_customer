@@ -321,7 +321,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                           Container(
                             margin: EdgeInsets.only(top: 10.0),
                             child: Text(
-                              service.note,
+                              service.summary,
                               style: TextStyle(color: Colors.grey),
                             ),
                           ),

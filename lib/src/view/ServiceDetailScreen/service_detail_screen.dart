@@ -256,7 +256,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
               ),
               ServiceDetailDescription(
                 name: service.name,
-                note: service.note,
+                note: service.summary,
                 price: formatPrice(service.price),
                 isFromPromotion: isFromPromotion,
               ),

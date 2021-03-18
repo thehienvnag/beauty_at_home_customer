@@ -10,7 +10,7 @@ class ServiceModel {
   String imageUrl;
   List<String> serviceImages;
   bool isServiceCombo;
-  String note;
+  String summary;
 
   ServiceModel({
     this.name,
@@ -22,7 +22,7 @@ class ServiceModel {
     this.imageUrl,
     this.serviceImages,
     this.isServiceCombo,
-    this.note,
+    this.summary,
   });
 
   Map<String, dynamic> toMap() {
@@ -36,7 +36,7 @@ class ServiceModel {
       'imageUrl': imageUrl,
       'serviceImages': serviceImages,
       'isServiceCombo': isServiceCombo,
-      'note': note,
+      'summary': summary,
     };
   }
 
@@ -51,7 +51,7 @@ class ServiceModel {
       imageUrl: map['imageUrl'],
       serviceImages: List<String>.from(map['serviceImages']),
       isServiceCombo: map['isServiceCombo'],
-      note: map['note'],
+      summary: map['summary'],
     );
   }
 
