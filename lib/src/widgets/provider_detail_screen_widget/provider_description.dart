@@ -70,7 +70,7 @@ class ProviderDescription extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     Text(
-                      'Đang hoạt động',
+                      provider.status,
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           // fontSize: 16.0,

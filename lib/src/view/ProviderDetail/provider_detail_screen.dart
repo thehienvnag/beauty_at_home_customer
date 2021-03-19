@@ -1,14 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/apis/provider_api/provider_api.dart';
+import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
+import 'package:flutter_app/src/models-new/api_model.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 List<String> _categories = [
   'Hình ảnh',
@@ -18,8 +26,10 @@ List<String> _categories = [
 
 class ProviderDetailScreen extends StatefulWidget {
   final Map<ServiceModel, int> cart;
+  final String id;
 
-  const ProviderDetailScreen({Key key, this.cart}) : super(key: key);
+  const ProviderDetailScreen({Key key, this.cart, this.id}) : super(key: key);
+
   //
   @override
   _ProviderDetailScreenState createState() => _ProviderDetailScreenState();
@@ -28,73 +38,96 @@ class ProviderDetailScreen extends StatefulWidget {
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 1;
   Map<ServiceModel, int> newCart;
+  Future<ProviderModel> provider;
+  Future<List<ProviderModel>> listProvider;
+  String error = '';
   @override
   void initState() {
     super.initState();
     if (widget.cart != null) {
       newCart = widget.cart;
     }
-    var providerDetailProvider = context.read<ProviderDetailProvider>();
-    providerDetailProvider.initProvider();
+    // listProvider = ProviderAPI().getAllProvider((callback) => error = callback);
+    provider = ProviderAPI()
+        .getProviderById((callback) => {error = callback}, widget.id);
+    // var providerDetailProvider = context.read<ProviderDetailProvider>();
+    // providerDetailProvider.initProvider();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Consumer<ProviderDetailProvider>(
-            builder: (context, value, child) => ProviderImage(
-              path: value.provider.imageUrl,
-              cart: newCart,
-            ),
-          ),
-          Consumer<ProviderDetailProvider>(
-            builder: (context, value, child) => ProviderDescription(
-              provider: value.provider,
-            ),
-          ),
-          Container(
-            height: 50.0,
-            width: MediaQuery.of(context).size.width,
-            margin: EdgeInsets.only(top: 5.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(color: Colors.grey[300], offset: Offset(0.0, 5.0)),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+      body: FutureBuilder<ProviderModel>(
+        future: provider,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              scrollDirection: Axis.vertical,
               children: <Widget>[
-                _buildCategory(1),
-
-                // _buildCategory(2),
-              ],
-            ),
-          ),
-          Consumer<ProviderDetailProvider>(
-            builder: (context, value, child) => value.services != null
-                ? _buildService(
-                    value.services,
-                    newCart,
-                  )
-                : Text(
-                    'No services available!',
-                    style: CustomTextStyle.subtitleText(Colors.black54),
+                Consumer<ProviderDetailProvider>(
+                  builder: (context, value, child) => ProviderImage(
+                    path: snapshot.data.imageUrl,
+                    cart: newCart,
                   ),
-          ),
-          _checkCart(newCart),
-        ],
+                ),
+                Consumer<ProviderDetailProvider>(
+                  builder: (context, value, child) => ProviderDescription(
+                    provider: snapshot.data,
+                  ),
+                ),
+                Container(
+                  height: 50.0,
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.only(top: 5.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[300], offset: Offset(0.0, 5.0)),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      _buildCategory(1),
+
+                      // _buildCategory(2),
+                    ],
+                  ),
+                ),
+                Consumer<ProviderDetailProvider>(
+                  builder: (context, value, child) => snapshot.data.services !=
+                          null
+                      ? _buildService(
+                          snapshot.data.services,
+                          newCart,
+                        )
+                      : Text(
+                          'No services available!',
+                          style: CustomTextStyle.subtitleText(Colors.black54),
+                        ),
+                ),
+                _checkCart(newCart),
+              ],
+            );
+
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return new Center(
+              child: new CircularProgressIndicator(),
+            );
+          }
+          return new Center(
+            child: Text('Tho khong ton tai'),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: buildFloatingButton(newCart),
       floatingActionButton: Consumer<CartProvider>(
         builder: (context, value, child) =>
-            value.cart != null && !value.isBookingProgressing
-                ? buildFloatingButton(value.cart.services)
-                : Container(),
+        value.cart != null && !value.isBookingProgressing
+            ? buildFloatingButton(value.cart.services)
+            : Container(),
       ),
     );
   }
