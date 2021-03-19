@@ -35,7 +35,7 @@ class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
   void initState() {
     super.initState();
     Future(() async {
-      await Future.delayed(Duration(seconds: 5));
+      await Future.delayed(Duration(seconds: 2));
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (context) => BookingSummary(),
       ));

@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/booking_summary_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
 
 final List<Widget> dynamicContents = [
@@ -25,6 +27,7 @@ class BookingSummary extends StatefulWidget {
 
 class _BookingSummaryState extends State<BookingSummary> {
   int currentStep = 0;
+  bool _isContinue = true;
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,9 @@ class _BookingSummaryState extends State<BookingSummary> {
         10000,
         1,
         () {
-          Navigator.of(context).pushReplacementNamed(Routes.bookingHistory);
+          if (_isContinue) {
+            Navigator.of(context).pushReplacementNamed(Routes.bookingHistory);
+          }
         });
   }
 
@@ -87,7 +92,32 @@ class _BookingSummaryState extends State<BookingSummary> {
           ),
           OutlinedButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) => AlertDialog(
+                  // title: Text("Bạn có chắc muốn hủy đơn?"),
+                  content: Text("Bạn có muốn hủy đơn không?",
+                      style: CustomTextStyle.statusText(Colors.black54)),
+                  actions: [
+                    FlatButton(
+                      textColor: Color(0xFF6200EE),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Không'),
+                    ),
+                    FlatButton(
+                      textColor: Color(0xFF6200EE),
+                      onPressed: () async {
+                        final result = await Navigator.of(context)
+                            .pushReplacementNamed(Routes.cancelReason);
+                      },
+                      child: Text('Đồng ý'),
+                    ),
+                  ],
+                ),
+              );
             },
             child: Text("HỦY ĐƠN"),
           )

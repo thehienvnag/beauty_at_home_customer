@@ -8,4 +8,5 @@ class Routes {
   static String provider = "/provider";
   static String serviceDetail = "/serviceDetail";
   static String bookingHistory = "/bookingHistory";
+  static String cancelReason = "/cancelReason";
 }

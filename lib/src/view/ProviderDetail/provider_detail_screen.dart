@@ -91,10 +91,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // floatingActionButton: buildFloatingButton(newCart),
       floatingActionButton: Consumer<CartProvider>(
-        builder: (context, value, child) =>
-            value.cart != null && !value.isBookingProgressing
-                ? buildFloatingButton(value.cart.services)
-                : Container(),
+        builder: (context, value, child) => value.cart != null
+            ? buildFloatingButton(value.cart.services)
+            : Container(),
       ),
     );
   }

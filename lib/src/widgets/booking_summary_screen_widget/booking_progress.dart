@@ -59,11 +59,17 @@ class BookingProgress extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'On the way',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        if (currentStepIndex == 0)
+                        if (currentStepIndex == 1)
+                          Text(
+                            'On the way',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        if (currentStepIndex != 1)
+                          Text(
+                            'On the way',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        if (currentStepIndex == 1)
                           Text(
                             'Thợ đang chuẩn bị và trên đường tới',
                             style: TextStyle(
@@ -75,12 +81,19 @@ class BookingProgress extends StatelessWidget {
                     ),
                     Container(height: 12),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Working',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        if (currentStepIndex == 1)
+                        if (currentStepIndex == 2)
+                          Text(
+                            'Working',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        if (currentStepIndex != 2)
+                          Text(
+                            'Working',
+                            style: TextStyle(color: Colors.black54),
+                          ),
+                        if (currentStepIndex == 2)
                           Text(
                             'Thợ đang chuẩn bị và trên đường tới',
                             style: TextStyle(
