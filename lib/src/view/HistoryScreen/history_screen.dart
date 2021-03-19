@@ -136,7 +136,7 @@ class LoadHistory extends StatelessWidget {
       saloner: 'Mit Nail',
       numService: 8,
       date: '2020-10-15',
-      imgUrl: 'public/img/mit_nails_spa.png',
+      imgUrl: 'public/img/mit_nails_spa.PNG',
       //press
     ),
     History(

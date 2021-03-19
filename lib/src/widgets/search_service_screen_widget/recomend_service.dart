@@ -258,7 +258,7 @@ class RecomendServices extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('public/img/beautician1.png'),
+                  image: AssetImage('public/img/beautician1.PNG'),
                 ),
               ),
             ),
@@ -365,7 +365,7 @@ class RecomendServices extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('public/img/beautician2.png'),
+                image: AssetImage('public/img/beautician2.PNG'),
               ),
             ),
           ),
@@ -470,7 +470,7 @@ class RecomendServices extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('public/img/beautician3.png'),
+                  image: AssetImage('public/img/beautician3.PNG'),
                 ),
               ),
             ),
