@@ -3,20 +3,21 @@ import 'dart:convert';
 import 'package:flutter_app/src/models-new/image_model.dart';
 
 class GalleryModel {
-  ImageModel defaultImage;
+  List<ImageModel> images;
   GalleryModel({
-    this.defaultImage,
+    this.images,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'defaultImage': defaultImage.toMap(),
+      'images': images?.map((x) => x.toMap())?.toList(),
     };
   }
 
   factory GalleryModel.fromMap(Map<String, dynamic> map) {
     return GalleryModel(
-      defaultImage: ImageModel.fromMap(map['defaultImage']),
+      images: List<ImageModel>.from(
+          map['images']?.map((x) => ImageModel.fromMap(x))),
     );
   }
 

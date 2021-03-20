@@ -26,7 +26,7 @@ class AccountProvider extends ChangeNotifier {
       assetsPath: "userProfile.json",
       fromJson: fromJson,
     );
-    log(_account.email + " " + _account.gallery.defaultImage.imageUrl);
+    // log(_account.email + " " + _account.gallery.defaultImage.imageUrl);
     notifyListeners();
   }
 

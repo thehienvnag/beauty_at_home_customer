@@ -1,16 +1,12 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:flutter_app/src/models-new/api_list_model.dart';
 import 'package:flutter_app/src/models-new/api_model.dart';
-import 'package:flutter_app/src/models-new/image_model.dart';
-import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
-import 'package:flutter_app/src/utils/simple_api_call.dart';
 import 'package:http/http.dart' as http;
 
 class SimpleAPI {
-  static final String baseUrl = "https://...";
+  static final String baseUrl = BASE_URL;
 
   static Future<ApiListModel<T>> getAll<T>(
     String entityEndpoint, {
@@ -79,11 +75,7 @@ class SimpleAPI {
       baseUrl,
       entityEndpoint,
     );
-    http.Response response = await http.post(
-      uri,
-      headers: headers,
-      body: body
-    );
+    http.Response response = await http.post(uri, headers: headers, body: body);
     if (response.statusCode == 201) {
       return ApiModel<T>.fromJson(jsonDecode(response.body));
     }
