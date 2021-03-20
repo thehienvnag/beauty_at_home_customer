@@ -85,21 +85,22 @@ class _HomeScreenState extends State<HomeScreen> {
               SearchTextField(
                 isReadonly: true,
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Container(
-                  padding: EdgeInsets.only(top: 15, left: 10),
-                  child: Text(
-                    'ƯU ĐÃI',
-                    style: CustomTextStyle.headline600Text(
-                      Colors.orange,
-                    ),
-                  ),
-                ),
-              ),
-              ViewsPromotion(),
-              ServiceWidget(),
+              // Align(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Container(
+              //     padding: EdgeInsets.only(top: 15, left: 10),
+              //     child: Text(
+              //       'ƯU ĐÃI',
+                    // style: CustomTextStyle.headline600Text(
+                    //   Colors.orange,
+                    // ),
+              //     ),
+              //   ),
+              // ),
               SlideService(),
+              // ViewsPromotion(),
+              ServiceWidget(),
+
               BeauticianWidget()
             ],
           ),

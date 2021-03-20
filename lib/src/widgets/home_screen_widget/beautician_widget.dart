@@ -11,6 +11,7 @@ class BeauticianWidget extends StatelessWidget {
     return Column(
       children: [
         Container(
+          margin: EdgeInsets.only(top: 15),
           padding: EdgeInsets.only(left: 10, bottom: 10),
           child: Align(
             alignment: Alignment.topLeft,
@@ -117,13 +118,20 @@ class Beautician extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        model.distance,
-                        style: CustomTextStyle.subtitleText(Colors.grey),
-                      ),
-                      Text(
-                        ' | ' + model.location,
-                        style: CustomTextStyle.subtitleText(Colors.grey),
+                      Container(
+                        width: size.width * 0.7,
+                        child: RichText(
+                          text: TextSpan(children: [
+                            TextSpan(
+                              text: model.distance,
+                              style: CustomTextStyle.subtitleText(Colors.black),
+                            ),
+                            TextSpan(
+                              text: ' | ' + model.location,
+                              style: CustomTextStyle.subtitleText(Colors.grey),
+                            ),
+                          ]),
+                        ),
                       ),
                     ],
                   ),
@@ -155,8 +163,8 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '2 km',
     4.8,
-    'public/img/beautician1.PNG',
-    'Quận 9, TP. Hồ Chí Minh',
+    'public/img/beautician1.png',
+    '5/3 đường số 9, phường Long Thạnh Mỹ, quận 9, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
   ),

@@ -14,11 +14,11 @@ class SlideService extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               child: Text(
                 'DỊCH VỤ NỔI BẬT',
                 style: CustomTextStyle.headline600Text(
-                  Colors.black,
+                  Colors.orange,
                 ),
               ),
             ),
