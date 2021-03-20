@@ -1,4 +1,5 @@
 class BeauticianModel {
+  final String id;
   final String beauticianName, nameService;
   final String distance;
   final double rateScore;
@@ -8,6 +9,7 @@ class BeauticianModel {
   final String openHours;
 
   BeauticianModel(
+    this.id,
     this.beauticianName,
     this.nameService,
     this.distance,

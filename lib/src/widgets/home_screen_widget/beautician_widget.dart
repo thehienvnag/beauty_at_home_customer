@@ -62,7 +62,7 @@ class Beautician extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProviderDetailScreen(),
+            builder: (context) => ProviderDetailScreen(id: model.id),
           ),
         );
       },
@@ -159,6 +159,7 @@ class Beautician extends StatelessWidget {
 
 List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
   BeauticianModel(
+    "3",
     'Marry Trần',
     'Trang điểm - Làm tóc',
     '2 km',
@@ -169,6 +170,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     ' - 9:00 AM - 8:30 PM',
   ),
   BeauticianModel(
+    "4",
     'Hani Nguyễn',
     'Trang điểm - Làm tóc',
     '3 km',
@@ -179,6 +181,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     ' - 9:00 AM - 8:30 PM',
   ),
   BeauticianModel(
+    "5",
     'Mai Hà Trần',
     'Trang điểm - Làm tóc',
     '5 km',
@@ -189,6 +192,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     ' - 9:00 AM - 8:30 PM',
   ),
   BeauticianModel(
+    "12",
     'Hani Nguyễn',
     'Trang điểm - Làm tóc',
     '2 km',
