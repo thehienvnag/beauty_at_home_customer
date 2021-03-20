@@ -32,7 +32,7 @@ class ServiceModelNew {
       serviceName: map['serviceName'],
       description: map['description'],
       summary: map['summary'],
-      price: map['price'],
+      price: map['price'].toString(),
       gallery: GalleryModel.fromMap(map['gallery']),
     );
   }

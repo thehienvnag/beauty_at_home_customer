@@ -1,5 +1,3 @@
-
-
 const String VERSION = "/v1.0";
 const String BASE_URL = "https://beautyathome2.azurewebsites.net/api" + VERSION;
 
@@ -8,6 +6,8 @@ class ProviderAPIConstant {
   static const String GET_ALL = END_POINT;
 }
 
-class ServiceAPIConstant {
+class ServiceAPIConstant {}
 
+class EntityEndpoint {
+  static const String SERIVCE = "services";
 }

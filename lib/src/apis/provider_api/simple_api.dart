@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter_app/src/models-new/api_list_model.dart';
 import 'package:flutter_app/src/models-new/api_model.dart';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class SimpleAPI {
   static final String baseUrl = BASE_URL;
+  static final String version = VERSION;
 
   static Future<ApiListModel<T>> getAll<T>(
     String entityEndpoint, {
@@ -27,21 +29,24 @@ class SimpleAPI {
     }
   }
 
-  static Future<ApiModel<T>> getById<T>(
+  static Future<dynamic> getById(
     String entityEndpoint,
     String id, {
     Map<String, String> headers,
+    Function(dynamic) fromJson,
   }) async {
-    Uri uri = Uri.https(
-      baseUrl,
-      entityEndpoint + "/$id",
-    );
+    var uri =
+        'https://beautyathome2.azurewebsites.net/api/v1.0/$entityEndpoint/$id';
+    var encoded = Uri.encodeFull(uri);
+
+    log(baseUrl);
+    log(entityEndpoint + "/$id");
     http.Response response = await http.get(
-      uri,
+      encoded,
       headers: headers,
     );
     if (response.statusCode == 200) {
-      return ApiModel<T>.fromJson(jsonDecode(response.body));
+      return fromJson(response.body);
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/providers/service_provider.dart';
 import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/service_detail_widget.dart';
 import 'package:intl/intl.dart';
@@ -57,6 +58,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   @override
   void initState() {
     super.initState();
+    context.read<ServiceProvider>().initServiceById("46");
+
     var provider = context.read<ProviderDetailProvider>();
     provider.setCurrentService(provider.getService(0));
     var cartProvider = context.read<CartProvider>();
