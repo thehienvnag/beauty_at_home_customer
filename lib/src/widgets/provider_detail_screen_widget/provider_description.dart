@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class ProviderDescription extends StatelessWidget {
     Key key,
     this.provider,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +46,7 @@ class ProviderDescription extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  provider.description,
+                  "provider.description",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
@@ -59,27 +61,26 @@ class ProviderDescription extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]),
                 ),
-                Text(
+                provider.services != null && provider.services.isNotEmpty ? Text(
                   'Giá dao động: ' +
-                      "provider.lowerPrice" +
+                      Utils.formatPrice(provider.lowerPrice) +
                       ' - ' +
-                      "provider.upperPrice",
+                      Utils.formatPrice(provider.upperPrice),
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]),
-                ),
-                // Row(
-                //   children: <Widget>[
-                Text(
-                  provider.status,
+                ) : Text(
+                  'Giá dao động: Chưa cập nhật dịch vụ',
                   style: TextStyle(
                       fontFamily: 'Montserrat',
-                      // fontSize: 10.0,
+                      // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xFF0DB5B4)),
-                ),
+                      color: Colors.grey[600])),
+                // Row(
+                //   children: <Widget>[
+                Utils.getStatus(provider.status),
                 // Text(
                 //   ' - ' + provider.openTime + ' - ' + provider.closeTime,
                 //   style: TextStyle(
@@ -149,7 +150,7 @@ class ProviderDescription extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          formatPrice(provider.reviews),
+                          Utils.formatPrice("1440"),
                           style: TextStyle(
                               fontSize: 11.0, fontWeight: FontWeight.bold),
                         ),
@@ -168,12 +169,5 @@ class ProviderDescription extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String formatPrice(String review) {
-    String result = review.toString();
-    var formatter = NumberFormat('###,000');
-    String formatString = formatter.format(int.parse(result));
-    return formatString;
   }
 }

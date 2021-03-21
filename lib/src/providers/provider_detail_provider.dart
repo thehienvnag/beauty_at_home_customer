@@ -6,6 +6,9 @@ import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
+import 'dart:math';
+
+import 'package:flutter_app/src/utils/utils.dart';
 
 // ProviderModel fake = ProviderModel(
 //   displayName: 'Marry Trần Nails & Hails',
@@ -144,10 +147,13 @@ import 'package:flutter_app/src/utils/api_constants.dart';
 class ProviderDetailProvider extends ChangeNotifier {
   ProviderModel _provider;
   ServiceModel _currentService;
+  List<ServiceModel> _services;
 
   ProviderModel get provider => _provider;
 
-  List<ServiceModel> get services => _provider.services;
+  List<ServiceModel> get services => _services;
+
+  // List<ServiceModel> get services => _provider.services;
 
   ServiceModel get currentService => _currentService;
 
@@ -157,10 +163,28 @@ class ProviderDetailProvider extends ChangeNotifier {
 
   void initProvider(String id) async {
     final fromJson = (source) => ProviderModel.fromJson(source);
+    final fromServiceJson = (source) => ServiceModel.fromJson(source);
+
     // _provider = fake;
     _provider = await SimpleAPI.getById(ProviderAPIConstant.PROVIDER, id,
         fromJson: fromJson);
-    log(_provider.services.first.serviceName);
+    // Map<String, dynamic> map = {"AccountId" : "3"};
+    _services = await SimpleAPI.getAll<ServiceModel>(ServiceAPIConstant.SERVICE,
+        queryParameters: {"AccountId": id}, fromJson: fromServiceJson);
+    if (_services != null && _services.isNotEmpty) {
+      double lowerPrice = 999999;
+      double upperPrice = 0;
+      _services.forEach((element) {
+        if (element.price > upperPrice) {
+          upperPrice = element.price;
+        }
+        if (element.price < lowerPrice) {
+          lowerPrice = element.price;
+        }
+        _provider.lowerPrice = lowerPrice.toString();
+        _provider.upperPrice = upperPrice.toString();
+      });
+    }
     notifyListeners();
   }
 

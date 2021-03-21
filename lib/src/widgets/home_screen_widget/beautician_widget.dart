@@ -62,7 +62,7 @@ class Beautician extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProviderDetailScreen(id: "3"),
+            builder: (context) => ProviderDetailScreen(id: model.id),
           ),
         );
       },

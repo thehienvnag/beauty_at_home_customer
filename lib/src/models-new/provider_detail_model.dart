@@ -10,6 +10,7 @@ part 'provider_detail_model.g.dart';
 
 @JsonSerializable()
 class ProviderModel {
+  int id;
   String displayName;
   String description;
   List<AddressModel> addresses;
@@ -24,6 +25,7 @@ class ProviderModel {
   List<ServiceModel> services;
 
   ProviderModel({
+    this.id,
     this.displayName,
     this.description,
     this.addresses,

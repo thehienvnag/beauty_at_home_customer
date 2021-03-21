@@ -64,7 +64,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     // context.read<ServiceProvider>().initServiceList();
 
     var provider = context.read<ProviderDetailProvider>();
-    provider.setCurrentService(provider.getService(0));
+    // provider.setCurrentService(provider.services[0]);
     var cartProvider = context.read<CartProvider>();
     if (cartProvider.cart != null &&
         cartProvider.cart.services != null &&
@@ -260,13 +260,13 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 : Column(
                     children: <Widget>[
                       ServiceDetailImage(
-                        lstImage: service.gallery.images,
+                        lstImage: value.service.gallery.images,
                         cart: newCart,
                       ),
                       ServiceDetailDescription(
                         name: value.service.serviceName,
                         note: service.summary,
-                        price: formatPrice(service.price.toString()),
+                        price: value.service.price.toString(),
                         isFromPromotion: isFromPromotion,
                       ),
                       ServiceDetailStepDescription(

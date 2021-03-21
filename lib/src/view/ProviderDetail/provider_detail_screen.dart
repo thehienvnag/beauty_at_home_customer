@@ -11,6 +11,7 @@ import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:intl/intl.dart';
@@ -70,8 +71,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                   children: <Widget>[
                     ProviderImage(
                       path:
-                          // value.provider.gallery.images[0].imageUrl,
-                          'https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2020/01/q-makeup-academy-378010.jpg',
+                          value.provider.gallery.images[0].imageUrl,
+                          // 'https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2020/01/q-makeup-academy-378010.jpg',
                       cart: newCart,
                     ),
                     ProviderDescription(
@@ -98,18 +99,21 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                         ],
                       ),
                     ),
-                    value.services != null
+                    value.services != null && value.services.isNotEmpty
                         ? _buildService(
                             value.services,
                             newCart,
                           )
-                        : Center(
-                            child: Text(
-                              'Hiện tại không có dịch vụ khả dụng',
-                              style:
-                                  CustomTextStyle.subtitleText(Colors.black54),
+                        : Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                          child: Center(
+                              child: Text(
+                                'Hiện tại không có dịch vụ khả dụng',
+                                style:
+                                    CustomTextStyle.subtitleText(Colors.black54),
+                              ),
                             ),
-                          ),
+                        ),
                     _checkCart(newCart),
                   ],
                 ),
@@ -329,6 +333,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                           padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Row(
                                 mainAxisAlignment:
@@ -345,7 +350,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                     ),
                                   ),
                                   Text(
-                                    '${service.price}đ',
+                                    // '${service.price}đ',
+                                    Utils.formatPrice(service.price.toString()),
                                     style:
                                         TextStyle(fontWeight: FontWeight.w900),
                                   ),
@@ -609,7 +615,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     var cartProvider = context.read<CartProvider>();
     cartProvider.setCurrentCart(CartModel(services: newCart));
     final cart = await Navigator.pushNamed(context, Routes.serviceDetail,
-        arguments: <String, String>{"id": "2"});
+        arguments: <String, String>{"id": "46"});
     this.newCart = cart;
     setState(() {
       _buildCategory(1);
