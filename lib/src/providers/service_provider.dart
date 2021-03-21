@@ -21,12 +21,12 @@ class ServiceProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void initServiceList() async {
-  //   final fromMap = (source) => ServiceModelNew.fromMap(source);
-  //   List<ServiceModelNew> list = await SimpleAPI.getAll<ServiceModelNew>(
-  //       EntityEndpoint.SERIVCE,
-  //       fromMap: fromMap);
-  //   log(list[0].serviceName);
-  //   notifyListeners();
-  // }
+  void initServiceList() async {
+    final fromMap = (source) => ServiceModelNew.fromJson(source);
+    List<ServiceModelNew> list = await SimpleAPI.getAll<ServiceModelNew>(
+        EntityEndpoint.SERIVCE,
+        fromJson: fromMap);
+    log(list[0].serviceName);
+    notifyListeners();
+  }
 }

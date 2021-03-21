@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/providers/service_provider.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/LocationChangeDescription/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/ProfileScreen/profile_screen.dart';
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     var providerDetail = context.read<ProviderDetailProvider>();
+    context.read<ServiceProvider>().initServiceList();
     // providerDetail.initProvider();
   }
 
@@ -91,9 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
               //     padding: EdgeInsets.only(top: 15, left: 10),
               //     child: Text(
               //       'ƯU ĐÃI',
-                    // style: CustomTextStyle.headline600Text(
-                    //   Colors.orange,
-                    // ),
+              // style: CustomTextStyle.headline600Text(
+              //   Colors.orange,
+              // ),
               //     ),
               //   ),
               // ),

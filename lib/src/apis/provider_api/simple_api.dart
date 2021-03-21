@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:json_annotation/json_annotation.dart';
+
+import 'package:flutter_app/src/utils/api_constants.dart';
 
 class SimpleAPI {
   static final String baseUrl = BASE_URL;
@@ -11,22 +13,15 @@ class SimpleAPI {
     String entityEndpoint, {
     Map<String, dynamic> queryParameters,
     Map<String, String> headers,
-    Function(Map<String, dynamic>) fromMap,
+    Function(Map<String, dynamic>) fromJson,
   }) async {
     final uri = Uri.parse(baseUrl + "/$entityEndpoint")
         .replace(queryParameters: queryParameters);
     // String endpoint = url;
     http.Response response = await http.get(uri, headers: headers);
-    List<T> list = new List();
-    dynamic jsonRaw = json.decode(response.body);
-    List<dynamic> content = jsonRaw['content'];
-    //List<T> content = jsonRaw['content'];
-    if (content.length > 0) {
-      content.forEach((element) {
-        list.add(fromMap(element));
-      });
-    }
-    return list;
+    Map<String, dynamic> jsonRaw = json.decode(response.body);
+
+    return (jsonRaw["content"] as List).map<T>((x) => fromJson(x)).toList();
   }
 
   static Future<dynamic> getById(
