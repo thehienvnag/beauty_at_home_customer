@@ -28,20 +28,20 @@ class Staff {
 }
 
 final srv = ServiceModel(
-  name: '90 phút Massage body toàn thân',
-  description: [
-    'Bước 1: làm sạch tay bằng Cool Blue',
-    'Bước 2: dũa móng theo khuôn khách yêu cầu',
-    'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-    'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-  ],
-  price: '500',
-  estimateTime: 30,
-  status: "Đang hoạt động",
-  category: "Trang điểm",
-  imageUrl: 'public/img/nail_1.jpg',
-  isServiceCombo: false,
-  summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+  // name: '90 phút Massage body toàn thân',
+  // description: [
+  //   'Bước 1: làm sạch tay bằng Cool Blue',
+  //   'Bước 2: dũa móng theo khuôn khách yêu cầu',
+  //   'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+  //   'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+  // ],
+  // price: '500',
+  // estimateTime: 30,
+  // status: "Đang hoạt động",
+  // category: "Trang điểm",
+  // imageUrl: 'public/img/nail_1.jpg',
+  // isServiceCombo: false,
+  // summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
 );
 
 List<ServiceItem> lstService = List.from([

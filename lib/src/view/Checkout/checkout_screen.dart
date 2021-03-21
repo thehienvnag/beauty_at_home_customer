@@ -384,11 +384,11 @@ class CheckoutService extends StatelessWidget {
                   children: [
                     Container(
                       width: 150,
-                      child: Text(model?.name),
+                      child: Text(model?.serviceName),
                     ),
                     Flexible(
                       child: Text(
-                        model?.category,
+                        model.serviceType?.name,
                         style: TextStyle(color: Colors.grey),
                       ),
                     ),

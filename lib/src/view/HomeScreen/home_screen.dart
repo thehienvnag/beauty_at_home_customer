@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     var providerDetail = context.read<ProviderDetailProvider>();
-    providerDetail.initProvider();
+    // providerDetail.initProvider();
   }
 
   @override

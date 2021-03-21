@@ -37,18 +37,21 @@ class ProviderDetailScreen extends StatefulWidget {
 class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   int _selectedIndex = 1;
   Map<ServiceModel, int> newCart;
-  Future<ProviderModel> provider;
-  Future<List<ProviderModel>> listProvider;
+
+  // Future<ProviderModel> provider;
+  // Future<List<ProviderModel>> listProvider;
   String error = '';
+
   @override
   void initState() {
     super.initState();
     if (widget.cart != null) {
       newCart = widget.cart;
     }
+    context.read<ProviderDetailProvider>().initProvider(widget.id);
     // listProvider = ProviderAPI().getAllProvider((callback) => error = callback);
-    provider = ProviderAPI()
-        .getProviderById((callback) => {error = callback}, widget.id);
+    // provider = ProviderAPI()
+    //     .getProviderById((callback) => {error = callback}, widget.id);
     // var providerDetailProvider = context.read<ProviderDetailProvider>();
     // providerDetailProvider.initProvider();
   }
@@ -56,76 +59,70 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<ProviderModel>(
-        future: provider,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
-                Consumer<ProviderDetailProvider>(
-                  builder: (context, value, child) => ProviderImage(
-                    path: snapshot.data.imageUrl,
-                    cart: newCart,
-                  ),
-                ),
-                Consumer<ProviderDetailProvider>(
-                  builder: (context, value, child) => ProviderDescription(
-                    provider: snapshot.data,
-                  ),
-                ),
-                Container(
-                  height: 50.0,
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.only(top: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[300], offset: Offset(0.0, 5.0)),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      _buildCategory(1),
+      body: Consumer<ProviderDetailProvider>(
+        builder: (context, value, child) => value.provider == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Scaffold(
+                body: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    ProviderImage(
+                      path:
+                          // value.provider.gallery.images[0].imageUrl,
+                          'https://cdn.sudospaces.com/website/topz.vn/home/topz/public_html/2020/01/q-makeup-academy-378010.jpg',
+                      cart: newCart,
+                    ),
+                    ProviderDescription(
+                      provider: value.provider,
+                    ),
+                    Container(
+                      height: 50.0,
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(top: 5.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey[300],
+                              offset: Offset(0.0, 5.0)),
+                        ],
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          _buildCategory(1),
 
-                      // _buildCategory(2),
-                    ],
-                  ),
-                ),
-                Consumer<ProviderDetailProvider>(
-                  builder: (context, value, child) => snapshot.data.services !=
-                          null
-                      ? _buildService(
-                          snapshot.data.services,
-                          newCart,
-                        )
-                      : Text(
-                          'No services available!',
-                          style: CustomTextStyle.subtitleText(Colors.black54),
+                          // _buildCategory(2),
+                        ],
+                      ),
+                    ),
+                    value.services != null
+                        ? _buildService(
+                            value.services,
+                            newCart,
+                          )
+                        : Center(
+                          child: Text(
+                              'Hiện tại không có dịch vụ khả dụng',
+                              style: CustomTextStyle.subtitleText(Colors.black54),
+                            ),
                         ),
+                    _checkCart(newCart),
+                  ],
                 ),
-                _checkCart(newCart),
-              ],
-            );
-          } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return new Center(
-              child: new CircularProgressIndicator(),
-            );
-          }
-          return new Center(
-            child: Text('Tho khong ton tai'),
-          );
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: buildFloatingButton(newCart),
-      floatingActionButton: Consumer<CartProvider>(
-        builder: (context, value, child) =>
-            value.cart != null && !value.isBookingProgressing
-                ? buildFloatingButton(value.cart.services)
-                : Container(),
+
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                // floatingActionButton: buildFloatingButton(newCart),
+                floatingActionButton: Consumer<CartProvider>(
+                  builder: (context, value, child) =>
+                      value.cart != null && !value.isBookingProgressing
+                          ? buildFloatingButton(value.cart.services)
+                          : Container(),
+                ),
+              ),
       ),
     );
   }
@@ -198,7 +195,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     cart.forEach((key, value) {
       total += int.parse(key.price) * value;
     });
-    return formatPrice(total.toString());
+    // return formatPrice(total.toString());
+    return total.toString();
   }
 
   String _calculateTotal(Map<ServiceModel, int> cart) {
@@ -209,12 +207,12 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     return total.toString();
   }
 
-  String formatPrice(String price) {
-    String result = price.toString() + '000';
-    var formatter = NumberFormat('###,000');
-    String formatString = formatter.format(int.parse(result));
-    return formatString.replaceAll(new RegExp(r','), '.');
-  }
+  // String formatPrice(String price) {
+  //   String result = price.toString();
+  //   var formatter = NumberFormat('###,000');
+  //   String formatString = formatter.format(int.parse(result));
+  //   return formatString.replaceAll(new RegExp(r','), '.');
+  // }
 
   Widget _buildCategory(int index) {
     return GestureDetector(
@@ -304,86 +302,90 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
 
   Widget _buildService(
       List<ServiceModel> lstService, Map<ServiceModel, int> cart) {
-    return Column(
-      children: <Widget>[
-        ListView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          itemCount: lstService.length,
-          itemBuilder: (BuildContext buildContext, int index) {
-            ServiceModel service = lstService[index];
-            return GestureDetector(
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 0.0),
-                    height: 150.0,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white54,
-                      border:
-                          Border(bottom: BorderSide(color: Colors.grey[300])),
-                      // borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer<ProviderDetailProvider>(
+      builder: (context, value, child) => Column(
+        children: <Widget>[
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: value.services.length,
+            itemBuilder: (BuildContext buildContext, int index) {
+              ServiceModel service = value.services[index];
+              return GestureDetector(
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.fromLTRB(40.0, 5.0, 20.0, 0.0),
+                        height: 150.0,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey[300])),
+                          // borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(110.0, 18.0, 0.0, 0.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Container(
-                                width: 115.0,
-                                child: Text(
-                                  service.name,
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: 115.0,
+                                    child: Text(
+                                      service.serviceName,
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  Text(
+                                    '${service.price}đ',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w900),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                '${formatPrice(service.price)}đ',
-                                style: TextStyle(fontWeight: FontWeight.w900),
+                              Container(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  service.summary,
+                                  style: TextStyle(color: Colors.grey),
+                                ),
                               ),
                             ],
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: Text(
-                              service.summary,
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    left: 20.0,
-                    top: 15.0,
-                    bottom: 15.0,
-                    child: Hero(
-                      tag: service.imageUrl,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Image(
-                          width: 115.0,
-                          image: NetworkImage(service.imageUrl),
-                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
+                      Positioned(
+                        left: 20.0,
+                        top: 15.0,
+                        bottom: 15.0,
+                        child: Hero(
+                          tag: service.gallery.images[0].imageUrl,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: Image(
+                              width: 115.0,
+                              image: NetworkImage(service.gallery.images[0].imageUrl),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              onTap: () =>
-                  _navigateAndDisplaySelection(context, service, newCart),
-            );
-          },
-        ),
-      ],
+                  onTap: () => {
+                        _navigateAndDisplaySelection(context, service, newCart),
+                      });
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -604,7 +606,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     provider.setCurrentService(service);
     var cartProvider = context.read<CartProvider>();
     cartProvider.setCurrentCart(CartModel(services: newCart));
-    final cart = await Navigator.pushNamed(context, Routes.serviceDetail);
+    final cart = await Navigator.pushNamed(context, Routes.serviceDetail, arguments: <String, String> {"id": "2"});
     this.newCart = cart;
     setState(() {
       _buildCategory(1);

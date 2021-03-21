@@ -1,10 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 
 class ServiceDetailImage extends StatefulWidget {
-  final List<String> lstImage;
+  final List<ImageModel> lstImage;
   final Map<ServiceModel, int> cart;
 
   const ServiceDetailImage({Key key, this.lstImage, this.cart})
@@ -94,14 +95,14 @@ class _ServiceDetailImageState extends State<ServiceDetailImage> {
       showIndicator: false,
       autoplay: false,
       images: [
-        AssetImage(widget.lstImage[0]),
-        AssetImage(widget.lstImage[1]),
-        AssetImage(widget.lstImage[2]),
-        AssetImage(widget.lstImage[3]),
-        AssetImage(widget.lstImage[4]),
-        AssetImage(widget.lstImage[5]),
-        AssetImage(widget.lstImage[6]),
-        AssetImage(widget.lstImage[7]),
+        AssetImage(widget.lstImage[0].imageUrl),
+        AssetImage(widget.lstImage[1].imageUrl),
+        AssetImage(widget.lstImage[2].imageUrl),
+        // AssetImage(widget.lstImage[3].imageUrl),
+        // AssetImage(widget.lstImage[4].imageUrl),
+        // AssetImage(widget.lstImage[5].imageUrl),
+        // AssetImage(widget.lstImage[6].imageUrl),
+        // AssetImage(widget.lstImage[7].imageUrl),
       ],
     );
   }

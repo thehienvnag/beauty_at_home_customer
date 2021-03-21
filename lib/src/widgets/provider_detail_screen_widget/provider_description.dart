@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ProviderDescription extends StatelessWidget {
   final ProviderModel provider;
+
   const ProviderDescription({
     Key key,
     this.provider,
@@ -33,7 +36,7 @@ class ProviderDescription extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
-                  provider.name,
+                  provider.displayName,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 20.0,
@@ -49,7 +52,7 @@ class ProviderDescription extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  provider.address,
+                  provider.addresses[0].location,
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 13.0,
@@ -58,35 +61,35 @@ class ProviderDescription extends StatelessWidget {
                 ),
                 Text(
                   'Giá dao động: ' +
-                      provider.lowerPrice +
+                      "provider.lowerPrice" +
                       ' - ' +
-                      provider.upperPrice,
+                      "provider.upperPrice",
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       // fontSize: 16.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]),
                 ),
-                Row(
-                  children: <Widget>[
-                    Text(
-                      provider.status,
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          // fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xFF0DB5B4)),
-                    ),
-                    Text(
-                      ' - ' + provider.openTime + ' - ' + provider.closeTime,
-                      style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          // fontSize: 16.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey[600]),
-                    ),
-                  ],
+                // Row(
+                //   children: <Widget>[
+                Text(
+                  provider.status,
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      // fontSize: 10.0,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF0DB5B4)),
                 ),
+                // Text(
+                //   ' - ' + provider.openTime + ' - ' + provider.closeTime,
+                //   style: TextStyle(
+                //       fontFamily: 'Montserrat',
+                //       fontSize: 10.0,
+                //       fontWeight: FontWeight.w500,
+                //       color: Colors.grey[600]),
+                // ),
+                // ],
+                // ),
               ],
             ),
           ),

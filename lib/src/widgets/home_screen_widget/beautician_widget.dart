@@ -164,7 +164,7 @@ List<BeauticianModel> listBeautician = List.from(<BeauticianModel>[
     'Trang điểm - Làm tóc',
     '2 km',
     4.8,
-    'public/img/beautician1.png',
+    'public/img/beautician1.PNG',
     '5/3 đường số 9, phường Long Thạnh Mỹ, quận 9, TP. Hồ Chí Minh',
     'Đang hoạt động',
     ' - 9:00 AM - 8:30 PM',
