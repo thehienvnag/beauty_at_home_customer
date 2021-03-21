@@ -1,48 +1,46 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter_app/src/models-new/api_list_model.dart';
-import 'package:flutter_app/src/models-new/api_model.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:http/http.dart' as http;
 
 class SimpleAPI {
   static final String baseUrl = BASE_URL;
   static final String version = VERSION;
-
-  static Future<ApiListModel<T>> getAll<T>(
+  static Future<List<T>> getAll<T>(
     String entityEndpoint, {
-    Map<String, String> queryParameters,
+    Map<String, dynamic> queryParameters,
     Map<String, String> headers,
+    Function(Map<String, dynamic>) fromMap,
   }) async {
-    Uri uri = Uri.https(
-      baseUrl,
-      entityEndpoint,
-      queryParameters,
-    );
-    http.Response response = await http.get(
-      uri,
-      headers: headers,
-    );
-    if (response.statusCode == 200) {
-      return ApiListModel<T>.fromJson(jsonDecode(response.body));
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint")
+        .replace(queryParameters: queryParameters);
+    // String endpoint = url;
+    http.Response response = await http.get(uri, headers: headers);
+    List<T> list = new List();
+    dynamic jsonRaw = json.decode(response.body);
+    List<dynamic> content = jsonRaw['content'];
+    //List<T> content = jsonRaw['content'];
+    if (content.length > 0) {
+      content.forEach((element) {
+        list.add(fromMap(element));
+      });
     }
+    return list;
   }
 
   static Future<dynamic> getById(
     String entityEndpoint,
     String id, {
     Map<String, String> headers,
+    Map<String, String> queryParameters,
     Function(dynamic) fromJson,
   }) async {
-    var uri =
-        'https://beautyathome2.azurewebsites.net/api/v1.0/$entityEndpoint/$id';
-    var encoded = Uri.encodeFull(uri);
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint" + "/$id/")
+        .replace(queryParameters: queryParameters);
 
-    log(baseUrl);
-    log(entityEndpoint + "/$id");
     http.Response response = await http.get(
-      encoded,
+      uri,
       headers: headers,
     );
     if (response.statusCode == 200) {
@@ -50,39 +48,16 @@ class SimpleAPI {
     }
   }
 
-  // static Future<ApiModel<T>> postWithFile<T>(
-  //     String entityEndpoint, {
-  //       dynamic body,
-  //       Map<String, String> headers,
-  //       List<String> filePaths
-  //     }) async {,,
-  //   Uri uri = Uri.https(
-  //     baseUrl,
-  //     entityEndpoint,
-  //   );
-  //   http.MultipartRequest request = new http.MultipartRequest("POST", uri);
-  //
-  //   filePaths.forEach((element) => );
-  //   http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
-  //       'file', filePaths);
-  //
-  //   request.files.add(multipartFile);
-  //
-  //   http.Response response = await request.send();
-  // }
-
-  static Future<ApiModel<T>> post<T>(
+  static Future<T> post<T>(
     String entityEndpoint, {
     dynamic body,
     Map<String, String> headers,
+    Function(dynamic) fromJson,
   }) async {
-    Uri uri = Uri.https(
-      baseUrl,
-      entityEndpoint,
-    );
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint");
     http.Response response = await http.post(uri, headers: headers, body: body);
     if (response.statusCode == 201) {
-      return ApiModel<T>.fromJson(jsonDecode(response.body));
+      return fromJson(jsonDecode(response.body));
     }
   }
 
@@ -92,23 +67,20 @@ class SimpleAPI {
     Map<String, String> headers,
     dynamic body,
   }) async {
-    Uri uri = Uri.https(
-      baseUrl,
-      entityEndpoint + "/$id",
-    );
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint/$id");
     http.Response response = await http.put(uri, headers: headers, body: body);
     if (response.statusCode == 204) {
       return true;
     }
   }
 
-  static Future<bool> delete(String entityEndpoint, String id,
-      {Map<String, String> headers, dynamic body}) async {
-    Uri uri = Uri.https(
-      baseUrl,
-      entityEndpoint + "/$id",
-    );
-    http.Response response = await http.put(uri, headers: headers, body: body);
+  static Future<bool> delete(
+    String entityEndpoint,
+    String id, {
+    Map<String, String> headers,
+  }) async {
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint/$id");
+    http.Response response = await http.delete(uri, headers: headers);
     if (response.statusCode == 204) {
       return true;
     }

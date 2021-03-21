@@ -59,6 +59,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   void initState() {
     super.initState();
     context.read<ServiceProvider>().initServiceById("46");
+    context.read<ServiceProvider>().initServiceList();
 
     var provider = context.read<ProviderDetailProvider>();
     provider.setCurrentService(provider.getService(0));
@@ -251,118 +252,122 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Column(
-            children: <Widget>[
-              ServiceDetailImage(
-                lstImage: service.serviceImages,
-                cart: newCart,
-              ),
-              ServiceDetailDescription(
-                name: service.name,
-                note: service.summary,
-                price: formatPrice(service.price),
-                isFromPromotion: isFromPromotion,
-              ),
-              ServiceDetailStepDescription(
-                description: service.description,
-              ),
-              Container(
-                height: 30.0,
-                width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.only(top: 5.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  // border: Border(bottom: BorderSide(width: 1.0))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    // _buildCategory(0),
-                    _buildCategory(),
-                    Padding(
-                      padding: EdgeInsets.only(right: 10.0),
-                      child: Text(
-                        'Xem tất cả >',
-                        style: TextStyle(color: Color(0xff28BEBA)),
+          child: Consumer<ServiceProvider>(
+            builder: (context, value, child) => value.service == null
+                ? SizedBox()
+                : Column(
+                    children: <Widget>[
+                      ServiceDetailImage(
+                        lstImage: service.serviceImages,
+                        cart: newCart,
                       ),
-                    )
-                  ],
-                ),
-              ),
-              _buildStar(),
-              Consumer<ProviderDetailProvider>(
-                builder: (context, value, child) =>
-                    _buildFeedback(value.provider.feedbacks),
-              ),
-              // Container(
-              //   height: screenSize.height * 0.1,
-              //   width: screenSize.width,
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: <Widget>[
-              //       Container(
-              //         height: 45.0 * 0.9,
-              //         width: 45.0 * 0.9,
-              //         margin: EdgeInsets.only(right: 10.0),
-              //         decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           borderRadius: BorderRadius.circular(5.0),
-              //           boxShadow: [
-              //             BoxShadow(color: Colors.grey),
-              //           ],
-              //         ),
-              //         child: IconButton(
-              //           icon: Icon(
-              //             Icons.remove,
-              //             color: Color(0xff28BEBA),
-              //           ),
-              //           onPressed: () {
-              //             setState(
-              //               () {
-              //                 if (updatingQuantity > 0) {
-              //                   updatingQuantity--;
-              //                 }
-              //               },
-              //             );
-              //           },
-              //         ),
-              //       ),
-              //       Container(
-              //           child: Text(
-              //         updatingQuantity.toString(),
-              //         style: TextStyle(
-              //             fontSize: 15.0, fontWeight: FontWeight.bold),
-              //       )),
-              //       Container(
-              //         height: 45.0 * 0.9,
-              //         width: 45.0 * 0.9,
-              //         margin: EdgeInsets.only(left: 10.0),
-              //         decoration: BoxDecoration(
-              //           color: Colors.white,
-              //           borderRadius: BorderRadius.circular(5.0),
-              //           boxShadow: [
-              //             BoxShadow(color: Colors.grey),
-              //           ],
-              //         ),
-              //         child: IconButton(
-              //           icon: Icon(
-              //             Icons.add,
-              //             color: Color(0xff28BEBA),
-              //           ),
-              //           onPressed: () {
-              //             setState(() {
-              //               if (updatingQuantity < 10) {
-              //                 updatingQuantity++;
-              //               }
-              //             });
-              //           },
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // SizedBox(height: 30.0,)
-            ],
+                      ServiceDetailDescription(
+                        name: value.service.serviceName,
+                        note: service.summary,
+                        price: formatPrice(service.price),
+                        isFromPromotion: isFromPromotion,
+                      ),
+                      ServiceDetailStepDescription(
+                        description: value.service.description.split("/r/n"),
+                      ),
+                      Container(
+                        height: 30.0,
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.only(top: 5.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          // border: Border(bottom: BorderSide(width: 1.0))
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            // _buildCategory(0),
+                            _buildCategory(),
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                'Xem tất cả >',
+                                style: TextStyle(color: Color(0xff28BEBA)),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      _buildStar(),
+                      Consumer<ProviderDetailProvider>(
+                        builder: (context, value, child) =>
+                            _buildFeedback(value.provider.feedbacks),
+                      ),
+                      // Container(
+                      //   height: screenSize.height * 0.1,
+                      //   width: screenSize.width,
+                      //   child: Row(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     children: <Widget>[
+                      //       Container(
+                      //         height: 45.0 * 0.9,
+                      //         width: 45.0 * 0.9,
+                      //         margin: EdgeInsets.only(right: 10.0),
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           borderRadius: BorderRadius.circular(5.0),
+                      //           boxShadow: [
+                      //             BoxShadow(color: Colors.grey),
+                      //           ],
+                      //         ),
+                      //         child: IconButton(
+                      //           icon: Icon(
+                      //             Icons.remove,
+                      //             color: Color(0xff28BEBA),
+                      //           ),
+                      //           onPressed: () {
+                      //             setState(
+                      //               () {
+                      //                 if (updatingQuantity > 0) {
+                      //                   updatingQuantity--;
+                      //                 }
+                      //               },
+                      //             );
+                      //           },
+                      //         ),
+                      //       ),
+                      //       Container(
+                      //           child: Text(
+                      //         updatingQuantity.toString(),
+                      //         style: TextStyle(
+                      //             fontSize: 15.0, fontWeight: FontWeight.bold),
+                      //       )),
+                      //       Container(
+                      //         height: 45.0 * 0.9,
+                      //         width: 45.0 * 0.9,
+                      //         margin: EdgeInsets.only(left: 10.0),
+                      //         decoration: BoxDecoration(
+                      //           color: Colors.white,
+                      //           borderRadius: BorderRadius.circular(5.0),
+                      //           boxShadow: [
+                      //             BoxShadow(color: Colors.grey),
+                      //           ],
+                      //         ),
+                      //         child: IconButton(
+                      //           icon: Icon(
+                      //             Icons.add,
+                      //             color: Color(0xff28BEBA),
+                      //           ),
+                      //           onPressed: () {
+                      //             setState(() {
+                      //               if (updatingQuantity < 10) {
+                      //                 updatingQuantity++;
+                      //               }
+                      //             });
+                      //           },
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(height: 30.0,)
+                    ],
+                  ),
           ),
         ),
       ),

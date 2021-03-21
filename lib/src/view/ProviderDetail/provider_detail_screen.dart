@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/apis/provider_api/provider_api.dart';
 import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
-import 'package:flutter_app/src/models-new/api_model.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
