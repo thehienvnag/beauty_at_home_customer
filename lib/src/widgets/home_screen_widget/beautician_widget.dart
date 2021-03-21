@@ -1,9 +1,13 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models/beautician_model.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
 
 class BeauticianWidget extends StatelessWidget {
   @override
@@ -21,21 +25,28 @@ class BeauticianWidget extends StatelessWidget {
             ),
           ),
         ),
-        ListView.separated(
-          physics: NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) {
-            return Divider(
-              height: 20,
-              thickness: 0.5,
-              color: Colors.grey,
-              indent: 12,
-              endIndent: 12,
+        Consumer<ProviderDetailProvider>(
+          builder: (context, value, child) {
+            if (value.listProviderHome == null) {
+              return Text("No data");
+            }
+            return ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) {
+                return Divider(
+                  height: 20,
+                  thickness: 0.5,
+                  color: Colors.grey,
+                  indent: 12,
+                  endIndent: 12,
+                );
+              },
+              shrinkWrap: true,
+              itemCount: value.listProviderHome.length,
+              itemBuilder: (context, index) {
+                return Beautician(model: value.listProviderHome[index]);
+              },
             );
-          },
-          shrinkWrap: true,
-          itemCount: listBeautician.length,
-          itemBuilder: (context, index) {
-            return Beautician(model: listBeautician[index]);
           },
         ),
         SizedBox(
@@ -47,7 +58,7 @@ class BeauticianWidget extends StatelessWidget {
 }
 
 class Beautician extends StatelessWidget {
-  final BeauticianModel model;
+  final ProviderModel model;
 
   const Beautician({
     Key key,
@@ -71,13 +82,17 @@ class Beautician extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Align(
-                alignment: Alignment.bottomRight,
-                heightFactor: 1,
-                widthFactor: 1,
-                child: Image.asset(model.image),
+            Container(
+              height: 90,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(6),
+                ),
+                child: Image.network(
+                  model.gallery.images.first.imageUrl,
+                  width: 75,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Container(
@@ -91,20 +106,36 @@ class Beautician extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          model.beauticianName,
+                          model.displayName,
                           style: CustomTextStyle.titleText(Colors.black),
                         ),
                         Container(
                           child: Row(
                             children: [
-                              Icon(
-                                Icons.star,
-                                color: Color(0xffFFCC00),
-                              ),
-                              Text(
-                                '${model.rateScore}',
-                                style: CustomTextStyle.subtitleText(
-                                    Colors.black87),
+                              if (model.rateScore != null &&
+                                  model.rateScore > 0)
+                                Row(
+                                  children: [
+                                    Text(
+                                      model.rateScore.toString(),
+                                      style: CustomTextStyle.subtitleText(
+                                          Colors.black87),
+                                    )
+                                  ],
+                                ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 3),
+                                child: Text(
+                                  "Thợ mới",
+                                  style: CustomTextStyle.subtitleText(
+                                    Colors.white,
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.blue[200],
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(3)),
+                                ),
                               )
                             ],
                           ),
@@ -113,7 +144,9 @@ class Beautician extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    model.nameService,
+                    model.description == null
+                        ? "Trang điểm - makeup"
+                        : model.description,
                     style: CustomTextStyle.subtitleText(Colors.black87),
                   ),
                   Row(
@@ -123,11 +156,14 @@ class Beautician extends StatelessWidget {
                         child: RichText(
                           text: TextSpan(children: [
                             TextSpan(
-                              text: model.distance,
+                              text: "5km",
                               style: CustomTextStyle.subtitleText(Colors.black),
                             ),
                             TextSpan(
-                              text: ' | ' + model.location,
+                              text: ' | ' +
+                                  (model.addresses.isEmpty
+                                      ? "Chưa xác định địa chỉ"
+                                      : model.addresses.first.location),
                               style: CustomTextStyle.subtitleText(Colors.grey),
                             ),
                           ]),
@@ -140,10 +176,6 @@ class Beautician extends StatelessWidget {
                       Text(
                         model.status,
                         style: CustomTextStyle.subtitleText(Color(0xff28BEBA)),
-                      ),
-                      Text(
-                        model.openHours,
-                        style: CustomTextStyle.subtitleText(Colors.grey),
                       ),
                     ],
                   ),

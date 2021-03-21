@@ -8,7 +8,7 @@ part of 'account_model.dart';
 
 AccountModel _$AccountModelFromJson(Map<String, dynamic> json) {
   return AccountModel(
-    name: json['name'] as String,
+    displayName: json['displayName'] as String,
     email: json['email'] as String,
     role: json['role'] as String,
     phone: json['phone'] as String,
@@ -24,7 +24,7 @@ AccountModel _$AccountModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AccountModelToJson(AccountModel instance) =>
     <String, dynamic>{
-      'name': instance.name,
+      'displayName': instance.displayName,
       'email': instance.email,
       'role': instance.role,
       'phone': instance.phone,

@@ -6,7 +6,7 @@ part 'account_model.g.dart';
 
 @JsonSerializable()
 class AccountModel {
-  String name;
+  String displayName;
   String email;
   String role;
   String phone;
@@ -16,7 +16,7 @@ class AccountModel {
   String firebaseRefreshToken;
   GalleryModel gallery;
   AccountModel({
-    this.name,
+    this.displayName,
     this.email,
     this.role,
     this.phone,

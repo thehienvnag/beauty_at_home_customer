@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/voucher_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/service_provider.dart';
 import 'package:flutter_app/src/providers/voucher_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/Promotion/promotion_screen.dart';
 import 'package:flutter_app/src/view/ServiceDetailScreen/service_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
@@ -54,44 +56,29 @@ class ViewsServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          RecomendService(
-            image:
-                "https://i.pinimg.com/originals/79/61/22/7961221b8062889c1969187e3ee80590.jpg",
-            title: "Nail đơn giản cá tính",
-            description: 'Marry Trần',
-            rateScore: '4.8',
-            noOfRate: '246',
-          ),
-          RecomendService(
-            image:
-                "https://i.pinimg.com/originals/96/9e/22/969e22a9ffc82d8d6915044f504e8604.png",
-            title: "Tóc xoăn tự nhiên",
-            description: 'Hani Nguyễn',
-            rateScore: '4.8',
-            noOfRate: '153',
-          ),
-          RecomendService(
-            image:
-                "https://mathoadaphan.com/wp-content/uploads/2021/02/c%C3%A1c-b%C6%B0%E1%BB%9Bc-trang-%C4%91i%E1%BB%83m-c%C6%A1-b%E1%BA%A3n.jpg",
-            title: "Trang điểm tự nhiên",
-            description: 'Hà Nguyễn',
-            rateScore: '4.8',
-            noOfRate: '114',
-            //press: ,
-          ),
-          RecomendService(
-            image:
-                "https://cuahanglamdep.com/images/detailed/3/noi-mi-3d-tai-meli-spa-1.jpg",
-            title: "Nối mi",
-            description: 'Mai Anh',
-            rateScore: '4.8',
-            noOfRate: '95',
-          ),
-        ],
+    return Container(
+      height: 228,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Consumer<ServiceProvider>(builder: (context, value, child) {
+          if (value.listServiceHome == null) {
+            return Text("Error");
+          }
+          return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: value.listServiceHome.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                var item = value.listServiceHome[index];
+                return RecomendService(
+                  image: item.gallery.images.first.imageUrl,
+                  title: Utils.shortenString(item.serviceName, 20),
+                  description: item.account.displayName,
+                  rateScore: '4.8',
+                  noOfRate: '246',
+                );
+              });
+        }),
       ),
     );
   }
@@ -108,22 +95,22 @@ List<String> lstMassageImage = List.from([
   'public/img/massage_8.jpg',
 ]);
 final srv = ServiceModel(
-  // name: '90 phút Massage body toàn thân',
-  // description: [
-  //   'Bước 1: làm sạch tay bằng Cool Blue',
-  //   'Bước 2: dũa móng theo khuôn khách yêu cầu',
-  //   'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
-  //   'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
-  // ],
-  // price: '500',
-  // estimateTime: 30,
-  // status: "Đang hoạt động",
-  // // category: lstType[0],
-  // imageUrl: 'public/img/massage_3.jpg',
-  // serviceImages: lstMassageImage,
-  // isServiceCombo: false,
-  // summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
-);
+    // name: '90 phút Massage body toàn thân',
+    // description: [
+    //   'Bước 1: làm sạch tay bằng Cool Blue',
+    //   'Bước 2: dũa móng theo khuôn khách yêu cầu',
+    //   'Bước 3: làm mềm da trên mặt móng với gel biểu bì',
+    //   'Bước 4: dùng cây đẩy da đẩy nhẹ trên mặt móng và lau sạch bằng bông',
+    // ],
+    // price: '500',
+    // estimateTime: 30,
+    // status: "Đang hoạt động",
+    // // category: lstType[0],
+    // imageUrl: 'public/img/massage_3.jpg',
+    // serviceImages: lstMassageImage,
+    // isServiceCombo: false,
+    // summary: 'Bao gồm mỹ phẩm làm đẹp và dụng cụ',
+    );
 
 class RecomendService extends StatelessWidget {
   const RecomendService({

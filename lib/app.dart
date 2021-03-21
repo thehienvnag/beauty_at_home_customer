@@ -22,7 +22,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Flutter app",
-      home: HomeScreen(),
+      home: LoginScreen(),
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
         Routes.home: (context) => HomeScreen(),

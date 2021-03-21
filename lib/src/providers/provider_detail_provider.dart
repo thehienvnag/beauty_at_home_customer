@@ -145,6 +145,9 @@ class ProviderDetailProvider extends ChangeNotifier {
   ProviderModel _provider;
   ServiceModel _currentService;
 
+  List<ProviderModel> _listProviderHome;
+  List<ProviderModel> get listProviderHome => _listProviderHome;
+
   ProviderModel get provider => _provider;
 
   List<ServiceModel> get services => _provider.services;
@@ -166,6 +169,17 @@ class ProviderDetailProvider extends ChangeNotifier {
 
   void setCurrentService(ServiceModel serviceModel) {
     _currentService = serviceModel;
+    notifyListeners();
+  }
+
+  void initProviderListHome() async {
+    final fromJson = (source) => ProviderModel.fromJson(source);
+    _listProviderHome = await SimpleAPI.getAll<ProviderModel>(
+      ProviderAPIConstant.PROVIDER,
+      fromJson: fromJson,
+      queryParameters: {"isBeautyArtist": "true"},
+    );
+    log(_listProviderHome[0].displayName);
     notifyListeners();
   }
 }

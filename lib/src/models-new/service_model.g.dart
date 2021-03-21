@@ -22,6 +22,9 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) {
         : GalleryModel.fromJson(json['gallery'] as Map<String, dynamic>),
     isServiceCombo: json['isServiceCombo'] as bool,
     summary: json['summary'] as String,
+    account: json['account'] == null
+        ? null
+        : AccountModel.fromJson(json['account'] as Map<String, dynamic>),
   );
 }
 
@@ -36,4 +39,5 @@ Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>
       'gallery': instance.gallery,
       'isServiceCombo': instance.isServiceCombo,
       'summary': instance.summary,
+      'account': instance.account,
     };

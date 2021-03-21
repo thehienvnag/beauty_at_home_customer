@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_type_model.dart';
+import 'package:flutter_app/src/models-new/account_model.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'service_model.g.dart';
@@ -18,6 +19,7 @@ class ServiceModel {
   GalleryModel gallery;
   bool isServiceCombo;
   String summary;
+  AccountModel account;
 
   ServiceModel({
     this.serviceName,
@@ -29,6 +31,7 @@ class ServiceModel {
     this.gallery,
     this.isServiceCombo,
     this.summary,
+    this.account,
   });
 
   factory ServiceModel.fromJson(Map<String, dynamic> json) =>

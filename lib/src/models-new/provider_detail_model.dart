@@ -10,6 +10,7 @@ part 'provider_detail_model.g.dart';
 
 @JsonSerializable()
 class ProviderModel {
+  int id;
   String displayName;
   String description;
   List<AddressModel> addresses;
@@ -21,9 +22,11 @@ class ProviderModel {
   // String openTime;
   // String closeTime;
   GalleryModel gallery;
+  double rateScore;
   List<ServiceModel> services;
 
   ProviderModel({
+    this.id,
     this.displayName,
     this.description,
     this.addresses,
@@ -34,6 +37,7 @@ class ProviderModel {
     this.upperPrice,
     this.gallery,
     this.services,
+    this.rateScore,
   });
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) =>

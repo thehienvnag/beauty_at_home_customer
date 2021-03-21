@@ -41,4 +41,19 @@ class Utils {
     await sleep(miliesSecond);
     afterTask.call();
   }
+
+  static shortenString(String str, int length) {
+    if (str.length > length) {
+      if (str.contains(" ")) {
+        if (str.substring(0, length + 1).contains(" ")) {
+          return str.substring(
+                  0, str.substring(0, length + 1).lastIndexOf(" ")) +
+              "...";
+        } else {
+          return str.substring(0, str.indexOf(" ")) + "...";
+        }
+      }
+    }
+    return str;
+  }
 }

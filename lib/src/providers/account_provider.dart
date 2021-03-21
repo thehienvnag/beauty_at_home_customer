@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/account_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
+import 'package:flutter_app/src/services/google_service.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 
 class AccountProvider extends ChangeNotifier {
@@ -33,12 +35,9 @@ class AccountProvider extends ChangeNotifier {
   List<ProviderModel> getProviders() {}
 
   Future<void> login() async {
-    // User user = await GoogleService.instance().loginWithGoogle();
-    // _account = await Utils.loadJsonAsset(
-    //   assetsPath: "userProfile.json",
-    //   fromJson: fromJson,
-    // );
-    // log(_account.email + " " + _account.gallery.defaultImage.imageUrl);
+    User user = await GoogleService.instance().loginWithGoogle();
+    log(user.displayName);
+    log(await user.getIdToken());
     _isSignIn = true;
     notifyListeners();
   }

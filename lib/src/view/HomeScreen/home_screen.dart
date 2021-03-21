@@ -23,8 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     var providerDetail = context.read<ProviderDetailProvider>();
-    context.read<ServiceProvider>().initServiceList();
-    // providerDetail.initProvider();
+    var serviceProvider = context.read<ServiceProvider>();
+
+    serviceProvider.initServiceListHome();
+    providerDetail.initProviderListHome();
   }
 
   @override
