@@ -423,7 +423,7 @@ class CheckoutService extends StatelessWidget {
           ),
           Container(
             margin: const EdgeInsets.only(right: 10),
-            child: Text(_calculatePrice(model?.price, quantity)),
+            child: Text(_calculatePrice(model?.price.toString(), quantity)),
           ),
         ],
       ),

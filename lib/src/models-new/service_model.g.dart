@@ -1,0 +1,39 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'service_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) {
+  return ServiceModel(
+    serviceName: json['serviceName'] as String,
+    description: json['description'] as String,
+    price: (json['price'] as num)?.toDouble(),
+    estimateTime: json['estimateTime'] as int,
+    status: json['status'] as String,
+    serviceType: json['serviceType'] == null
+        ? null
+        : ServiceTypeModel.fromJson(
+            json['serviceType'] as Map<String, dynamic>),
+    gallery: json['gallery'] == null
+        ? null
+        : GalleryModel.fromJson(json['gallery'] as Map<String, dynamic>),
+    isServiceCombo: json['isServiceCombo'] as bool,
+    summary: json['summary'] as String,
+  );
+}
+
+Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>
+    <String, dynamic>{
+      'serviceName': instance.serviceName,
+      'description': instance.description,
+      'price': instance.price,
+      'estimateTime': instance.estimateTime,
+      'status': instance.status,
+      'serviceType': instance.serviceType,
+      'gallery': instance.gallery,
+      'isServiceCombo': instance.isServiceCombo,
+      'summary': instance.summary,
+    };

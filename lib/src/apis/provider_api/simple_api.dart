@@ -34,7 +34,7 @@ class SimpleAPI {
     String id, {
     Map<String, String> headers,
     Map<String, String> queryParameters,
-    Function(dynamic) fromJson,
+    Function(Map<String, dynamic>) fromJson,
   }) async {
     final uri = Uri.parse(baseUrl + "/$entityEndpoint" + "/$id/")
         .replace(queryParameters: queryParameters);
@@ -44,7 +44,7 @@ class SimpleAPI {
       headers: headers,
     );
     if (response.statusCode == 200) {
-      return fromJson(response.body);
+      return fromJson(jsonDecode(response.body));
     }
   }
 

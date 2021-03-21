@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter_app/src/models-new/gallery_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'account_model.g.dart';
 
+@JsonSerializable()
 class AccountModel {
   String name;
   String email;
@@ -23,37 +26,8 @@ class AccountModel {
     this.firebaseRefreshToken,
     this.gallery,
   });
+  factory AccountModel.fromJson(Map<String, dynamic> json) =>
+      _$AccountModelFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'email': email,
-      'role': role,
-      'phone': phone,
-      'accessToken': accessToken,
-      'refreshToken': refreshToken,
-      'idToken': idToken,
-      'firebaseRefreshToken': firebaseRefreshToken,
-      'gallery': gallery.toMap(),
-    };
-  }
-
-  factory AccountModel.fromMap(Map<String, dynamic> map) {
-    return AccountModel(
-      name: map['name'],
-      email: map['email'],
-      role: map['role'],
-      phone: map['phone'],
-      accessToken: map['accessToken'],
-      refreshToken: map['refreshToken'],
-      idToken: map['idToken'],
-      firebaseRefreshToken: map['firebaseRefreshToken'],
-      gallery: GalleryModel.fromMap(map['gallery']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory AccountModel.fromJson(String source) =>
-      AccountModel.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => _$AccountModelToJson(this);
 }

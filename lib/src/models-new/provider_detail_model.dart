@@ -5,7 +5,10 @@ import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/models-new/feedback_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'provider_detail_model.g.dart';
 
+@JsonSerializable()
 class ProviderModel {
   String displayName;
   String description;
@@ -33,47 +36,52 @@ class ProviderModel {
     this.services,
   });
 
-  factory ProviderModel.fromMap(Map<String, dynamic> map) {
-    return new ProviderModel(
-      displayName: map['displayName'] as String,
-      description: "map['description'] as String",
-      addresses: List<AddressModel>.from(
-          map['addresses']?.map((x) => AddressModel.fromMap(x))),
-      status: map['status'] as String,
-      // rate: map['rate'] as double,
-      rate: 5,
-      reviews: "1440",
-      // reviews: map['reviews'] as String,
-      // lowerPrice: map['lowerPrice'] as String,
-      // upperPrice: map['upperPrice'] as String,
-      lowerPrice: "50000",
-      upperPrice: "500000",
-      gallery: GalleryModel.fromMap(map['gallery']),
-      services: List<ServiceModel>.from(
-          map['services']?.map((x) => ServiceModel.fromMap(x))),
-    );
-  }
+  factory ProviderModel.fromJson(Map<String, dynamic> json) =>
+      _$ProviderModelFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'displayName': this.displayName,
-      'description': this.description,
-      'addresses': this.addresses,
-      'status': this.status,
-      'rate': this.rate,
-      'reviews': this.reviews,
-      'lowerPrice': this.lowerPrice,
-      'upperPrice': this.upperPrice,
-      'gallery': this.gallery,
-      'services': this.services,
-    } as Map<String, dynamic>;
-  }
+  Map<String, dynamic> toJson() => _$ProviderModelToJson(this);
 
-  String toJson() => json.encode(toMap());
+  // factory ProviderModel.fromMap(Map<String, dynamic> map) {
+  //   return new ProviderModel(
+  //     displayName: map['displayName'] as String,
+  //     description: "map['description'] as String",
+  //     addresses: List<AddressModel>.from(
+  //         map['addresses']?.map((x) => AddressModel.fromMap(x))),
+  //     status: map['status'] as String,
+  //     // rate: map['rate'] as double,
+  //     rate: 5,
+  //     reviews: "1440",
+  //     // reviews: map['reviews'] as String,
+  //     // lowerPrice: map['lowerPrice'] as String,
+  //     // upperPrice: map['upperPrice'] as String,
+  //     lowerPrice: "50000",
+  //     upperPrice: "500000",
+  //     gallery: GalleryModel.fromMap(map['gallery']),
+  //     services: List<ServiceModel>.from(
+  //         map['services']?.map((x) => ServiceModel.fromMap(x))),
+  //   );
+  // }
 
-  factory ProviderModel.fromJson(String source) =>
-      ProviderModel.fromMap(json.decode(source));
+  // Map<String, dynamic> toMap() {
+  //   // ignore: unnecessary_cast
+  //   return {
+  //     'displayName': this.displayName,
+  //     'description': this.description,
+  //     'addresses': this.addresses,
+  //     'status': this.status,
+  //     'rate': this.rate,
+  //     'reviews': this.reviews,
+  //     'lowerPrice': this.lowerPrice,
+  //     'upperPrice': this.upperPrice,
+  //     'gallery': this.gallery,
+  //     'services': this.services,
+  //   } as Map<String, dynamic>;
+  // }
+
+  // String toJson() => json.encode(toMap());
+
+  // factory ProviderModel.fromJson(String source) =>
+  //     ProviderModel.fromMap(json.decode(source));
 
   // ProviderModel({
   //   this.displayName,

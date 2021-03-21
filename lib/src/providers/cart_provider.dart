@@ -19,7 +19,7 @@ class CartProvider extends ChangeNotifier {
   double totalPrice() {
     double total = 0;
     _cart.services.forEach((key, value) {
-      total = double.parse(key.price) * value.toDouble();
+      total = key.price * value.toDouble();
     });
     return total;
   }

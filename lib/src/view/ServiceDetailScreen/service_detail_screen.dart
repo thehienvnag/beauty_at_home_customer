@@ -61,7 +61,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   void initState() {
     super.initState();
     context.read<ServiceProvider>().initServiceById("46");
-    context.read<ServiceProvider>().initServiceList();
+    // context.read<ServiceProvider>().initServiceList();
 
     var provider = context.read<ProviderDetailProvider>();
     provider.setCurrentService(provider.getService(0));
@@ -266,7 +266,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ServiceDetailDescription(
                         name: value.service.serviceName,
                         note: service.summary,
-                        price: formatPrice(service.price),
+                        price: formatPrice(service.price.toString()),
                         isFromPromotion: isFromPromotion,
                       ),
                       ServiceDetailStepDescription(
@@ -299,37 +299,37 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       Consumer<ProviderDetailProvider>(
                         builder: (context, value, child) =>
                             _buildFeedback(List.from([
-                              FeedbackModel(
-                                  username: 'Hiển Huỳnh',
-                                  rateScore: 4.5,
-                                  imageUrl: [
-                                    'public/img/nail_1.jpg',
-                                    'public/img/nail_2.jpg',
-                                    'public/img/nail_1.jpg',
-                                    'public/img/nail_2.jpg',
-                                    'public/img/nail_1.jpg',
-                                    'public/img/nail_2.jpg',
-                                    'public/img/nail_3.png',
-                                  ],
-                                  feedback:
+                          FeedbackModel(
+                              username: 'Hiển Huỳnh',
+                              rateScore: 4.5,
+                              imageUrl: [
+                                'public/img/nail_1.jpg',
+                                'public/img/nail_2.jpg',
+                                'public/img/nail_1.jpg',
+                                'public/img/nail_2.jpg',
+                                'public/img/nail_1.jpg',
+                                'public/img/nail_2.jpg',
+                                'public/img/nail_3.png',
+                              ],
+                              feedback:
                                   'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
-                                  userImage: 'public/img/user_image.jpg',
-                                  commentedDate: '29-01-2021'),
-                              FeedbackModel(
-                                  username: 'Trang Cao',
-                                  rateScore: 4.0,
-                                  imageUrl: [
-                                    'public/img/nail_1.jpg',
-                                    'public/img/nail_2.jpg',
-                                  ],
-                                  feedback:
+                              userImage: 'public/img/user_image.jpg',
+                              commentedDate: '29-01-2021'),
+                          FeedbackModel(
+                              username: 'Trang Cao',
+                              rateScore: 4.0,
+                              imageUrl: [
+                                'public/img/nail_1.jpg',
+                                'public/img/nail_2.jpg',
+                              ],
+                              feedback:
                                   'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
-                                      'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
-                                      'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
-                                      'sơn đều đẹp, nói chung là ưng ý.',
-                                  userImage: 'public/img/user_image_3.jpg',
-                                  commentedDate: '31-01-2021'),
-                            ])),
+                                  'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
+                                  'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
+                                  'sơn đều đẹp, nói chung là ưng ý.',
+                              userImage: 'public/img/user_image_3.jpg',
+                              commentedDate: '31-01-2021'),
+                        ])),
                       ),
                       // Container(
                       //   height: screenSize.height * 0.1,

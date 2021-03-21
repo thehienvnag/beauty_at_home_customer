@@ -4,11 +4,14 @@ import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_type_model.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'service_model.g.dart';
 
+@JsonSerializable()
 class ServiceModel {
   String serviceName;
   String description;
-  String price;
+  double price;
   int estimateTime;
   String status;
   ServiceTypeModel serviceType;
@@ -28,40 +31,10 @@ class ServiceModel {
     this.summary,
   });
 
-  factory ServiceModel.fromMap(Map<String, dynamic> map) {
-    return new ServiceModel(
-      serviceName: map['serviceName'] as String,
-      description: map['description'] as String,
-      price: map['price'].toString(),
-      estimateTime: map['estimateTime'] as int,
-      status: map['status'] as String,
-      serviceType: ServiceTypeModel.fromMap(map['serviceType']),
-      gallery: GalleryModel.fromMap(map['gallery']),
-      isServiceCombo: map['isServiceCombo'] as bool,
-      summary: map['summary'] as String,
-    );
-  }
+  factory ServiceModel.fromJson(Map<String, dynamic> json) =>
+      _$ServiceModelFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'serviceName': this.serviceName,
-      'description': this.description,
-      'price': this.price,
-      'estimateTime': this.estimateTime,
-      'status': this.status,
-      'serviceType': this.serviceType,
-      'gallery': this.gallery,
-      'isServiceCombo': this.isServiceCombo,
-      'summary': this.summary,
-    } as Map<String, dynamic>;
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ServiceModel.fromJson(String source) =>
-      ServiceModel.fromMap(json.decode(source));
-
+  Map<String, dynamic> toJson() => _$ServiceModelToJson(this);
   // Map<String, dynamic> toMap() {
   //   return {
   //     'name': serviceName,
@@ -91,6 +64,5 @@ class ServiceModel {
   //     summary: map['summary'],
   //   );
   // }
-
 
 }

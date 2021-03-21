@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
+part 'address_model.g.dart';
 
+@JsonSerializable()
 class AddressModel {
-  String id;
+  int id;
   String location;
   String locationName;
   bool isDefault;
@@ -13,28 +16,8 @@ class AddressModel {
     this.isDefault,
   });
 
-  factory AddressModel.fromMap(Map<String, dynamic> map) {
-    return new AddressModel(
-      id: map['id'].toString(),
-      location: map['location'],
-      locationName: map['locationName'],
-      isDefault: map['isDefault'],
-    );
-  }
+  factory AddressModel.fromJson(Map<String, dynamic> json) =>
+      _$AddressModelFromJson(json);
 
-  Map<String, dynamic> toMap() {
-    // ignore: unnecessary_cast
-    return {
-      'id': this.id,
-      'location': this.location,
-      'locationName': this.locationName,
-      'isDefault': this.isDefault,
-    } as Map<String, dynamic>;
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory AddressModel.fromJson(String source) =>
-      AddressModel.fromMap(json.decode(source));
-
+  Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 }

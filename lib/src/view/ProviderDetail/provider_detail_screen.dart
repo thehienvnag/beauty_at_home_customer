@@ -104,11 +104,12 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                             newCart,
                           )
                         : Center(
-                          child: Text(
+                            child: Text(
                               'Hiện tại không có dịch vụ khả dụng',
-                              style: CustomTextStyle.subtitleText(Colors.black54),
+                              style:
+                                  CustomTextStyle.subtitleText(Colors.black54),
                             ),
-                        ),
+                          ),
                     _checkCart(newCart),
                   ],
                 ),
@@ -191,9 +192,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
   }
 
   String _calculatePrice(Map<ServiceModel, int> cart) {
-    int total = 0;
+    double total = 0;
     cart.forEach((key, value) {
-      total += int.parse(key.price) * value;
+      total += key.price * value;
     });
     // return formatPrice(total.toString());
     return total.toString();
@@ -371,7 +372,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                             borderRadius: BorderRadius.circular(5.0),
                             child: Image(
                               width: 115.0,
-                              image: NetworkImage(service.gallery.images[0].imageUrl),
+                              image: NetworkImage(
+                                  service.gallery.images[0].imageUrl),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -606,7 +608,8 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     provider.setCurrentService(service);
     var cartProvider = context.read<CartProvider>();
     cartProvider.setCurrentCart(CartModel(services: newCart));
-    final cart = await Navigator.pushNamed(context, Routes.serviceDetail, arguments: <String, String> {"id": "2"});
+    final cart = await Navigator.pushNamed(context, Routes.serviceDetail,
+        arguments: <String, String>{"id": "2"});
     this.newCart = cart;
     setState(() {
       _buildCategory(1);

@@ -1,28 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter_app/src/models-new/image_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'gallery_model.g.dart';
 
+@JsonSerializable()
 class GalleryModel {
   List<ImageModel> images;
   GalleryModel({
     this.images,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'images': images?.map((x) => x.toMap())?.toList(),
-    };
-  }
+  factory GalleryModel.fromJson(Map<String, dynamic> json) =>
+      _$GalleryModelFromJson(json);
 
-  factory GalleryModel.fromMap(Map<String, dynamic> map) {
-    return GalleryModel(
-      images: List<ImageModel>.from(
-          map['images']?.map((x) => ImageModel.fromMap(x))),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory GalleryModel.fromJson(String source) =>
-      GalleryModel.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => _$GalleryModelToJson(this);
 }

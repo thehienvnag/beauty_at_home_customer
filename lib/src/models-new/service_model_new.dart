@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter_app/src/models-new/gallery_model.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'service_model_new.g.dart';
 
+@JsonSerializable()
 class ServiceModelNew {
   String serviceName;
   String description;
   String summary;
-  String price;
+  double price;
   GalleryModel gallery;
 
   ServiceModelNew({
@@ -17,28 +20,8 @@ class ServiceModelNew {
     this.gallery,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'serviceName': serviceName,
-      'description': description,
-      'summary': summary,
-      'price': price,
-      'gallery': gallery.toMap(),
-    };
-  }
+  factory ServiceModelNew.fromJson(Map<String, dynamic> json) =>
+      _$ServiceModelNewFromJson(json);
 
-  factory ServiceModelNew.fromMap(Map<String, dynamic> map) {
-    return ServiceModelNew(
-      serviceName: map['serviceName'],
-      description: map['description'],
-      summary: map['summary'],
-      price: map['price'].toString(),
-      gallery: GalleryModel.fromMap(map['gallery']),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ServiceModelNew.fromJson(String source) =>
-      ServiceModelNew.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => _$ServiceModelNewToJson(this);
 }

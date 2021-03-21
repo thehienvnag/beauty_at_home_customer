@@ -14,7 +14,7 @@ class ProviderAPI {
     http.Response response = await http.get(endpoint);
     if (response.statusCode == 200) {
       try {
-        providerModel = ProviderModel.fromJson(response.body);
+        //providerModel = ProviderModel.fromJson(response.body);
       } catch (e) {
         onError("GetProviderById{$id}: error in try catch");
         print(e);
@@ -35,7 +35,7 @@ class ProviderAPI {
         List<dynamic> content = jsonRaw['content'];
         if (content.length > 0) {
           content.forEach((element) {
-            listProvider.add(ProviderModel.fromMap(element));
+            //listProvider.add(ProviderModel.fromMap(element));
           });
         }
       } catch (e) {

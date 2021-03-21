@@ -1,25 +1,16 @@
 import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
+part 'image_model.g.dart';
 
+@JsonSerializable()
 class ImageModel {
   String imageUrl;
   ImageModel({
     this.imageUrl,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'imageUrl': imageUrl,
-    };
-  }
+  factory ImageModel.fromJson(Map<String, dynamic> json) =>
+      _$ImageModelFromJson(json);
 
-  factory ImageModel.fromMap(Map<String, dynamic> map) {
-    return ImageModel(
-      imageUrl: map['imageUrl'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory ImageModel.fromJson(String source) =>
-      ImageModel.fromMap(json.decode(source));
+  Map<String, dynamic> toJson() => _$ImageModelToJson(this);
 }
