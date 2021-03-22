@@ -12,39 +12,6 @@ import 'package:flutter_app/src/widgets/service_detail_widget.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-List<FeedbackModel> lstProviderFeedback = List.from([
-  FeedbackModel(
-      username: 'Hiển Huỳnh',
-      rateScore: 4.5,
-      imageUrl: [
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-        'public/img/nail_3.png',
-      ],
-      feedback:
-          'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
-      userImage: 'public/img/user_image.jpg',
-      commentedDate: '29-01-2021'),
-  FeedbackModel(
-      username: 'Trang Cao',
-      rateScore: 4.0,
-      imageUrl: [
-        'public/img/nail_1.jpg',
-        'public/img/nail_2.jpg',
-      ],
-      feedback:
-          'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
-          'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
-          'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
-          'sơn đều đẹp, nói chung là ưng ý.',
-      userImage: 'public/img/user_image_3.jpg',
-      commentedDate: '31-01-2021'),
-]);
-
 class ServiceDetailScreen extends StatefulWidget {
   final String id;
   const ServiceDetailScreen({
@@ -532,7 +499,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 70, bottom: 20.0),
                     child: Text(
-                      'Đã đăng vào ngày ${proFeedback.commentedDate}',
+                      'Đã đăng vào ngày ${proFeedback.createDate.toString()}',
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ),
