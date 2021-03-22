@@ -72,7 +72,7 @@ class ServiceDetailDescription extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            '$priceđ',
+                            '$price',
                             style: TextStyle(
                                 fontSize: 19.0, fontWeight: FontWeight.bold),
                           ),

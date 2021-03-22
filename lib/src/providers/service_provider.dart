@@ -21,7 +21,6 @@ class ServiceProvider extends ChangeNotifier {
       id,
       fromJson: fromJson,
     );
-    log(_service.gallery.images.first.imageUrl);
     notifyListeners();
   }
 

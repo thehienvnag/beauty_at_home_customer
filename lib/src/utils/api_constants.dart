@@ -7,7 +7,9 @@ class ProviderAPIConstant {
   static const String PROVIDER = "accounts";
 }
 
-class ServiceAPIConstant {}
+class ServiceAPIConstant {
+  static const String SERVICE = "services";
+}
 
 class EntityEndpoint {
   static const String SERIVCE = "services";
