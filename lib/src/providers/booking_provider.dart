@@ -18,7 +18,7 @@ class BookingProvider extends ChangeNotifier {
       id,
       fromJson: fromJson,
     );
-    log(_bookingModel.endAddress);
+    log(_bookingModel.beautyArtistAccount.gallery.images.first.imageUrl);
     notifyListeners();
   }
 

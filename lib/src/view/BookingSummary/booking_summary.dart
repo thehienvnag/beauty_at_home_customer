@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
+import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/booking_summary_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
+import 'package:provider/provider.dart';
 
 final List<Widget> dynamicContents = [
   CoverImage(
@@ -31,20 +33,21 @@ class _BookingSummaryState extends State<BookingSummary> {
   @override
   void initState() {
     super.initState();
+    context.read<BookingProvider>().initBookingById('16');
 
-    Utils.redoTaskPerDuration(
-        () {
-          setState(() {
-            currentStep++;
-          });
-        },
-        10000,
-        1,
-        () {
-          if (_isContinue) {
-            Navigator.of(context).pushReplacementNamed(Routes.bookingHistory);
-          }
-        });
+    // Utils.redoTaskPerDuration(
+    //     () {
+    //       setState(() {
+    //         currentStep++;
+    //       });
+    //     },
+    //     10000,
+    //     1,
+    //     () {
+    //       if (_isContinue) {
+    //         Navigator.of(context).pushReplacementNamed(Routes.bookingHistory);
+    //       }
+    //     });
   }
 
   @override
@@ -69,26 +72,39 @@ class _BookingSummaryState extends State<BookingSummary> {
           BookingProgress(
             currentStepIndex: 1,
           ),
-          BeauticianDescription(
-            image: 'public/img/beautician_test.png',
-            beauticianName: 'Marry Trần',
-            mainService: 'Trang điểm - Làm tóc',
-            phone: '0918076861',
+          Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              return BeauticianDescription(
+                image: value.bookingModel?.beautyArtistAccount?.gallery?.images
+                    ?.first?.imageUrl,
+                beauticianName:
+                    value.bookingModel?.beautyArtistAccount?.displayName,
+                mainService: value.bookingModel?.status,
+                phone: value.bookingModel?.beautyArtistAccount?.phone,
+              );
+            },
           ),
-          OutlinedCard(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
-            width: screenSize.width * 0.95,
-            sections: [
-              LocationSummary(
-                address: '5/3 đường số 9',
-              ),
-            ],
+          Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              return OutlinedCard(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6),
+                width: screenSize.width * 0.95,
+                sections: [
+                  LocationSummary(
+                    address: value.bookingModel?.status,
+                  ),
+                ],
+              );
+            },
           ),
-          OrderDescription(
-            title: 'Makeup Hoàng Gia',
-            priceAfter: '458.000đ',
-            priceBefore: '650.000đ',
-            listItem: listItem,
+          Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              return OrderDescription(
+                title: 'Tóm tắt đơn',
+                priceBefore: '650.000đ',
+                listItem: value.bookingModel?.bookingDetails,
+              );
+            },
           ),
           OutlinedButton(
             onPressed: () {
@@ -126,20 +142,3 @@ class _BookingSummaryState extends State<BookingSummary> {
     );
   }
 }
-
-List<CartItem> listItem = List.from(
-  <CartItem>[
-    CartItem(
-      content: '90 phút massage body toàn thân',
-      quantity: 2,
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-    ),
-  ],
-);

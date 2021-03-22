@@ -20,6 +20,7 @@ class ProviderModel {
   String reviews;
   String lowerPrice;
   String upperPrice;
+  String phone;
   // String openTime;
   // String closeTime;
   GalleryModel gallery;
@@ -38,6 +39,7 @@ class ProviderModel {
     this.gallery,
     this.services,
     this.totalFeedback,
+    this.phone,
   });
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) =>
