@@ -13,5 +13,6 @@ class ServiceAPIConstant {
 
 class EntityEndpoint {
   static const String SERIVCE = "services";
+  static const String BOOKING = "bookings";
   static const String AUTH_LOGIN = "auth/login";
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
+import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/view/HomeScreen/home_screen.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/beautician_history_description.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_description.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/boo
 import 'package:flutter_app/src/widgets/booking_summary_screen_widget/location_summary.dart';
 import 'package:flutter_app/src/widgets/shared_widget/detail_screen_appbar.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
+import 'package:provider/provider.dart';
 
 class BookingHistoryDetailScreen extends StatefulWidget {
   @override
@@ -21,12 +23,13 @@ class _BookingHistoryDetailScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future(() async {
-      await Future.delayed(Duration(seconds: 15));
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => HomeScreen(),
-      ));
-    }).then((value) => {});
+    context.read<BookingProvider>().initBookingById('21');
+    // Future(() async {
+    //   await Future.delayed(Duration(seconds: 15));
+    //   Navigator.of(context).push(MaterialPageRoute(
+    //     builder: (context) => HomeScreen(),
+    //   ));
+    // }).then((value) => {});
   }
 
   @override
@@ -36,9 +39,14 @@ class _BookingHistoryDetailScreenState
         preferredSize: Size.fromHeight(50),
         child: DetailScreenAppBar(
           disabledBack: true,
-          title: Text(
-            'JAN 31, 2021 8:27 AM',
-            style: TextStyle(color: Color(0xff636363), fontSize: 16),
+          title: Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              DateTime date = value.bookingModel?.createDate;
+              return Text(
+                date.toString(),
+                style: TextStyle(color: Color(0xff636363), fontSize: 16),
+              );
+            },
           ),
         ),
       ),
@@ -50,20 +58,35 @@ class _BookingHistoryDetailScreenState
             marginTop: 10,
             padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
             sections: [
-              LocationSummary(
-                address: '5/12 đường số 9',
+              Consumer<BookingProvider>(
+                builder: (context, value, child) {
+                  String endAddress = value.bookingModel?.endAddress;
+                  return LocationSummary(
+                    address: endAddress,
+                  );
+                },
               ),
             ],
           ),
-          BookingDescription(
-            itemList: listItem,
+          Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              return BookingDescription(
+                itemList: value.bookingModel?.bookingDetails,
+              );
+            },
           ),
-          BookingTotal(
-            totalPriceBefore: '720.000',
-            totalPriceAfter: '737.000',
-            applicableFee: '17.000',
-            paymentMethod: 'momo',
-          ),
+          Consumer<BookingProvider>(
+            builder: (context, value, child) {
+              double totalPriceAft = (value.bookingModel?.totalFee +
+                  value.bookingModel?.transportFee);
+              return BookingTotal(
+                totalPriceBefore: value.bookingModel?.totalFee.toString(),
+                totalPriceAfter: totalPriceAft.toString(),
+                applicableFee: value.bookingModel?.transportFee.toString(),
+                paymentMethod: 'momo',
+              );
+            },
+          )
         ],
       ),
     );
