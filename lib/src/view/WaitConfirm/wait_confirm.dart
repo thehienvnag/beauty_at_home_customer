@@ -77,7 +77,7 @@ class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
                     priceAfter: '458.000đ',
                     priceBefore: '650.000đ',
                   ),
-                  ItemsList(itemList: listItem),
+                  // ItemsList(itemList: listItem),
                 ],
               ),
             ],

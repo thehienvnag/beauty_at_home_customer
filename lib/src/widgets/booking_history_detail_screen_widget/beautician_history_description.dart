@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/view/Rating/rating_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
+import 'package:provider/provider.dart';
 
 class BeauticianHistoryDescription extends StatelessWidget {
   const BeauticianHistoryDescription({
@@ -36,19 +38,27 @@ class BeauticianHistoryDescription extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Marry Trần',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                      Consumer<BookingProvider>(
+                        builder: (context, value, child) => Text(
+                          //value.bookingModel?.beautyArtistAccount.displayName,
+                          "Marry Tran",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 6),
                         child: Column(
                           children: [
-                            Text(
-                              'Service  •  GF-276',
-                              style: TextStyle(color: Colors.black54),
+                            Consumer<BookingProvider>(
+                              builder: (context, value, child) {
+                                return Text(
+                                  'Service  •  GF-' +
+                                      value.bookingModel?.id.toString(),
+                                  style: TextStyle(color: Colors.black54),
+                                );
+                              },
                             )
                           ],
                         ),

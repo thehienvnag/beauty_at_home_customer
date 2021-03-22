@@ -8,7 +8,7 @@ final dynamic paymentMethodContents = {
         'public/img/iconcash.PNG',
         width: 17,
       ),
-      Text(' Momo'),
+      Text(' Tiền mặt'),
     ],
   ),
 };

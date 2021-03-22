@@ -9,7 +9,7 @@ class FeedbackModel {
   String userImage;
   List<String> imageUrl;
   String feedback;
-  String commentedDate;
+  DateTime createDate;
 
   FeedbackModel({
     this.username,
@@ -17,7 +17,7 @@ class FeedbackModel {
     this.userImage,
     this.imageUrl,
     this.feedback,
-    this.commentedDate,
+    this.createDate,
   });
 
   factory FeedbackModel.fromJson(Map<String, dynamic> json) =>

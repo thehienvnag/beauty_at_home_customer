@@ -23,7 +23,7 @@ class BeauticianDescription extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
+                Image.network(
                   this.image,
                   width: 45,
                 ),

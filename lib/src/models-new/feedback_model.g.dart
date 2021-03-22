@@ -13,7 +13,9 @@ FeedbackModel _$FeedbackModelFromJson(Map<String, dynamic> json) {
     userImage: json['userImage'] as String,
     imageUrl: (json['imageUrl'] as List)?.map((e) => e as String)?.toList(),
     feedback: json['feedback'] as String,
-    commentedDate: json['commentedDate'] as String,
+    createDate: json['createDate'] == null
+        ? null
+        : DateTime.parse(json['createDate'] as String),
   );
 }
 
@@ -24,5 +26,5 @@ Map<String, dynamic> _$FeedbackModelToJson(FeedbackModel instance) =>
       'userImage': instance.userImage,
       'imageUrl': instance.imageUrl,
       'feedback': instance.feedback,
-      'commentedDate': instance.commentedDate,
+      'createDate': instance.createDate?.toIso8601String(),
     };

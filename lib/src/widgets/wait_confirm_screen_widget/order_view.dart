@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/booking_detail_model.dart';
 
 import 'package:flutter_app/src/models/cart_item.dart';
 
 class ItemsList extends StatelessWidget {
-  final List<CartItem> itemList;
+  final List<BookingDetailModel> itemList;
   const ItemsList({
     Key key,
     this.itemList,
@@ -20,7 +21,7 @@ class ItemsList extends StatelessWidget {
           shrinkWrap: true,
           itemBuilder: (context, index) => ItemDescriptionRow(
             quantity: itemList[index].quantity,
-            text: itemList[index].content,
+            text: itemList[index].serviceName,
           ),
           separatorBuilder: (context, index) => Container(
             margin: EdgeInsets.only(bottom: 10),

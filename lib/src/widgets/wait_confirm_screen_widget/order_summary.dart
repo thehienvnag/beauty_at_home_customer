@@ -21,24 +21,24 @@ class OrderSummary extends StatelessWidget {
             children: [
               Text('Tổng đơn'),
               Text(
-                this.priceAfter,
+                this.priceBefore,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              this.priceBefore,
-              style: TextStyle(
-                fontSize: 13,
-                decoration: TextDecoration.lineThrough,
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     Text(
+        //       this.priceBefore,
+        //       style: TextStyle(
+        //         fontSize: 13,
+        //         decoration: TextDecoration.lineThrough,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         Container(
           margin: EdgeInsets.only(top: 10),
           child: Row(

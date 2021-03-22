@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/booking_detail_model.dart';
 
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 
 class BookingDescription extends StatelessWidget {
-  final List<CartItem> itemList;
+  final List<BookingDetailModel> itemList;
   const BookingDescription({
     Key key,
     this.itemList,
@@ -61,11 +62,13 @@ class BookingDescription extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text(itemList[index].content),
+                      child: Text(itemList[index].serviceName),
                     ),
                   ],
                 ),
-                Text(itemList[index].price)
+                Text(
+                  itemList[index].servicePrice.toString(),
+                )
               ],
             ),
           ),

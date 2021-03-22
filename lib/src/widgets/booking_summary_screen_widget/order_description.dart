@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/booking_detail_model.dart';
 
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
 
 class OrderDescription extends StatelessWidget {
-  final List<CartItem> listItem;
+  final List<BookingDetailModel> listItem;
   final String title, priceAfter, priceBefore;
   const OrderDescription({
     Key key,
@@ -23,7 +24,7 @@ class OrderDescription extends StatelessWidget {
       sections: [
         OrderSummary(
           title: this.title,
-          priceAfter: this.priceAfter,
+          //priceAfter: this.priceAfter,
           priceBefore: this.priceBefore,
         ),
         ItemsList(itemList: listItem),
