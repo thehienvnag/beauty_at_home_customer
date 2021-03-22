@@ -27,7 +27,7 @@ ProviderModel _$ProviderModelFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : ServiceModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    totalFeedback: json['totalFeedback'] as int,
+    totalFeedback: (json['totalFeedback'] as num)?.toDouble(),
   );
 }
 

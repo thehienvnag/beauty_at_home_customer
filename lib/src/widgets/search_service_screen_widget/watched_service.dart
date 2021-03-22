@@ -74,8 +74,8 @@ class ViewsServices extends StatelessWidget {
                   image: item.gallery.images.first.imageUrl,
                   title: Utils.shortenString(item.serviceName, 20),
                   description: item.account.displayName,
-                  rateScore: '4.8',
-                  noOfRate: '246',
+                  rateScore: item.rateScore.toString(),
+                  noOfRate: item.totalFeedback.toInt().toString(),
                   id: item.id?.toString(),
                 );
               });
@@ -189,29 +189,47 @@ class RecomendService extends StatelessWidget {
                             Colors.black.withOpacity(0.5),
                           ),
                         ),
-                        WidgetSpan(
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                color: Color(0xffFFCC00),
-                                size: 20.0,
-                              ),
-                              Text(
-                                "$rateScore",
+                        if (noOfRate != "0")
+                          WidgetSpan(
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.star,
+                                  color: Color(0xffFFCC00),
+                                  size: 20.0,
+                                ),
+                                Text(
+                                  "$rateScore",
+                                  style: CustomTextStyle.subtitleText(
+                                    Colors.black.withOpacity(0.5),
+                                  ),
+                                ),
+                                Text(
+                                  "  ($noOfRate - đánh giá)",
+                                  style: CustomTextStyle.subtitleText(
+                                    Colors.black.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        else
+                          WidgetSpan(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 3),
+                              child: Text(
+                                "Thợ mới",
                                 style: CustomTextStyle.subtitleText(
-                                  Colors.black.withOpacity(0.5),
+                                  Colors.white,
                                 ),
                               ),
-                              Text(
-                                "  ($noOfRate - đánh giá)",
-                                style: CustomTextStyle.subtitleText(
-                                  Colors.black.withOpacity(0.5),
-                                ),
+                              decoration: BoxDecoration(
+                                color: Colors.blue[200],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(3)),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

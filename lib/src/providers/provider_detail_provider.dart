@@ -215,7 +215,10 @@ class ProviderDetailProvider extends ChangeNotifier {
     _listProviderHome = await SimpleAPI.getAll<ProviderModel>(
       ProviderAPIConstant.PROVIDER,
       fromJson: fromJson,
-      queryParameters: {"isBeautyArtist": "true"},
+      queryParameters: {
+        "isBeautyArtist": "true",
+        "withRateScore": "true",
+      },
     );
     log(_listProviderHome[0].id.toString());
     notifyListeners();

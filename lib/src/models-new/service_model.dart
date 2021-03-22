@@ -21,9 +21,13 @@ class ServiceModel {
   bool isServiceCombo;
   String summary;
   AccountModel account;
+  double rateScore;
+  double totalFeedback;
 
   ServiceModel({
     this.id,
+    this.rateScore,
+    this.totalFeedback,
     this.serviceName,
     this.description,
     this.price,

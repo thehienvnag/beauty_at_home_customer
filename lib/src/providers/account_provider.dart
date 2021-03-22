@@ -16,6 +16,7 @@ class AccountProvider extends ChangeNotifier {
   /* Provider states */
   AccountModel _accountSignedIn;
   AccountModel get accountSignedIn => _accountSignedIn;
+
   String _currentAddress;
   Coordinates _location;
   String get currentAddress => _currentAddress;

@@ -16,12 +16,10 @@ class ProviderModel {
   List<AddressModel> addresses;
   String status;
   double rateScore;
-  int totalFeedback;
+  double totalFeedback;
   String reviews;
   String lowerPrice;
   String upperPrice;
-  // String openTime;
-  // String closeTime;
   GalleryModel gallery;
   List<ServiceModel> services;
 

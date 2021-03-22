@@ -20,9 +20,10 @@ class ProviderImage extends StatelessWidget {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(0.0, 2.0),
-                  blurRadius: 6.0),
+                color: Colors.black26,
+                offset: Offset(0.0, 2.0),
+                blurRadius: 6.0,
+              ),
             ],
           ),
           child: ClipRRect(

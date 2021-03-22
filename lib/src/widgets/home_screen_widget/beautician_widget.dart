@@ -121,23 +121,28 @@ class Beautician extends StatelessWidget {
                                       model.rateScore.toString(),
                                       style: CustomTextStyle.subtitleText(
                                           Colors.black87),
-                                    )
+                                    ),
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                    ),
                                   ],
-                                ),
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 3),
-                                child: Text(
-                                  "Thợ mới",
-                                  style: CustomTextStyle.subtitleText(
-                                    Colors.white,
+                                )
+                              else
+                                Container(
+                                  padding: EdgeInsets.symmetric(horizontal: 3),
+                                  child: Text(
+                                    "Thợ mới",
+                                    style: CustomTextStyle.subtitleText(
+                                      Colors.white,
+                                    ),
                                   ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[200],
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(3)),
-                                ),
-                              )
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue[200],
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(3)),
+                                  ),
+                                )
                             ],
                           ),
                         ),

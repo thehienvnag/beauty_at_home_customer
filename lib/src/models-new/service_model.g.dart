@@ -9,6 +9,8 @@ part of 'service_model.dart';
 ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) {
   return ServiceModel(
     id: json['id'] as int,
+    rateScore: (json['rateScore'] as num)?.toDouble(),
+    totalFeedback: (json['totalFeedback'] as num)?.toDouble(),
     serviceName: json['serviceName'] as String,
     description: json['description'] as String,
     price: (json['price'] as num)?.toDouble(),
@@ -42,4 +44,6 @@ Map<String, dynamic> _$ServiceModelToJson(ServiceModel instance) =>
       'isServiceCombo': instance.isServiceCombo,
       'summary': instance.summary,
       'account': instance.account,
+      'rateScore': instance.rateScore,
+      'totalFeedback': instance.totalFeedback,
     };
