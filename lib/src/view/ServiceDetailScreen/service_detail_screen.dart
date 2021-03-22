@@ -5,6 +5,7 @@ import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/providers/service_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/service_detail_widget.dart';
 import 'package:intl/intl.dart';
@@ -60,11 +61,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ServiceProvider>().initServiceById("46");
     // context.read<ServiceProvider>().initServiceList();
-
     var provider = context.read<ProviderDetailProvider>();
-    provider.setCurrentService(provider.getService(0));
+    // provider.setCurrentService(provider.getService(0));
     var cartProvider = context.read<CartProvider>();
     if (cartProvider.cart != null &&
         cartProvider.cart.services != null &&
@@ -169,7 +168,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   ),
                 ),
                 onPressed: () {
-                  String fromScreen = ModalRoute.of(context).settings.arguments;
+                  var fromScreen = ModalRoute.of(context).settings.arguments;
                   if (newCart == null) {
                     newCart = new Map();
                   }
@@ -254,23 +253,23 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Consumer<ServiceProvider>(
-            builder: (context, value, child) => value.service == null
+          child: Consumer<ProviderDetailProvider>(
+            builder: (context, value, child) => value.currentService == null
                 ? SizedBox()
                 : Column(
                     children: <Widget>[
                       ServiceDetailImage(
-                        lstImage: service.gallery.images,
+                        lstImage: value.currentService.gallery.images,
                         cart: newCart,
                       ),
                       ServiceDetailDescription(
-                        name: value.service.serviceName,
-                        note: service.summary,
-                        price: formatPrice(service.price.toString()),
+                        name: value.currentService.serviceName,
+                        note: value.currentService.summary,
+                        price: Utils.formatPrice(value.currentService.price.toString()),
                         isFromPromotion: isFromPromotion,
                       ),
                       ServiceDetailStepDescription(
-                        description: value.service.description.split("/r/n"),
+                        description: value.currentService.description.split("/r/n"),
                       ),
                       Container(
                         height: 30.0,

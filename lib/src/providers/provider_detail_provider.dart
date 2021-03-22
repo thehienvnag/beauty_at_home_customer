@@ -144,13 +144,14 @@ import 'package:flutter_app/src/utils/api_constants.dart';
 class ProviderDetailProvider extends ChangeNotifier {
   ProviderModel _provider;
   ServiceModel _currentService;
+  List<ServiceModel> _services;
 
   List<ProviderModel> _listProviderHome;
   List<ProviderModel> get listProviderHome => _listProviderHome;
 
   ProviderModel get provider => _provider;
 
-  List<ServiceModel> get services => _provider.services;
+  List<ServiceModel> get services => _services;
 
   ServiceModel get currentService => _currentService;
 
@@ -160,10 +161,26 @@ class ProviderDetailProvider extends ChangeNotifier {
 
   void initProvider(String id) async {
     final fromJson = (source) => ProviderModel.fromJson(source);
+    final fromServiceJson = (source) => ServiceModel.fromJson(source);
     // _provider = fake;
     _provider = await SimpleAPI.getById(ProviderAPIConstant.PROVIDER, id,
         fromJson: fromJson);
-    log(_provider.services.first.serviceName);
+    _services = await SimpleAPI.getAll<ServiceModel>(ServiceAPIConstant.SERVICE,
+        queryParameters: {"AccountId": id}, fromJson: fromServiceJson);
+    if (_services != null && _services.isNotEmpty) {
+      double lowerPrice = 999999;
+      double upperPrice = 0;
+      _services.forEach((element) {
+        if (element.price > upperPrice) {
+          upperPrice = element.price;
+        }
+        if (element.price < lowerPrice) {
+          lowerPrice = element.price;
+        }
+        _provider.lowerPrice = lowerPrice.toString();
+        _provider.upperPrice = upperPrice.toString();
+      });
+    }
     notifyListeners();
   }
 

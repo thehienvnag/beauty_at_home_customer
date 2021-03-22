@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,7 @@ class ProviderDescription extends StatelessWidget {
     Key key,
     this.provider,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +46,7 @@ class ProviderDescription extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  provider.description,
+                  "provider.description",
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
@@ -52,34 +54,35 @@ class ProviderDescription extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  provider.addresses[0].location,
+                  provider.addresses.isNotEmpty ? provider.addresses[0].location : "Chưa cập nhật địa chỉ",
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 13.0,
                       fontWeight: FontWeight.w500,
                       color: Colors.grey[600]),
                 ),
-                Text(
-                  'Giá dao động: ' +
-                      "provider.lowerPrice" +
-                      ' - ' +
-                      "provider.upperPrice",
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      // fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey[600]),
-                ),
+                provider.services != null && provider.services.isNotEmpty
+                    ? Text(
+                        'Giá dao động: ' +
+                            Utils.formatPrice(provider.lowerPrice) +
+                            ' - ' +
+                            Utils.formatPrice(provider.upperPrice),
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            // fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[600]),
+                      )
+                    : Text(
+                        'Thợ chưa cập nhật dịch vụ',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            // fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey[600])),
                 // Row(
                 //   children: <Widget>[
-                Text(
-                  provider.status,
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      // fontSize: 10.0,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF0DB5B4)),
-                ),
+                Utils.getStatus(provider.status),
                 // Text(
                 //   ' - ' + provider.openTime + ' - ' + provider.closeTime,
                 //   style: TextStyle(
@@ -149,7 +152,7 @@ class ProviderDescription extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          formatPrice(provider.reviews),
+                          "1440",
                           style: TextStyle(
                               fontSize: 11.0, fontWeight: FontWeight.bold),
                         ),
@@ -170,10 +173,10 @@ class ProviderDescription extends StatelessWidget {
     );
   }
 
-  String formatPrice(String review) {
-    String result = review.toString();
-    var formatter = NumberFormat('###,000');
-    String formatString = formatter.format(int.parse(result));
-    return formatString;
-  }
+// String formatPrice(String review) {
+//   String result = review.toString();
+//   var formatter = NumberFormat('###,000');
+//   String formatString = formatter.format(int.parse(result));
+//   return formatString;
+// }
 }

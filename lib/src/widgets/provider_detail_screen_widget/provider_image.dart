@@ -96,6 +96,7 @@ class ProviderImage extends StatelessWidget {
                                       ),
                                       child: FlatButton(
                                         onPressed: () => {
+                                          this.cart.clear(),
                                           Navigator.pop(context),
                                           Navigator.pop(context)
                                         },

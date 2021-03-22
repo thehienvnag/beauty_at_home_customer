@@ -1,7 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:geolocator/geolocator.dart';
+import "package:intl/intl.dart";
 
 class Utils {
   static final Geolocator geolocator = Geolocator()
@@ -80,5 +84,53 @@ class Utils {
     } catch (e) {
       print(e);
     }
+  }
+
+  static Widget getStatus(String status) {
+    if (status == "ACTIVE") {
+      return Text(
+        "Đang hoạt động",
+        style: TextStyle(
+            fontFamily: 'Montserrat',
+            // fontSize: 10.0,
+            fontWeight: FontWeight.w500,
+            color: Color(0xFF0DB5B4)),
+      );
+    } else if (status == "INACTIVE") {
+      return Text(
+        "Không hoạt động",
+        style: TextStyle(
+            fontFamily: 'Montserrat',
+            // fontSize: 10.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.redAccent),
+      );
+    }
+    return null;
+  }
+
+  static String formatPrice(String review) {
+    String result = review.toString();
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(double.parse(result));
+    return formatString.replaceAll(new RegExp(r','), '.') + "đ";
+  }
+
+
+  String formatString(String doublePrice) {
+    // String result = price.toString() + '000';
+    String price = doublePrice.replaceAll(new RegExp(r'.0'), "");
+    var formatter = NumberFormat('###,000');
+    String formatString = formatter.format(int.parse(price));
+    return formatString.replaceAll(new RegExp(r','), '.') + "đ";
+  }
+
+  static String calculatePrice(Map<ServiceModel, int> cart) {
+    double total = 0;
+    cart.forEach((key, value) {
+      total += key.price * value;
+    });
+    // return formatPrice(total.toString());
+    return total.toString();
   }
 }

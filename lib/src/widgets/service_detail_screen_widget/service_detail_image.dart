@@ -95,9 +95,9 @@ class _ServiceDetailImageState extends State<ServiceDetailImage> {
       showIndicator: false,
       autoplay: false,
       images: [
-        AssetImage(widget.lstImage[0].imageUrl),
-        AssetImage(widget.lstImage[1].imageUrl),
-        AssetImage(widget.lstImage[2].imageUrl),
+        NetworkImage(widget.lstImage[0].imageUrl),
+        // AssetImage(widget.lstImage[1].imageUrl),
+        // AssetImage(widget.lstImage[2].imageUrl),
         // AssetImage(widget.lstImage[3].imageUrl),
         // AssetImage(widget.lstImage[4].imageUrl),
         // AssetImage(widget.lstImage[5].imageUrl),

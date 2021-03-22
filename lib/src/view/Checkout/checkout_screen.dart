@@ -4,6 +4,7 @@ import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/LocationChangeDescription/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/WaitConfirm/wait_confirm.dart';
 import 'package:flutter_app/src/widgets/checkout_screen_widget.dart';
@@ -232,7 +233,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Tổng tạm tính'),
-                    Text('1.200.000'),
+                    Text(Utils.formatPrice(Utils.calculatePrice(cart.services))),
                   ],
                 ),
               ),
@@ -431,14 +432,8 @@ class CheckoutService extends StatelessWidget {
   }
 
   String _calculatePrice(String price, String quantity) {
-    if (price == null) return "100.000đ";
-    return formatPrice((int.parse(price) * int.parse(quantity)).toString());
+    // if (price == null) return "100.000đ";
+    return Utils.formatPrice((double.parse(price) * double.parse(quantity)).toString());
   }
 
-  String formatPrice(String price) {
-    String result = price.toString() + '000';
-    var formatter = NumberFormat('###,000');
-    String formatString = formatter.format(int.parse(result));
-    return formatString.replaceAll(new RegExp(r','), '.') + "đ";
-  }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models/beautician_model.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/ProviderDetail/provider_detail_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:provider/provider.dart';
@@ -73,7 +74,7 @@ class Beautician extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProviderDetailScreen(id: "3"),
+            builder: (context) => ProviderDetailScreen(id: model.id.toString()),
           ),
         );
       },
@@ -173,10 +174,11 @@ class Beautician extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text(
-                        model.status,
-                        style: CustomTextStyle.subtitleText(Color(0xff28BEBA)),
-                      ),
+                      // Text(
+                      //   model.status,
+                      //   style: CustomTextStyle.subtitleText(Color(0xff28BEBA)),
+                      // ),
+                      Utils.getStatus(model.status),
                     ],
                   ),
                 ],
