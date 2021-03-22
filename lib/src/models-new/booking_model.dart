@@ -19,6 +19,8 @@ class BookingModel {
   String beginAddress;
   double totalFee;
   double transportFee;
+  DateTime updatedDate;
+
   List<BookingDetailModel> bookingDetails;
 
   BookingModel({
@@ -32,6 +34,7 @@ class BookingModel {
     this.beginAddress,
     this.totalFee,
     this.transportFee,
+    this.updatedDate,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) =>

@@ -26,6 +26,9 @@ BookingModel _$BookingModelFromJson(Map<String, dynamic> json) {
     beginAddress: json['beginAddress'] as String,
     totalFee: (json['totalFee'] as num)?.toDouble(),
     transportFee: (json['transportFee'] as num)?.toDouble(),
+    updatedDate: json['updatedDate'] == null
+        ? null
+        : DateTime.parse(json['updatedDate'] as String),
   )..bookingDetails = (json['bookingDetails'] as List)
       ?.map((e) => e == null
           ? null
@@ -45,5 +48,6 @@ Map<String, dynamic> _$BookingModelToJson(BookingModel instance) =>
       'beginAddress': instance.beginAddress,
       'totalFee': instance.totalFee,
       'transportFee': instance.transportFee,
+      'updatedDate': instance.updatedDate?.toIso8601String(),
       'bookingDetails': instance.bookingDetails,
     };

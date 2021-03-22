@@ -68,21 +68,33 @@ class NotificationScreen extends StatelessWidget {
           ),
           itemBuilder: (context, index) => Container(
             padding: EdgeInsets.only(left: 15),
-            child: Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: 38,
-                  width: 38,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('public/img/notification.PNG'),
+                Row(
+                  children: [
+                    Container(
+                      height: 35,
+                      width: 35,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage('public/img/notification.PNG'),
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 18),
+                      child: Text('Đơn hàng của bạn đã được chấp nhận'),
+                    ),
+                  ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 18),
-                  child: Text('Đơn hàng của bạn đã được chấp nhận'),
+                  margin: EdgeInsets.only(right: 15),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: Text('2021-02-01'),
+                  ),
                 ),
               ],
             ),

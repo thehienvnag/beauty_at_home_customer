@@ -8,6 +8,8 @@ import 'package:flutter_app/src/utils/api_constants.dart';
 class BookingProvider extends ChangeNotifier {
   BookingModel _bookingModel;
   BookingModel get bookingModel => _bookingModel;
+  List<BookingModel> _listBookingModel;
+  List<BookingModel> get listBooking => _listBookingModel;
   Future<void> initBookingById(String id) async {
     final fromJson =
         (Map<String, dynamic> source) => BookingModel.fromJson(source);
@@ -17,6 +19,19 @@ class BookingProvider extends ChangeNotifier {
       fromJson: fromJson,
     );
     log(_bookingModel.endAddress);
+    notifyListeners();
+  }
+
+  void initBookingListByCustomerId(String id) async {
+    final fromMap = (source) => BookingModel.fromJson(source);
+    _listBookingModel = await SimpleAPI.getAll<BookingModel>(
+      EntityEndpoint.BOOKING,
+      fromJson: fromMap,
+      queryParameters: {
+        "customerAccountId": id,
+      },
+    );
+    log(_listBookingModel[0].endAddress);
     notifyListeners();
   }
 }
