@@ -10,6 +10,7 @@ part 'service_model.g.dart';
 
 @JsonSerializable()
 class ServiceModel {
+  int id;
   String serviceName;
   String description;
   double price;
@@ -22,6 +23,7 @@ class ServiceModel {
   AccountModel account;
 
   ServiceModel({
+    this.id,
     this.serviceName,
     this.description,
     this.price,

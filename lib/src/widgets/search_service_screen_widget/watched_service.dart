@@ -62,7 +62,7 @@ class ViewsServices extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Consumer<ServiceProvider>(builder: (context, value, child) {
           if (value.listServiceHome == null) {
-            return Text("Error");
+            return Text("Loading");
           }
           return ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -76,6 +76,7 @@ class ViewsServices extends StatelessWidget {
                   description: item.account.displayName,
                   rateScore: '4.8',
                   noOfRate: '246',
+                  id: item.id?.toString(),
                 );
               });
         }),
@@ -115,6 +116,7 @@ final srv = ServiceModel(
 class RecomendService extends StatelessWidget {
   const RecomendService({
     Key key,
+    this.id,
     this.image,
     this.title,
     this.description,
@@ -123,14 +125,18 @@ class RecomendService extends StatelessWidget {
     this.noOfRate,
   }) : super(key: key);
 
-  final String image, title, description, rateScore, noOfRate;
+  final String image, title, description, rateScore, noOfRate, id;
   final Function press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.serviceDetail);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ServiceDetailScreen(
+            id: id,
+          ),
+        ));
       },
       child: Container(
         margin: EdgeInsets.only(left: 6, top: 10, bottom: 15, right: 6),

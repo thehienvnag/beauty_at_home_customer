@@ -15,14 +15,14 @@ class ProviderModel {
   String description;
   List<AddressModel> addresses;
   String status;
-  double rate;
+  double rateScore;
+  int totalFeedback;
   String reviews;
   String lowerPrice;
   String upperPrice;
   // String openTime;
   // String closeTime;
   GalleryModel gallery;
-  double rateScore;
   List<ServiceModel> services;
 
   ProviderModel({
@@ -31,13 +31,13 @@ class ProviderModel {
     this.description,
     this.addresses,
     this.status,
-    this.rate,
+    this.rateScore,
     this.reviews,
     this.lowerPrice,
     this.upperPrice,
     this.gallery,
     this.services,
-    this.rateScore,
+    this.totalFeedback,
   });
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) =>

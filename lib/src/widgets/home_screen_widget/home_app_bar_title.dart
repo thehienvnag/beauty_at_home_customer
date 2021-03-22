@@ -31,18 +31,18 @@ class _HomeAppBarTitleState extends State<HomeAppBarTitle> {
     Location location = new Location();
     try {
       myLocation = await location.getLocation();
+      final coordinates =
+          new Coordinates(myLocation.latitude, myLocation.longitude);
+      var addresses =
+          await Geocoder.local.findAddressesFromCoordinates(coordinates);
+      var first = addresses.first;
+      setState(() {
+        print(first.addressLine);
+        _currentAddress = first.addressLine;
+      });
     } on PlatformException catch (e) {
       myLocation = null;
     }
-    final coordinates =
-        new Coordinates(myLocation.latitude, myLocation.longitude);
-    var addresses =
-        await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    var first = addresses.first;
-    setState(() {
-      print(first.addressLine);
-      _currentAddress = first.addressLine;
-    });
   }
 
   @override

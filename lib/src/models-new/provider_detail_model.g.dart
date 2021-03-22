@@ -16,7 +16,7 @@ ProviderModel _$ProviderModelFromJson(Map<String, dynamic> json) {
             e == null ? null : AddressModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     status: json['status'] as String,
-    rate: (json['rate'] as num)?.toDouble(),
+    rateScore: (json['rateScore'] as num)?.toDouble(),
     reviews: json['reviews'] as String,
     lowerPrice: json['lowerPrice'] as String,
     upperPrice: json['upperPrice'] as String,
@@ -27,7 +27,7 @@ ProviderModel _$ProviderModelFromJson(Map<String, dynamic> json) {
         ?.map((e) =>
             e == null ? null : ServiceModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    rateScore: (json['rateScore'] as num)?.toDouble(),
+    totalFeedback: json['totalFeedback'] as int,
   );
 }
 
@@ -38,11 +38,11 @@ Map<String, dynamic> _$ProviderModelToJson(ProviderModel instance) =>
       'description': instance.description,
       'addresses': instance.addresses,
       'status': instance.status,
-      'rate': instance.rate,
+      'rateScore': instance.rateScore,
+      'totalFeedback': instance.totalFeedback,
       'reviews': instance.reviews,
       'lowerPrice': instance.lowerPrice,
       'upperPrice': instance.upperPrice,
       'gallery': instance.gallery,
-      'rateScore': instance.rateScore,
       'services': instance.services,
     };

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 class ServiceDetailImage extends StatefulWidget {
   final List<ImageModel> lstImage;
@@ -67,6 +69,7 @@ class _ServiceDetailImageState extends State<ServiceDetailImage> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 25.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               IconButton(
                 icon: Icon(
@@ -76,6 +79,43 @@ class _ServiceDetailImageState extends State<ServiceDetailImage> {
                 iconSize: 30.0,
                 color: Colors.black,
                 onPressed: () => Navigator.pop(context, widget.cart),
+              ),
+              PopupMenuButton(
+                icon: Container(
+                  padding: EdgeInsets.only(left: 0),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.black38,
+                    shape: BoxShape.circle,
+                  ),
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                elevation: 3.2,
+                onSelected: (value) {
+                  if (value == "Back_Home") {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      Routes.home,
+                      (Route<dynamic> route) => false,
+                    );
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                      value: "Back_Home",
+                      child: Text(
+                        "Trở về trang chủ",
+                        style: CustomTextStyle.statusText(Colors.black),
+                      ),
+                    ),
+                  ];
+                },
               )
             ],
           ),

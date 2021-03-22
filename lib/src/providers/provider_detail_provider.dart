@@ -155,6 +155,9 @@ class ProviderDetailProvider extends ChangeNotifier {
 
   ServiceModel get currentService => _currentService;
 
+  bool _isLoadingCurrentService = false;
+  bool get isLoadingCurrentService => _isLoadingCurrentService;
+
   // List<FeedbackModel> get feedbacks => _provider.feedbacks;
 
   ServiceModel getService(index) => _provider.services[index];
@@ -163,8 +166,14 @@ class ProviderDetailProvider extends ChangeNotifier {
     final fromJson = (source) => ProviderModel.fromJson(source);
     final fromServiceJson = (source) => ServiceModel.fromJson(source);
     // _provider = fake;
-    _provider = await SimpleAPI.getById(ProviderAPIConstant.PROVIDER, id,
-        fromJson: fromJson);
+    _provider = await SimpleAPI.getById(
+      ProviderAPIConstant.PROVIDER,
+      id,
+      fromJson: fromJson,
+      queryParameters: {
+        "withRateScore": "true",
+      },
+    );
     _services = await SimpleAPI.getAll<ServiceModel>(ServiceAPIConstant.SERVICE,
         queryParameters: {"AccountId": id}, fromJson: fromServiceJson);
     if (_services != null && _services.isNotEmpty) {
@@ -189,6 +198,18 @@ class ProviderDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void initServiceById(String id) async {
+    _isLoadingCurrentService = true;
+    _currentService = await SimpleAPI.getById(
+      EntityEndpoint.SERIVCE,
+      id,
+      fromJson: (json) => ServiceModel.fromJson(json),
+    );
+    _isLoadingCurrentService = false;
+    log("===========" + _currentService.serviceName);
+    notifyListeners();
+  }
+
   void initProviderListHome() async {
     final fromJson = (source) => ProviderModel.fromJson(source);
     _listProviderHome = await SimpleAPI.getAll<ProviderModel>(
@@ -196,7 +217,7 @@ class ProviderDetailProvider extends ChangeNotifier {
       fromJson: fromJson,
       queryParameters: {"isBeautyArtist": "true"},
     );
-    log(_listProviderHome[0].displayName);
+    log(_listProviderHome[0].id.toString());
     notifyListeners();
   }
 }

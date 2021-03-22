@@ -58,11 +58,17 @@ class ServiceDetailScreen extends StatefulWidget {
 class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
   int updatingQuantity = 1;
   bool isFromPromotion = false;
+
   @override
   void initState() {
     super.initState();
     // context.read<ServiceProvider>().initServiceList();
     var provider = context.read<ProviderDetailProvider>();
+    if (provider.currentService == null ||
+        (widget.id != null &&
+            provider.currentService?.id?.toString() != widget.id)) {
+      provider.initServiceById(widget.id);
+    }
     // provider.setCurrentService(provider.getService(0));
     var cartProvider = context.read<CartProvider>();
     if (cartProvider.cart != null &&
@@ -85,323 +91,343 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     var newCart = context.select<CartProvider, Map<ServiceModel, int>>(
       (value) => value.cart.services,
     );
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        // color: Colors.blue,
-        child: Row(
-          children: <Widget>[
-            Container(
-              height: screenSize.height * 0.1,
-              width: screenSize.width * 0.4,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    height: 45.0 * 0.9,
-                    width: 45.0 * 0.9,
-                    margin: EdgeInsets.only(right: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.remove,
-                        color: Color(0xff28BEBA),
+    var isLoading = context.select<ProviderDetailProvider, bool>(
+        (value) => value.isLoadingCurrentService);
+    return WillPopScope(
+      onWillPop: () async {
+        //Navigator.of(context).pop(newCart);
+        return true;
+      },
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          // color: Colors.blue,
+          child: Row(
+            children: <Widget>[
+              Container(
+                height: screenSize.height * 0.1,
+                width: screenSize.width * 0.4,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      height: 45.0 * 0.9,
+                      width: 45.0 * 0.9,
+                      margin: EdgeInsets.only(right: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.0),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey),
+                        ],
                       ),
-                      onPressed: () {
-                        setState(
-                          () {
-                            if (updatingQuantity > 0) {
-                              updatingQuantity--;
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.remove,
+                          color: Color(0xff28BEBA),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () {
+                              if (updatingQuantity > 0) {
+                                updatingQuantity--;
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                        child: Text(
+                      updatingQuantity.toString(),
+                      style: TextStyle(
+                          fontSize: 15.0, fontWeight: FontWeight.bold),
+                    )),
+                    Container(
+                      height: 45.0 * 0.9,
+                      width: 45.0 * 0.9,
+                      margin: EdgeInsets.only(left: 10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.0),
+                        boxShadow: [
+                          BoxShadow(color: Colors.grey),
+                        ],
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add,
+                          color: Color(0xff28BEBA),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            if (updatingQuantity < 10) {
+                              updatingQuantity++;
                             }
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  Container(
-                      child: Text(
-                    updatingQuantity.toString(),
-                    style:
-                        TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                  )),
-                  Container(
-                    height: 45.0 * 0.9,
-                    width: 45.0 * 0.9,
-                    margin: EdgeInsets.only(left: 10.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.0),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey),
-                      ],
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.add,
-                        color: Color(0xff28BEBA),
+                          });
+                        },
                       ),
-                      onPressed: () {
-                        setState(() {
-                          if (updatingQuantity < 10) {
-                            updatingQuantity++;
-                          }
-                        });
-                      },
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(right: 10.0),
+                height: screenSize.height * 0.057,
+                width: screenSize.width * 0.55,
+                child: FloatingActionButton.extended(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 10.0),
-              height: screenSize.height * 0.057,
-              width: screenSize.width * 0.55,
-              child: FloatingActionButton.extended(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(5.0),
-                  ),
-                ),
-                onPressed: () {
-                  var fromScreen = ModalRoute.of(context).settings.arguments;
-                  if (newCart == null) {
-                    newCart = new Map();
-                  }
-                  if (!newCart.containsKey(service) && updatingQuantity > 0) {
-                    newCart[service] = updatingQuantity;
-                  } else {
-                    if (newCart.containsKey(service) && updatingQuantity == 0) {
-                      newCart.remove(service);
-                    } else if (newCart.containsKey(service) &&
-                        newCart[service] != updatingQuantity) {
-                      newCart.update(
-                          service, (dynamic val) => updatingQuantity);
+                  onPressed: () {
+                    var fromScreen = ModalRoute.of(context).settings.arguments;
+                    if (newCart == null) {
+                      newCart = new Map();
                     }
-                  }
-                  var cartProvider = context.read<CartProvider>();
-                  cartProvider.setCurrentCart(CartModel(services: newCart));
+                    if (!newCart.containsKey(service) && updatingQuantity > 0) {
+                      newCart[service] = updatingQuantity;
+                    } else {
+                      if (newCart.containsKey(service) &&
+                          updatingQuantity == 0) {
+                        newCart.remove(service);
+                      } else if (newCart.containsKey(service) &&
+                          newCart[service] != updatingQuantity) {
+                        newCart.update(
+                            service, (dynamic val) => updatingQuantity);
+                      }
+                    }
+                    var cartProvider = context.read<CartProvider>();
+                    cartProvider.setCurrentCart(CartModel(services: newCart));
 
-                  if (fromScreen == "From-Promotion" ||
-                      fromScreen == "From-Popular-Service") {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ProviderDetailScreen(cart: newCart),
-                    ));
-                  } else {
-                    if (fromScreen == "From-Checkout" && newCart.isEmpty) {
+                    if (fromScreen == "From-Promotion" ||
+                        fromScreen == "From-Popular-Service") {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             ProviderDetailScreen(cart: newCart),
                       ));
                     } else {
-                      Navigator.pop(context, newCart);
+                      if (fromScreen == "From-Checkout" && newCart.isEmpty) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ProviderDetailScreen(cart: newCart),
+                        ));
+                      } else {
+                        Navigator.pop(context, newCart);
+                      }
                     }
-                  }
-                },
-                backgroundColor:
-                    setButtonColor(service, newCart, updatingQuantity),
-                label: Text(
-                  button(service, newCart, updatingQuantity),
-                  style: TextStyle(
-                      fontSize: 10.0, color: Colors.white, letterSpacing: 3),
+                  },
+                  backgroundColor:
+                      setButtonColor(service, newCart, updatingQuantity),
+                  label: Text(
+                    button(service, newCart, updatingQuantity),
+                    style: TextStyle(
+                        fontSize: 10.0, color: Colors.white, letterSpacing: 3),
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: Container(
-      //   margin: EdgeInsets.only(bottom: 10.0),
-      //   height: screenSize.height * 0.06,
-      //   width: screenSize.width * 0.9,
-      //   child: FloatingActionButton.extended(
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.all(
-      //         Radius.circular(5.0),
-      //       ),
-      //     ),
-      //     onPressed: () {
-      //       if (newCart == null) {
-      //         newCart = new Map();
-      //       }
-      //       if (!newCart.containsKey(service) && updatingQuantity > 0) {
-      //         newCart[service] = updatingQuantity;
-      //       } else {
-      //         if (newCart.containsKey(service) && updatingQuantity == 0) {
-      //           newCart.remove(service);
-      //         } else if (newCart.containsKey(service) &&
-      //             newCart[service] != updatingQuantity) {
-      //           newCart.update(service, (dynamic val) => updatingQuantity);
-      //         }
-      //       }
-      //
-      //       Navigator.pop(context, newCart);
-      //     },
-      //     backgroundColor: setButtonColor(service, widget.cart, updatingQuantity),
-      //     label: Text(
-      //       button(service, newCart, updatingQuantity),
-      //       style: TextStyle(color: Colors.white, letterSpacing: 3),
-      //     ),
-      //   ),
-      // ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Consumer<ProviderDetailProvider>(
-            builder: (context, value, child) => value.currentService == null
-                ? SizedBox()
-                : Column(
-                    children: <Widget>[
-                      ServiceDetailImage(
-                        lstImage: value.currentService.gallery.images,
-                        cart: newCart,
-                      ),
-                      ServiceDetailDescription(
-                        name: value.currentService.serviceName,
-                        note: value.currentService.summary,
-                        price: Utils.formatPrice(value.currentService.price.toString()),
-                        isFromPromotion: isFromPromotion,
-                      ),
-                      ServiceDetailStepDescription(
-                        description: value.currentService.description.split("/r/n"),
-                      ),
-                      Container(
-                        height: 30.0,
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(top: 5.0),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          // border: Border(bottom: BorderSide(width: 1.0))
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            // _buildCategory(0),
-                            _buildCategory(),
-                            Padding(
-                              padding: EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                'Xem tất cả >',
-                                style: TextStyle(color: Color(0xff28BEBA)),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      _buildStar(),
-                      Consumer<ProviderDetailProvider>(
-                        builder: (context, value, child) =>
-                            _buildFeedback(List.from([
-                          FeedbackModel(
-                              username: 'Hiển Huỳnh',
-                              rateScore: 4.5,
-                              imageUrl: [
-                                'public/img/nail_1.jpg',
-                                'public/img/nail_2.jpg',
-                                'public/img/nail_1.jpg',
-                                'public/img/nail_2.jpg',
-                                'public/img/nail_1.jpg',
-                                'public/img/nail_2.jpg',
-                                'public/img/nail_3.png',
-                              ],
-                              feedback:
-                                  'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
-                              userImage: 'public/img/user_image.jpg',
-                              commentedDate: '29-01-2021'),
-                          FeedbackModel(
-                              username: 'Trang Cao',
-                              rateScore: 4.0,
-                              imageUrl: [
-                                'public/img/nail_1.jpg',
-                                'public/img/nail_2.jpg',
-                              ],
-                              feedback:
-                                  'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
-                                  'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
-                                  'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
-                                  'sơn đều đẹp, nói chung là ưng ý.',
-                              userImage: 'public/img/user_image_3.jpg',
-                              commentedDate: '31-01-2021'),
-                        ])),
-                      ),
-                      // Container(
-                      //   height: screenSize.height * 0.1,
-                      //   width: screenSize.width,
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     children: <Widget>[
-                      //       Container(
-                      //         height: 45.0 * 0.9,
-                      //         width: 45.0 * 0.9,
-                      //         margin: EdgeInsets.only(right: 10.0),
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.white,
-                      //           borderRadius: BorderRadius.circular(5.0),
-                      //           boxShadow: [
-                      //             BoxShadow(color: Colors.grey),
-                      //           ],
-                      //         ),
-                      //         child: IconButton(
-                      //           icon: Icon(
-                      //             Icons.remove,
-                      //             color: Color(0xff28BEBA),
-                      //           ),
-                      //           onPressed: () {
-                      //             setState(
-                      //               () {
-                      //                 if (updatingQuantity > 0) {
-                      //                   updatingQuantity--;
-                      //                 }
-                      //               },
-                      //             );
-                      //           },
-                      //         ),
-                      //       ),
-                      //       Container(
-                      //           child: Text(
-                      //         updatingQuantity.toString(),
-                      //         style: TextStyle(
-                      //             fontSize: 15.0, fontWeight: FontWeight.bold),
-                      //       )),
-                      //       Container(
-                      //         height: 45.0 * 0.9,
-                      //         width: 45.0 * 0.9,
-                      //         margin: EdgeInsets.only(left: 10.0),
-                      //         decoration: BoxDecoration(
-                      //           color: Colors.white,
-                      //           borderRadius: BorderRadius.circular(5.0),
-                      //           boxShadow: [
-                      //             BoxShadow(color: Colors.grey),
-                      //           ],
-                      //         ),
-                      //         child: IconButton(
-                      //           icon: Icon(
-                      //             Icons.add,
-                      //             color: Color(0xff28BEBA),
-                      //           ),
-                      //           onPressed: () {
-                      //             setState(() {
-                      //               if (updatingQuantity < 10) {
-                      //                 updatingQuantity++;
-                      //               }
-                      //             });
-                      //           },
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // SizedBox(height: 30.0,)
-                    ],
-                  ),
+            ],
           ),
         ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: Container(
+        //   margin: EdgeInsets.only(bottom: 10.0),
+        //   height: screenSize.height * 0.06,
+        //   width: screenSize.width * 0.9,
+        //   child: FloatingActionButton.extended(
+        //     shape: RoundedRectangleBorder(
+        //       borderRadius: BorderRadius.all(
+        //         Radius.circular(5.0),
+        //       ),
+        //     ),
+        //     onPressed: () {
+        //       if (newCart == null) {
+        //         newCart = new Map();
+        //       }
+        //       if (!newCart.containsKey(service) && updatingQuantity > 0) {
+        //         newCart[service] = updatingQuantity;
+        //       } else {
+        //         if (newCart.containsKey(service) && updatingQuantity == 0) {
+        //           newCart.remove(service);
+        //         } else if (newCart.containsKey(service) &&
+        //             newCart[service] != updatingQuantity) {
+        //           newCart.update(service, (dynamic val) => updatingQuantity);
+        //         }
+        //       }
+        //
+        //       Navigator.pop(context, newCart);
+        //     },
+        //     backgroundColor: setButtonColor(service, widget.cart, updatingQuantity),
+        //     label: Text(
+        //       button(service, newCart, updatingQuantity),
+        //       style: TextStyle(color: Colors.white, letterSpacing: 3),
+        //     ),
+        //   ),
+        // ),
+        body: isLoading
+            ? Align(
+                alignment: Alignment.center,
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Consumer<ProviderDetailProvider>(
+                    builder: (context, value, child) => value.currentService ==
+                            null
+                        ? SizedBox()
+                        : Column(
+                            children: <Widget>[
+                              ServiceDetailImage(
+                                lstImage: value.currentService.gallery.images,
+                                cart: newCart,
+                              ),
+                              ServiceDetailDescription(
+                                name: value.currentService.serviceName,
+                                note: value.currentService.summary,
+                                price: Utils.formatPrice(
+                                    value.currentService.price.toString()),
+                                isFromPromotion: isFromPromotion,
+                              ),
+                              ServiceDetailStepDescription(
+                                description: value.currentService.description
+                                    .split("/r/n"),
+                              ),
+                              Container(
+                                height: 30.0,
+                                width: MediaQuery.of(context).size.width,
+                                margin: EdgeInsets.only(top: 5.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  // border: Border(bottom: BorderSide(width: 1.0))
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    // _buildCategory(0),
+                                    _buildCategory(),
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 10.0),
+                                      child: Text(
+                                        'Xem tất cả >',
+                                        style:
+                                            TextStyle(color: Color(0xff28BEBA)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              _buildStar(),
+                              Consumer<ProviderDetailProvider>(
+                                builder: (context, value, child) =>
+                                    _buildFeedback(List.from([
+                                  FeedbackModel(
+                                      username: 'Hiển Huỳnh',
+                                      rateScore: 4.5,
+                                      imageUrl: [
+                                        'public/img/nail_1.jpg',
+                                        'public/img/nail_2.jpg',
+                                        'public/img/nail_1.jpg',
+                                        'public/img/nail_2.jpg',
+                                        'public/img/nail_1.jpg',
+                                        'public/img/nail_2.jpg',
+                                        'public/img/nail_3.png',
+                                      ],
+                                      feedback:
+                                          'Dịch vụ chuyên nghiệp, nhân viên có tay nghề, sẽ quay lại trong tương lai',
+                                      userImage: 'public/img/user_image.jpg',
+                                      commentedDate: '29-01-2021'),
+                                  FeedbackModel(
+                                      username: 'Trang Cao',
+                                      rateScore: 4.0,
+                                      imageUrl: [
+                                        'public/img/nail_1.jpg',
+                                        'public/img/nail_2.jpg',
+                                      ],
+                                      feedback:
+                                          'Trời mưa nóng mà bước vô Mít cái mát rượi luôn, vừa làm nail vừa uống '
+                                          'trà sữa đã gì đâu. Bạn nhân viên vui tính, làm rất nhiệt tình và '
+                                          'luôn hỏi ý mình khi chọn màu sơn. Sơn ra khác hợp với tay, màu '
+                                          'sơn đều đẹp, nói chung là ưng ý.',
+                                      userImage: 'public/img/user_image_3.jpg',
+                                      commentedDate: '31-01-2021'),
+                                ])),
+                              ),
+                              // Container(
+                              //   height: screenSize.height * 0.1,
+                              //   width: screenSize.width,
+                              //   child: Row(
+                              //     mainAxisAlignment: MainAxisAlignment.center,
+                              //     children: <Widget>[
+                              //       Container(
+                              //         height: 45.0 * 0.9,
+                              //         width: 45.0 * 0.9,
+                              //         margin: EdgeInsets.only(right: 10.0),
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           borderRadius: BorderRadius.circular(5.0),
+                              //           boxShadow: [
+                              //             BoxShadow(color: Colors.grey),
+                              //           ],
+                              //         ),
+                              //         child: IconButton(
+                              //           icon: Icon(
+                              //             Icons.remove,
+                              //             color: Color(0xff28BEBA),
+                              //           ),
+                              //           onPressed: () {
+                              //             setState(
+                              //               () {
+                              //                 if (updatingQuantity > 0) {
+                              //                   updatingQuantity--;
+                              //                 }
+                              //               },
+                              //             );
+                              //           },
+                              //         ),
+                              //       ),
+                              //       Container(
+                              //           child: Text(
+                              //         updatingQuantity.toString(),
+                              //         style: TextStyle(
+                              //             fontSize: 15.0, fontWeight: FontWeight.bold),
+                              //       )),
+                              //       Container(
+                              //         height: 45.0 * 0.9,
+                              //         width: 45.0 * 0.9,
+                              //         margin: EdgeInsets.only(left: 10.0),
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           borderRadius: BorderRadius.circular(5.0),
+                              //           boxShadow: [
+                              //             BoxShadow(color: Colors.grey),
+                              //           ],
+                              //         ),
+                              //         child: IconButton(
+                              //           icon: Icon(
+                              //             Icons.add,
+                              //             color: Color(0xff28BEBA),
+                              //           ),
+                              //           onPressed: () {
+                              //             setState(() {
+                              //               if (updatingQuantity < 10) {
+                              //                 updatingQuantity++;
+                              //               }
+                              //             });
+                              //           },
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              // SizedBox(height: 30.0,)
+                            ],
+                          ),
+                  ),
+                ),
+              ),
       ),
     );
   }

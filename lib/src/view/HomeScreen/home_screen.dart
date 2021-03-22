@@ -199,7 +199,6 @@ class HomeScreenState extends State<HomeScreen> {
               SlideService(),
               // ViewsPromotion(),
               ServiceWidget(),
-
               BeauticianWidget()
             ],
           ),

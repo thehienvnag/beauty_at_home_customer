@@ -54,7 +54,9 @@ class ProviderDescription extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  provider.addresses.isNotEmpty ? provider.addresses[0].location : "Chưa cập nhật địa chỉ",
+                  provider.addresses.isNotEmpty
+                      ? provider.addresses[0].location
+                      : "Chưa cập nhật địa chỉ",
                   style: TextStyle(
                       fontFamily: 'Montserrat',
                       fontSize: 13.0,
@@ -73,8 +75,7 @@ class ProviderDescription extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: Colors.grey[600]),
                       )
-                    : Text(
-                        'Thợ chưa cập nhật dịch vụ',
+                    : Text('Thợ chưa cập nhật dịch vụ',
                         style: TextStyle(
                             fontFamily: 'Montserrat',
                             // fontSize: 16.0,
@@ -131,7 +132,7 @@ class ProviderDescription extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0, top: 8.0),
                         child: Text(
-                          provider.rate.toString(),
+                          provider.rateScore.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14.0,
@@ -152,7 +153,7 @@ class ProviderDescription extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          "1440",
+                          provider.totalFeedback.toString(),
                           style: TextStyle(
                               fontSize: 11.0, fontWeight: FontWeight.bold),
                         ),
