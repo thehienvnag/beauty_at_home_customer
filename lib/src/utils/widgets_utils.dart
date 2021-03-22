@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/widgets/shared_widget/app_bottom_navigation_bar.dart';
 import 'package:flutter_app/src/widgets/shared_widget/search_text_field.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 
 final _appBottomNavigationBar = (currentActiveIndex) => AppBottomNavigationBar(
       currentActiveIndex: currentActiveIndex,
@@ -15,4 +16,51 @@ class WidgetUtils {
       _appBottomNavigationBar(currentActiveIndex);
   static Widget searchTextField(bool isReadonly, {String keySearch}) =>
       _searchTextField(isReadonly, keySearch);
+  static void showSnackBar(
+    BuildContext context, {
+    title,
+  }) {
+    final snackBar = SnackBar(
+      behavior: SnackBarBehavior.floating,
+      content: Row(
+        children: [
+          CircularProgressIndicator(),
+          Text(
+            title,
+            style: CustomTextStyle.subtitleText(Colors.black),
+          )
+        ],
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
+  static void showDialogStatic(BuildContext context, {String title}) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        // title: Text("Bạn có chắc muốn hủy đơn?"),
+        content: Row(
+          children: [
+            Container(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 1,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              width: 200,
+              child: Text(title,
+                  style: CustomTextStyle.statusText(Colors.black54)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

@@ -1,10 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:geocoder/geocoder.dart';
+import 'package:geocoder/model.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
-class HomeAppBarTitle extends StatelessWidget {
+class HomeAppBarTitle extends StatefulWidget {
   const HomeAppBarTitle({
     Key key,
   }) : super(key: key);
+
+  @override
+  _HomeAppBarTitleState createState() => _HomeAppBarTitleState();
+}
+
+class _HomeAppBarTitleState extends State<HomeAppBarTitle> {
+  String _currentAddress;
+  @override
+  void initState() {
+    super.initState();
+    getUserLocation();
+  }
+
+  getUserLocation() async {
+    LocationData myLocation;
+    Location location = new Location();
+    try {
+      myLocation = await location.getLocation();
+    } on PlatformException catch (e) {
+      myLocation = null;
+    }
+    final coordinates =
+        new Coordinates(myLocation.latitude, myLocation.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    setState(() {
+      print(first.addressLine);
+      _currentAddress = first.addressLine;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +54,22 @@ class HomeAppBarTitle extends StatelessWidget {
           Icons.location_on,
           color: Color(0xff0DB5B4),
         ),
-        Text(
-          ' 5/3 đường số 9',
-          style: CustomTextStyle.titleText(Colors.black),
+        Consumer<AccountProvider>(
+          builder: (context, value, child) {
+            var addresses = value.accountSignedIn?.addresses;
+            if (addresses == null || addresses.isEmpty) {
+              return Text(
+                _currentAddress == null
+                    ? "Chưa xác định vị trí"
+                    : Utils.shortenString(_currentAddress, 22, false),
+                style: CustomTextStyle.titleText(Colors.black),
+              );
+            }
+            return Text(
+              addresses.first.locationName,
+              style: CustomTextStyle.titleText(Colors.black),
+            );
+          },
         ),
       ],
     );

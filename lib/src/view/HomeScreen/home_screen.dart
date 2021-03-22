@@ -1,27 +1,108 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/providers/service_provider.dart';
+import 'package:flutter_app/src/utils/firebase_helper.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/LocationChangeDescription/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/ProfileScreen/profile_screen.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
-import 'package:flutter_app/src/widgets/search_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/search_text_field.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  bool isScrollTop = false;
+Future<dynamic> myBackgroundHandler(Map<String, dynamic> message) {
+  return HomeScreenState()._showNotification(message);
+}
+
+class HomeScreenState extends State<HomeScreen> {
+  FlutterLocalNotificationsPlugin notiPlugin =
+      FirebaseHelper.flutterLocalNotiInstance();
+
+  final FirebaseMessaging _firebaseMessaging = FirebaseHelper.fcmInstance();
+
+  Future _showNotification(Map<String, dynamic> message) async {
+    await notiPlugin.show(
+      0,
+      'new message arived',
+      '${message['data']['title']} for ${message['data']['price']}',
+      FirebaseHelper.platformSpecInstance(),
+      payload: 'Default_Sound',
+    );
+  }
+
+  getTokenz() async {
+    String token = await _firebaseMessaging.getToken();
+    print(token);
+  }
+
+  Future selectNotification(String payload) async {
+    await notiPlugin.cancelAll();
+  }
+
+  void initPushNotification() {
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+
+    var initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    notiPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+
+    super.initState();
+    _firebaseMessaging.configure(
+      onBackgroundMessage: myBackgroundHandler,
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Column(
+                  children: [
+                    ClipRRect(
+                      child: Image.network(message['data']['imageUrl']),
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                    ),
+                  ],
+                ),
+                content: Column(mainAxisSize: MainAxisSize.min, children: [
+                  Text(
+                    message['notification']['title'] + '\n',
+                    style: CustomTextStyle.statusText(Colors.black),
+                  ),
+                  Text(
+                    '${message['notification']['body']}',
+                    style: CustomTextStyle.subtitleText(Colors.black54),
+                  ),
+                ]),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('Ok'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      },
+    );
+    _firebaseMessaging.subscribeToTopic("Randomizer");
+  }
+
   ScrollController _scrollController = ScrollController();
   @override
   void initState() {
-    super.initState();
+    initPushNotification();
     var providerDetail = context.read<ProviderDetailProvider>();
     var serviceProvider = context.read<ServiceProvider>();
 
@@ -66,9 +147,23 @@ class _HomeScreenState extends State<HomeScreen> {
                       ));
                     },
                     child: Container(
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('public/img/images.png'),
-                        radius: 17,
+                      child: Consumer<AccountProvider>(
+                        builder: (context, value, child) {
+                          var gallery = value.accountSignedIn?.gallery;
+                          if (gallery == null || gallery.images.isEmpty) {
+                            return CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('public/img/images.png'),
+                              radius: 17,
+                            );
+                          }
+                          return CircleAvatar(
+                            backgroundImage: NetworkImage(
+                              gallery.images.first.imageUrl,
+                            ),
+                            radius: 17,
+                          );
+                        },
                       ),
                       margin: EdgeInsets.only(right: 10),
                     ),

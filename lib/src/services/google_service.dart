@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleService {
@@ -13,27 +15,20 @@ class GoogleService {
   }
 
   GoogleSignIn _googleSignIn;
-  User _user;
 
   Future<User> loginWithGoogle() async {
-    try {
-      _googleSignIn = GoogleSignIn();
-      GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
-      GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+    _googleSignIn = GoogleSignIn();
+    GoogleSignInAccount googleSignInAccount = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+    log(googleSignInAuthentication.idToken);
+    AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken);
 
-      AuthCredential credential = GoogleAuthProvider.credential(
-          idToken: googleSignInAuthentication.idToken,
-          accessToken: googleSignInAuthentication.accessToken);
-
-      UserCredential result =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-
-      log(_user.email);
-    } catch (e) {
-      log(e);
-    }
-    return _user;
+    UserCredential result =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    return result.user;
   }
 
   Future<void> logOut() async {

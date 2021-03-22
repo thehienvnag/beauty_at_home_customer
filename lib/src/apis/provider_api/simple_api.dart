@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_app/src/models-new/account_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
 
@@ -50,10 +51,32 @@ class SimpleAPI {
     Function(dynamic) fromJson,
   }) async {
     final uri = Uri.parse(baseUrl + "/$entityEndpoint");
-    http.Response response = await http.post(uri, headers: headers, body: body);
+    http.Response response = await http.post(
+      uri,
+      headers: headers,
+      body: body,
+    );
     if (response.statusCode == 201) {
+      log(response.body);
       return fromJson(jsonDecode(response.body));
     }
+    return null;
+  }
+
+  static Future<AccountModel> login(dynamic body) async {
+    final uri = Uri.parse(baseUrl + "/${EntityEndpoint.AUTH_LOGIN}");
+    http.Response response = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body),
+    );
+    log(response.body);
+    if (response.statusCode == 200) {
+      return AccountModel.fromJson(jsonDecode(response.body));
+    }
+    return null;
   }
 
   static Future<bool> put(

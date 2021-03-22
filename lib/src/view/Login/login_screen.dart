@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -57,9 +58,13 @@ class LoginScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         final userProfile = context.read<AccountProvider>();
+        WidgetUtils.showDialogStatic(
+          context,
+          title: "Đăng nhập sử dụng tài khoản Google",
+        );
         await userProfile.login();
         if (userProfile.isSignIn) {
-          Navigator.of(context).pushNamed(Routes.home);
+          Navigator.of(context).pushReplacementNamed(Routes.home);
         }
       },
       child: GestureDetector(
