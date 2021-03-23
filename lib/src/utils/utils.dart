@@ -8,6 +8,11 @@ import 'package:geolocator/geolocator.dart';
 import "package:intl/intl.dart";
 
 class Utils {
+  static String formatDate(DateTime date) {
+    final f = new DateFormat('dd-MM-yyyy');
+    return f.format(date);
+  }
+
   static final Geolocator geolocator = Geolocator()
     ..forceAndroidLocationManager;
 

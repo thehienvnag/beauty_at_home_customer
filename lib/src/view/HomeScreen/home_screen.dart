@@ -77,9 +77,12 @@ class HomeScreenState extends State<HomeScreen> {
           };
           index = statuses[status];
           if (index == 4) {
+            var id = context.read<AccountProvider>().accountSignedIn.uid;
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => BookingHistoryDetailScreen(),
+                builder: (context) => BookingHistoryDetailScreen(
+                  id: id.toString(),
+                ),
               ),
             );
           } else {

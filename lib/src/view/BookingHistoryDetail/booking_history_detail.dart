@@ -10,9 +10,13 @@ import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/boo
 import 'package:flutter_app/src/widgets/booking_summary_screen_widget/location_summary.dart';
 import 'package:flutter_app/src/widgets/shared_widget/detail_screen_appbar.dart';
 import 'package:flutter_app/src/widgets/shared_widget/fullwidth_card.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:provider/provider.dart';
 
 class BookingHistoryDetailScreen extends StatefulWidget {
+  final String id;
+
+  const BookingHistoryDetailScreen({Key key, this.id}) : super(key: key);
   @override
   _BookingHistoryDetailScreenState createState() =>
       _BookingHistoryDetailScreenState();
@@ -24,22 +28,18 @@ class _BookingHistoryDetailScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<BookingProvider>().initBookingById('37');
-    // Future(() async {
-    //   await Future.delayed(Duration(seconds: 15));
-    //   Navigator.of(context).push(MaterialPageRoute(
-    //     builder: (context) => HomeScreen(),
-    //   ));
-    // }).then((value) => {});
+    context.read<BookingProvider>().initBookingById(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    var emptyData = context
+        .select<BookingProvider, bool>((value) => value.bookingModel == null);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: DetailScreenAppBar(
-          disabledBack: true,
+          previousBack: true,
           title: Consumer<BookingProvider>(
             builder: (context, value, child) {
               DateTime date = value.bookingModel?.createDate;
@@ -51,49 +51,77 @@ class _BookingHistoryDetailScreenState
           ),
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          BeauticianHistoryDescription(),
-          FullWidthCard(
-            marginTop: 10,
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-            sections: [
-              Consumer<BookingProvider>(
-                builder: (context, value, child) {
-                  String endAddress = value.bookingModel?.endAddress;
-                  return LocationSummary(
-                    address: endAddress,
-                  );
-                },
-              ),
-            ],
-          ),
-          Consumer<BookingProvider>(
-            builder: (context, value, child) {
-              return BookingDescription(
-                itemList: value.bookingModel?.bookingDetails,
-              );
-            },
-          ),
-          Consumer<BookingProvider>(
-            builder: (context, value, child) {
-              // double totalPriceAft = (value.bookingModel?.totalFee +
-              //     value.bookingModel?.transportFee);
-              return BookingTotal(
-                totalPriceBefore: Utils.formatPrice(
-                  value.bookingModel.totalFee.toString(),
+      body: emptyData
+          ? Align(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            )
+          : ListView(
+              shrinkWrap: true,
+              children: [
+                BeauticianHistoryDescription(),
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text("TRẠNG THÁI: ",
+                          style: CustomTextStyle.subtitleText(Colors.black87)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: InputChip(
+                          backgroundColor: Colors.blueAccent,
+                          label: Consumer<BookingProvider>(
+                            builder: (context, value, child) =>
+                                Text(value.bookingModel?.status.toUpperCase()),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                totalPriceAfter: Utils.formatPrice(
-                  value.bookingModel.totalFee.toString(),
+                FullWidthCard(
+                  marginTop: 10,
+                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  sections: [
+                    Consumer<BookingProvider>(
+                      builder: (context, value, child) {
+                        String endAddress = value.bookingModel?.endAddress;
+                        return LocationSummary(
+                          address: endAddress,
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                applicableFee: value.bookingModel?.transportFee.toString(),
-                paymentMethod: 'momo',
-              );
-            },
-          )
-        ],
-      ),
+                Consumer<BookingProvider>(
+                  builder: (context, value, child) {
+                    return BookingDescription(
+                      itemList: value.bookingModel?.bookingDetails,
+                    );
+                  },
+                ),
+                Consumer<BookingProvider>(
+                  builder: (context, value, child) {
+                    // double totalPriceAft = (value.bookingModel?.totalFee +
+                    //     value.bookingModel?.transportFee);
+                    return BookingTotal(
+                      totalPriceBefore: Utils.formatPrice(
+                        value.bookingModel.totalFee.toString(),
+                      ),
+                      totalPriceAfter: Utils.formatPrice(
+                        value.bookingModel.totalFee.toString(),
+                      ),
+                      applicableFee:
+                          value.bookingModel?.transportFee.toString(),
+                      paymentMethod: 'momo',
+                    );
+                  },
+                )
+              ],
+            ),
     );
   }
 }

@@ -1,8 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/models-new/account_model.dart';
 import 'package:flutter_app/src/models-new/booking_model.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/view/BookingHistoryDetail/booking_history_detail.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:provider/provider.dart';
 
@@ -142,7 +148,11 @@ class _LoadHistoryState extends State<LoadHistory> {
   @override
   void initState() {
     super.initState();
-    context.read<BookingProvider>().initBookingListByCustomerId('28');
+    var accountId = context.read<AccountProvider>().accountSignedIn.uid;
+    log(accountId.toString());
+    context
+        .read<BookingProvider>()
+        .initBookingListByCustomerId(accountId.toString());
   }
 
   @override
@@ -156,7 +166,11 @@ class _LoadHistoryState extends State<LoadHistory> {
               BookingModel bookingModel = value.listBooking[index];
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(Routes.historyDetail);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => BookingHistoryDetailScreen(
+                      id: bookingModel.id.toString(),
+                    ),
+                  ));
                 },
                 child: Container(
                   color: Colors.white,
@@ -176,19 +190,16 @@ class _LoadHistoryState extends State<LoadHistory> {
                               Row(
                                 children: [
                                   Container(
-                                    child: Text('Hình thợ'),
+                                    width: 50,
+                                    margin:
+                                        EdgeInsets.only(left: 10, right: 13),
+                                    child: Image.network(
+                                      bookingModel?.beautyArtistAccount.gallery
+                                          .images.first.imageUrl,
+                                      width: 60,
+                                      height: 60,
+                                    ),
                                   ),
-                                  // Container(
-                                  //   width: 50,
-                                  //   margin:
-                                  //       EdgeInsets.only(left: 10, right: 13),
-                                  //   child: Image.asset(
-                                  //     bookingModel?.beautyArtistAccount.gallery
-                                  //         .images.first.imageUrl,
-                                  //     width: 60,
-                                  //     height: 60,
-                                  //   ),
-                                  // ),
                                   Container(
                                     margin: EdgeInsets.only(top: 5),
                                     height: 50,
@@ -220,15 +231,24 @@ class _LoadHistoryState extends State<LoadHistory> {
                                   ),
                                 ],
                               ),
-                              Container(
-                                  child: Text(
-                                bookingModel?.updatedDate.toString(),
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black.withOpacity(0.4),
-                                ),
-                                textAlign: TextAlign.left,
-                              )),
+                              Column(
+                                children: [
+                                  Text(
+                                    bookingModel.status,
+                                    style: CustomTextStyle.subtitleText(
+                                        Colors.blueAccent),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  Text(
+                                    Utils.formatDate(bookingModel.createDate),
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.black.withOpacity(0.4),
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -277,81 +297,92 @@ class LoadActive extends StatelessWidget {
               itemCount: value.listBooking.length,
               itemBuilder: (BuildContext buildContext, int index) {
                 BookingModel bookingModel = value.listBooking[index];
-                return Container(
-                  margin: EdgeInsets.only(left: 10, top: 10),
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 30),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                child: Text("Ảnh thợ thiếu"),
-                              ),
-                              // Container(
-                              //     width: 50,
-                              //     margin: EdgeInsets.only(right: 13),
-                              //     child: Image.network(
-                              //       bookingModel?.beautyArtistAccount.gallery
-                              //           .images.first.imageUrl,
-                              //       width: 50,
-                              //       height: 50,
-                              //     )),
-                              Container(
-                                width: 160,
-                                margin: EdgeInsets.only(top: 5),
-                                height: 50,
-                                child: RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: bookingModel
-                                            ?.beautyArtistAccount?.displayName,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
-                                            color:
-                                                Colors.black.withOpacity(0.7)),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            "\n${bookingModel.bookingDetails.length} dịch vụ",
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Colors.black.withOpacity(0.5),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => BookingHistoryDetailScreen(
+                        id: bookingModel.id.toString(),
+                      ),
+                    ));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10, top: 10),
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: 30),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  child: Text("Ảnh thợ thiếu"),
+                                ),
+                                // Container(
+                                //     width: 50,
+                                //     margin: EdgeInsets.only(right: 13),
+                                //     child: Image.network(
+                                //       bookingModel?.beautyArtistAccount.gallery
+                                //           .images.first.imageUrl,
+                                //       width: 50,
+                                //       height: 50,
+                                //     )),
+                                Container(
+                                  width: 160,
+                                  margin: EdgeInsets.only(top: 5),
+                                  height: 50,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: bookingModel
+                                              ?.beautyArtistAccount
+                                              ?.displayName,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.black
+                                                  .withOpacity(0.7)),
                                         ),
-                                      ),
-                                    ],
+                                        TextSpan(
+                                          text:
+                                              "\n${bookingModel.bookingDetails.length} dịch vụ",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                  width: 100,
-                                  child: Text(
-                                    bookingModel?.beautyArtistAccount?.status,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.black.withOpacity(0.4),
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  )),
-                            ],
+                                Container(
+                                    width: 100,
+                                    child: Text(
+                                      bookingModel?.beautyArtistAccount?.status,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black.withOpacity(0.4),
+                                      ),
+                                      textAlign: TextAlign.left,
+                                    )),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        child: Container(color: Colors.white),
-                      ),
-                      Container(
-                          width: 400,
-                          height: 0.5,
-                          color: Colors.black.withOpacity(0.5)),
-                    ],
+                        SizedBox(
+                          height: 30,
+                          child: Container(color: Colors.white),
+                        ),
+                        Container(
+                            width: 400,
+                            height: 0.5,
+                            color: Colors.black.withOpacity(0.5)),
+                      ],
+                    ),
                   ),
                 );
               });
