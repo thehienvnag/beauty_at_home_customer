@@ -159,6 +159,9 @@ class _LoadHistoryState extends State<LoadHistory> {
   Widget build(BuildContext context) {
     return Consumer<BookingProvider>(
       builder: (context, value, child) {
+        if (value.listBooking == null) {
+          return Center(child: CircularProgressIndicator());
+        }
         return ListView.builder(
             physics: BouncingScrollPhysics(),
             itemCount: value.listBooking.length,

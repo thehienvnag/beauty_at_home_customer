@@ -97,7 +97,7 @@ class BookingDescription extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => RatingScreen(),
+                          builder: (context) => RatingScreen(model: itemList[index],),
                         ),
                       );
                     },

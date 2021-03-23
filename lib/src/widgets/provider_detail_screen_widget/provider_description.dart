@@ -132,7 +132,7 @@ class ProviderDescription extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(left: 4.0, top: 8.0),
                         child: Text(
-                          provider.rateScore.toString(),
+                          provider.rateScore.toStringAsFixed(1),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14.0,
