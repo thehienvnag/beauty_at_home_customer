@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/utils/firebase_helper.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
 import 'package:provider/provider.dart';
@@ -25,23 +26,7 @@ List<CartItem> listItem = List.from(
   ],
 );
 
-class WaitConfirmScreen extends StatefulWidget {
-  @override
-  _WaitConfirmScreenState createState() => _WaitConfirmScreenState();
-}
-
-class _WaitConfirmScreenState extends State<WaitConfirmScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Future(() async {
-      await Future.delayed(Duration(seconds: 2));
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => BookingSummary(),
-      ));
-    }).then((value) => {});
-  }
-
+class WaitConfirmScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;

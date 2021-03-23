@@ -9,6 +9,9 @@ part of 'booking_detail_model.dart';
 BookingDetailModel _$BookingDetailModelFromJson(Map<String, dynamic> json) {
   return BookingDetailModel(
     id: json['id'] as int,
+    booking: json['booking'] == null
+        ? null
+        : BookingModel.fromJson(json['booking'] as Map<String, dynamic>),
     quantity: json['quantity'] as int,
     bookingId: json['bookingId'] as int,
     serviceId: json['serviceId'] as int,
@@ -25,4 +28,5 @@ Map<String, dynamic> _$BookingDetailModelToJson(BookingDetailModel instance) =>
       'serviceId': instance.serviceId,
       'servicePrice': instance.servicePrice,
       'serviceName': instance.serviceName,
+      'booking': instance.booking,
     };

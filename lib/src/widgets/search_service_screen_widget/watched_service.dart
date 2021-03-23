@@ -136,6 +136,7 @@ class RecomendService extends StatelessWidget {
           builder: (context) => ServiceDetailScreen(
             id: id,
           ),
+          settings: RouteSettings(arguments: "From-Popular-Service"),
         ));
       },
       child: Container(

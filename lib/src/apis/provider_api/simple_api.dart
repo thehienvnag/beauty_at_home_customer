@@ -20,9 +20,12 @@ class SimpleAPI {
         .replace(queryParameters: queryParameters);
     // String endpoint = url;
     http.Response response = await http.get(uri, headers: headers);
-    Map<String, dynamic> jsonRaw = json.decode(response.body);
+    log(response.body);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonRaw = json.decode(response.body);
 
-    return (jsonRaw["content"] as List).map<T>((x) => fromJson(x)).toList();
+      return (jsonRaw["content"] as List).map<T>((x) => fromJson(x)).toList();
+    }
   }
 
   static Future<dynamic> getById(

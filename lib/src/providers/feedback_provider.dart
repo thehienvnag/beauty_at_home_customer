@@ -13,6 +13,9 @@ class FeedbackProvider extends ChangeNotifier {
     _listFeedback = await SimpleAPI.getAll<FeedbackModel>(
       EntityEndpoint.FEEDBACK,
       fromJson: (json) => FeedbackModel.fromJson(json),
+      queryParameters: {
+        "serviceId": id,
+      },
     );
     notifyListeners();
   }

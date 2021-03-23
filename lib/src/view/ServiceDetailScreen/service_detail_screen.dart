@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models-new/feedback_model.dart';
+import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/feedback_provider.dart';
@@ -32,12 +35,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     super.initState();
     // context.read<ServiceProvider>().initServiceList();
     var provider = context.read<ProviderDetailProvider>();
-    provider.initServiceById("39");
-    // if (provider.currentService == null ||
-    //     (widget.id != null &&
-    //         provider.currentService?.id?.toString() != widget.id)) {
-    //   provider.initServiceById(widget.id);
-    // }
+    // provider.initServiceById("39");
+
+    if (provider.currentService == null ||
+        (widget.id != null &&
+            provider.currentService?.id?.toString() != widget.id)) {
+      provider.initServiceById(widget.id);
+      context.read<FeedbackProvider>().initListFeedbackByServiceId(widget.id);
+    }
     // provider.setCurrentService(provider.getService(0));
     var cartProvider = context.read<CartProvider>();
     if (cartProvider.cart != null &&
@@ -64,7 +69,6 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         (value) => value.isLoadingCurrentService);
     return WillPopScope(
       onWillPop: () async {
-        //Navigator.of(context).pop(newCart);
         return true;
       },
       child: Scaffold(
@@ -171,10 +175,20 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
 
                     if (fromScreen == "From-Promotion" ||
                         fromScreen == "From-Popular-Service") {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            ProviderDetailScreen(cart: newCart),
-                      ));
+                      var providerId = context
+                          .read<ProviderDetailProvider>()
+                          .currentService
+                          .account
+                          .id;
+                      log("From-Popular-Service");
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => ProviderDetailScreen(
+                            cart: newCart,
+                            id: providerId.toString(),
+                          ),
+                        ),
+                      );
                     } else {
                       if (fromScreen == "From-Checkout" && newCart.isEmpty) {
                         Navigator.of(context).push(MaterialPageRoute(
@@ -290,8 +304,12 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                               ),
                               _buildStar(),
                               Consumer<FeedbackProvider>(
-                                builder: (context, value, child) =>
-                                    _buildFeedback(value.listFeedback),
+                                builder: (context, value, child) {
+                                  if (value.listFeedback == null) {
+                                    return Container();
+                                  }
+                                  return _buildFeedback(value.listFeedback);
+                                },
                               ),
                               // Container(
                               //   height: screenSize.height * 0.1,
@@ -424,7 +442,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
         itemCount: lstFeedback.length,
         itemBuilder: (BuildContext context, int index) {
           FeedbackModel proFeedback = lstFeedback[index];
-          List<String> lstImage = lstFeedback[index].imageUrl;
+          List<ImageModel> listImage = proFeedback?.gallery?.images;
+          String customerImage = proFeedback?.bookingDetail?.booking
+              ?.customerAccount?.gallery?.images?.first?.imageUrl;
           return Stack(
             children: <Widget>[
               Positioned(
@@ -432,7 +452,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image(
-                    image: AssetImage(proFeedback.userImage),
+                    image: NetworkImage(customerImage),
                     width: 40.0,
                     height: 40.0,
                   ),
@@ -443,6 +463,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.fromLTRB(70.0, 0.0, 20.0, 0.0),
+                    padding: EdgeInsets.all(10),
                     // height: 100,
                     // width: 00,
                     color: Color(0xFFC4C4C4).withOpacity(0.2),
@@ -453,7 +474,8 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                             Padding(
                               padding: EdgeInsets.all(8.0),
                               child: Text(
-                                proFeedback.username,
+                                proFeedback?.bookingDetail?.booking
+                                    ?.customerAccount?.displayName,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.0),
@@ -471,11 +493,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                             ),
                           ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: 20.0, bottom: 10.0, right: 15.0),
-                          child: Text(proFeedback.feedback),
-                        ),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(proFeedback.feedbackContent)),
                       ],
                     ),
                   ),
@@ -485,12 +505,12 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                     child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: lstImage.length,
+                        itemCount: listImage.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                             margin: EdgeInsets.all(10.0),
                             child: Image(
-                              image: AssetImage(lstImage[index]),
+                              image: NetworkImage(listImage[index].imageUrl),
                               fit: BoxFit.cover,
                             ),
                           );

@@ -5,6 +5,7 @@ import 'package:flutter_app/app.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/providers/feedback_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/providers/service_provider.dart';
 import 'package:flutter_app/src/providers/voucher_provider.dart';
@@ -22,6 +23,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => ProviderDetailProvider()),
         ChangeNotifierProvider(create: (context) => ServiceProvider()),
         ChangeNotifierProvider(create: (context) => BookingProvider()),
+        ChangeNotifierProvider(create: (context) => FeedbackProvider()),
       ],
       child: App(),
     ),

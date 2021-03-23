@@ -27,7 +27,7 @@ ServiceModel _$ServiceModelFromJson(Map<String, dynamic> json) {
     summary: json['summary'] as String,
     account: json['account'] == null
         ? null
-        : AccountModel.fromJson(json['account'] as Map<String, dynamic>),
+        : ProviderModel.fromJson(json['account'] as Map<String, dynamic>),
   );
 }
 

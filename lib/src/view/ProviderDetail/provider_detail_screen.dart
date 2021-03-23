@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +50,12 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     if (widget.cart != null) {
       newCart = widget.cart;
     }
-    context.read<ProviderDetailProvider>().initProvider(widget.id);
+    var provider = context.read<ProviderDetailProvider>();
+    if (provider.provider == null ||
+        widget.id != null && widget.id != provider.provider.id.toString()) {
+      provider.initProvider(widget.id);
+    }
+
     // listProvider = ProviderAPI().getAllProvider((callback) => error = callback);
     // provider = ProviderAPI()
     //     .getProviderById((callback) => {error = callback}, widget.id);
@@ -349,7 +355,7 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                                     ),
                                   ),
                                   Text(
-                                      Utils.formatPrice(service.price.toString()),
+                                    Utils.formatPrice(service.price.toString()),
                                     style:
                                         TextStyle(fontWeight: FontWeight.w900),
                                   ),

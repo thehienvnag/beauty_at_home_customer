@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
+import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_type_model.dart';
 import 'package:flutter_app/src/models-new/account_model.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
@@ -20,7 +21,7 @@ class ServiceModel {
   GalleryModel gallery;
   bool isServiceCombo;
   String summary;
-  AccountModel account;
+  ProviderModel account;
   double rateScore;
   double totalFeedback;
 

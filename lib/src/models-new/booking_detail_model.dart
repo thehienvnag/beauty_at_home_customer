@@ -3,6 +3,8 @@ import 'dart:ffi';
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'booking_model.dart';
+
 part 'booking_detail_model.g.dart';
 
 @JsonSerializable()
@@ -13,9 +15,11 @@ class BookingDetailModel {
   int serviceId;
   double servicePrice;
   String serviceName;
+  BookingModel booking;
 
   BookingDetailModel({
     this.id,
+    this.booking,
     this.quantity,
     this.bookingId,
     this.serviceId,
