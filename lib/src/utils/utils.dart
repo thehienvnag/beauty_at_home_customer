@@ -30,25 +30,26 @@ class Utils {
         .then((value) => fromJson(value));
   }
 
-  static Future sleep(int miliesSecond) {
-    return Future.delayed(
-      Duration(milliseconds: miliesSecond),
+  static Future sleep(int seconds, Function callback) async {
+    await Future.delayed(
+      Duration(seconds: seconds),
     );
+    callback.call();
   }
 
-  static void redoTaskPerDuration(
-    Function task,
-    int miliesSecond,
-    int count,
-    Function afterTask,
-  ) async {
-    while (count-- > 0) {
-      await sleep(miliesSecond);
-      task.call();
-    }
-    await sleep(miliesSecond);
-    afterTask.call();
-  }
+  // static void redoTaskPerDuration(
+  //   Function task,
+  //   int miliesSecond,
+  //   int count,
+  //   Function afterTask,
+  // ) async {
+  //   while (count-- > 0) {
+  //     await sleep(miliesSecond);
+  //     task.call();
+  //   }
+  //   await sleep(miliesSecond);
+  //   afterTask.call();
+  // }
 
   static shortenString(String str, int length, [bool withComa = true]) {
     if (str.length > length) {
@@ -115,7 +116,6 @@ class Utils {
     String formatString = formatter.format(double.parse(result));
     return formatString.replaceAll(new RegExp(r','), '.') + "đ";
   }
-
 
   String formatString(String doublePrice) {
     // String result = price.toString() + '000';

@@ -5,6 +5,7 @@ import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/feedback_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
@@ -170,8 +171,22 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                             service, (dynamic val) => updatingQuantity);
                       }
                     }
+                    var accountProvider = context.read<AccountProvider>();
+                    var providerProvider =
+                        context.read<ProviderDetailProvider>();
+
+                    CartModel cartModel = CartModel(
+                      providerName: providerProvider.provider.displayName,
+                      providerImage: providerProvider
+                          .provider.gallery.images.first.imageUrl,
+                      customerAccountId:
+                          accountProvider.accountSignedIn?.uid.toString(),
+                      beautyArtistAccountId:
+                          providerProvider.provider.id.toString(),
+                      services: newCart,
+                    );
                     var cartProvider = context.read<CartProvider>();
-                    cartProvider.setCurrentCart(CartModel(services: newCart));
+                    cartProvider.setCurrentCart(cartModel);
 
                     if (fromScreen == "From-Promotion" ||
                         fromScreen == "From-Popular-Service") {

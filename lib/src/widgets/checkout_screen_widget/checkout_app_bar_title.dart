@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 class CheckoutAppBarTitle extends StatelessWidget {
   const CheckoutAppBarTitle({
@@ -30,26 +32,36 @@ class CheckoutAppBarTitle extends StatelessWidget {
       elevation: 0,
       title: Column(
         children: [
-          Text(
-            'Makeup Hoàng Gia',
-            style: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 18,
-                color: Colors.black),
+          Consumer<CartProvider>(
+            builder: (context, value, child) {
+              String providerName = value.cart?.providerName;
+              return Text(
+                providerName,
+                style: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 18,
+                    color: Colors.black),
+              );
+            },
           ),
-          Text(
-            'Khoảng cách tới chỗ bạn: 4,9 km',
-            style: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 15,
-                color: Colors.black),
-          ),
+          // Text(
+          //   'Khoảng cách tới chỗ bạn: 4,9 km',
+          //   style: TextStyle(
+          //       fontWeight: FontWeight.normal,
+          //       fontSize: 15,
+          //       color: Colors.black),
+          // ),
         ],
       ),
       actions: [
-        CircleAvatar(
-          backgroundImage: AssetImage('public/img/meo.jpg'),
-          radius: 20,
+        Consumer<CartProvider>(
+          builder: (context, value, child) {
+            String providerImage = value.cart.providerImage;
+            return CircleAvatar(
+              backgroundImage: NetworkImage(providerImage),
+              radius: 20,
+            );
+          },
         ),
         Container(
           margin: EdgeInsets.only(right: 10),

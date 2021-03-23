@@ -2,10 +2,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/providers/service_provider.dart';
 import 'package:flutter_app/src/utils/firebase_helper.dart';
 import 'package:flutter_app/src/utils/widgets_utils.dart';
+import 'package:flutter_app/src/view/BookingHistoryDetail/booking_history_detail.dart';
 import 'package:flutter_app/src/view/LocationChangeDescription/location_change_description_screen.dart';
 import 'package:flutter_app/src/view/ProfileScreen/profile_screen.dart';
 import 'package:flutter_app/src/widgets/home_screen_widget.dart';
@@ -62,38 +64,62 @@ class HomeScreenState extends State<HomeScreen> {
       onBackgroundMessage: myBackgroundHandler,
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Column(
-                  children: [
-                    ClipRRect(
-                      child: Image.network(message['data']['imageUrl']),
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
+        String notiType = message['data']['notiType'];
+        int index = -1;
+        if (notiType == "booking_changed") {
+          String status = message['data']['bookingStatus'];
+          Map<String, dynamic> statuses = {
+            "Mới": 0,
+            "Xác nhận": 1,
+            "Đang trên đường": 2,
+            "Đang làm": 3,
+            "Hoàn thành": 4,
+          };
+          index = statuses[status];
+          if (index == 4) {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => BookingHistoryDetailScreen(),
+              ),
+            );
+          } else {
+            context.read<CartProvider>().setProgressIndex(index);
+          }
+        }
+        if (index != 4) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  // title: Column(
+                  //   children: [
+                  //     ClipRRect(
+                  //       child: Text(message['notification']['title']),
+                  //       borderRadius: BorderRadius.all(Radius.circular(4)),
+                  //     ),
+                  //   ],
+                  // ),
+                  content: Column(mainAxisSize: MainAxisSize.min, children: [
+                    Text(
+                      message['notification']['title'] + '\n',
+                      style: CustomTextStyle.statusText(Colors.black),
+                    ),
+                    Text(
+                      '${message['notification']['body']}',
+                      style: CustomTextStyle.subtitleText(Colors.black54),
+                    ),
+                  ]),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: Text('Ok'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ],
-                ),
-                content: Column(mainAxisSize: MainAxisSize.min, children: [
-                  Text(
-                    message['notification']['title'] + '\n',
-                    style: CustomTextStyle.statusText(Colors.black),
-                  ),
-                  Text(
-                    '${message['notification']['body']}',
-                    style: CustomTextStyle.subtitleText(Colors.black54),
-                  ),
-                ]),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text('Ok'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            });
+                );
+              });
+        }
       },
     );
     _firebaseMessaging.subscribeToTopic("Randomizer");

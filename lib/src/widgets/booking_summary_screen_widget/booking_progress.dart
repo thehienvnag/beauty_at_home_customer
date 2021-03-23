@@ -1,18 +1,63 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_app/src/providers/cart_provider.dart';
+import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
 import 'package:steps_indicator/steps_indicator.dart';
 
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 
+class BookingStatus {
+  int index;
+  String status;
+  String summary;
+  bool isEnabled;
+  BookingStatus({
+    this.index,
+    this.status,
+    this.summary,
+    this.isEnabled,
+  });
+}
+
+List<BookingStatus> listStatus = List.from([
+  BookingStatus(
+    index: 0,
+    status: "Chưa xác nhận",
+    summary: "Chờ thợ xác nhận đơn của bạn",
+    isEnabled: true,
+  ),
+  BookingStatus(
+    index: 1,
+    status: "Đã xác nhận",
+    summary: "Thợ đã chấp nhận đơn của bạn",
+    isEnabled: false,
+  ),
+  BookingStatus(
+    index: 2,
+    status: "Đang trên đường",
+    summary: "Chờ thợ xác nhận đơn của bạn",
+    isEnabled: false,
+  ),
+  BookingStatus(
+    index: 3,
+    status: "Đang làm",
+    summary: "Chờ thợ xác nhận đơn của bạn",
+    isEnabled: false,
+  ),
+]);
+
 class BookingProgress extends StatelessWidget {
-  final int currentStepIndex;
   const BookingProgress({
     Key key,
-    this.currentStepIndex,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    int currentStepIndex =
+        context.select<CartProvider, int>((value) => value.progressIndex);
     return OutlinedCardExpandable(
-      title: buildProgressTitle(),
+      title: buildProgressTitle(listStatus[currentStepIndex].status),
       children: [
         Container(
           padding: EdgeInsets.only(bottom: 10, left: 20),
@@ -20,11 +65,11 @@ class BookingProgress extends StatelessWidget {
             children: [
               StepsIndicator(
                 isHorizontal: false,
-                selectedStep: this.currentStepIndex,
+                selectedStep: currentStepIndex,
                 doneStepSize: 6,
                 unselectedStepSize: 6,
                 selectedStepSize: 10,
-                nbSteps: 3,
+                nbSteps: 4,
                 lineLength: 30,
                 doneStepColor: Color(0xff50B644),
                 doneLineColor: Color(0xff50B644),
@@ -36,74 +81,17 @@ class BookingProgress extends StatelessWidget {
               ),
               Container(
                 margin: EdgeInsets.only(left: 10),
+                height: 125,
                 child: Column(
+                  mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Text(
-                          'Confirmed',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        // Text(
-                        //   'Thợ đang đã xác nhận đơn của bạn',
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.normal,
-                        //     fontSize: 13,
-                        //   ),
-                        // )
-                      ],
-                    ),
-                    Container(height: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (currentStepIndex == 1)
-                          Text(
-                            'On the way',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        if (currentStepIndex != 1)
-                          Text(
-                            'On the way',
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                        if (currentStepIndex == 1)
-                          Text(
-                            'Thợ đang chuẩn bị và trên đường tới',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 13,
-                            ),
-                          ),
-                      ],
-                    ),
-                    Container(height: 12),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (currentStepIndex == 2)
-                          Text(
-                            'Working',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        if (currentStepIndex != 2)
-                          Text(
-                            'Working',
-                            style: TextStyle(color: Colors.black54),
-                          ),
-                        if (currentStepIndex == 2)
-                          Text(
-                            'Thợ đang chuẩn bị và trên đường tới',
-                            style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 13,
-                            ),
-                          )
-                      ],
-                    ),
-                  ],
+                  children: listStatus.map((e) {
+                    e.isEnabled = currentStepIndex == e.index;
+                    log(e.index.toString());
+                    log(currentStepIndex.toString());
+                    return _buildProgress(e);
+                  }).toList(),
                 ),
               ),
             ],
@@ -113,24 +101,49 @@ class BookingProgress extends StatelessWidget {
     );
   }
 
-  Widget buildProgressTitle() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildProgress(BookingStatus status) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (status.isEnabled)
+            Text(
+              status.status,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            )
+          else
+            Text(
+              status.status,
+              style: CustomTextStyle.subtitleText(Colors.grey),
+            ),
+          if (status.isEnabled)
+            Text(
+              status.summary,
+              style: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 13,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildProgressTitle(String title) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          'Thời gian bắt đầu dịch vụ',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          child: SizedBox(
+            height: 18,
+            width: 18,
+            child: CircularProgressIndicator(),
           ),
         ),
         Text(
-          '8:30 AM',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 13,
-            color: Colors.black,
-          ),
+          title.toUpperCase(),
+          style: CustomTextStyle.subtitleText(Colors.blueAccent),
         ),
       ],
     );

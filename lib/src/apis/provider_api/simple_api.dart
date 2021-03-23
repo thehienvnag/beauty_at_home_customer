@@ -20,7 +20,6 @@ class SimpleAPI {
         .replace(queryParameters: queryParameters);
     // String endpoint = url;
     http.Response response = await http.get(uri, headers: headers);
-    log(response.body);
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonRaw = json.decode(response.body);
 
@@ -56,11 +55,14 @@ class SimpleAPI {
     final uri = Uri.parse(baseUrl + "/$entityEndpoint");
     http.Response response = await http.post(
       uri,
-      headers: headers,
-      body: body,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body),
     );
+    log(jsonEncode(body));
+    log(response.body);
     if (response.statusCode == 201) {
-      log(response.body);
       return fromJson(jsonDecode(response.body));
     }
     return null;

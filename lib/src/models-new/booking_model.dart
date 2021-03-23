@@ -20,12 +20,16 @@ class BookingModel {
   double totalFee;
   double transportFee;
   DateTime updatedDate;
+  int customerAccountId;
+  int beautyArtistAccountId;
 
   List<BookingDetailModel> bookingDetails;
 
   BookingModel({
-    this.id,
     this.status,
+    this.id,
+    this.beautyArtistAccountId,
+    this.customerAccountId,
     this.createDate,
     this.customerAccount,
     this.beautyArtistAccount,
@@ -35,6 +39,7 @@ class BookingModel {
     this.totalFee,
     this.transportFee,
     this.updatedDate,
+    this.bookingDetails,
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) =>

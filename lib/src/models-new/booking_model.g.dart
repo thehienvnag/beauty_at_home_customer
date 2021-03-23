@@ -8,8 +8,10 @@ part of 'booking_model.dart';
 
 BookingModel _$BookingModelFromJson(Map<String, dynamic> json) {
   return BookingModel(
-    id: json['id'] as int,
     status: json['status'] as String,
+    id: json['id'] as int,
+    beautyArtistAccountId: json['beautyArtistAccountId'] as int,
+    customerAccountId: json['customerAccountId'] as int,
     createDate: json['createDate'] == null
         ? null
         : DateTime.parse(json['createDate'] as String),
@@ -29,11 +31,12 @@ BookingModel _$BookingModelFromJson(Map<String, dynamic> json) {
     updatedDate: json['updatedDate'] == null
         ? null
         : DateTime.parse(json['updatedDate'] as String),
-  )..bookingDetails = (json['bookingDetails'] as List)
-      ?.map((e) => e == null
-          ? null
-          : BookingDetailModel.fromJson(e as Map<String, dynamic>))
-      ?.toList();
+    bookingDetails: (json['bookingDetails'] as List)
+        ?.map((e) => e == null
+            ? null
+            : BookingDetailModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+  );
 }
 
 Map<String, dynamic> _$BookingModelToJson(BookingModel instance) =>
@@ -49,5 +52,7 @@ Map<String, dynamic> _$BookingModelToJson(BookingModel instance) =>
       'totalFee': instance.totalFee,
       'transportFee': instance.transportFee,
       'updatedDate': instance.updatedDate?.toIso8601String(),
+      'customerAccountId': instance.customerAccountId,
+      'beautyArtistAccountId': instance.beautyArtistAccountId,
       'bookingDetails': instance.bookingDetails,
     };

@@ -11,7 +11,7 @@ part 'booking_detail_model.g.dart';
 class BookingDetailModel {
   int id;
   int quantity;
-  int bookingId;
+  // int bookingId;
   int serviceId;
   double servicePrice;
   String serviceName;
@@ -21,7 +21,7 @@ class BookingDetailModel {
     this.id,
     this.booking,
     this.quantity,
-    this.bookingId,
+    // this.bookingId,
     this.serviceId,
     this.servicePrice,
     this.serviceName,

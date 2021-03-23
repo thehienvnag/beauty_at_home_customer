@@ -1,30 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/models-new/cart_model.dart';
-import 'package:flutter_app/src/models/cart_item.dart';
+import 'package:flutter_app/src/models-new/booking_detail_model.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
-import 'package:flutter_app/src/utils/firebase_helper.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/shared_widget.dart';
 import 'package:flutter_app/src/widgets/wait_confirm_screen_widget.dart';
 import 'package:provider/provider.dart';
-
-import '../BookingSummary/booking_summary.dart';
-
-List<CartItem> listItem = List.from(
-  <CartItem>[
-    CartItem(
-      content: '90 phút massage body toàn thân',
-      quantity: 2,
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-    ),
-  ],
-);
 
 class WaitConfirmScreen extends StatelessWidget {
   @override
@@ -57,12 +37,31 @@ class WaitConfirmScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 12, right: 12, top: 10),
                 width: 360,
                 sections: [
-                  OrderSummary(
-                    title: 'Makeup Hoàng Gia',
-                    priceAfter: '458.000đ',
-                    priceBefore: '650.000đ',
+                  Consumer<CartProvider>(
+                    builder: (context, value, child) {
+                      return OrderSummary(
+                        title: value.cart.providerName,
+                        priceBefore: Utils.formatPrice(
+                          Utils.calculatePrice(value.cart.services),
+                        ),
+                      );
+                    },
                   ),
-                  // ItemsList(itemList: listItem),
+                  Consumer<CartProvider>(
+                    builder: (context, value, child) {
+                      List<BookingDetailModel> bookingDetails = [];
+                      value.cart.services.forEach(
+                        (key, value) => bookingDetails.add(
+                          BookingDetailModel(
+                            serviceName: key.serviceName,
+                            quantity: value,
+                            servicePrice: key.price,
+                          ),
+                        ),
+                      );
+                      return ItemsList(itemList: bookingDetails);
+                    },
+                  ),
                 ],
               ),
             ],

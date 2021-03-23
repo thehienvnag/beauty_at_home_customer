@@ -16,6 +16,7 @@ class LocationSummary<T> extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(left: 10),
+          width: 280,
           child: Text(this.address),
         )
       ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
@@ -50,6 +51,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           onPressed: () {
             var cartProvider = context.read<CartProvider>();
             cartProvider.setEnableProgressing();
+
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => WaitConfirmScreen(),
             ));
@@ -111,18 +113,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              '5/12 Đường Số 9',
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
+                            Consumer<AccountProvider>(
+                              builder: (context, value, child) {
+                                String address = value.currentAddress == null
+                                    ? "Chưa xác định địa chỉ"
+                                    : value.currentAddress;
+                                return Text(
+                                  Utils.shortenString(address, 24),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                );
+                              },
                             ),
-                            Text(
-                              '5/12, Đường Số 9, Long Thạnh Mỹ, Quận 9, Hồ Chí Minh',
-                              style: TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
+                            Consumer<AccountProvider>(
+                                builder: (context, value, child) {
+                              String address = value.currentAddress == null
+                                  ? "Chưa xác định địa chỉ"
+                                  : value.currentAddress;
+                              return Text(
+                                address,
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              );
+                            })
                           ],
                         ),
                       ),
@@ -233,17 +248,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('Tổng tạm tính'),
-                    Text(Utils.formatPrice(Utils.calculatePrice(cart.services))),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Phí áp dụng '),
-                    Text(' 10.000'),
+                    Text(
+                        Utils.formatPrice(Utils.calculatePrice(cart.services))),
                   ],
                 ),
               ),
@@ -303,7 +309,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      '1.210.000 đ',
+                      Utils.formatPrice(Utils.calculatePrice(cart.services)),
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
@@ -433,7 +439,7 @@ class CheckoutService extends StatelessWidget {
 
   String _calculatePrice(String price, String quantity) {
     // if (price == null) return "100.000đ";
-    return Utils.formatPrice((double.parse(price) * double.parse(quantity)).toString());
+    return Utils.formatPrice(
+        (double.parse(price) * double.parse(quantity)).toString());
   }
-
 }

@@ -36,6 +36,9 @@ class _HomeAppBarTitleState extends State<HomeAppBarTitle> {
       var addresses =
           await Geocoder.local.findAddressesFromCoordinates(coordinates);
       var first = addresses.first;
+      context
+          .read<AccountProvider>()
+          .setCurrentAddress(first.addressLine, coordinates);
       setState(() {
         print(first.addressLine);
         _currentAddress = first.addressLine;

@@ -26,22 +26,25 @@ class ItemsList extends StatelessWidget {
           separatorBuilder: (context, index) => Container(
             margin: EdgeInsets.only(bottom: 10),
           ),
-          itemCount: 1,
+          itemCount: itemList.length,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                '+ ${itemList.length - 1} more...',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-          ],
-        )
+        SizedBox(
+          height: 15,
+        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     Container(
+        //       margin: EdgeInsets.symmetric(vertical: 8),
+        //       child: Text(
+        //         '+ ${itemList.length - 1} more...',
+        //         style: TextStyle(
+        //           fontWeight: FontWeight.normal,
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // )
       ],
     );
   }

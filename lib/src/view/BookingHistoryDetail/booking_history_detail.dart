@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models/cart_item.dart';
 import 'package:flutter_app/src/providers/booking_provider.dart';
+import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/HomeScreen/home_screen.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/beautician_history_description.dart';
 import 'package:flutter_app/src/widgets/booking_history_detail_screen_widget/booking_description.dart';
@@ -23,7 +24,7 @@ class _BookingHistoryDetailScreenState
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<BookingProvider>().initBookingById('21');
+    context.read<BookingProvider>().initBookingById('37');
     // Future(() async {
     //   await Future.delayed(Duration(seconds: 15));
     //   Navigator.of(context).push(MaterialPageRoute(
@@ -77,11 +78,15 @@ class _BookingHistoryDetailScreenState
           ),
           Consumer<BookingProvider>(
             builder: (context, value, child) {
-              double totalPriceAft = (value.bookingModel?.totalFee +
-                  value.bookingModel?.transportFee);
+              // double totalPriceAft = (value.bookingModel?.totalFee +
+              //     value.bookingModel?.transportFee);
               return BookingTotal(
-                totalPriceBefore: value.bookingModel?.totalFee.toString(),
-                totalPriceAfter: totalPriceAft.toString(),
+                totalPriceBefore: Utils.formatPrice(
+                  value.bookingModel.totalFee.toString(),
+                ),
+                totalPriceAfter: Utils.formatPrice(
+                  value.bookingModel.totalFee.toString(),
+                ),
                 applicableFee: value.bookingModel?.transportFee.toString(),
                 paymentMethod: 'momo',
               );
@@ -92,23 +97,3 @@ class _BookingHistoryDetailScreenState
     );
   }
 }
-
-List<CartItem> listItem = List.from(
-  <CartItem>[
-    CartItem(
-      content: '90 phút massage body toàn thân',
-      quantity: 2,
-      price: '400.000',
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-      price: '400.000',
-    ),
-    CartItem(
-      content: 'Sơn móng Hoa Hướng Dương',
-      quantity: 1,
-      price: '400.000',
-    ),
-  ],
-);

@@ -34,4 +34,13 @@ class BookingProvider extends ChangeNotifier {
     log(_listBookingModel[0].endAddress);
     notifyListeners();
   }
+
+  Future<int> createBooking(Map<String, dynamic> json) async {
+    BookingModel _model = await SimpleAPI.post<BookingModel>(
+      EntityEndpoint.BOOKING,
+      body: json,
+      fromJson: (json) => BookingModel.fromJson(json),
+    );
+    return _model?.id;
+  }
 }

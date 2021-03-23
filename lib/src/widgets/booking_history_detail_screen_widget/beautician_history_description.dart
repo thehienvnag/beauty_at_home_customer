@@ -21,17 +21,23 @@ class BeauticianHistoryDescription extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage('public/img/beautician_test.png'),
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(50)),
-                    color: Colors.redAccent,
-                  ),
+                Consumer<BookingProvider>(
+                  builder: (context, value, child) {
+                    String imageUrl = value.bookingModel?.beautyArtistAccount
+                        ?.gallery?.images?.first?.imageUrl;
+                    return Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(imageUrl),
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(50)),
+                        color: Colors.redAccent,
+                      ),
+                    );
+                  },
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 7),
@@ -40,8 +46,7 @@ class BeauticianHistoryDescription extends StatelessWidget {
                     children: [
                       Consumer<BookingProvider>(
                         builder: (context, value, child) => Text(
-                          //value.bookingModel?.beautyArtistAccount.displayName,
-                          "Marry Tran",
+                          value.bookingModel?.beautyArtistAccount.displayName,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -67,22 +72,6 @@ class BeauticianHistoryDescription extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-            TextButton(
-              child: Text(
-                'Đánh giá',
-                style: TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14,
-                ),
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => RatingScreen(),
-                  ),
-                );
-              },
             ),
           ],
         ),

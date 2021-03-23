@@ -8,6 +8,7 @@ import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
@@ -137,7 +138,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
     );
   }
 
-  Widget buildFloatingButton(Map<ServiceModel, int> cart) {
+  Widget buildFloatingButton(
+    Map<ServiceModel, int> cart,
+  ) {
     if (cart != null) {
       if (cart.isNotEmpty) {
         final screenSize = MediaQuery.of(context).size;
@@ -152,9 +155,21 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
             ),
             onPressed: () {
               var cartProvider = context.read<CartProvider>();
-              cartProvider.setCurrentCart(
-                CartModel(services: cart),
+              var accountProvider = context.read<AccountProvider>();
+              var providerProvider = context.read<ProviderDetailProvider>();
+
+              CartModel cartModel = CartModel(
+                providerName: providerProvider.provider.displayName,
+                providerImage:
+                    providerProvider.provider.gallery.images.first.imageUrl,
+                customerAccountId:
+                    accountProvider.accountSignedIn?.uid.toString(),
+                beautyArtistAccountId: providerProvider.provider.id.toString(),
+                services: cart,
               );
+
+              cartProvider.setCurrentCart(cartModel);
+
               Navigator.of(context).pushNamed(Routes.checkout);
             },
             backgroundColor: Color(0xff28BEBA),

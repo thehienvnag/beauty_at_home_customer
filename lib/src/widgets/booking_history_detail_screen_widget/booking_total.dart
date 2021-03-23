@@ -41,13 +41,13 @@ class BookingTotal extends StatelessWidget {
                     Text(this.totalPriceBefore),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Phí áp dụng'),
-                    Text(this.applicableFee),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text('Phí áp dụng'),
+                //     Text(this.applicableFee),
+                //   ],
+                // ),
               ],
             ),
           ),

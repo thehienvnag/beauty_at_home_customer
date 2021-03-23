@@ -13,7 +13,6 @@ BookingDetailModel _$BookingDetailModelFromJson(Map<String, dynamic> json) {
         ? null
         : BookingModel.fromJson(json['booking'] as Map<String, dynamic>),
     quantity: json['quantity'] as int,
-    bookingId: json['bookingId'] as int,
     serviceId: json['serviceId'] as int,
     servicePrice: (json['servicePrice'] as num)?.toDouble(),
     serviceName: json['serviceName'] as String,
@@ -24,7 +23,6 @@ Map<String, dynamic> _$BookingDetailModelToJson(BookingDetailModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'quantity': instance.quantity,
-      'bookingId': instance.bookingId,
       'serviceId': instance.serviceId,
       'servicePrice': instance.servicePrice,
       'serviceName': instance.serviceName,
