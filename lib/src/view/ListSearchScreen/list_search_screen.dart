@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/widgets/search_service_screen_widget/list_search_service.dart';
 import 'package:flutter_app/src/widgets/shared_widget/search_text_field.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
+import 'package:provider/provider.dart';
 
 class ListSearchScreen extends StatefulWidget {
   @override
@@ -10,6 +12,12 @@ class ListSearchScreen extends StatefulWidget {
 }
 
 class ListSearchScreenState extends State<ListSearchScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProviderDetailProvider>().initProviderListHome();
+  }
+
   @override
   Widget build(BuildContext context) {
     final String keySearch = ModalRoute.of(context).settings.arguments;
