@@ -219,7 +219,7 @@ class RecomendService extends StatelessWidget {
                             child: Container(
                               padding: EdgeInsets.symmetric(horizontal: 3),
                               child: Text(
-                                "Thợ mới",
+                                "Dịch vụ mới",
                                 style: CustomTextStyle.subtitleText(
                                   Colors.white,
                                 ),

@@ -22,7 +22,10 @@ class SlideService extends StatelessWidget {
                 ),
               ),
             ),
-            ViewsServices(),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: ViewsServices(),
+            ),
           ],
         ),
       ),

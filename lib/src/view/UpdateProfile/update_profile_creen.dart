@@ -83,8 +83,6 @@ class ProfileEditScreenState extends State<ProfileAddScreen> {
               buildTextField("Name", " ", false),
               buildTextField("Địa chỉ Email", " ", false),
               buildTextField("Số điện thoại", "0918076861", false),
-              buildTextField("Mật khẩu", "********", true),
-              buildTextField("Địa chỉ (Không bắt buộc)", " ", false),
               SizedBox(
                 height: 35,
               ),

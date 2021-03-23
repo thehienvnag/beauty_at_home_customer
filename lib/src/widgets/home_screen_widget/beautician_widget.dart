@@ -21,7 +21,7 @@ class BeauticianWidget extends StatelessWidget {
           child: Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'THỢ TỐT GẦN BẠN',
+              'GỢI Ý THỢ TỐT CHO BẠN',
               style: CustomTextStyle.headline600Text(Colors.black),
             ),
           ),
@@ -79,19 +79,19 @@ class Beautician extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.only(left: 5),
+        padding: EdgeInsets.only(left: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 90,
+              height: 70,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(
                   Radius.circular(6),
                 ),
                 child: Image.network(
                   model.gallery.images.first.imageUrl,
-                  width: 75,
+                  width: 70,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -155,28 +155,28 @@ class Beautician extends StatelessWidget {
                         : model.description,
                     style: CustomTextStyle.subtitleText(Colors.black87),
                   ),
-                  Row(
-                    children: [
-                      Container(
-                        width: size.width * 0.7,
-                        child: RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                              text: "5km",
-                              style: CustomTextStyle.subtitleText(Colors.black),
-                            ),
-                            TextSpan(
-                              text: ' | ' +
-                                  (model.addresses.isEmpty
-                                      ? "Chưa xác định địa chỉ"
-                                      : model.addresses.first.location),
-                              style: CustomTextStyle.subtitleText(Colors.grey),
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Container(
+                  //       width: size.width * 0.7,
+                  //       child: RichText(
+                  //         text: TextSpan(children: [
+                  //           // TextSpan(
+                  //           //   text: "5km",
+                  //           //   style: CustomTextStyle.subtitleText(Colors.black),
+                  //           // ),
+                  //           TextSpan(
+                  //             text: ' | ' +
+                  //                 (model.addresses.isEmpty
+                  //                     ? "Chưa xác định địa chỉ"
+                  //                     : model.addresses.first.location),
+                  //             style: CustomTextStyle.subtitleText(Colors.grey),
+                  //           ),
+                  //         ]),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     children: [
                       // Text(

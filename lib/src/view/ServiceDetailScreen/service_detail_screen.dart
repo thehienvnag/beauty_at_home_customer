@@ -306,14 +306,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                   children: <Widget>[
                                     // _buildCategory(0),
                                     _buildCategory(),
-                                    Padding(
-                                      padding: EdgeInsets.only(right: 10.0),
-                                      child: Text(
-                                        'Xem tất cả >',
-                                        style:
-                                            TextStyle(color: Color(0xff28BEBA)),
-                                      ),
-                                    )
+                                    // Padding(
+                                    //   padding: EdgeInsets.only(right: 10.0),
+                                    //   child: Text(
+                                    //     'Xem tất cả >',
+                                    //     style:
+                                    //         TextStyle(color: Color(0xff28BEBA)),
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               ),
