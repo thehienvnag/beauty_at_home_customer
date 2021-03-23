@@ -38,6 +38,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     var provider = context.read<ProviderDetailProvider>();
     // provider.initServiceById("39");
 
+    if (provider.currentService != null) {
+      context.read<FeedbackProvider>().initListFeedbackByServiceId(provider.currentService.id.toString());
+    }
     if (provider.currentService == null ||
         (widget.id != null &&
             provider.currentService?.id?.toString() != widget.id)) {

@@ -118,7 +118,7 @@ class Beautician extends StatelessWidget {
                                 Row(
                                   children: [
                                     Text(
-                                      model.rateScore.toString(),
+                                      model.rateScore.toStringAsFixed(1),
                                       style: CustomTextStyle.subtitleText(
                                           Colors.black87),
                                     ),

@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter_app/src/models-new/account_model.dart';
+import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
 
 class SimpleAPI {
@@ -107,5 +108,34 @@ class SimpleAPI {
     if (response.statusCode == 204) {
       return true;
     }
+  }
+
+  static Future<FeedbackModel> postFeedback<FeedbackModel>(
+      String entityEndpoint, {
+        dynamic body,
+        Map<String, String> headers,
+        String rateScore,
+        String bookingDetailId,
+        String feedbackContent,
+        String path,
+      }) async {
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint");
+    var request = new http.MultipartRequest("POST", uri)..
+    fields['rateScore'] = rateScore..
+    fields['bookingDetailId'] = bookingDetailId..
+    fields['feedbackContent'] = feedbackContent..
+    files.add(await http.MultipartFile.fromPath("file", path, contentType: MediaType('application', 'x-tar')));
+
+    request.send().then((value) => {
+      if (value.statusCode == 201)
+        {
+          print('Insert success'),
+        }
+      else
+        {
+          print('Insert failed: ' + value.statusCode.toString()),
+        }
+    });
+    return null;
   }
 }

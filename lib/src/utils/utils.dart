@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:geolocator/geolocator.dart';
 import "package:intl/intl.dart";
+import 'package:image_picker/image_picker.dart';
 
 class Utils {
   static String formatDate(DateTime date) {
@@ -137,5 +139,10 @@ class Utils {
     });
     // return formatPrice(total.toString());
     return total.toString();
+  }
+
+  static Future<File> pickImage() async {
+    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    return File(pickedFile.path);
   }
 }
