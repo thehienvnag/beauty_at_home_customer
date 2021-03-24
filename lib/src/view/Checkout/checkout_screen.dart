@@ -25,6 +25,7 @@ final currentPayment = List.from([
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int currentPaymentIndex;
+  String note = null;
 
   @override
   void initState() {
@@ -145,54 +146,26 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                margin: const EdgeInsets.only(left: 40, bottom: 10, top: 10),
-                width: screenSize.width * 0.75,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 0.5),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Chưa thêm ghi chú địa chỉ',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Text(
-                          'Chưa thêm ghi chú cho thợ',
-                          style: TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
+              Center(
+                child: Container(
+                  margin: EdgeInsets.only(top: 5),
+                  color: Colors.white,
+                  width: MediaQuery.of(context).size.width*0.8,
+                  height: MediaQuery.of(context).size.height * 0.1,
+                  child: TextField(
+                    textInputAction: TextInputAction.done,
+                    maxLines: 2,
+                    decoration: InputDecoration(
+                      //contentPadding: EdgeInsets.only(top: 3, left: 15),
+                      labelText: 'Chưa thêm ghi chú cho thợ *',
+                      border: OutlineInputBorder(),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 15),
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  LocationChangeDescriptionScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Sửa',
-                          style: TextStyle(
-                            color: Color(0xff0DB5B4),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    onChanged: (value){
+                      setState(() {
+                         note = value;
+                      });
+                    },
+                  ),
                 ),
               ),
               Divider(

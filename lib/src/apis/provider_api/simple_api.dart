@@ -138,4 +138,59 @@ class SimpleAPI {
     });
     return null;
   }
+
+  static Future<AccountModel2> putAccountModel <AccountModel2>(
+      String entityEndpoint, {
+        dynamic body,
+        Map<String, String> headers,
+        String id,
+        String displayName,
+        String phone,
+        String status,
+        String path,
+      }) async {
+    final uri = Uri.parse(baseUrl + "/$entityEndpoint/$id");
+
+    print('id nè : ' + id);
+    print('name nè : ' + displayName);
+    print('phone nè : ' + phone);
+    print('stats nè : ' + status);
+    if(path != null){
+      var request = new http.MultipartRequest("PUT", uri)..
+      fields['id'] = id..
+      fields['displayName'] = displayName..
+      fields['phone'] = phone..
+      fields['status'] = status..
+      files.add(await http.MultipartFile.fromPath("file", path, contentType: MediaType('application', 'x-tar')));
+      request.send().then((value) => {
+        if (value.statusCode == 204)
+          {
+            print('Update success'),
+          }
+        else
+          {
+            print('Update failed 1: ' + value.statusCode.toString()),
+          }
+      });
+    } else {
+      var request = new http.MultipartRequest("PUT", uri)..
+      fields['id'] = id..
+      fields['displayName'] = displayName..
+      fields['phone'] = phone..
+      fields['status'] = status;
+      request.send().then((value) => {
+        if (value.statusCode == 204)
+          {
+            print('Update success'),
+          }
+        else
+          {
+            print('Update failed 2: ' + value.statusCode.toString()),
+          }
+      });
+    }
+
+
+    return null;
+  }
 }
