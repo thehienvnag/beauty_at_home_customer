@@ -25,18 +25,18 @@ class SearchTextField extends StatelessWidget {
       child: TextFormField(
         readOnly: isReadonly,
         onFieldSubmitted: (value) {
-          if (value.length > 3) {
+          // if (value.length > 3) {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => ListSearchScreen(),
+                builder: (context) => ListSearchScreen(searchQuery: value,),
                 settings: RouteSettings(arguments: value),
               ),
             );
-          } else {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ListSearchScreenNotFound(),
-                settings: RouteSettings(arguments: value)));
-          }
+          // } else {
+          //   Navigator.of(context).push(MaterialPageRoute(
+          //       builder: (context) => ListSearchScreenNotFound(),
+          //       settings: RouteSettings(arguments: value)));
+          // }
         },
         onTap: () {
           if (isReadonly) {
