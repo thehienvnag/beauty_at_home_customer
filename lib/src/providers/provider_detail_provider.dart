@@ -86,7 +86,21 @@ class ProviderDetailProvider extends ChangeNotifier {
         "withRateScore": "true",
       },
     );
-    log(_listProviderHome[0].id.toString());
     notifyListeners();
+  }
+
+  Future<List<ServiceModel>> initProviderListSearch(String searchQuery) async {
+    final fromJson = (source) => ProviderModel.fromJson(source);
+    _services = await SimpleAPI.getAll<ServiceModel>(
+      "services",
+      fromJson: fromJson,
+      queryParameters: {
+        "isBeautyArtist": "true",
+        "withRateScore": "true",
+        "searchQuery" : searchQuery,
+      },
+    );
+    notifyListeners();
+    return services;
   }
 }

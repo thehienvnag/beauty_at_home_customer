@@ -45,14 +45,14 @@ class ProviderDescription extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(
-                  "provider.description",
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                // Text(
+                //   "provider.description",
+                //   style: TextStyle(
+                //     fontFamily: 'Montserrat',
+                //     fontSize: 14.0,
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                // ),
                 Text(
                   provider.addresses.isNotEmpty
                       ? provider.addresses[0].location

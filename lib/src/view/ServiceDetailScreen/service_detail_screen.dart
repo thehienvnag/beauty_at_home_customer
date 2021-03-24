@@ -324,7 +324,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                               Consumer<FeedbackProvider>(
                                 builder: (context, value, child) {
                                   if (value.listFeedback == null) {
-                                    return Container();
+                                    return CircularProgressIndicator();
                                   }
                                   return _buildFeedback(value.listFeedback);
                                 },
@@ -470,7 +470,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(60),
                   child: Image(
-                    image: NetworkImage(customerImage),
+                    image: AssetImage('public/img/avatar.jpg'),
                     width: 40.0,
                     height: 40.0,
                   ),
@@ -488,6 +488,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                     child: Column(
                       children: <Widget>[
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Padding(
                               padding: EdgeInsets.all(8.0),
@@ -496,7 +497,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                     ?.customerAccount?.displayName,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15.0),
+                                    fontSize: 13.0),
                               ),
                             ),
                             Icon(
@@ -513,7 +514,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                         ),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: Text(proFeedback.feedbackContent)),
+                            child: Text(proFeedback.feedbackContent, style: TextStyle(fontFamily: 'Montserrat', fontSize: 12.0),)),
                       ],
                     ),
                   ),
@@ -537,7 +538,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 70, bottom: 20.0),
                     child: Text(
-                      'Đã đăng vào ngày ${proFeedback.createDate.toString()}',
+                      'Đã đăng vào ngày ' + new DateFormat('dd-MM-yyyy').format(proFeedback.createDate),
                       style: TextStyle(fontSize: 12, color: Colors.grey),
                     ),
                   ),
@@ -610,13 +611,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           SizedBox(
             width: 5.0,
           ),
-          Text(
-            '5/5',
-          ),
+          Consumer<FeedbackProvider>(builder: (context, value, child) => Text(
+            '${Utils.calculateRate(value.listFeedback)}/5',
+          ),),
           SizedBox(
             width: 5.0,
           ),
-          Text('(50 đánh giá)'),
+          Consumer<FeedbackProvider>(builder: (context, value, child) => Text('(${value.listFeedback.length} đánh giá)'),),
+
         ],
       ),
       decoration: BoxDecoration(

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:geolocator/geolocator.dart';
 import "package:intl/intl.dart";
@@ -144,5 +145,16 @@ class Utils {
   static Future<File> pickImage() async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
     return File(pickedFile.path);
+  }
+
+  static double calculateRate(List<FeedbackModel> lstFeedback) {
+    if (lstFeedback.isNotEmpty) {
+      double total = 0;
+      for (int i = 0; i < lstFeedback.length; i++) {
+        total += lstFeedback[i].rateScore;
+      }
+      return total / lstFeedback.length;
+    }
+    return 0;
   }
 }
