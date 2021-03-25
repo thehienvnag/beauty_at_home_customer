@@ -39,7 +39,7 @@ class BeauticianDescription extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        this.mainService,
+                        "",
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           color: Colors.grey,

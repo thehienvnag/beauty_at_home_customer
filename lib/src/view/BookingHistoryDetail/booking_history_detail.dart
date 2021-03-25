@@ -15,8 +15,10 @@ import 'package:provider/provider.dart';
 
 class BookingHistoryDetailScreen extends StatefulWidget {
   final String id;
+  final bool hardCode;
 
-  const BookingHistoryDetailScreen({Key key, this.id}) : super(key: key);
+  const BookingHistoryDetailScreen({Key key, this.id, this.hardCode = false})
+      : super(key: key);
   @override
   _BookingHistoryDetailScreenState createState() =>
       _BookingHistoryDetailScreenState();
@@ -74,8 +76,10 @@ class _BookingHistoryDetailScreenState
                         child: InputChip(
                           backgroundColor: Colors.blueAccent,
                           label: Consumer<BookingProvider>(
-                            builder: (context, value, child) =>
-                                Text(value.bookingModel?.status.toUpperCase()),
+                            builder: (context, value, child) => Text(widget
+                                    .hardCode
+                                ? "HOÀN THÀNH"
+                                : value?.bookingModel?.status?.toUpperCase()),
                           ),
                         ),
                       ),

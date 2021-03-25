@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

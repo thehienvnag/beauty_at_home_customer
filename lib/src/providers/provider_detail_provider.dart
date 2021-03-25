@@ -1,8 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
-import 'package:flutter_app/src/models-new/feedback_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
@@ -89,18 +89,42 @@ class ProviderDetailProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<ServiceModel>> initProviderListSearch(String searchQuery) async {
-    final fromJson = (source) => ProviderModel.fromJson(source);
+  List<ProviderModel> _listProvidersSearch;
+  List<ProviderModel> get listProvidersSearch => _listProvidersSearch;
+
+  void initProviderListSearch(String searchQuery) async {
+    final fromJson = (source) => ServiceModel.fromJson(source);
     _services = await SimpleAPI.getAll<ServiceModel>(
       "services",
       fromJson: fromJson,
       queryParameters: {
         "isBeautyArtist": "true",
         "withRateScore": "true",
-        "searchQuery" : searchQuery,
+        "searchQuery": searchQuery,
       },
     );
+    log(_services.length.toString());
+
+    List<ProviderModel> providersXXX = [];
+    List<ServiceModel> servicesXXX = [];
+    _services.forEach((element) {
+      servicesXXX.add(element);
+      providersXXX.add(element.account);
+    });
+
+    providersXXX.forEach((provi) {
+      servicesXXX.forEach((srv) {
+        if (provi.services == null) {
+          provi.services = [];
+        }
+        if (srv.account.id == provi.id) {
+          provi.services.add(srv);
+        }
+      });
+    });
+    providersXXX = providersXXX.toSet().toList();
+    _listProvidersSearch = providersXXX;
+
     notifyListeners();
-    return services;
   }
 }

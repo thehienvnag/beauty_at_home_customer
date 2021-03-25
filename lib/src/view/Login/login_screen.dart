@@ -68,6 +68,13 @@ class LoginScreen extends StatelessWidget {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => HomeScreen(),
           ));
+        } else {
+          Navigator.of(context).pop();
+          WidgetUtils.showSnackBar(
+            context,
+            content: Text("Tài khoản đã không hợp lệ, vui lòng thử lại!"),
+            actionLabel: "Thử lại",
+          );
         }
       },
       child: GestureDetector(

@@ -16,7 +16,7 @@ class LocationSummary<T> extends StatelessWidget {
           color: Color(0xff0A8988),
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.75,
+          width: MediaQuery.of(context).size.width * 0.72,
           margin: EdgeInsets.only(left: 10),
           // width: 280,
           child: Text(this.address),

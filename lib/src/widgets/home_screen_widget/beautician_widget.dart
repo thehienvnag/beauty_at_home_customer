@@ -69,6 +69,7 @@ class Beautician extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    String imageUrl = model.gallery?.images?.first?.imageUrl;
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -85,16 +86,20 @@ class Beautician extends StatelessWidget {
           children: [
             Container(
               height: 70,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(6),
-                ),
-                child: Image.network(
-                  model.gallery.images.first.imageUrl,
-                  width: 70,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              child: imageUrl == null
+                  ? Align(
+                      alignment: Alignment.center,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(6),
+                      ),
+                      child: Image.network(
+                        imageUrl,
+                        width: 70,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 10),

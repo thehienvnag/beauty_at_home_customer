@@ -8,6 +8,7 @@ import 'package:flutter_app/src/models-new/gallery_model.dart';
 import 'package:flutter_app/src/models-new/image_model.dart';
 import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/services/google_service.dart';
+import 'package:flutter_app/src/services/secured_storage.dart';
 import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 import 'package:geocoder/geocoder.dart';
@@ -36,8 +37,6 @@ class AccountProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<ProviderModel> getProviders() {}
-
   Future<void> login() async {
     User user = await GoogleService.instance().loginWithGoogle();
     String idToken = await user.getIdToken();
@@ -45,14 +44,23 @@ class AccountProvider extends ChangeNotifier {
       "idToken": idToken,
       "displayName": user.displayName,
       "avatar": user.photoURL,
+      "loginType": "CUSTOMER",
     });
     _accountSignedIn.firebaseRefreshToken = user.refreshToken;
     _accountSignedIn.idToken = idToken;
-    _accountSignedIn.gallery = GalleryModel(images: [
-      ImageModel(imageUrl: user.photoURL),
-    ]);
     if (_accountSignedIn != null) {
       _isSignIn = true;
+      AppStorageService.writeDataMap({
+        StorageConst.idToken: idToken,
+        StorageConst.accessToken: _accountSignedIn.accessToken,
+        StorageConst.firebaseRefreshToken: user.refreshToken,
+      });
+      log("Id Token: " +
+          await AppStorageService.readData(StorageConst.idToken));
+      log("Access Token: " +
+          await AppStorageService.readData(StorageConst.accessToken));
+      log("Firebase Access Token: " +
+          await AppStorageService.readData(StorageConst.firebaseRefreshToken));
     }
     log(_accountSignedIn.uid.toString());
     notifyListeners();

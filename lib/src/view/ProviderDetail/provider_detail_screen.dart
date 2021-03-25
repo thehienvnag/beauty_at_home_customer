@@ -1,24 +1,15 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/src/apis/provider_api/provider_api.dart';
-import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
 import 'package:flutter_app/src/models-new/cart_model.dart';
-import 'package:flutter_app/src/models-new/provider_detail_model.dart';
 import 'package:flutter_app/src/models-new/service_model.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
-import 'package:flutter_app/src/utils/api_constants.dart';
 import 'package:flutter_app/src/utils/routes_name.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/widgets/provider_detail_screen_widget.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 List<String> _categories = [
   'Hình ảnh',
@@ -128,9 +119,9 @@ class _ProviderDetailScreenState extends State<ProviderDetailScreen> {
                     FloatingActionButtonLocation.centerDocked,
                 // floatingActionButton: buildFloatingButton(newCart),
                 floatingActionButton: Consumer<CartProvider>(
-                  builder: (context, value, child) =>
-                      value.cart != null ? buildFloatingButton(value.cart.services)
-                          : Container(),
+                  builder: (context, value, child) => value.cart != null
+                      ? buildFloatingButton(value.cart.services)
+                      : Container(),
                 ),
               ),
       ),

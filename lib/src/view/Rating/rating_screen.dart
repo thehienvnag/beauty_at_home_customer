@@ -3,13 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/apis/provider_api/simple_api.dart';
 import 'package:flutter_app/src/models-new/booking_detail_model.dart';
-import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/utils/utils.dart';
 import 'package:flutter_app/src/view/HomeScreen/home_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/outlined_card.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
-import 'package:provider/provider.dart';
 
 class RatingScreen extends StatefulWidget {
   final BookingDetailModel model;
@@ -17,17 +15,17 @@ class RatingScreen extends StatefulWidget {
   const RatingScreen({Key key, this.model}) : super(key: key);
 
   @override
-  _Rating_Screen createState() => _Rating_Screen();
+  _RatingScreen createState() => _RatingScreen();
 }
 
-class _Rating_Screen extends State<RatingScreen> {
+class _RatingScreen extends State<RatingScreen> {
   double rating = 0.0;
   File _file;
   String feedbackContent;
 
   void pickImage() async {
     PickedFile pickedFile =
-    await ImagePicker().getImage(source: ImageSource.gallery);
+        await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
       _file = File(pickedFile.path);
       //url = _file.path;
@@ -58,35 +56,29 @@ class _Rating_Screen extends State<RatingScreen> {
                     height: 20,
                   ),
                   Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.9,
+                      width: MediaQuery.of(context).size.width * 0.9,
                       margin: EdgeInsets.only(bottom: 5.0),
                       child: Center(
                           child: Text(
-                            'Đánh giá dịch vụ bạn được cung cấp',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.center,
-                          ))),
+                        'Đánh giá dịch vụ bạn được cung cấp',
+                        style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ))),
                   Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * 0.9,
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: Center(
                           child: Text(
-                            'Bạn trải nghiệm dịch vụ ' +
-                                widget.model.serviceName +
-                                ' như thế nào?',
-                            style: TextStyle(
-                                fontFamily: 'Montserrat', fontSize: 16),
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                          ))),
+                        'Bạn trải nghiệm dịch vụ ' +
+                            widget.model.serviceName +
+                            ' như thế nào?',
+                        style:
+                            TextStyle(fontFamily: 'Montserrat', fontSize: 16),
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                      ))),
                   OutlinedCard(
                     margin: EdgeInsets.only(top: 20),
                     padding: EdgeInsets.symmetric(horizontal: 12),
@@ -119,15 +111,17 @@ class _Rating_Screen extends State<RatingScreen> {
                                 'Giá dịch vụ',
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
-                                    fontSize: 17, fontWeight: FontWeight.w400),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400),
                               ),
                               alignment: Alignment.topLeft),
                           Container(
                             child: Text(
                               Utils.formatPrice((widget.model.quantity *
-                                  widget.model.servicePrice)
+                                      widget.model.servicePrice)
                                   .toString()),
-                              style: TextStyle(fontFamily: 'Montserrat',
+                              style: TextStyle(
+                                  fontFamily: 'Montserrat',
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -138,25 +132,20 @@ class _Rating_Screen extends State<RatingScreen> {
                       Row(
                         children: [
                           Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.4,
+                              width: MediaQuery.of(context).size.width * 0.4,
                               child: Text(
                                 'Thêm hình ảnh',
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
-                                    fontSize: 17, fontWeight: FontWeight.w400),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w400),
                               ),
                               alignment: Alignment.topLeft),
                           Stack(
                             children: [
                               Container(
                                 height: 100.0,
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width * 0.52,
+                                width: MediaQuery.of(context).size.width * 0.52,
                                 // margin: EdgeInsets.only(bottom: 1.0),
                                 // padding: EdgeInsets.only(bottom: 20),
                                 decoration: BoxDecoration(
@@ -164,24 +153,24 @@ class _Rating_Screen extends State<RatingScreen> {
                                 child: Container(
                                   child: _file == null
                                       ? GestureDetector(
-                                    onTap: pickImage,
-                                    child: Container(
-                                      margin: EdgeInsets.only(top: 50),
-                                      width: 50,
-                                      // child: Image.asset(
-                                      //   'public/img/Image.png',
-                                      //   width: 50,
-                                      //   fit: BoxFit.fitHeight,
-                                      // ),
-                                    ),
-                                  )
-                                      : ClipRRect(child: Image.file(
-                                      _file, fit: BoxFit.cover)),
+                                          onTap: pickImage,
+                                          child: Container(
+                                            margin: EdgeInsets.only(top: 50),
+                                            width: 50,
+                                            // child: Image.asset(
+                                            //   'public/img/Image.png',
+                                            //   width: 50,
+                                            //   fit: BoxFit.fitHeight,
+                                            // ),
+                                          ),
+                                        )
+                                      : ClipRRect(
+                                          child: Image.file(_file,
+                                              fit: BoxFit.cover)),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                EdgeInsets.symmetric(
+                                padding: EdgeInsets.symmetric(
                                     horizontal: 65.0, vertical: 20.0),
                                 child: Container(
                                   // height: 170.0,
@@ -245,11 +234,12 @@ class _Rating_Screen extends State<RatingScreen> {
                                   //     builder: (context) => HomeScreen(),
                                   //   ),
                                   // );
-                                  SimpleAPI.postFeedback(
-                                      "feedbacks", rateScore: rating.toString(),
-                                      bookingDetailId: widget.model.id
-                                          .toString(),
-                                      feedbackContent: feedbackContent, path: _file.path.toString());
+                                  SimpleAPI.postFeedback("feedbacks",
+                                      rateScore: rating.toString(),
+                                      bookingDetailId:
+                                          widget.model.id.toString(),
+                                      feedbackContent: feedbackContent,
+                                      path: _file.path.toString());
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                       builder: (context) => HomeScreen(),
@@ -266,7 +256,7 @@ class _Rating_Screen extends State<RatingScreen> {
                                 ),
                                 color: Color(0xff28BEBA),
                                 shape:
-                                Border.all(color: Colors.white70, width: 2),
+                                    Border.all(color: Colors.white70, width: 2),
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(

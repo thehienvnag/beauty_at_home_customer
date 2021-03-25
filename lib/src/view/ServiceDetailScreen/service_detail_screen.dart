@@ -39,7 +39,9 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     // provider.initServiceById("39");
 
     if (provider.currentService != null) {
-      context.read<FeedbackProvider>().initListFeedbackByServiceId(provider.currentService.id.toString());
+      context
+          .read<FeedbackProvider>()
+          .initListFeedbackByServiceId(provider.currentService.id.toString());
     }
     if (provider.currentService == null ||
         (widget.id != null &&
@@ -463,92 +465,106 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           List<ImageModel> listImage = proFeedback?.gallery?.images;
           String customerImage = proFeedback?.bookingDetail?.booking
               ?.customerAccount?.gallery?.images?.first?.imageUrl;
-          return Stack(
-            children: <Widget>[
-              Positioned(
-                left: 20.0,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60),
-                  child: Image(
-                    image: AssetImage('public/img/avatar.jpg'),
-                    width: 40.0,
-                    height: 40.0,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(70.0, 0.0, 20.0, 0.0),
-                    padding: EdgeInsets.all(10),
-                    // height: 100,
-                    // width: 00,
-                    color: Color(0xFFC4C4C4).withOpacity(0.2),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                proFeedback?.bookingDetail?.booking
-                                    ?.customerAccount?.displayName,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 13.0),
-                              ),
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.yellow,
-                              size: 22.0,
-                            ),
-                            Text(
-                              proFeedback.rateScore.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 12.0),
-                            ),
-                          ],
+          return listImage == null
+              ? Align(
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator(),
+                )
+              : Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: 20.0,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(60),
+                        child: Image(
+                          image: AssetImage('public/img/avatar.jpg'),
+                          width: 40.0,
+                          height: 40.0,
                         ),
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(proFeedback.feedbackContent, style: TextStyle(fontFamily: 'Montserrat', fontSize: 12.0),)),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.fromLTRB(70.0, 0.0, 20.0, 0.0),
+                          padding: EdgeInsets.all(10),
+                          // height: 100,
+                          // width: 00,
+                          color: Color(0xFFC4C4C4).withOpacity(0.2),
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      proFeedback?.bookingDetail?.booking
+                                          ?.customerAccount?.displayName,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 13.0),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.star,
+                                    color: Colors.yellow,
+                                    size: 22.0,
+                                  ),
+                                  Text(
+                                    proFeedback.rateScore.toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    proFeedback.feedbackContent,
+                                    style: TextStyle(
+                                        fontFamily: 'Montserrat',
+                                        fontSize: 12.0),
+                                  )),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 60.0),
+                          height: 100.0,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: listImage.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                  margin: EdgeInsets.all(10.0),
+                                  child: Image(
+                                    image:
+                                        NetworkImage(listImage[index].imageUrl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              }),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 70, bottom: 20.0),
+                          child: Text(
+                            'Đã đăng vào ngày ' +
+                                new DateFormat('dd-MM-yyyy')
+                                    .format(proFeedback.createDate),
+                            style: TextStyle(fontSize: 12, color: Colors.grey),
+                          ),
+                        ),
+                        Divider(
+                          thickness: 1,
+                        ),
                       ],
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 60.0),
-                    height: 100.0,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listImage.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.all(10.0),
-                            child: Image(
-                              image: NetworkImage(listImage[index].imageUrl),
-                              fit: BoxFit.cover,
-                            ),
-                          );
-                        }),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 70, bottom: 20.0),
-                    child: Text(
-                      'Đã đăng vào ngày ' + new DateFormat('dd-MM-yyyy').format(proFeedback.createDate),
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                  ),
-                  Divider(
-                    thickness: 1,
-                  ),
-                ],
-              ),
-            ],
-          );
+                  ],
+                );
         });
   }
 
@@ -611,14 +627,18 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
           SizedBox(
             width: 5.0,
           ),
-          Consumer<FeedbackProvider>(builder: (context, value, child) => Text(
-            '${Utils.calculateRate(value.listFeedback)}/5',
-          ),),
+          Consumer<FeedbackProvider>(
+            builder: (context, value, child) => Text(
+              '${Utils.calculateRate(value.listFeedback)}/5',
+            ),
+          ),
           SizedBox(
             width: 5.0,
           ),
-          Consumer<FeedbackProvider>(builder: (context, value, child) => Text('(${value.listFeedback.length} đánh giá)'),),
-
+          Consumer<FeedbackProvider>(
+            builder: (context, value, child) =>
+                Text('(${value.listFeedback?.length ?? 0} đánh giá)'),
+          ),
         ],
       ),
       decoration: BoxDecoration(

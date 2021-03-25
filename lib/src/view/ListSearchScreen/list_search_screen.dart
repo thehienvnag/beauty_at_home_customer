@@ -20,8 +20,10 @@ class ListSearchScreenState extends State<ListSearchScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<ProviderDetailProvider>().initProviderListSearch(widget.searchQuery);
-    lstProvider = context.read<ProviderDetailProvider>().listProviderHome;
+    context
+        .read<ProviderDetailProvider>()
+        .initProviderListSearch(widget.searchQuery);
+    // lstProvider = context.read<ProviderDetailProvider>().listProviderHome;
   }
 
   @override
@@ -69,15 +71,28 @@ class ListSearchScreenState extends State<ListSearchScreen> {
           Container(
               margin: EdgeInsets.only(top: 10, bottom: 5),
               alignment: Alignment.topLeft,
-              child: Text(
-                '    #Tìm thấy ${lstProvider.length} dịch vụ',
-                style: CustomTextStyle.subtitleText(Colors.black87),
+              child: Consumer<ProviderDetailProvider>(
+                builder: (context, value, child) => Text(
+                  '    #Tìm thấy ${calculateTotalService(value.listProvidersSearch)} dịch vụ',
+                  style: CustomTextStyle.subtitleText(Colors.black87),
+                ),
               )),
           ListSearchServices(),
         ],
       ),
     );
   }
+}
+
+int calculateTotalService(List<ProviderModel> listProvider) {
+  if (listProvider != null) {
+    int total = 0;
+    listProvider.forEach((element) {
+      total += element.services.length;
+    });
+    return total;
+  }
+  return 0;
 }
 
 Widget _buildBar(BuildContext context) {

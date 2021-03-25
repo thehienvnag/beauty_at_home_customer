@@ -35,6 +35,7 @@ class _ProcessingRowState extends State<ProcessingRow>
           ).toJson(),
         );
       });
+
       Map<String, dynamic> _model = {
         "bookingDetails": bookingDetails,
         "note": "Làm sao để có một ghi chú ngắn gọn",

@@ -37,7 +37,7 @@ class ListSearchServices extends StatelessWidget {
     return Expanded(
       child: Consumer<ProviderDetailProvider>(
         builder: (context, value, child) {
-          var listProvider = value.listProviderHome;
+          var listProvider = value.listProvidersSearch;
           return listProvider == null
               ? Scaffold(
                   body: Align(
@@ -71,9 +71,14 @@ class ListSearchServices extends StatelessWidget {
   }
 
   Widget _buildStaff(ProviderModel staff, BuildContext context) {
+    String imageUrl = staff?.gallery?.images[0]?.imageUrl;
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(Routes.provider);
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ProviderDetailScreen(
+            id: staff.id.toString(),
+          ),
+        ));
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,15 +89,15 @@ class ListSearchServices extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       staff.displayName,
                       style: CustomTextStyle.titleText(Colors.black),
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 17),
+                      margin: EdgeInsets.only(left: 2),
                       child: Row(
                         children: [
                           if (staff.rateScore != null && staff.rateScore > 0)
@@ -140,7 +145,9 @@ class ListSearchServices extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(staff?.gallery?.images?.first?.imageUrl),
+                image: imageUrl == null
+                    ? AssetImage("public/img/avatar.jpg")
+                    : NetworkImage(staff?.gallery?.images?.first?.imageUrl),
               ),
             ),
           ),
@@ -157,7 +164,11 @@ class ListSearchServices extends StatelessWidget {
             .map<Widget>(
               (item) => GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pushNamed(Routes.serviceDetail);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ServiceDetailScreen(
+                      id: item.id.toString(),
+                    ),
+                  ));
                 },
                 child: Column(
                   children: [
@@ -211,7 +222,7 @@ class ListSearchServices extends StatelessWidget {
                           ),
                         ),
                         item.gallery?.images?.first?.imageUrl == null
-                            ? SizedBox()
+                            ? CircularProgressIndicator()
                             : Container(
                                 margin: EdgeInsets.only(top: 5, left: 20),
                                 width: 50,

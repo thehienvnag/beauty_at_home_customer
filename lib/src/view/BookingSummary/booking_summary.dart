@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/models-new/booking_model.dart';
+import 'package:flutter_app/src/providers/account_provider.dart';
 import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/utils/firebase_helper.dart';
@@ -15,14 +16,25 @@ final Widget image_1 = CoverImage(
   path: 'public/img/cus_wait_confirm.png',
 );
 final Widget image_2 = CoverImage(
-  path: 'public/img/cus_under_working.png',
+  path: 'public/img/cus_wait_confirm.png',
 );
 
 final List<Widget> dynamicContents = [
-  image_1,
-  image_1,
-  image_1,
-  image_2,
+  CoverImage(
+    path: 'public/img/cus_wait_confirm.png',
+  ),
+  CoverImage(
+    path: 'public/img/cus_wait_confirm.png',
+  ),
+  CoverImage(
+    path: 'public/img/cus_under_working.png',
+  ),
+  CoverImage(
+    path: 'public/img/cus_wait_confirm.png',
+  ),
+  CoverImage(
+    path: 'public/img/cus_wait_confirm.png',
+  ),
 ];
 
 class BookingSummary extends StatefulWidget {
@@ -98,8 +110,10 @@ class _BookingSummaryState extends State<BookingSummary> {
                           EdgeInsets.symmetric(horizontal: 15, vertical: 6),
                       width: screenSize.width * 0.95,
                       sections: [
-                        LocationSummary(
-                          address: value.bookingModel?.status,
+                        Consumer<AccountProvider>(
+                          builder: (context, value, child) => LocationSummary(
+                            address: value.currentAddress,
+                          ),
                         ),
                       ],
                     );

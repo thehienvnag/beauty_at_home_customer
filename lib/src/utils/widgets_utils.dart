@@ -18,18 +18,15 @@ class WidgetUtils {
       _searchTextField(isReadonly, keySearch);
   static void showSnackBar(
     BuildContext context, {
-    title,
+    Widget content,
+    String actionLabel,
   }) {
     final snackBar = SnackBar(
       behavior: SnackBarBehavior.floating,
-      content: Row(
-        children: [
-          CircularProgressIndicator(),
-          Text(
-            title,
-            style: CustomTextStyle.subtitleText(Colors.black),
-          )
-        ],
+      content: content,
+      action: SnackBarAction(
+        label: actionLabel,
+        onPressed: () {},
       ),
     );
     Scaffold.of(context).showSnackBar(snackBar);

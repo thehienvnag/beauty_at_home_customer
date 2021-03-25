@@ -1,5 +1,6 @@
 const String VERSION = "/v1.0";
-const String BASE_URL = "https://beautyathome2.azurewebsites.net/api" + VERSION;
+const String BASE_URL =
+    "https://beauty-at-home-4a5ss6e6yq-as.a.run.app/api" + VERSION;
 
 class ProviderAPIConstant {
   static const String END_POINT = BASE_URL + "/accounts";
@@ -16,4 +17,10 @@ class EntityEndpoint {
   static const String BOOKING = "bookings";
   static const String FEEDBACK = "feedbacks";
   static const String AUTH_LOGIN = "auth/login";
+}
+
+class StorageConst {
+  static const String idToken = "idToken";
+  static const String accessToken = "accessToken";
+  static const String firebaseRefreshToken = "firebaseRefreshToken";
 }

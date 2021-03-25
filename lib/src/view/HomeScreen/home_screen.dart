@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
+import 'package:flutter_app/src/providers/booking_provider.dart';
 import 'package:flutter_app/src/providers/cart_provider.dart';
 import 'package:flutter_app/src/providers/provider_detail_provider.dart';
 import 'package:flutter_app/src/providers/service_provider.dart';
@@ -74,14 +75,52 @@ class HomeScreenState extends State<HomeScreen> {
             "Đang trên đường": 2,
             "Đang làm": 3,
             "Hoàn thành": 4,
+            "Hủy": 5
           };
           index = statuses[status];
+          if (index == 5) {
+            Navigator.of(context).pop();
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    // title: Column(
+                    //   children: [
+                    //     ClipRRect(
+                    //       child: Text(message['notification']['title']),
+                    //       borderRadius: BorderRadius.all(Radius.circular(4)),
+                    //     ),
+                    //   ],
+                    // ),
+                    content: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Text(
+                        'Đơn của bạn đã bị hủy bởi thợ',
+                        style: CustomTextStyle.statusText(Colors.black),
+                      ),
+                      Text(
+                        'Xin vui lòng đặt lại sau',
+                        style: CustomTextStyle.subtitleText(Colors.black54),
+                      ),
+                    ]),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text('Ok'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                });
+          }
           if (index == 4) {
-            var id = context.read<AccountProvider>().accountSignedIn.uid;
+            var id = context.read<BookingProvider>().bookingModel.id;
+            context.read<CartProvider>().setCurrentCart(null);
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => BookingHistoryDetailScreen(
                   id: id.toString(),
+                  hardCode: true,
                 ),
               ),
             );

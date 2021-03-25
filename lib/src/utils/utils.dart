@@ -143,12 +143,13 @@ class Utils {
   }
 
   static Future<File> pickImage() async {
-    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery);
+    PickedFile pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
     return File(pickedFile.path);
   }
 
   static double calculateRate(List<FeedbackModel> lstFeedback) {
-    if (lstFeedback.isNotEmpty) {
+    if (lstFeedback != null ?? lstFeedback.isNotEmpty) {
       double total = 0;
       for (int i = 0; i < lstFeedback.length; i++) {
         total += lstFeedback[i].rateScore;
