@@ -162,85 +162,76 @@ class ListSearchServices extends StatelessWidget {
         ? [SizedBox()]
         : lstServices
             .map<Widget>(
-              (item) => GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ServiceDetailScreen(
-                      id: item.id.toString(),
-                    ),
-                  ));
-                },
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 25),
-                        ),
-                        Container(
-                          width: 250,
-                          child: Column(
-                            children: [
-                              Row(
+              (item) => Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: 25),
+                      ),
+                      Container(
+                        width: 250,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  item.serviceName,
+                                  style: CustomTextStyle.subtitleText(
+                                      Colors.black87),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Row(
                                 children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black54,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(2),
+                                    ),
+                                    width: 18,
+                                    height: 14,
+                                    child: Icon(
+                                      Icons.attach_money_sharp,
+                                      color: Colors.black54,
+                                      size: 12,
+                                    ),
+                                  ),
                                   Text(
-                                    item.serviceName,
+                                    ' ${item.price}đ',
                                     style: CustomTextStyle.subtitleText(
-                                        Colors.black87),
+                                        Colors.black54),
                                   ),
                                 ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(top: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.black54,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(2),
-                                      ),
-                                      width: 18,
-                                      height: 14,
-                                      child: Icon(
-                                        Icons.attach_money_sharp,
-                                        color: Colors.black54,
-                                        size: 12,
-                                      ),
-                                    ),
-                                    Text(
-                                      ' ${item.price}đ',
-                                      style: CustomTextStyle.subtitleText(
-                                          Colors.black54),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        item.gallery?.images?.first?.imageUrl == null
-                            ? CircularProgressIndicator()
-                            : Container(
-                                margin: EdgeInsets.only(top: 5, left: 20),
-                                width: 50,
-                                height: 50,
-                                child: Image(
-                                  image: NetworkImage(
-                                    item.gallery?.images?.first?.imageUrl,
-                                  ),
-                                  fit: BoxFit.cover,
+                      ),
+                      item.gallery?.images?.first?.imageUrl == null
+                          ? CircularProgressIndicator()
+                          : Container(
+                              margin: EdgeInsets.only(top: 5, left: 20),
+                              width: 50,
+                              height: 50,
+                              child: Image(
+                                image: NetworkImage(
+                                  item.gallery?.images?.first?.imageUrl,
                                 ),
+                                fit: BoxFit.cover,
                               ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                  ],
-                ),
+                            ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                ],
               ),
             )
             .toList();

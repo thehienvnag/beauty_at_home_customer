@@ -38,6 +38,7 @@ class AccountProvider extends ChangeNotifier {
   }
 
   Future<void> login() async {
+    _isSignIn = false;
     User user = await GoogleService.instance().loginWithGoogle();
     String idToken = await user.getIdToken();
     _accountSignedIn = await SimpleAPI.login({
@@ -46,9 +47,11 @@ class AccountProvider extends ChangeNotifier {
       "avatar": user.photoURL,
       "loginType": "CUSTOMER",
     });
-    _accountSignedIn.firebaseRefreshToken = user.refreshToken;
-    _accountSignedIn.idToken = idToken;
+
     if (_accountSignedIn != null) {
+      _accountSignedIn.firebaseRefreshToken = user.refreshToken;
+      _accountSignedIn.idToken = idToken;
+
       _isSignIn = true;
       AppStorageService.writeDataMap({
         StorageConst.idToken: idToken,
@@ -61,8 +64,9 @@ class AccountProvider extends ChangeNotifier {
           await AppStorageService.readData(StorageConst.accessToken));
       log("Firebase Access Token: " +
           await AppStorageService.readData(StorageConst.firebaseRefreshToken));
+      log(_accountSignedIn.uid.toString());
     }
-    log(_accountSignedIn.uid.toString());
+
     notifyListeners();
   }
 

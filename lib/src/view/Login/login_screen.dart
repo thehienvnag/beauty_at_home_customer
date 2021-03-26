@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/src/providers/account_provider.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_app/src/utils/widgets_utils.dart';
 import 'package:flutter_app/src/view/HomeScreen/home_screen.dart';
 import 'package:flutter_app/src/widgets/shared_widget/style.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -69,12 +71,31 @@ class LoginScreen extends StatelessWidget {
             builder: (context) => HomeScreen(),
           ));
         } else {
-          Navigator.of(context).pop();
-          WidgetUtils.showSnackBar(
-            context,
-            content: Text("Tài khoản đã không hợp lệ, vui lòng thử lại!"),
-            actionLabel: "Thử lại",
-          );
+          // Navigator.of(context).pop();
+          // WidgetUtils.showSnackBar(
+          //   context,
+          //   content: Text("Tài khoản đã không hợp lệ, vui lòng thử lại!"),
+          //   actionLabel: "Thử lại",
+          // );
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (context) {
+                return AlertDialog(
+                    content: Text(
+                      "Tài khoản của bạn không hợp lệ, vui lòng thử lại!",
+                    ),
+                    actions: [
+                      FlatButton(
+                        textColor: Color(0xFF6200EE),
+                        onPressed: () {
+                          gooleSignout();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Thử lại'),
+                      ),
+                    ]);
+              });
         }
       },
       child: GestureDetector(
@@ -126,5 +147,12 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> gooleSignout() async {
+    GoogleSignIn _googleSignIn = new GoogleSignIn();
+    await FirebaseAuth.instance.signOut().then((onValue) {
+      _googleSignIn.signOut();
+    });
   }
 }

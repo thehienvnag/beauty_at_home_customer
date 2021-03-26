@@ -16,7 +16,7 @@ final Widget image_1 = CoverImage(
   path: 'public/img/cus_wait_confirm.png',
 );
 final Widget image_2 = CoverImage(
-  path: 'public/img/cus_wait_confirm.png',
+  path: 'public/img/cus_under_working.png',
 );
 
 final List<Widget> dynamicContents = [
@@ -65,10 +65,12 @@ class _BookingSummaryState extends State<BookingSummary> {
     BookingModel model = context
         .select<BookingProvider, BookingModel>((value) => value.bookingModel);
     return model == null
-        ? Align(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          )
+        ? Scaffold(
+          body: Align(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            ),
+        )
         : Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(50),
@@ -85,7 +87,14 @@ class _BookingSummaryState extends State<BookingSummary> {
               maxHeight: screenSize.height * 0.6,
               body: Consumer<CartProvider>(
                 builder: (context, value, child) =>
-                    dynamicContents[value.progressIndex],
+                    //dynamicContents[value.progressIndex],
+                Column(children:<Widget> [
+                  if(value.progressIndex == 0)  image_1,
+                  if(value.progressIndex == 1)  image_1,
+                  if(value.progressIndex == 2)  image_2,
+                  if(value.progressIndex == 3)  image_2
+
+                ],)
               ),
               panelContents: [
                 Consumer<CartProvider>(

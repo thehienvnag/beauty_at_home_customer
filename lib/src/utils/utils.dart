@@ -96,7 +96,7 @@ class Utils {
   }
 
   static Widget getStatus(String status) {
-    if (status == "ACTIVE") {
+    if (status == "ACTIVE" || status == 'Active') {
       return Text(
         "Đang hoạt động",
         style: TextStyle(
@@ -105,7 +105,7 @@ class Utils {
             fontWeight: FontWeight.w500,
             color: Color(0xFF0DB5B4)),
       );
-    } else if (status == "INACTIVE") {
+    } else if (status == "INACTIVE" ||  status == 'Inactive') {
       return Text(
         "Không hoạt động",
         style: TextStyle(

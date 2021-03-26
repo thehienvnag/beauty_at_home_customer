@@ -56,6 +56,7 @@ class BookingProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     int currentStepIndex =
         context.select<CartProvider, int>((value) => value.progressIndex);
+    print('curent: ' + currentStepIndex.toString());
     return OutlinedCardExpandable(
       title: buildProgressTitle(listStatus[currentStepIndex].status),
       children: [

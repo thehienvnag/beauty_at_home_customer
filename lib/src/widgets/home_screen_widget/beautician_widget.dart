@@ -182,6 +182,7 @@ class Beautician extends StatelessWidget {
                   //     ),
                   //   ],
                   // ),
+
                   Row(
                     children: [
                       // Text(

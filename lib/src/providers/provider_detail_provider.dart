@@ -41,7 +41,7 @@ class ProviderDetailProvider extends ChangeNotifier {
       },
     );
     _services = await SimpleAPI.getAll<ServiceModel>(ServiceAPIConstant.SERVICE,
-        queryParameters: {"AccountId": id}, fromJson: fromServiceJson);
+        queryParameters: {"AccountId": id, "Status" : "true"}, fromJson: fromServiceJson);
     if (_services != null && _services.isNotEmpty) {
       double lowerPrice = 999999;
       double upperPrice = 0;
@@ -108,7 +108,9 @@ class ProviderDetailProvider extends ChangeNotifier {
     List<ProviderModel> providersXXX = [];
     List<ServiceModel> servicesXXX = [];
     _services.forEach((element) {
-      servicesXXX.add(element);
+      if(element.status =='ACTIVE' || element.status =='Active'){
+        servicesXXX.add(element);
+      }
       providersXXX.add(element.account);
     });
 
@@ -122,7 +124,10 @@ class ProviderDetailProvider extends ChangeNotifier {
         }
       });
     });
-    providersXXX = providersXXX.toSet().toList();
+
+    final ids = providersXXX.map((e) => e.id).toSet();
+    providersXXX.retainWhere((x) => ids.remove(x.id));
+
     _listProvidersSearch = providersXXX;
 
     notifyListeners();

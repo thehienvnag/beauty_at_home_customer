@@ -75,10 +75,16 @@ class HomeScreenState extends State<HomeScreen> {
             "Đang trên đường": 2,
             "Đang làm": 3,
             "Hoàn thành": 4,
-            "Hủy": 5
+            "Đã hủy": 5
           };
           index = statuses[status];
+          if(index == 0 ) context.read<CartProvider>().setProgressIndex(0);
+          if(index == 1 ) context.read<CartProvider>().setProgressIndex(1);
+          if(index == 2 ) context.read<CartProvider>().setProgressIndex(2);
+          if(index == 3 ) context.read<CartProvider>().setProgressIndex(3);
+
           if (index == 5) {
+            context.read<CartProvider>().setProgressIndex(0);
             Navigator.of(context).pop();
             showDialog(
                 context: context,
@@ -116,6 +122,7 @@ class HomeScreenState extends State<HomeScreen> {
           if (index == 4) {
             var id = context.read<BookingProvider>().bookingModel.id;
             context.read<CartProvider>().setCurrentCart(null);
+            context.read<CartProvider>().setProgressIndex(0);
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
                 builder: (context) => BookingHistoryDetailScreen(
@@ -124,23 +131,14 @@ class HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             );
-          } else {
-            context.read<CartProvider>().setProgressIndex(index);
           }
+
         }
-        if (index != 4) {
+        if (index != 4 && notiType == "booking_changed") {
           showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  // title: Column(
-                  //   children: [
-                  //     ClipRRect(
-                  //       child: Text(message['notification']['title']),
-                  //       borderRadius: BorderRadius.all(Radius.circular(4)),
-                  //     ),
-                  //   ],
-                  // ),
                   content: Column(mainAxisSize: MainAxisSize.min, children: [
                     Text(
                       message['notification']['title'] + '\n',
