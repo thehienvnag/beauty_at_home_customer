@@ -1,5 +1,6 @@
 const String VERSION = "/v1.0";
-const String BASE_URL = "https://beauty-at-home-4a5ss6e6yq-as.a.run.app/api" + VERSION;
+const String BASE_URL =
+    "https://beauty-at-home.azurewebsites.net/api" + VERSION;
 
 class ProviderAPIConstant {
   static const String END_POINT = BASE_URL + "/accounts";
