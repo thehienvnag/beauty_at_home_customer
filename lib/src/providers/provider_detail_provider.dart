@@ -38,10 +38,12 @@ class ProviderDetailProvider extends ChangeNotifier {
       fromJson: fromJson,
       queryParameters: {
         "withRateScore": "true",
+        "status": "ACTIVE",
       },
     );
     _services = await SimpleAPI.getAll<ServiceModel>(ServiceAPIConstant.SERVICE,
-        queryParameters: {"AccountId": id, "Status" : "true"}, fromJson: fromServiceJson);
+        queryParameters: {"AccountId": id, "Status": "true"},
+        fromJson: fromServiceJson);
     if (_services != null && _services.isNotEmpty) {
       double lowerPrice = 999999;
       double upperPrice = 0;
@@ -84,6 +86,7 @@ class ProviderDetailProvider extends ChangeNotifier {
       queryParameters: {
         "isBeautyArtist": "true",
         "withRateScore": "true",
+        "status": "ACTIVE",
       },
     );
     notifyListeners();
@@ -108,7 +111,7 @@ class ProviderDetailProvider extends ChangeNotifier {
     List<ProviderModel> providersXXX = [];
     List<ServiceModel> servicesXXX = [];
     _services.forEach((element) {
-      if(element.status =='ACTIVE' || element.status =='Active'){
+      if (element.status == 'ACTIVE' || element.status == 'Active') {
         servicesXXX.add(element);
       }
       providersXXX.add(element.account);
